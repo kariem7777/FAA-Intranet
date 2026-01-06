@@ -27,12 +27,14 @@
         }
 
         .hero-banner {
-            background: linear-gradient(135deg, var(--faa-red) 0%, var(--faa-dark-red) 100%);
+            background-image: url('./assets/14a7bedb16f5751eddf0fc794da9e33a1599152b.png');
+            background-size: 100%;
             border-radius: 16px;
             color: white;
-            padding: 48px;
+            padding: 60px 48px;
             position: relative;
             overflow: hidden;
+            height: 280px;
         }
 
         .hero-banner::before {
@@ -40,14 +42,25 @@
             position: absolute;
             top: -50%;
             right: -10%;
-            width: 400px;
-            height: 400px;
+            width: 500px;
+            height: 500px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
         }
 
+        .hero-content {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: min(957px, calc(100% - 424px));
+            background-color: rgba(81, 58, 64, 0.72);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
         .stats-cards {
-            margin-top: -60px;
+            margin-top: -80px;
             position: relative;
             z-index: 10;
         }
@@ -113,10 +126,12 @@
 
         <!-- Hero Banner -->
         <div class="pt-4 mb-4 position-relative">
-            <div class="hero-banner mb-5">
-                <div class="position-relative">
-                    <h1 class="display-5 fw-bold mb-3">Employee Feedback</h1>
-                    <p class="lead mb-0">Help us improve your intranet experience</p>
+            <div class="hero-banner">
+                <div class="hero-content">
+                    <h2 class="mb-3" style="font-size: 24px; font-weight: 500; line-height: 28px;">Employee Feedback
+                    </h2>
+                    <p class="mb-0" style="font-size: 18px; font-weight: 400; line-height: 25.6px;">Help us improve your
+                        intranet experience</p>
                 </div>
             </div>
 
@@ -549,35 +564,36 @@
 
 
 
-FAA’s Legislative Platform (Admin)	منصة الجهاز التشريعية (Admin)
-FAA’s Legislative Platform	منصة الجهاز التشريعية
+FAA’s Legislative Platform (Admin) منصة الجهاز التشريعية (Admin)
+FAA’s Legislative Platform منصة الجهاز التشريعية
 
 
 
-PK_RolesID	FK_AppID	RoleName	RoleDescEn
-1	1	Administrators	Administrators
-2	2	EntitiesAntiFraud	Entities AntiFraud
-3	2	FAAAntiFraudAdmin	FAA AntiFraud Admin (Manage User)
-4	2	FAAAntiFraud	FAA AntiFraud
-5	4	EntitiesFinancialStatements	Entities ExternalAffairs
-6	4	FAAFinancialStatementsAdmin	FAA ExternalAffairs Admin (Manage User)
-7	4	FAAFinancialStatements	FAA External Affairs
-8	3	EntitiesTaxAudit	Entities TaxAudit
-9	3	FAATaxAudit	FAA TaxAudit
-10	3	FAATaxAuditAdmin	FAA TaxAuditAdmin (Manage User)
+PK_RolesID FK_AppID RoleName RoleDescEn
+1 1 Administrators Administrators
+2 2 EntitiesAntiFraud Entities AntiFraud
+3 2 FAAAntiFraudAdmin FAA AntiFraud Admin (Manage User)
+4 2 FAAAntiFraud FAA AntiFraud
+5 4 EntitiesFinancialStatements Entities ExternalAffairs
+6 4 FAAFinancialStatementsAdmin FAA ExternalAffairs Admin (Manage User)
+7 4 FAAFinancialStatements FAA External Affairs
+8 3 EntitiesTaxAudit Entities TaxAudit
+9 3 FAATaxAudit FAA TaxAudit
+10 3 FAATaxAuditAdmin FAA TaxAuditAdmin (Manage User)
 
-Application Name	Arabic App Name
-Anti-Fraud	الاخطار عن المخالفات المالية
-Financial Statements Platform	منصة القوائم المالية
-Tax Audit on Foreign Banks	التدقيق الضريبي على البنوك الأجنبية
+Application Name Arabic App Name
+Anti-Fraud الاخطار عن المخالفات المالية
+Financial Statements Platform منصة القوائم المالية
+Tax Audit on Foreign Banks التدقيق الضريبي على البنوك الأجنبية
 
 
-Id	TypeNameEn	TypeNameAr	AttachmentCategory
-1	Tax Forms	النماذج الضريبية النماذج الضريبية	.xlsx
-2	Branch Audited Tax Return	الإقرار الضريبي المدقق للخاضع للضريبةِ	pdf
-3	Branch Audited Financial Statements	القوائم والإيضاحات المالية المدققة للخاضع للضريبة	pdf
-4	Audited Head Office Certificate	شهادة معتمدة بحصة الخاضع للضريبة من مصاريف الإدارة المركزية على أن تكون مدققة من قبل المدقق الخارجي للمركز الرئيسي	pdf
-5	Audited Regional Office Certificate	شهادة معتمدة بحصة الخاضع للضريبة من مصاريف الإدارة الإقليمية على أن تكون مدققة	pdf
-6	Voluntary Disclosure	التصريح الطوعي	pdf
-7	Supporting Documents	المستندات الداعمة	null
-8	Final Document	Final Document	null
+Id TypeNameEn TypeNameAr AttachmentCategory
+1 Tax Forms النماذج الضريبية النماذج الضريبية .xlsx
+2 Branch Audited Tax Return الإقرار الضريبي المدقق للخاضع للضريبةِ pdf
+3 Branch Audited Financial Statements القوائم والإيضاحات المالية المدققة للخاضع للضريبة pdf
+4 Audited Head Office Certificate شهادة معتمدة بحصة الخاضع للضريبة من مصاريف الإدارة المركزية على أن تكون مدققة من قبل
+المدقق الخارجي للمركز الرئيسي pdf
+5 Audited Regional Office Certificate شهادة معتمدة بحصة الخاضع للضريبة من مصاريف الإدارة الإقليمية على أن تكون مدققة pdf
+6 Voluntary Disclosure التصريح الطوعي pdf
+7 Supporting Documents المستندات الداعمة null
+8 Final Document Final Document null

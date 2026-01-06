@@ -28,12 +28,14 @@
         }
 
         .hero-banner {
-            background: linear-gradient(135deg, var(--faa-red) 0%, var(--faa-dark-red) 100%);
+            background-image: url('./assets/14a7bedb16f5751eddf0fc794da9e33a1599152b.png');
+            background-size: 100%;
             border-radius: 16px;
             color: white;
-            padding: 48px;
+            padding: 60px 48px;
             position: relative;
             overflow: hidden;
+            height: 280px;
         }
 
         .hero-banner::before {
@@ -41,10 +43,27 @@
             position: absolute;
             top: -50%;
             right: -10%;
-            width: 400px;
-            height: 400px;
+            width: 500px;
+            height: 500px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
+        }
+
+        .hero-content {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: min(957px, calc(100% - 424px));
+            background-color: rgba(81, 58, 64, 0.72);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .stats-cards {
+            margin-top: -80px;
+            position: relative;
+            z-index: 10;
         }
 
         .stat-card {
@@ -150,16 +169,16 @@
 
         <!-- Hero Banner -->
         <div class="pt-4 mb-4 position-relative">
-            <div class="hero-banner mb-5">
-                <div class="position-relative">
-                    <h1 class="display-5 fw-bold mb-3">Knowledge Hub</h1>
-                    <p class="lead mb-0">Your comprehensive gateway to learning, development, and professional
-                        excellence</p>
+            <div class="hero-banner">
+                <div class="hero-content">
+                    <h2 class="mb-3" style="font-size: 24px; font-weight: 500; line-height: 28px;">Knowledge Hub</h2>
+                    <p class="mb-0" style="font-size: 18px; font-weight: 400; line-height: 25.6px;">Your comprehensive
+                        gateway to learning, development, and professional excellence</p>
                 </div>
             </div>
 
             <!-- Stats Cards - Overlapping Banner -->
-            <div class="px-5" style="margin-top: -60px; position: relative; z-index: 10;">
+            <div class="stats-cards px-5">
                 <div class="row g-4">
                     <div class="col-md-4">
                         <div class="card stat-card shadow-lg border-0 h-100">

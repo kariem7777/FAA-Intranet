@@ -57,6 +57,7 @@
 
         .hero-banner {
             height: 320px;
+
             background: linear-gradient(to right, var(--faa-dark-red), var(--faa-darker-red), var(--faa-red));
             position: relative;
             overflow: hidden;
@@ -64,6 +65,7 @@
 
         .hero-banner::before {
             content: '';
+            background-image: url('./assets/33fb6ee80221be4862d153ff6087a71ce90ad51a.png');
             position: absolute;
             inset: 0;
             opacity: 0.1;
@@ -173,13 +175,8 @@
         }
 
         a {
-            color: var(--color-primary);
             text-decoration: none;
             transition: color 0.2s ease;
-        }
-
-        a:hover {
-            color: var(--color-primary-dark);
         }
 
         button {
@@ -187,17 +184,7 @@
         }
 
         /* Override Bootstrap font weights to match Dubai font */
-        .fw-medium {
-            font-weight: 500 !important;
-        }
 
-        .fw-semibold {
-            font-weight: 500 !important;
-        }
-
-        .fw-bold {
-            font-weight: 500 !important;
-        }
 
         /* Card styling */
         .card {
