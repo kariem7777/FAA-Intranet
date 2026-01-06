@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document Preview - Financial Audit Authority</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        :root {
+            --faa-red: #ec2227;
+            --faa-dark-red: #7b282d;
+            --faa-darker-red: #971b1e;
+            --theme-color: #A94442;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+
+        .top-bar {
+            background-color: white;
+            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+
+        .color-strip {
+            height: 8px;
+            background-color: var(--theme-color);
+        }
+
+        .metadata-sidebar {
+            background-color: #f8f9fa;
+            border-right: 1px solid #e5e7eb;
+        }
+
+        .metadata-item {
+            margin-bottom: 24px;
+        }
+
+        .metadata-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .document-viewer {
+            background-color: white;
+        }
+
+        .sticky-sidebar {
+            position: sticky;
+            top: 100px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container-fluid px-4 py-3">
+            <button class="btn btn-link text-decoration-none text-secondary p-0" onclick="window.history.back()">
+                <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i>
+                <span class="ms-2">Back</span>
+                <span class="text-muted mx-2">/</span>
+                <span class="text-dark">Digital Signature</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container-fluid px-4 py-4 mt-3">
+        <div class="card shadow-sm border-2">
+            <!-- Color Strip -->
+            <div class="color-strip"></div>
+
+            <!-- Title Section -->
+            <div class="card-body p-4 border-bottom">
+                <h2 class="mb-4" id="documentTitle">Annual Financial Report 2024</h2>
+
+                <!-- Action Buttons -->
+                <div class="d-flex flex-wrap gap-3">
+                    <button class="btn text-white" style="background-color: var(--theme-color);">
+                        <i data-lucide="download" style="width: 16px; height: 16px;"></i>
+                        <span class="ms-2">Download PDF</span>
+                    </button>
+                    <button class="btn btn-outline-secondary border-2">
+                        <i data-lucide="external-link" style="width: 16px; height: 16px;"></i>
+                        <span class="ms-2">View Full Document</span>
+                    </button>
+                    <button class="btn text-white" style="background-color: var(--theme-color);">
+                        <span class="me-2">Sign with UAE Pass</span>
+                        <i data-lucide="external-link" style="width: 16px; height: 16px;"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Two Column Layout -->
+            <div class="row g-0">
+                <!-- Left Sidebar - Metadata -->
+                <div class="col-lg-3 metadata-sidebar">
+                    <div class="p-4 sticky-sidebar">
+                        <h3 class="h5 fw-bold mb-4 pb-3 border-bottom">Metadata</h3>
+
+                        <!-- Document Number -->
+                        <div class="metadata-item">
+                            <div class="d-flex align-items-start gap-3">
+                                <div class="metadata-icon bg-primary bg-opacity-10">
+                                    <i data-lucide="file-text" style="width: 20px; height: 20px; color: #0d6efd;"></i>
+                                </div>
+                                <div>
+                                    <p class="small text-secondary mb-1">Document Number</p>
+                                    <p class="fw-medium mb-0" id="docNumber">Report #001</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Issue Date -->
+                        <div class="metadata-item">
+                            <div class="d-flex align-items-start gap-3">
+                                <div class="metadata-icon bg-success bg-opacity-10">
+                                    <i data-lucide="calendar" style="width: 20px; height: 20px; color: #198754;"></i>
+                                </div>
+                                <div>
+                                    <p class="small text-secondary mb-1">Issue Date</p>
+                                    <p class="fw-medium mb-0" id="issueDate">2024-11-15</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Entity -->
+                        <div class="metadata-item">
+                            <div class="d-flex align-items-start gap-3">
+                                <div class="metadata-icon bg-warning bg-opacity-10">
+                                    <i data-lucide="building-2" style="width: 20px; height: 20px; color: #ffc107;"></i>
+                                </div>
+                                <div>
+                                    <p class="small text-secondary mb-1">Entity</p>
+                                    <p class="fw-medium mb-0" id="entity">Finance Department</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Requested By -->
+                        <div class="metadata-item">
+                            <div class="d-flex align-items-start gap-3">
+                                <div class="metadata-icon bg-danger bg-opacity-10">
+                                    <i data-lucide="user" style="width: 20px; height: 20px; color: #dc3545;"></i>
+                                </div>
+                                <div>
+                                    <p class="small text-secondary mb-1">Requested by</p>
+                                    <p class="fw-medium mb-0" id="requester">Ahmed Al Mansoori</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- File Size -->
+                        <div class="metadata-item">
+                            <div class="d-flex align-items-start gap-3">
+                                <div class="metadata-icon bg-info bg-opacity-10">
+                                    <i data-lucide="file-text" style="width: 20px; height: 20px; color: #0dcaf0;"></i>
+                                </div>
+                                <div>
+                                    <p class="small text-secondary mb-1">File Size</p>
+                                    <p class="fw-medium mb-0" id="fileSize">2.4 MB</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Priority -->
+                        <div class="metadata-item" id="prioritySection">
+                            <div class="d-flex align-items-start gap-3">
+                                <div class="metadata-icon" id="priorityIcon">
+                                    <i data-lucide="clock" style="width: 20px; height: 20px;"></i>
+                                </div>
+                                <div>
+                                    <p class="small text-secondary mb-1">Priority</p>
+                                    <p class="fw-medium mb-0" id="priority">High</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side - Document Viewer -->
+                <div class="col-lg-9 document-viewer">
+                    <div class="p-4">
+                        <!-- Document Header -->
+                        <div class="d-flex align-items-center gap-2 mb-4">
+                            <i data-lucide="file-text"
+                                style="width: 20px; height: 20px; color: var(--theme-color);"></i>
+                            <h3 class="h5 mb-0">Document Content</h3>
+                        </div>
+
+                        <!-- PDF Viewer -->
+                        <div class="border-2 border rounded-3 overflow-hidden shadow-sm">
+                            <iframe src="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+                                style="width: 100%; height: 800px; border: none; display: block;"
+                                title="Document Preview"></iframe>
+                        </div>
+
+                        <!-- Document Footer -->
+                        <div class="d-flex justify-content-between align-items-center mt-3 small text-secondary">
+                            <p class="mb-0" id="lastUpdated">Last updated: 2024-11-15</p>
+                            <p class="mb-0">Preview version only</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Get document data from URL parameters or localStorage
+        function loadDocumentData() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const docId = urlParams.get('id');
+
+            // Try to get document from localStorage (set by DigitalSignaturePage)
+            const docData = localStorage.getItem('previewDocument');
+
+            if (docData) {
+                const doc = JSON.parse(docData);
+
+                // Update page with document data
+                document.getElementById('documentTitle').textContent = doc.title || 'Document Preview';
+                document.getElementById('docNumber').textContent = `${doc.type || 'Document'} #${doc.id || '001'}`;
+                document.getElementById('issueDate').textContent = doc.date || doc.requestDate || 'N/A';
+                document.getElementById('entity').textContent = doc.department || 'N/A';
+                document.getElementById('requester').textContent = doc.requester || 'N/A';
+                document.getElementById('fileSize').textContent = doc.size || 'N/A';
+                document.getElementById('lastUpdated').textContent = `Last updated: ${doc.date || doc.requestDate || 'N/A'}`;
+
+                // Handle priority
+                if (doc.priority) {
+                    const priorityIcon = document.getElementById('priorityIcon');
+                    const priority = doc.priority;
+
+                    if (priority === 'High') {
+                        priorityIcon.style.backgroundColor = '#FEE2E2';
+                        priorityIcon.querySelector('i').style.color = '#DC2626';
+                    } else if (priority === 'Medium') {
+                        priorityIcon.style.backgroundColor = '#FEF3C7';
+                        priorityIcon.querySelector('i').style.color = '#D97706';
+                    } else {
+                        priorityIcon.style.backgroundColor = '#E0F2FE';
+                        priorityIcon.querySelector('i').style.color = '#0284C7';
+                    }
+
+                    document.getElementById('priority').textContent = priority;
+                } else {
+                    document.getElementById('prioritySection').style.display = 'none';
+                }
+
+                // Clear localStorage after loading
+                localStorage.removeItem('previewDocument');
+            }
+        }
+
+        // Load document data on page load
+        loadDocumentData();
+    </script>
+
+</body>
+
+</html>

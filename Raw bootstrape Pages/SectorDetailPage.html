@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sector Detail - Financial Audit Authority</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        :root {
+            --faa-red: #ec2227;
+            --faa-dark-red: #7b282d;
+            --faa-darker-red: #971b1e;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+
+        .bg-pattern {
+            background-image: url('data:image/svg+xml,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="1" fill="%23000000" opacity="0.05"/></svg>');
+            background-repeat: repeat;
+        }
+
+        .stat-card {
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+        }
+
+        .collapsible-section {
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .collapsible-section:hover {
+            background-color: #f8f9fa;
+        }
+
+        .section-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .section-content.show {
+            max-height: 5000px;
+        }
+
+        .department-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .department-card:hover {
+            border-color: #d1d5db !important;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .department-card:hover h6 {
+            color: var(--faa-red) !important;
+        }
+
+        .champion-badge {
+            position: absolute;
+            bottom: -4px;
+            right: -4px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .kpi-card {
+            transition: all 0.3s ease;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .risk-card {
+            transition: all 0.3s ease;
+        }
+
+        .committee-card {
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+
+<body class="bg-pattern">
+
+    <!-- Header -->
+    <div class="bg-white border-bottom">
+        <div style="height: 2px; background: linear-gradient(to right, var(--faa-dark-red), var(--faa-darker-red));">
+        </div>
+
+        <!-- Back Button -->
+        <div class="container-fluid px-5 pt-4 pb-3">
+            <button class="btn btn-sm btn-ghost text-secondary" onclick="window.history.back()">
+                <i data-lucide="arrow-left" style="width: 14px; height: 14px;"></i>
+                <span class="ms-2">Back to Organization</span>
+            </button>
+        </div>
+
+        <!-- Sector Header -->
+        <div class="container-fluid px-5 pb-4">
+            <div class="d-flex align-items-center gap-4">
+                <!-- Sector Icon -->
+                <div class="rounded-3 bg-light border d-flex align-items-center justify-content-center"
+                    style="width: 64px; height: 64px;">
+                    <i data-lucide="building-2" style="width: 32px; height: 32px; color: var(--faa-red);"></i>
+                </div>
+
+                <!-- Sector Info -->
+                <div class="flex-grow-1">
+                    <div class="d-flex align-items-center gap-3 mb-2">
+                        <h1 class="h3 mb-0">Ahmed Al Mansouri</h1>
+                        <span class="badge text-white"
+                            style="background-color: var(--faa-dark-red); font-size: 11px;">Sector Leadership</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 text-secondary">
+                        <span class="small">Sector Director</span>
+                        <span>•</span>
+                        <span class="small text-muted">Operation, Compliance and Performance Audit Sector</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="container-fluid px-5 mt-4">
+        <div class="row g-3">
+            <div class="col-md-3">
+                <div class="card stat-card shadow">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-start gap-3">
+                            <div class="rounded-3 d-flex align-items-center justify-content-center"
+                                style="width: 40px; height: 40px; background-color: rgba(236, 34, 39, 0.08);">
+                                <i data-lucide="users" style="width: 20px; height: 20px; color: #EC2227;"></i>
+                            </div>
+                            <div>
+                                <p class="mb-0 fw-medium">142</p>
+                                <p class="small text-secondary mb-0">Total Employees</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stat-card shadow">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-start gap-3">
+                            <div class="rounded-3 d-flex align-items-center justify-content-center"
+                                style="width: 40px; height: 40px; background-color: rgba(25, 73, 161, 0.08);">
+                                <i data-lucide="building-2" style="width: 20px; height: 20px; color: #1949A1;"></i>
+                            </div>
+                            <div>
+                                <p class="mb-0 fw-medium">6</p>
+                                <p class="small text-secondary mb-0">Departments</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stat-card shadow">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-start gap-3">
+                            <div class="rounded-3 d-flex align-items-center justify-content-center"
+                                style="width: 40px; height: 40px; background-color: rgba(84, 54, 113, 0.08);">
+                                <i data-lucide="trending-up" style="width: 20px; height: 20px; color: #543671;"></i>
+                            </div>
+                            <div>
+                                <p class="mb-0 fw-medium">38</p>
+                                <p class="small text-secondary mb-0">Active Projects</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stat-card shadow">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-start gap-3">
+                            <div class="rounded-3 d-flex align-items-center justify-content-center"
+                                style="width: 40px; height: 40px; background-color: rgba(140, 212, 228, 0.08);">
+                                <i data-lucide="award" style="width: 20px; height: 20px; color: #8CD4E4;"></i>
+                            </div>
+                            <div>
+                                <p class="mb-0 fw-medium">256</p>
+                                <p class="small text-secondary mb-0">Audits Completed</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container-fluid px-5 py-4">
+        <div class="row g-4">
+
+            <!-- Left Column -->
+            <div class="col-lg-8">
+
+                <!-- About Sector -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div class="rounded-3 bg-info bg-opacity-10 d-flex align-items-center justify-content-center"
+                                style="width: 40px; height: 40px;">
+                                <i data-lucide="info" style="width: 20px; height: 20px; color: #0dcaf0;"></i>
+                            </div>
+                            <h4 class="small fw-medium mb-0">About This Sector</h4>
+                        </div>
+                        <p class="small text-dark mb-3">Leading operational excellence and compliance across all audit
+                            domains</p>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <div class="p-3 bg-primary bg-opacity-10 rounded-3">
+                                    <div class="d-flex align-items-center gap-2 mb-2">
+                                        <i data-lucide="target" style="width: 16px; height: 16px; color: #0d6efd;"></i>
+                                        <p class="small text-primary fw-medium mb-0">Vision</p>
+                                    </div>
+                                    <p class="small text-dark mb-0">To be the benchmark for operational audit excellence
+                                        in the region</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-3 bg-warning bg-opacity-10 rounded-3">
+                                    <div class="d-flex align-items-center gap-2 mb-2">
+                                        <i data-lucide="award" style="width: 16px; height: 16px; color: #ffc107;"></i>
+                                        <p class="small text-warning fw-medium mb-0">Mission</p>
+                                    </div>
+                                    <p class="small text-dark mb-0">Ensuring the highest standards of compliance and
+                                        performance through systematic auditing</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-light rounded-3 border">
+                            <p class="small text-secondary mb-2">Leadership Message</p>
+                            <p class="small text-dark fst-italic mb-2">"Our sector is committed to maintaining the
+                                highest standards of operational excellence and compliance across all our audit
+                                functions."</p>
+                            <p class="small text-secondary mb-0">- Ahmed Al Mansouri</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Core Responsibilities -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div class="rounded-3 bg-warning bg-opacity-10 d-flex align-items-center justify-content-center"
+                                style="width: 40px; height: 40px;">
+                                <i data-lucide="list-checks" style="width: 20px; height: 20px; color: #ffc107;"></i>
+                            </div>
+                            <h4 class="small fw-medium mb-0">Core Responsibilities</h4>
+                        </div>
+                        <div class="row g-2">
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-start gap-2">
+                                    <div class="rounded-circle bg-success bg-opacity-25 d-flex align-items-center justify-content-center flex-shrink-0"
+                                        style="width: 20px; height: 20px;">
+                                        <i data-lucide="chevron-right"
+                                            style="width: 12px; height: 12px; color: #198754;"></i>
+                                    </div>
+                                    <p class="small text-dark mb-0">Conduct comprehensive operational audits across all
+                                        entities</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-start gap-2">
+                                    <div class="rounded-circle bg-success bg-opacity-25 d-flex align-items-center justify-content-center flex-shrink-0"
+                                        style="width: 20px; height: 20px;">
+                                        <i data-lucide="chevron-right"
+                                            style="width: 12px; height: 12px; color: #198754;"></i>
+                                    </div>
+                                    <p class="small text-dark mb-0">Ensure compliance with regulatory frameworks and
+                                        standards</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-start gap-2">
+                                    <div class="rounded-circle bg-success bg-opacity-25 d-flex align-items-center justify-content-center flex-shrink-0"
+                                        style="width: 20px; height: 20px;">
+                                        <i data-lucide="chevron-right"
+                                            style="width: 12px; height: 12px; color: #198754;"></i>
+                                    </div>
+                                    <p class="small text-dark mb-0">Monitor and evaluate performance metrics and KPIs
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-start gap-2">
+                                    <div class="rounded-circle bg-success bg-opacity-25 d-flex align-items-center justify-content-center flex-shrink-0"
+                                        style="width: 20px; height: 20px;">
+                                        <i data-lucide="chevron-right"
+                                            style="width: 12px; height: 12px; color: #198754;"></i>
+                                    </div>
+                                    <p class="small text-dark mb-0">Provide strategic recommendations for process
+                                        improvements</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-start gap-2">
+                                    <div class="rounded-circle bg-success bg-opacity-25 d-flex align-items-center justify-content-center flex-shrink-0"
+                                        style="width: 20px; height: 20px;">
+                                        <i data-lucide="chevron-right"
+                                            style="width: 12px; height: 12px; color: #198754;"></i>
+                                    </div>
+                                    <p class="small text-dark mb-0">Coordinate with government and private sector
+                                        stakeholders</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-start gap-2">
+                                    <div class="rounded-circle bg-success bg-opacity-25 d-flex align-items-center justify-content-center flex-shrink-0"
+                                        style="width: 20px; height: 20px;">
+                                        <i data-lucide="chevron-right"
+                                            style="width: 12px; height: 12px; color: #198754;"></i>
+                                    </div>
+                                    <p class="small text-dark mb-0">Maintain quality assurance and best practices</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Departments (Collapsible) -->
+                <div class="card shadow-sm mb-4">
+                    <div class="collapsible-section p-4 d-flex align-items-center justify-content-between"
+                        data-section="departments">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="rounded-3 bg-success bg-opacity-10 d-flex align-items-center justify-content-center"
+                                style="width: 40px; height: 40px;">
+                                <i data-lucide="building" style="width: 20px; height: 20px; color: #198754;"></i>
+                            </div>
+                            <h4 class="small fw-medium mb-0">Departments</h4>
+                            <span class="badge border small">6 Total</span>
+                        </div>
+                        <i data-lucide="chevron-down" class="section-icon"
+                            style="width: 20px; height: 20px; color: #9ca3af;"></i>
+                    </div>
+                    <div class="section-content px-4 pb-4" id="departmentsContent">
+                        <!-- Departments will be inserted by JavaScript -->
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right Column -->
+            <div class="col-lg-4">
+
+                <!-- Quick Actions -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div class="rounded-3 bg-warning bg-opacity-10 d-flex align-items-center justify-content-center"
+                                style="width: 40px; height: 40px;">
+                                <i data-lucide="zap" style="width: 20px; height: 20px; color: #ffc107;"></i>
+                            </div>
+                            <h4 class="small fw-medium mb-0">Quick Actions</h4>
+                        </div>
+                        <div class="d-flex flex-column gap-2">
+                            <button class="btn btn-danger w-100 d-flex align-items-center justify-content-between"
+                                style="background-color: var(--faa-red);">
+                                <span>View All Employees</span>
+                                <i data-lucide="users" style="width: 16px; height: 16px;"></i>
+                            </button>
+                            <button
+                                class="btn btn-outline-secondary w-100 d-flex align-items-center justify-content-between">
+                                <span>Sector Reports</span>
+                                <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i>
+                            </button>
+                            <button
+                                class="btn btn-outline-secondary w-100 d-flex align-items-center justify-content-between">
+                                <span>Contact Sector</span>
+                                <i data-lucide="mail" style="width: 16px; height: 16px;"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div class="rounded-3 bg-success bg-opacity-10 d-flex align-items-center justify-content-center"
+                                style="width: 40px; height: 40px;">
+                                <i data-lucide="mail" style="width: 20px; height: 20px; color: #198754;"></i>
+                            </div>
+                            <h4 class="small fw-medium mb-0">Contact Information</h4>
+                        </div>
+                        <div class="d-flex flex-column gap-3">
+                            <div class="d-flex align-items-start gap-3">
+                                <div class="rounded-3 bg-primary bg-opacity-10 d-flex align-items-center justify-content-center flex-shrink-0"
+                                    style="width: 32px; height: 32px;">
+                                    <i data-lucide="mail" style="width: 16px; height: 16px; color: #0d6efd;"></i>
+                                </div>
+                                <div>
+                                    <p class="small text-secondary mb-1">Email</p>
+                                    <p class="small text-dark mb-0">ahmed.almansouri@faa.gov.ae</p>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-start gap-3">
+                                <div class="rounded-3 bg-success bg-opacity-10 d-flex align-items-center justify-content-center flex-shrink-0"
+                                    style="width: 32px; height: 32px;">
+                                    <i data-lucide="phone" style="width: 16px; height: 16px; color: #198754;"></i>
+                                </div>
+                                <div>
+                                    <p class="small text-secondary mb-1">Phone</p>
+                                    <p class="small text-dark mb-0">+971 4 XXX XXXX</p>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-start gap-3">
+                                <div class="rounded-3 bg-warning bg-opacity-10 d-flex align-items-center justify-content-center flex-shrink-0"
+                                    style="width: 32px; height: 32px;">
+                                    <i data-lucide="building-2" style="width: 16px; height: 16px; color: #ffc107;"></i>
+                                </div>
+                                <div>
+                                    <p class="small text-secondary mb-1">Location</p>
+                                    <p class="small text-dark mb-0">Floor 5, Building A</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="card shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div class="rounded-3 bg-primary bg-opacity-10 d-flex align-items-center justify-content-center"
+                                style="width: 40px; height: 40px;">
+                                <i data-lucide="clock" style="width: 20px; height: 20px; color: #0d6efd;"></i>
+                            </div>
+                            <h4 class="small fw-medium mb-0">Recent Activity</h4>
+                        </div>
+                        <div class="d-flex flex-column gap-3">
+                            <div class="d-flex gap-3">
+                                <div class="rounded-circle bg-success flex-shrink-0"
+                                    style="width: 8px; height: 8px; margin-top: 6px;"></div>
+                                <div>
+                                    <p class="small text-dark mb-1">Quarterly review completed</p>
+                                    <p class="small text-secondary mb-0">2 days ago</p>
+                                </div>
+                            </div>
+                            <div class="d-flex gap-3">
+                                <div class="rounded-circle bg-primary flex-shrink-0"
+                                    style="width: 8px; height: 8px; margin-top: 6px;"></div>
+                                <div>
+                                    <p class="small text-dark mb-1">New audit initiated</p>
+                                    <p class="small text-secondary mb-0">1 week ago</p>
+                                </div>
+                            </div>
+                            <div class="d-flex gap-3">
+                                <div class="rounded-circle bg-warning flex-shrink-0"
+                                    style="width: 8px; height: 8px; margin-top: 6px;"></div>
+                                <div>
+                                    <p class="small text-dark mb-1">Team meeting scheduled</p>
+                                    <p class="small text-secondary mb-0">2 weeks ago</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Department Champions (Collapsible) -->
+        <div class="card shadow-sm mt-4">
+            <div class="collapsible-section p-4 d-flex align-items-center justify-content-between"
+                data-section="champions">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="rounded-3 bg-warning bg-opacity-10 d-flex align-items-center justify-content-center"
+                        style="width: 40px; height: 40px;">
+                        <i data-lucide="trophy" style="width: 20px; height: 20px; color: #ffc107;"></i>
+                    </div>
+                    <div>
+                        <h4 class="small fw-medium mb-0">Department Champions</h4>
+                        <p class="small text-secondary mb-0">Key individuals driving excellence across different areas
+                        </p>
+                    </div>
+                </div>
+                <i data-lucide="chevron-down" class="section-icon"
+                    style="width: 20px; height: 20px; color: #9ca3af;"></i>
+            </div>
+            <div class="section-content px-4 pb-4" id="championsContent">
+                <!-- Champions will be inserted by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Departmental KPIs (Collapsible) -->
+        <div class="card shadow-sm mt-4">
+            <div class="collapsible-section p-4 d-flex align-items-center justify-content-between" data-section="kpis">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="rounded-3 bg-primary bg-opacity-10 d-flex align-items-center justify-content-center"
+                        style="width: 40px; height: 40px;">
+                        <i data-lucide="activity" style="width: 20px; height: 20px; color: #0d6efd;"></i>
+                    </div>
+                    <div>
+                        <h4 class="small fw-medium mb-0">Departmental Key Performance Indicators</h4>
+                        <p class="small text-secondary mb-0">Performance metrics and targets for this sector</p>
+                    </div>
+                </div>
+                <i data-lucide="chevron-down" class="section-icon"
+                    style="width: 20px; height: 20px; color: #9ca3af;"></i>
+            </div>
+            <div class="section-content px-4 pb-4" id="kpisContent">
+                <!-- KPIs will be inserted by JavaScript -->
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Data
+        const departments = [
+            { id: 'ports', name: 'Ports & Free Zones Audit Department', description: 'Specialized auditing for ports and free zone operations', headCount: 24, manager: 'Sara Al Hashimi' },
+            { id: 'real-estate', name: 'Real Estate, Hotels & Entertainment Audit Department', description: 'Comprehensive audits for real estate and hospitality sector', headCount: 28, manager: 'Mohammed Al Ketbi' },
+            { id: 'energy', name: 'Energy & Industry Audit Department', description: 'Energy sector compliance and performance auditing', headCount: 22, manager: 'Fatima Al Zaabi' },
+            { id: 'government', name: 'Government & Nonprofit Entities Audit Department', description: 'Public sector and nonprofit organization audits', headCount: 26, manager: 'Ali Al Suwaidi' },
+            { id: 'aviation', name: 'Aviation & Transportation Audit Department', description: 'Aviation and transportation sector auditing services', headCount: 20, manager: 'Maryam Al Shamsi' },
+            { id: 'banks', name: 'Banks & Investment Companies Audit Department', description: 'Financial institutions and investment firms auditing', headCount: 22, manager: 'Khalid Al Muhairi' },
+        ];
+
+        const champions = [
+            { name: 'Fatima Al Zaabi', role: 'Risk Champion', category: 'Risk', categoryColor: '#ef4444' },
+            { name: 'Ahmed Al Hashimi', role: 'KPI Champion', category: 'KPI', categoryColor: '#3b82f6' },
+            { name: 'Mariam Al Shamsi', role: 'InfoSec Champion', category: 'InfoSec', categoryColor: '#8b5cf6' },
+            { name: 'Mohammed Al Ketbi', role: 'Business Continuity Champion', category: 'Business Continuity', categoryColor: '#f59e0b' },
+            { name: 'Sara Al Nuaimi', role: 'Quality Champion', category: 'Specialty', categoryColor: '#10b981' },
+            { name: 'Ali Al Suwaidi', role: 'Innovation Champion', category: 'Others', categoryColor: '#6b7280' },
+        ];
+
+        const kpis = [
+            { title: 'Audit Completion Rate', description: 'Percentage of audits completed within scheduled timeframe', metric: '95%', target: '90%', status: 'exceeds', trend: 'up' },
+            { title: 'Compliance Score', description: 'Overall compliance rating across all audited entities', metric: '94%', target: '92%', status: 'exceeds', trend: 'up' },
+            { title: 'Average Audit Duration', description: 'Average number of days to complete an audit', metric: '42 days', target: '45 days', status: 'exceeds', trend: 'down' },
+            { title: 'Findings Resolution Rate', description: 'Percentage of audit findings resolved by entities', metric: '88%', target: '85%', status: 'exceeds', trend: 'up' },
+            { title: 'Stakeholder Satisfaction', description: 'Satisfaction rating from audited entities', metric: '4.6/5', target: '4.5/5', status: 'meets', trend: 'stable' },
+            { title: 'Team Utilization Rate', description: 'Percentage of available auditor hours utilized', metric: '82%', target: '85%', status: 'below', trend: 'down' },
+        ];
+
+        // Render Departments
+        const deptContainer = document.getElementById('departmentsContent');
+        deptContainer.innerHTML = departments.map(dept => `
+            <div class="p-3 border rounded-3 department-card mb-3">
+                <div class="d-flex align-items-start justify-content-between mb-2">
+                    <div class="flex-grow-1">
+                        <h6 class="small fw-medium mb-1">${dept.name}</h6>
+                        <p class="small text-secondary mb-0">${dept.description}</p>
+                    </div>
+                    <i data-lucide="chevron-right" style="width: 20px; height: 20px; color: #d1d5db;" class="flex-shrink-0 ms-2"></i>
+                </div>
+                <div class="d-flex align-items-center gap-4 small text-secondary">
+                    <div class="d-flex align-items-center gap-1">
+                        <i data-lucide="users" style="width: 12px; height: 12px;"></i>
+                        <span>${dept.headCount} employees</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-1">
+                        <i data-lucide="user" style="width: 12px; height: 12px;"></i>
+                        <span>${dept.manager}</span>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+
+        // Render Champions
+        const championsContainer = document.getElementById('championsContent');
+        championsContainer.innerHTML = `
+            <div class="row g-3">
+                ${champions.map(champion => `
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <div class="text-center">
+                            <div class="position-relative d-inline-block mb-2">
+                                <div class="rounded-circle border border-2 overflow-hidden" style="width: 80px; height: 80px; border-color: #e5e7eb !important;">
+                                    <div class="w-100 h-100 bg-secondary d-flex align-items-center justify-content-center text-white fw-bold">
+                                        ${champion.name.split(' ').map(n => n[0]).join('')}
+                                    </div>
+                                </div>
+                                <div class="champion-badge" style="background-color: ${champion.categoryColor};">
+                                    <i data-lucide="trophy" style="width: 12px; height: 12px; color: white;"></i>
+                                </div>
+                            </div>
+                            <p class="small fw-medium mb-1">${champion.name}</p>
+                            <p class="small text-secondary mb-2">${champion.role}</p>
+                            <span class="badge border small" style="background-color: ${champion.categoryColor}15; color: ${champion.categoryColor}; border-color: ${champion.categoryColor} !important;">
+                                ${champion.category}
+                            </span>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+
+        // Render KPIs
+        const kpisContainer = document.getElementById('kpisContent');
+        const statusConfig = {
+            exceeds: { color: 'text-success', bg: 'bg-success', bgOpacity: 'bg-opacity-10', border: 'border-success', label: 'Exceeds Target' },
+            meets: { color: 'text-primary', bg: 'bg-primary', bgOpacity: 'bg-opacity-10', border: 'border-primary', label: 'Meets Target' },
+            below: { color: 'text-warning', bg: 'bg-warning', bgOpacity: 'bg-opacity-10', border: 'border-warning', label: 'Below Target' }
+        };
+
+        kpisContainer.innerHTML = `
+            <div class="row g-3">
+                ${kpis.map(kpi => {
+            const config = statusConfig[kpi.status];
+            const trendIcon = kpi.trend === 'up' ? 'trending-up' : kpi.trend === 'down' ? 'trending-down' : 'minus';
+            return `
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card kpi-card border-2 ${config.border} ${config.bg} ${config.bgOpacity}">
+                                <div class="card-body p-3">
+                                    <div class="d-flex align-items-start justify-content-between mb-3">
+                                        <div class="rounded-3 ${config.bg} ${config.bgOpacity} border ${config.border} d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;">
+                                            <i data-lucide="activity" style="width: 16px; height: 16px;" class="${config.color}"></i>
+                                        </div>
+                                        <i data-lucide="${trendIcon}" style="width: 16px; height: 16px;" class="${config.color}"></i>
+                                    </div>
+                                    <h5 class="small fw-medium mb-1">${kpi.title}</h5>
+                                    <p class="small text-secondary mb-3" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${kpi.description}</p>
+                                    <div class="d-flex justify-content-between small mb-2">
+                                        <span class="text-secondary">Target:</span>
+                                        <span class="text-dark">${kpi.target}</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <span class="small text-secondary">Current:</span>
+                                        <span class="small fw-medium ${config.color}">${kpi.metric}</span>
+                                    </div>
+                                    <span class="badge w-100 ${config.bg} ${config.color} border ${config.border} small">${config.label}</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+        }).join('')}
+            </div>
+        `;
+
+        // Collapsible sections functionality
+        document.querySelectorAll('.collapsible-section').forEach(section => {
+            section.addEventListener('click', function () {
+                const content = this.nextElementSibling;
+                const icon = this.querySelector('.section-icon');
+
+                content.classList.toggle('show');
+
+                // Rotate icon
+                if (content.classList.contains('show')) {
+                    icon.style.transform = 'rotate(180deg)';
+                } else {
+                    icon.style.transform = 'rotate(0deg)';
+                }
+
+                // Reinitialize icons after content is shown
+                setTimeout(() => lucide.createIcons(), 100);
+            });
+        });
+
+        // Reinitialize Lucide icons after dynamic content
+        lucide.createIcons();
+    </script>
+
+</body>
+
+</html>

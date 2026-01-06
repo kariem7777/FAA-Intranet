@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Knowledge Hub - Financial Audit Authority</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        :root {
+            --faa-red: #ec2227;
+            --faa-dark-red: #7b282d;
+            --faa-darker-red: #971b1e;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif;
+        }
+
+        .bg-pattern {
+            background-image: url('data:image/svg+xml,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="1" fill="%23000000" opacity="0.05"/></svg>');
+            background-repeat: repeat;
+        }
+
+        .hero-banner {
+            background: linear-gradient(135deg, var(--faa-red) 0%, var(--faa-dark-red) 100%);
+            border-radius: 16px;
+            color: white;
+            padding: 48px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .stat-card {
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+        }
+
+        .nav-pills .nav-link {
+            color: #4b5563;
+            border-radius: 0.5rem;
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .nav-pills .nav-link:hover {
+            background-color: #f3f4f6;
+        }
+
+        .nav-pills .nav-link.active {
+            background-color: var(--faa-red);
+            color: white;
+        }
+
+        .nav-tabs-scroll {
+            overflow-x: auto;
+            flex-wrap: nowrap;
+            scrollbar-width: none;
+            /* Firefox */
+            -ms-overflow-style: none;
+            /* IE/Edge */
+        }
+
+        .nav-tabs-scroll::-webkit-scrollbar {
+            display: none;
+            /* Chrome/Safari/Opera */
+        }
+
+        .gradient-line {
+            height: 4px;
+            width: 80px;
+            border-radius: 2px;
+            background: linear-gradient(to right, var(--faa-red), var(--faa-dark-red));
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card-hover:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+        }
+
+        .border-top-hover {
+            border-top: 2px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        .border-top-hover:hover {
+            border-top-color: var(--faa-red);
+        }
+
+        .progress-bar-gradient {
+            background: linear-gradient(to right, var(--faa-red), var(--faa-dark-red));
+        }
+
+        .bg-red-soft {
+            background-color: rgba(236, 34, 39, 0.1);
+        }
+
+        .bg-dark-red-soft {
+            background-color: rgba(123, 40, 45, 0.1);
+        }
+
+        .text-faa-red {
+            color: var(--faa-red);
+        }
+
+        .text-faa-dark-red {
+            color: var(--faa-dark-red);
+        }
+
+        .category-card {
+            transition: all 0.3s ease;
+        }
+
+        .category-card:hover .icon-box {
+            background-color: var(--faa-red);
+            color: white;
+        }
+    </style>
+</head>
+
+<body class="bg-pattern">
+
+    <!-- Main Container -->
+    <div class="container-fluid px-5">
+
+        <!-- Hero Banner -->
+        <div class="pt-4 mb-4 position-relative">
+            <div class="hero-banner mb-5">
+                <div class="position-relative">
+                    <h1 class="display-5 fw-bold mb-3">Knowledge Hub</h1>
+                    <p class="lead mb-0">Your comprehensive gateway to learning, development, and professional
+                        excellence</p>
+                </div>
+            </div>
+
+            <!-- Stats Cards - Overlapping Banner -->
+            <div class="px-5" style="margin-top: -60px; position: relative; z-index: 10;">
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card stat-card shadow-lg border-0 h-100">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-start gap-4">
+                                    <div class="p-3 rounded-3 bg-light text-faa-red">
+                                        <i data-lucide="video" style="width: 24px; height: 24px;"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="display-6 fw-bold mb-1">24+</h3>
+                                        <p class="text-secondary mb-0">E-Learning Courses</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card stat-card shadow-lg border-0 h-100">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-start gap-4">
+                                    <div class="p-3 rounded-3 bg-light text-faa-dark-red">
+                                        <i data-lucide="library" style="width: 24px; height: 24px;"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="display-6 fw-bold mb-1">1,245</h3>
+                                        <p class="text-secondary mb-0">Library Resources</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card stat-card shadow-lg border-0 h-100">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-start gap-4">
+                                    <div class="p-3 rounded-3 bg-light" style="color: var(--faa-darker-red);">
+                                        <i data-lucide="award" style="width: 24px; height: 24px;"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="display-6 fw-bold mb-1">156+</h3>
+                                        <p class="text-secondary mb-0">Best Practice Articles</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="pt-4 pb-5">
+
+            <!-- Tabs Navigation -->
+            <div class="card shadow-sm mb-4 border-0">
+                <div class="card-body p-2">
+                    <ul class="nav nav-pills nav-tabs-scroll w-100 d-flex justify-content-between" id="knowledgeTabs"
+                        role="tablist">
+                        <li class="nav-item flex-fill text-center" role="presentation">
+                            <button class="nav-link active w-100" id="overview-tab" data-bs-toggle="pill"
+                                data-bs-target="#overview" type="button" role="tab">Overview</button>
+                        </li>
+                        <li class="nav-item flex-fill text-center" role="presentation">
+                            <button class="nav-link w-100" id="memberships-tab" data-bs-toggle="pill"
+                                data-bs-target="#memberships" type="button" role="tab">Memberships</button>
+                        </li>
+                        <li class="nav-item flex-fill text-center" role="presentation">
+                            <button class="nav-link w-100" id="induction-tab" data-bs-toggle="pill"
+                                data-bs-target="#induction" type="button" role="tab">Induction</button>
+                        </li>
+                        <li class="nav-item flex-fill text-center" role="presentation">
+                            <button class="nav-link w-100" id="practices-tab" data-bs-toggle="pill"
+                                data-bs-target="#practices" type="button" role="tab">Best Practices</button>
+                        </li>
+                        <li class="nav-item flex-fill text-center" role="presentation">
+                            <button class="nav-link w-100" id="articles-tab" data-bs-toggle="pill"
+                                data-bs-target="#articles" type="button" role="tab">Articles</button>
+                        </li>
+                        <li class="nav-item flex-fill text-center" role="presentation">
+                            <button class="nav-link w-100" id="connect-tab" data-bs-toggle="pill"
+                                data-bs-target="#connect" type="button" role="tab">Connect</button>
+                        </li>
+                        <li class="nav-item flex-fill text-center" role="presentation">
+                            <button class="nav-link w-100" id="faqs-tab" data-bs-toggle="pill" data-bs-target="#faqs"
+                                type="button" role="tab">FAQs</button>
+                        </li>
+                        <li class="nav-item flex-fill text-center" role="presentation">
+                            <button class="nav-link w-100" id="elearning-tab" data-bs-toggle="pill"
+                                data-bs-target="#elearning" type="button" role="tab">E-Learning</button>
+                        </li>
+                        <li class="nav-item flex-fill text-center" role="presentation">
+                            <button class="nav-link w-100" id="enrichment-tab" data-bs-toggle="pill"
+                                data-bs-target="#enrichment" type="button" role="tab">Enrichment</button>
+                        </li>
+                        <li class="nav-item flex-fill text-center" role="presentation">
+                            <button class="nav-link w-100" id="library-tab" data-bs-toggle="pill"
+                                data-bs-target="#library" type="button" role="tab">Library</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="tab-content" id="knowledgeTabsContent">
+
+                <!-- Overview Tab -->
+                <div class="tab-pane fade show active" id="overview" role="tabpanel">
+                    <div class="card shadow-lg border-0 rounded-4">
+                        <div class="card-body p-5">
+                            <div class="d-flex align-items-start gap-3 mb-4">
+                                <div class="p-2 rounded-3 bg-red-soft">
+                                    <i data-lucide="book-open" class="text-faa-red"
+                                        style="width: 24px; height: 24px;"></i>
+                                </div>
+                                <div>
+                                    <h2 class="h4 mb-2">Overview</h2>
+                                    <div class="gradient-line"></div>
+                                </div>
+                            </div>
+                            <div class="vstack gap-3">
+                                <p class="text-secondary fs-5">
+                                    The Knowledge Hub serves as your central resource for professional development,
+                                    learning materials,
+                                    and institutional knowledge. Access comprehensive training programs, industry best
+                                    practices, and
+                                    collaborative learning opportunities designed to enhance your skills and expertise.
+                                </p>
+                                <p class="text-secondary">
+                                    Whether you're a new employee looking for onboarding materials or a seasoned
+                                    professional seeking
+                                    advanced training, the Knowledge Hub provides the resources and support you need to
+                                    excel in your role
+                                    and contribute to FAA's mission of excellence in financial auditing.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Memberships Tab -->
+                <div class="tab-pane fade" id="memberships" role="tabpanel">
+                    <div class="card shadow-lg border-0 rounded-4">
+                        <div class="card-body p-5">
+                            <div class="d-flex align-items-start gap-3 mb-5">
+                                <div class="p-2 rounded-3 bg-dark-red-soft">
+                                    <i data-lucide="globe" class="text-faa-dark-red"
+                                        style="width: 24px; height: 24px;"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h2 class="h4 mb-2">Memberships and Partnerships</h2>
+                                    <div class="gradient-line mb-3"></div>
+                                    <p class="text-secondary mb-0">Our global network of professional organizations and
+                                        strategic partners</p>
+                                </div>
+                            </div>
+
+                            <div class="row g-4">
+                                <div class="col-md-6 col-lg-3">
+                                    <div class="card h-100 shadow-sm border-0 card-hover">
+                                        <div class="card-body p-4 text-center">
+                                            <div class="rounded-3 d-flex align-items-center justify-content-center mb-4 mx-auto"
+                                                style="width: 64px; height: 64px; background-color: #7b282d;">
+                                                <i data-lucide="users" class="text-white"
+                                                    style="width: 32px; height: 32px;"></i>
+                                            </div>
+                                            <h5 class="h6 mb-2">INTOSAI</h5>
+                                            <p class="small text-secondary mb-0">International Organization of Supreme
+                                                Audit Institutions</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-3">
+                                    <div class="card h-100 shadow-sm border-0 card-hover">
+                                        <div class="card-body p-4 text-center">
+                                            <div class="rounded-3 d-flex align-items-center justify-content-center mb-4 mx-auto"
+                                                style="width: 64px; height: 64px; background-color: #971b1e;">
+                                                <i data-lucide="users" class="text-white"
+                                                    style="width: 32px; height: 32px;"></i>
+                                            </div>
+                                            <h5 class="h6 mb-2">ARABOSAI</h5>
+                                            <p class="small text-secondary mb-0">Arab Organization of Supreme Audit
+                                                Institutions</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-3">
+                                    <div class="card h-100 shadow-sm border-0 card-hover">
+                                        <div class="card-body p-4 text-center">
+                                            <div class="rounded-3 d-flex align-items-center justify-content-center mb-4 mx-auto"
+                                                style="width: 64px; height: 64px; background-color: #ec2227;">
+                                                <i data-lucide="users" class="text-white"
+                                                    style="width: 32px; height: 32px;"></i>
+                                            </div>
+                                            <h5 class="h6 mb-2">IIA</h5>
+                                            <p class="small text-secondary mb-0">Institute of Internal Auditors</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-3">
+                                    <div class="card h-100 shadow-sm border-0 card-hover">
+                                        <div class="card-body p-4 text-center">
+                                            <div class="rounded-3 d-flex align-items-center justify-content-center mb-4 mx-auto"
+                                                style="width: 64px; height: 64px; background-color: #a94442;">
+                                                <i data-lucide="users" class="text-white"
+                                                    style="width: 32px; height: 32px;"></i>
+                                            </div>
+                                            <h5 class="h6 mb-2">ACCA</h5>
+                                            <p class="small text-secondary mb-0">Association of Chartered Certified
+                                                Accountants</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Induction Tab -->
+                <div class="tab-pane fade" id="induction" role="tabpanel">
+                    <div class="card shadow-lg border-0 rounded-4">
+                        <div class="card-body p-5">
+                            <div class="d-flex align-items-start gap-3 mb-5">
+                                <div class="p-2 rounded-3 bg-red-soft">
+                                    <i data-lucide="video" class="text-faa-red" style="width: 24px; height: 24px;"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h2 class="h4 mb-2">New Employees Portal / Induction Materials</h2>
+                                    <div class="gradient-line mb-3"></div>
+                                    <p class="text-secondary mb-0">
+                                        Interactive videos and quizzes for new joiners to ensure comprehensive
+                                        understanding of everything
+                                        needed during their induction.
+                                    </p>
+                                </div>
+                                <span class="badge bg-danger rounded-pill px-3 py-2">6 Modules</span>
+                            </div>
+
+                            <!-- Progress -->
+                            <div class="rounded-3 p-4 mb-5"
+                                style="background: linear-gradient(135deg, rgba(236, 34, 39, 0.05), rgba(123, 40, 45, 0.05));">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <h5 class="h6 mb-0">Your Progress</h5>
+                                    <span class="small text-secondary">2 of 6 completed</span>
+                                </div>
+                                <div class="progress" role="progressbar"
+                                    style="height: 12px; background-color: #e5e7eb;">
+                                    <div class="progress-bar progress-bar-gradient rounded-pill" style="width: 33.3%">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row g-4 mb-4">
+                                <!-- Modules -->
+                                <div class="col-md-6 col-lg-4">
+                                    <div
+                                        class="h-100 p-4 rounded-3 border-start border-4 border-success bg-light cursor-pointer">
+                                        <div class="d-flex justify-content-between align-items-start mb-3">
+                                            <div>
+                                                <div class="d-flex align-items-center gap-2 mb-2">
+                                                    <span class="small text-muted">Module 1</span>
+                                                    <span class="badge bg-success small">✓ Completed</span>
+                                                </div>
+                                                <h5 class="h6 mb-0">Welcome to FAA</h5>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center gap-3 small text-secondary mb-3">
+                                            <div class="d-flex align-items-center gap-1">
+                                                <i data-lucide="video" style="width: 14px; height: 14px;"></i>
+                                                <span>15 min</span>
+                                            </div>
+                                            <span class="badge bg-white text-danger border border-danger">Quiz
+                                                Included</span>
+                                        </div>
+                                        <div
+                                            class="pt-3 border-top d-flex justify-content-between align-items-center small">
+                                            <span class="text-secondary">Quiz Score:</span>
+                                            <span class="text-success fw-bold">95%</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 col-lg-4">
+                                    <div
+                                        class="h-100 p-4 rounded-3 border-start border-4 border-success bg-light cursor-pointer">
+                                        <div class="d-flex justify-content-between align-items-start mb-3">
+                                            <div>
+                                                <div class="d-flex align-items-center gap-2 mb-2">
+                                                    <span class="small text-muted">Module 2</span>
+                                                    <span class="badge bg-success small">✓ Completed</span>
+                                                </div>
+                                                <h5 class="h6 mb-0">Our Mission & Values</h5>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center gap-3 small text-secondary mb-3">
+                                            <div class="d-flex align-items-center gap-1">
+                                                <i data-lucide="video" style="width: 14px; height: 14px;"></i>
+                                                <span>20 min</span>
+                                            </div>
+                                            <span class="badge bg-white text-danger border border-danger">Quiz
+                                                Included</span>
+                                        </div>
+                                        <div
+                                            class="pt-3 border-top d-flex justify-content-between align-items-center small">
+                                            <span class="text-secondary">Quiz Score:</span>
+                                            <span class="text-success fw-bold">88%</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 col-lg-4">
+                                    <div
+                                        class="h-100 p-4 rounded-3 border-start border-4 border-transparent bg-light cursor-pointer hover:border-danger transition-colors">
+                                        <div class="d-flex justify-content-between align-items-start mb-3">
+                                            <div>
+                                                <div class="d-flex align-items-center gap-2 mb-2">
+                                                    <span class="small text-muted">Module 3</span>
+                                                </div>
+                                                <h5 class="h6 mb-0">FAA Structure & Departments</h5>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center gap-3 small text-secondary mb-3">
+                                            <div class="d-flex align-items-center gap-1">
+                                                <i data-lucide="video" style="width: 14px; height: 14px;"></i>
+                                                <span>25 min</span>
+                                            </div>
+                                            <span class="badge bg-white text-danger border border-danger">Quiz
+                                                Included</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Additional placeholder modules can be added similarly -->
+                            </div>
+
+                            <button class="btn w-100 text-white py-2" style="background-color: var(--faa-red);">Continue
+                                Induction Program</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Best Practices Tab -->
+                <div class="tab-pane fade" id="practices" role="tabpanel">
+                    <div class="card shadow-lg border-0 rounded-4">
+                        <div class="card-body p-5">
+                            <div class="d-flex align-items-start gap-3 mb-5">
+                                <div class="p-2 rounded-3" style="background-color: rgba(151, 27, 30, 0.1);">
+                                    <i data-lucide="lightbulb" style="color: #971b1e; width: 24px; height: 24px;"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h2 class="h4 mb-2">Explore Our Benchmarks & Innovation</h2>
+                                    <div class="gradient-line mb-3"></div>
+                                </div>
+                            </div>
+
+                            <div class="row g-4 mb-5">
+                                <div class="col-md-4">
+                                    <div class="card h-100 border-0 shadow-lg text-white p-4 card-hover"
+                                        style="background-color: #0891b2;">
+                                        <div class="d-flex align-items-center gap-3 mb-3">
+                                            <i data-lucide="trending-up" style="width: 40px; height: 40px;"></i>
+                                            <h4 class="h5 mb-0">Benchmarking</h4>
+                                        </div>
+                                        <p class="small opacity-75 mb-0">Measure products, services, and processes
+                                            against industry leaders</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card h-100 border-0 shadow-lg text-white p-4 card-hover"
+                                        style="background-color: #ec2227;">
+                                        <div class="d-flex align-items-center gap-3 mb-3">
+                                            <i data-lucide="file-text" style="width: 40px; height: 40px;"></i>
+                                            <h4 class="h5 mb-0">Competitiveness Reports</h4>
+                                        </div>
+                                        <p class="small opacity-75 mb-0">Comprehensive analysis of organizational
+                                            performance metrics</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card h-100 border-0 shadow-lg text-white p-4 card-hover"
+                                        style="background-color: #ec2227;">
+                                        <div class="d-flex align-items-center gap-3 mb-3">
+                                            <i data-lucide="lightbulb" style="width: 40px; height: 40px;"></i>
+                                            <h4 class="h5 mb-0">Knowledge Strategy</h4>
+                                        </div>
+                                        <p class="small opacity-75 mb-0">Strategic insights for continuous improvement
+                                            and innovation</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Benchmarking Definition -->
+                            <div class="bg-light rounded-3 p-4 mb-5">
+                                <p class="text-secondary mb-3">
+                                    Benchmarking is defined as the process of measuring products, services, and
+                                    processes against those of organizations
+                                    known to be leaders in one or more aspects of their operations. Benchmarking
+                                    provides necessary insights that help you
+                                    understand how your organization compares with similar organizations.
+                                </p>
+                                <p class="text-secondary mb-0">
+                                    Benchmarking can also help organizations identify areas, systems, or processes for
+                                    improvements.
+                                </p>
+                            </div>
+
+                            <!-- Graph Placeholder -->
+                            <div class="border rounded-3 p-5 text-center mb-5 bg-white">
+                                <div class="position-relative mx-auto"
+                                    style="height: 250px; border-left: 1px solid #d1d5db; border-bottom: 1px solid #d1d5db;">
+                                    <!-- Mockup lines for the graph -->
+                                    <div
+                                        style="position: absolute; bottom: 20%; left: 0; width: 100%; height: 2px; background: repeating-linear-gradient(90deg, #94a3b8 0, #94a3b8 5px, transparent 5px, transparent 10px);">
+                                    </div>
+                                    <div
+                                        style="position: absolute; bottom: 0; left: 0; width: 0; height: 0; border-style: solid; border-width: 0 0 200px 400px; border-color: transparent transparent transparent rgba(8, 145, 178, 0.1);">
+                                    </div>
+                                    <svg style="position: absolute; bottom: 0; left: 0; width: 100%; height: 100%;"
+                                        preserveAspectRatio="none">
+                                        <path d="M0,200 L100,160 L200,120 L300,100 L100%,80" fill="none"
+                                            stroke="#94a3b8" stroke-width="2" stroke-dasharray="5,5" />
+                                        <text x="50" y="190" font-size="12" fill="#475569">Incremental
+                                            improvement</text>
+
+                                        <path d="M0,80 L30%,80 L32%,20 L100%,20" fill="none" stroke="#0891b2"
+                                            stroke-width="3" />
+                                    </svg>
+                                </div>
+                                <p class="text-secondary mt-3">Time</p>
+                            </div>
+
+                            <div class="bg-light rounded-3 p-4">
+                                <h4 class="h6 mb-3">Incremental Quality Improvement vs Benchmarking Breakthroughs</h4>
+                                <p class="text-secondary mb-0">
+                                    Benchmarking has been classified into two distinct categories: technical and
+                                    competitive. The House of Quality matrix
+                                    and Gantt charts are often used to plot the benchmarking evaluation.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Articles Tab -->
+                <div class="tab-pane fade" id="articles" role="tabpanel">
+                    <div class="card shadow-lg border-0 rounded-4">
+                        <div class="card-body p-5">
+                            <div class="d-flex align-items-start gap-3 mb-5">
+                                <div class="p-2 rounded-3 bg-red-soft">
+                                    <i data-lucide="file-text" class="text-faa-red"
+                                        style="width: 24px; height: 24px;"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h2 class="h4 mb-2">Articles</h2>
+                                    <div class="gradient-line mb-3"></div>
+                                    <p class="text-secondary mb-0">Featured articles and insights from our audit
+                                        professionals</p>
+                                </div>
+                            </div>
+
+                            <div class="row g-4">
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="card h-100 shadow-sm border-0 card-hover border-top-hover p-4">
+                                        <span class="badge mb-3 align-self-start"
+                                            style="background-color: #7b282d;">Digital Transformation</span>
+                                        <h5 class="h6 mb-3">The Future of Government Auditing in the Digital Age</h5>
+                                        <div class="d-flex justify-content-between small text-secondary mt-auto">
+                                            <span>Dr. Sarah Al Kaabi</span>
+                                            <span>8 min</span>
+                                        </div>
+                                        <p class="small text-muted mt-2 mb-0">2025-12-01</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="card h-100 shadow-sm border-0 card-hover border-top-hover p-4">
+                                        <span class="badge mb-3 align-self-start"
+                                            style="background-color: #7b282d;">Professional Development</span>
+                                        <h5 class="h6 mb-3">Enhancing Audit Quality Through Professional Development
+                                        </h5>
+                                        <div class="d-flex justify-content-between small text-secondary mt-auto">
+                                            <span>Mr. Khalid Al Hashemi</span>
+                                            <span>6 min</span>
+                                        </div>
+                                        <p class="small text-muted mt-2 mb-0">2025-11-28</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="card h-100 shadow-sm border-0 card-hover border-top-hover p-4">
+                                        <span class="badge mb-3 align-self-start"
+                                            style="background-color: #7b282d;">Standards</span>
+                                        <h5 class="h6 mb-3">International Audit Standards: A Practical Guide</h5>
+                                        <div class="d-flex justify-content-between small text-secondary mt-auto">
+                                            <span>Ms. Mariam Al Suwaidi</span>
+                                            <span>10 min</span>
+                                        </div>
+                                        <p class="small text-muted mt-2 mb-0">2025-11-25</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Connect Tab -->
+                <div class="tab-pane fade" id="connect" role="tabpanel">
+                    <div class="card shadow-lg border-0 rounded-4">
+                        <div class="card-body p-5">
+                            <div class="d-flex align-items-start gap-3 mb-5">
+                                <div class="p-2 rounded-3 bg-red-soft">
+                                    <i data-lucide="file-text" class="text-faa-red"
+                                        style="width: 24px; height: 24px;"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h2 class="h4 mb-2">Connect Initiative Resources</h2>
+                                    <div class="gradient-line mb-3"></div>
+                                    <p class="text-secondary mb-0">Access a variety of resources from our Connect
+                                        Initiative</p>
+                                </div>
+                            </div>
+
+                            <div class="row g-4">
+                                <div class="col-md-6 col-lg-4">
+                                    <div
+                                        class="card h-100 shadow-sm border-0 card-hover border-top-hover p-4 text-center">
+                                        <div class="mx-auto mb-3 rounded-3 d-flex align-items-center justify-content-center"
+                                            style="width: 48px; height: 48px; background-color: #ec2227;">
+                                            <i data-lucide="file-text" class="text-white"
+                                                style="width: 24px; height: 24px;"></i>
+                                        </div>
+                                        <h5 class="h6 mb-2">IEC Presentations</h5>
+                                        <p class="small text-secondary mb-2">Internal Exchange & Collaboration
+                                            presentations</p>
+                                        <small class="text-muted">24 presentations</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-4">
+                                    <div
+                                        class="card h-100 shadow-sm border-0 card-hover border-top-hover p-4 text-center">
+                                        <div class="mx-auto mb-3 rounded-3 d-flex align-items-center justify-content-center"
+                                            style="width: 48px; height: 48px; background-color: #7b282d;">
+                                            <i data-lucide="lightbulb" class="text-white"
+                                                style="width: 24px; height: 24px;"></i>
+                                        </div>
+                                        <h5 class="h6 mb-2">EI Presentations</h5>
+                                        <p class="small text-secondary mb-2">Excellence & Innovation initiatives</p>
+                                        <small class="text-muted">18 presentations</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-4">
+                                    <div
+                                        class="card h-100 shadow-sm border-0 card-hover border-top-hover p-4 text-center">
+                                        <div class="mx-auto mb-3 rounded-3 d-flex align-items-center justify-content-center"
+                                            style="width: 48px; height: 48px; background-color: #971b1e;">
+                                            <i data-lucide="trending-up" class="text-white"
+                                                style="width: 24px; height: 24px;"></i>
+                                        </div>
+                                        <h5 class="h6 mb-2">CIII Presentations</h5>
+                                        <p class="small text-secondary mb-2">Continuous Improvement & Innovation</p>
+                                        <small class="text-muted">32 presentations</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQs Tab -->
+                <div class="tab-pane fade" id="faqs" role="tabpanel">
+                    <div class="card shadow-lg border-0 rounded-4">
+                        <div class="card-body p-5">
+                            <div class="d-flex align-items-start gap-3 mb-5">
+                                <div class="p-2 rounded-3 bg-dark-red-soft">
+                                    <i data-lucide="help-circle" class="text-faa-dark-red"
+                                        style="width: 24px; height: 24px;"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h2 class="h4 mb-2">Frequently Asked Questions</h2>
+                                    <div class="gradient-line mb-3"></div>
+                                    <p class="text-secondary mb-0">Find quick answers to common questions</p>
+                                </div>
+                            </div>
+
+                            <!-- Nested Tabs for FAQs Category -->
+                            <ul class="nav nav-tabs mb-4" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="audit-tab" data-bs-toggle="tab"
+                                        data-bs-target="#audit" type="button" role="tab">Audit Process</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="hr-tab" data-bs-toggle="tab" data-bs-target="#hr"
+                                        type="button" role="tab">HR & Benefits</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="it-tab" data-bs-toggle="tab" data-bs-target="#it"
+                                        type="button" role="tab">IT & Systems</button>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="audit" role="tabpanel">
+                                    <div class="vstack gap-3">
+                                        <div
+                                            class="p-4 bg-light rounded-3 d-flex justify-content-between align-items-center border-start border-4 border-transparent hover:border-danger transition-all cursor-pointer">
+                                            <p class="mb-0">What is the typical audit cycle?</p>
+                                            <span class="small text-muted">145 views</span>
+                                        </div>
+                                        <div
+                                            class="p-4 bg-light rounded-3 d-flex justify-content-between align-items-center border-start border-4 border-transparent hover:border-danger transition-all cursor-pointer">
+                                            <p class="mb-0">How are audit priorities determined?</p>
+                                            <span class="small text-muted">98 views</span>
+                                        </div>
+                                        <div
+                                            class="p-4 bg-light rounded-3 d-flex justify-content-between align-items-center border-start border-4 border-transparent hover:border-danger transition-all cursor-pointer">
+                                            <p class="mb-0">What is risk-based auditing?</p>
+                                            <span class="small text-muted">234 views</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Other tabs would follow same structure -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- E-Learning Tab -->
+                <div class="tab-pane fade" id="elearning" role="tabpanel">
+                    <div class="card shadow-lg border-0 rounded-4">
+                        <div class="card-body p-5">
+                            <div class="d-flex align-items-start gap-3 mb-5">
+                                <div class="p-2 rounded-3 bg-red-soft">
+                                    <i data-lucide="video" class="text-faa-red" style="width: 24px; height: 24px;"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h2 class="h4 mb-2">E-Learning</h2>
+                                    <div class="gradient-line mb-3"></div>
+                                    <p class="text-secondary mb-0">Interactive online courses designed to enhance your
+                                        professional skills</p>
+                                </div>
+                            </div>
+
+                            <div class="card shadow border-0"
+                                style="background: linear-gradient(135deg, #f9fafb, #ffffff); border-left: 4px solid #ec2227 !important;">
+                                <div class="card-body p-4">
+                                    <h4 class="h5 mb-3">E-LEARNING PLATFORM FOR TECHNICAL EMPLOYEES</h4>
+                                    <p class="text-secondary mb-3">
+                                        A platform developed in collaboration with PwC, providing employees with access
+                                        to a range of training courses and
+                                        educational workshops in the field of control and audit.
+                                    </p>
+                                    <p class="text-secondary mb-4">
+                                        In this phase, it targets a number of employees from Assistant Auditor to Senior
+                                        Auditor job levels.
+                                    </p>
+                                    <button class="btn text-white px-4 py-2" style="background-color: #ec2227;">Log In
+                                        (mwgd.com)</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Enrichment Tab -->
+                <div class="tab-pane fade" id="enrichment" role="tabpanel">
+                    <div class="card shadow-lg border-0 rounded-4">
+                        <div class="card-body p-5">
+                            <div class="d-flex align-items-start gap-3 mb-5">
+                                <div class="p-2 rounded-3 bg-dark-red-soft">
+                                    <i data-lucide="award" class="text-faa-dark-red"
+                                        style="width: 24px; height: 24px;"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h2 class="h4 mb-2">Knowledge Enrichment Programs</h2>
+                                    <div class="gradient-line mb-3"></div>
+                                    <p class="text-secondary mb-0">Specialized programs designed to accelerate your
+                                        professional growth</p>
+                                </div>
+                            </div>
+
+                            <div class="row g-4">
+                                <div class="col-md-6 col-lg-3">
+                                    <div
+                                        class="card h-100 shadow-sm border-0 card-hover border-top-hover p-4 text-center">
+                                        <div class="mx-auto mb-3 rounded-3 d-flex align-items-center justify-content-center"
+                                            style="width: 48px; height: 48px; background-color: #ec2227;">
+                                            <i data-lucide="award" class="text-white"
+                                                style="width: 24px; height: 24px;"></i>
+                                        </div>
+                                        <h5 class="h6 mb-2">Professional Certification</h5>
+                                        <p class="small text-secondary mb-0">45 participants</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-3">
+                                    <div
+                                        class="card h-100 shadow-sm border-0 card-hover border-top-hover p-4 text-center">
+                                        <div class="mx-auto mb-3 rounded-3 d-flex align-items-center justify-content-center"
+                                            style="width: 48px; height: 48px; background-color: #ec2227;">
+                                            <i data-lucide="users" class="text-white"
+                                                style="width: 24px; height: 24px;"></i>
+                                        </div>
+                                        <h5 class="h6 mb-2">Mentorship Program</h5>
+                                        <p class="small text-secondary mb-0">78 participants</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-3">
+                                    <div
+                                        class="card h-100 shadow-sm border-0 card-hover border-top-hover p-4 text-center">
+                                        <div class="mx-auto mb-3 rounded-3 d-flex align-items-center justify-content-center"
+                                            style="width: 48px; height: 48px; background-color: #ec2227;">
+                                            <i data-lucide="lightbulb" class="text-white"
+                                                style="width: 24px; height: 24px;"></i>
+                                        </div>
+                                        <h5 class="h6 mb-2">Innovation Workshop Series</h5>
+                                        <p class="small text-secondary mb-0">92 participants</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-3">
+                                    <div
+                                        class="card h-100 shadow-sm border-0 card-hover border-top-hover p-4 text-center">
+                                        <div class="mx-auto mb-3 rounded-3 d-flex align-items-center justify-content-center"
+                                            style="width: 48px; height: 48px; background-color: #ec2227;">
+                                            <i data-lucide="trending-up" class="text-white"
+                                                style="width: 24px; height: 24px;"></i>
+                                        </div>
+                                        <h5 class="h6 mb-2">Leadership Development</h5>
+                                        <p class="small text-secondary mb-0">34 participants</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Library Tab -->
+                <div class="tab-pane fade" id="library" role="tabpanel">
+                    <div class="card shadow-lg border-0 rounded-4">
+                        <div class="card-body p-4 border-start border-4 border-dark-red"
+                            style="border-left-color: #7b282d !important;">
+                            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="p-2 rounded-3 bg-dark-red-soft">
+                                        <i data-lucide="library" class="text-faa-dark-red"
+                                            style="width: 24px; height: 24px;"></i>
+                                    </div>
+                                    <div>
+                                        <h2 class="h5 mb-1">Our Library</h2>
+                                        <p class="text-secondary small mb-0">Access over 1,245 resources including
+                                            standards, research, and more.</p>
+                                    </div>
+                                </div>
+                                <button class="btn btn-outline-danger">Browse Library</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-4 mt-2">
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card h-100 shadow-sm border-0 card-hover border-top-hover p-4 category-card">
+                                <div class="d-flex align-items-center gap-3 mb-3">
+                                    <div class="icon-box p-2 rounded-3 bg-light text-faa-red transition-all">
+                                        <i data-lucide="file-stack" style="width: 20px; height: 20px;"></i>
+                                    </div>
+                                    <h4 class="h4 mb-0 text-faa-dark-red">284</h4>
+                                </div>
+                                <p class="small text-secondary mb-0">Audit Standards & Guidelines</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card h-100 shadow-sm border-0 card-hover border-top-hover p-4 category-card">
+                                <div class="d-flex align-items-center gap-3 mb-3">
+                                    <div class="icon-box p-2 rounded-3 bg-light text-faa-red transition-all">
+                                        <i data-lucide="book-marked" style="width: 20px; height: 20px;"></i>
+                                    </div>
+                                    <h4 class="h4 mb-0 text-faa-dark-red">156</h4>
+                                </div>
+                                <p class="small text-secondary mb-0">Research Papers</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card h-100 shadow-sm border-0 card-hover border-top-hover p-4 category-card">
+                                <div class="d-flex align-items-center gap-3 mb-3">
+                                    <div class="icon-box p-2 rounded-3 bg-light text-faa-red transition-all">
+                                        <i data-lucide="file-text" style="width: 20px; height: 20px;"></i>
+                                    </div>
+                                    <h4 class="h4 mb-0 text-faa-dark-red">98</h4>
+                                </div>
+                                <p class="small text-secondary mb-0">Case Studies</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card h-100 shadow-sm border-0 card-hover border-top-hover p-4 category-card">
+                                <div class="d-flex align-items-center gap-3 mb-3">
+                                    <div class="icon-box p-2 rounded-3 bg-light text-faa-red transition-all">
+                                        <i data-lucide="book-open" style="width: 20px; height: 20px;"></i>
+                                    </div>
+                                    <h4 class="h4 mb-0 text-faa-dark-red">427</h4>
+                                </div>
+                                <p class="small text-secondary mb-0">Reference Materials</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card h-100 shadow-sm border-0 card-hover border-top-hover p-4 category-card">
+                                <div class="d-flex align-items-center gap-3 mb-3">
+                                    <div class="icon-box p-2 rounded-3 bg-light text-faa-red transition-all">
+                                        <i data-lucide="file-text" style="width: 20px; height: 20px;"></i>
+                                    </div>
+                                    <h4 class="h4 mb-0 text-faa-dark-red">189</h4>
+                                </div>
+                                <p class="small text-secondary mb-0">Legal Documents</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card h-100 shadow-sm border-0 card-hover border-top-hover p-4 category-card">
+                                <div class="d-flex align-items-center gap-3 mb-3">
+                                    <div class="icon-box p-2 rounded-3 bg-light text-faa-red transition-all">
+                                        <i data-lucide="graduation-cap" style="width: 20px; height: 20px;"></i>
+                                    </div>
+                                    <h4 class="h4 mb-0 text-faa-dark-red">91</h4>
+                                </div>
+                                <p class="small text-secondary mb-0">Training Materials</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+
+</body>
+
+</html>

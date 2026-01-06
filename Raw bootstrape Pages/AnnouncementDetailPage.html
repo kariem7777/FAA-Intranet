@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Announcement Detail - Financial Audit Authority</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        :root {
+            --faa-red: #ec2227;
+            --faa-dark-red: #7b282d;
+            --faa-darker-red: #971b1e;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+
+        .faa-card {
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--faa-red);
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .comment-box {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #e5e7eb;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 40px;
+            padding-bottom: 24px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 0;
+            top: 4px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .prose h5 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: #1f2937;
+        }
+
+        .prose ul {
+            margin-top: 0.75rem;
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+        }
+
+        .prose li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        .prose p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .sticky-sidebar {
+            position: sticky;
+            top: 96px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container py-4">
+        <!-- Back Button -->
+        <button class="btn btn-link text-decoration-none mb-4 p-0" onclick="window.history.back()"
+            style="color: var(--faa-red);">
+            <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i>
+            <span class="ms-2">Back to Announcements</span>
+        </button>
+
+        <div class="row g-4">
+            <!-- Main Content -->
+            <div class="col-lg-8">
+                <!-- Announcement Header -->
+                <div class="card faa-card mb-4">
+                    <div class="card-body p-4">
+                        <span class="badge text-white mb-3" style="background-color: var(--faa-red);">Policy</span>
+                        <h2 class="mb-4">New Audit Standards Released</h2>
+                        <div
+                            class="d-flex flex-wrap align-items-center gap-4 small text-secondary mb-4 pb-4 border-bottom">
+                            <div class="d-flex align-items-center gap-2">
+                                <i data-lucide="user" style="width: 16px; height: 16px;"></i>
+                                <span>Policy Department</span>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <i data-lucide="calendar" style="width: 16px; height: 16px;"></i>
+                                <span>2025-11-26</span>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <i data-lucide="clock" style="width: 16px; height: 16px;"></i>
+                                <span>9:00 AM</span>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <i data-lucide="message-circle" style="width: 16px; height: 16px;"></i>
+                                <span id="commentCount">4 comments</span>
+                            </div>
+                        </div>
+
+                        <!-- Content -->
+                        <div class="prose">
+                            <p>We are pleased to announce the release of updated international audit standards, which
+                                are now available in the Knowledge Hub. These new standards reflect the latest
+                                developments in audit practices and regulatory requirements.</p>
+
+                            <h5>Key Updates Include:</h5>
+                            <ul>
+                                <li><strong>Enhanced Risk Assessment Procedures</strong> - New methodologies for
+                                    identifying and evaluating audit risks in complex environments.</li>
+                                <li><strong>Digital Audit Tools Integration</strong> - Guidelines for incorporating AI
+                                    and data analytics into audit processes.</li>
+                                <li><strong>Sustainability Reporting Standards</strong> - Updated requirements for
+                                    environmental and social governance audits.</li>
+                                <li><strong>Fraud Detection Protocols</strong> - Advanced techniques for identifying
+                                    potential fraud indicators.</li>
+                                <li><strong>Quality Control Measures</strong> - Strengthened requirements for internal
+                                    quality reviews.</li>
+                            </ul>
+
+                            <h5>Implementation Timeline:</h5>
+                            <p>All audit teams are expected to review and implement these standards by Q1 2026. Training
+                                sessions will be scheduled throughout December and January to ensure smooth adoption.
+                            </p>
+
+                            <h5>Resources:</h5>
+                            <p>Complete documentation, implementation guides, and training materials are available in
+                                the Knowledge Hub under "Audit Standards 2025". Please contact the Policy Department for
+                                any questions or clarifications.</p>
+
+                            <p>We encourage all team members to familiarize themselves with these updates and
+                                participate in the upcoming training sessions.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Comments Section -->
+                <div class="card faa-card">
+                    <div class="card-body p-4">
+                        <h4 class="mb-4">Comments (<span id="commentCountHeader">4</span>)</h4>
+
+                        <!-- Add Comment Form -->
+                        <div class="mb-4 pb-4 border-bottom">
+                            <textarea class="form-control mb-3" rows="4"
+                                placeholder="Share your thoughts or questions..." id="newCommentText"
+                                style="resize: none;"></textarea>
+                            <div class="d-flex justify-content-end">
+                                <button class="btn text-white" style="background-color: var(--faa-red);"
+                                    onclick="postComment()">
+                                    <i data-lucide="send" style="width: 16px; height: 16px;"></i>
+                                    <span class="ms-2">Post Comment</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Comments List -->
+                        <div id="commentsList">
+                            <!-- Comments will be inserted by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar - Timeline -->
+            <div class="col-lg-4">
+                <div class="card faa-card sticky-sidebar">
+                    <div class="card-body p-4">
+                        <h4 class="mb-4">Activity Timeline</h4>
+
+                        <div class="position-relative">
+                            <!-- Timeline Line -->
+                            <div class="timeline-line"></div>
+
+                            <!-- Timeline Items -->
+                            <div id="timelineItems">
+                                <!-- Timeline items will be inserted by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Data
+        let comments = [
+            {
+                id: 1,
+                author: 'Ahmed Al Maktoum',
+                role: 'Senior Auditor',
+                department: 'Financial Audit',
+                content: 'This is a very important update. I\'ve reviewed the new standards and they align well with our current practices. Looking forward to the implementation workshop.',
+                date: '2025-11-26',
+                time: '10:30 AM',
+            },
+            {
+                id: 2,
+                author: 'Noura Abdullah',
+                role: 'Compliance Manager',
+                department: 'Compliance',
+                content: 'Thank you for sharing this. Will there be training sessions for all departments? We need to ensure everyone is up to date with these changes.',
+                date: '2025-11-26',
+                time: '11:15 AM',
+            },
+            {
+                id: 3,
+                author: 'Khalid Rahman',
+                role: 'Quality Assurance Lead',
+                department: 'Quality Control',
+                content: 'Excellent news! These updated standards will significantly improve our audit quality. I recommend scheduling a comprehensive training program.',
+                date: '2025-11-26',
+                time: '2:45 PM',
+            },
+            {
+                id: 4,
+                author: 'Fatima Al Zaabi',
+                role: 'Lead Auditor',
+                department: 'Audit Operations',
+                content: 'I appreciate the detailed documentation provided. The knowledge hub link is very helpful. This will streamline our audit processes.',
+                date: '2025-11-27',
+                time: '9:20 AM',
+            },
+        ];
+
+        const timeline = [
+            {
+                id: 1,
+                type: 'created',
+                title: 'Announcement Created',
+                description: 'Initial draft created and reviewed',
+                author: 'Policy Department',
+                date: '2025-11-20',
+                time: '3:00 PM',
+            },
+            {
+                id: 2,
+                type: 'updated',
+                title: 'Content Updated',
+                description: 'Added implementation timeline and resource links',
+                author: 'Policy Department',
+                date: '2025-11-24',
+                time: '11:30 AM',
+            },
+            {
+                id: 3,
+                type: 'status',
+                title: 'Approved for Publishing',
+                description: 'Reviewed and approved by Senior Management',
+                author: 'Executive Office',
+                date: '2025-11-25',
+                time: '4:15 PM',
+            },
+            {
+                id: 4,
+                type: 'created',
+                title: 'Published',
+                description: 'Announcement published to all employees',
+                author: 'Policy Department',
+                date: '2025-11-26',
+                time: '9:00 AM',
+            },
+        ];
+
+        // Render comments
+        function renderComments() {
+            const commentsList = document.getElementById('commentsList');
+            commentsList.innerHTML = comments.map(comment => `
+                <div class="d-flex gap-3 mb-4">
+                    <div class="avatar flex-shrink-0">
+                        ${comment.author.split(' ').map(n => n[0]).join('')}
+                    </div>
+                    <div class="flex-grow-1">
+                        <div class="comment-box">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <div>
+                                    <p class="fw-medium mb-0">${comment.author}</p>
+                                    <p class="small text-secondary mb-0">${comment.role} • ${comment.department}</p>
+                                </div>
+                                <span class="small text-secondary">${comment.date} at ${comment.time}</span>
+                            </div>
+                            <p class="small mb-0 mt-2">${comment.content}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Update comment count
+            document.getElementById('commentCount').textContent = `${comments.length} comments`;
+            document.getElementById('commentCountHeader').textContent = comments.length;
+
+            lucide.createIcons();
+        }
+
+        // Render timeline
+        function renderTimeline() {
+            const timelineItems = document.getElementById('timelineItems');
+
+            const getTimelineColor = (type) => {
+                switch (type) {
+                    case 'created': return '#8cd4e4';
+                    case 'updated': return '#543671';
+                    case 'status': return '#ec2227';
+                    case 'comment': return '#7b282d';
+                    default: return '#908e81';
+                }
+            };
+
+            const getTimelineIcon = (type) => {
+                switch (type) {
+                    case 'created': return 'edit';
+                    case 'updated': return 'edit';
+                    case 'status': return 'check-circle';
+                    case 'comment': return 'message-circle';
+                    default: return 'clock';
+                }
+            };
+
+            timelineItems.innerHTML = timeline.map(item => `
+                <div class="timeline-item">
+                    <div class="timeline-dot" style="background-color: ${getTimelineColor(item.type)};">
+                        <i data-lucide="${getTimelineIcon(item.type)}" style="width: 16px; height: 16px;"></i>
+                    </div>
+                    <div>
+                        <p class="fw-medium mb-1">${item.title}</p>
+                        <p class="small text-secondary mb-2">${item.description}</p>
+                        <div class="small text-muted">
+                            <p class="mb-0">${item.author}</p>
+                            <p class="mb-0">${item.date} at ${item.time}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            lucide.createIcons();
+        }
+
+        // Post new comment
+        function postComment() {
+            const textarea = document.getElementById('newCommentText');
+            const content = textarea.value.trim();
+
+            if (content) {
+                const now = new Date();
+                const comment = {
+                    id: comments.length + 1,
+                    author: 'You',
+                    role: 'Current User',
+                    department: 'Your Department',
+                    content: content,
+                    date: now.toISOString().split('T')[0],
+                    time: now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
+                };
+
+                comments.push(comment);
+                textarea.value = '';
+                renderComments();
+            }
+        }
+
+        // Allow Enter key to post comment (with Shift+Enter for new line)
+        document.getElementById('newCommentText').addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                postComment();
+            }
+        });
+
+        // Initial render
+        renderComments();
+        renderTimeline();
+    </script>
+
+</body>
+
+</html>

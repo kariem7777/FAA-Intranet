@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Analytics & Reporting - Financial Audit Authority</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        :root {
+            --faa-red: #ec2227;
+            --faa-dark-red: #7b282d;
+            --faa-darker-red: #971b1e;
+            --faa-maroon: #513a40;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+
+        .bg-pattern {
+            background-image: url('data:image/svg+xml,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="1" fill="%23000000" opacity="0.05"/></svg>');
+            background-repeat: repeat;
+        }
+
+        .hero-banner {
+            background: linear-gradient(135deg, var(--faa-red) 0%, var(--faa-dark-red) 100%);
+            border-radius: 16px;
+            color: white;
+            padding: 60px 48px;
+            position: relative;
+            overflow: hidden;
+            height: 280px;
+        }
+
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: min(957px, calc(100% - 424px));
+            background-color: rgba(81, 58, 64, 0.72);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .stats-cards {
+            margin-top: -80px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .stat-card {
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+        }
+
+        .nav-pills .nav-link {
+            color: #6c757d;
+            background-color: transparent;
+            border-bottom: 2px solid transparent;
+            border-radius: 0;
+            padding: 12px 24px;
+        }
+
+        .nav-pills .nav-link.active {
+            background-color: white;
+            color: var(--faa-dark-red);
+            border-bottom-color: var(--faa-dark-red);
+        }
+
+        .bar-chart-container {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 12px;
+            height: 256px;
+        }
+
+        .bar-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .bar {
+            width: 100%;
+            background: linear-gradient(to top, var(--faa-red), #f87171);
+            border-radius: 8px 8px 0 0;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .bar-item:hover .bar {
+            background: linear-gradient(to top, var(--faa-dark-red), var(--faa-red));
+        }
+
+        .bar-tooltip {
+            position: absolute;
+            top: -32px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #1f2937;
+            color: white;
+            font-size: 11px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .bar-item:hover .bar-tooltip {
+            opacity: 1;
+        }
+
+        .progress-bar-custom {
+            height: 8px;
+            border-radius: 4px;
+            background-color: #e5e7eb;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, #22c55e, #16a34a);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .document-activity-card {
+            transition: all 0.2s ease;
+        }
+
+        .document-activity-card:hover {
+            background-color: #f3f4f6 !important;
+        }
+    </style>
+</head>
+
+<body class="bg-pattern">
+
+    <!-- Main Container -->
+    <div class="container-fluid px-5">
+
+        <!-- Hero Banner -->
+        <div class="pt-4 mb-4 position-relative">
+            <div class="hero-banner">
+                <div class="hero-content">
+                    <h2 class="mb-3" style="font-size: 24px; font-weight: 500; line-height: 28px;">
+                        Analytics & Reporting
+                    </h2>
+                    <p class="mb-0" style="font-size: 18px; font-weight: 400; line-height: 25.6px;">
+                        Comprehensive insights into user behavior, system performance, and organizational metrics
+                    </p>
+                </div>
+            </div>
+
+            <!-- Stats Cards - Overlapping Banner -->
+            <div class="stats-cards px-5">
+                <div class="row g-4">
+                    <div class="col-md-3">
+                        <div class="card stat-card shadow-lg">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-start gap-3">
+                                    <div class="p-3 rounded-3 bg-light text-danger">
+                                        <i data-lucide="users" style="width: 24px; height: 24px;"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="display-6 fw-bold mb-1">450</h3>
+                                        <p class="text-secondary mb-1 small">Total Users</p>
+                                        <p class="small text-success mb-0">+12 vs last month</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card stat-card shadow-lg">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-start gap-3">
+                                    <div class="p-3 rounded-3 bg-light" style="color: var(--faa-dark-red);">
+                                        <i data-lucide="activity" style="width: 24px; height: 24px;"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="display-6 fw-bold mb-1">342</h3>
+                                        <p class="text-secondary mb-1 small">Active Today</p>
+                                        <p class="small text-success mb-0">+8% vs last month</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card stat-card shadow-lg">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-start gap-3">
+                                    <div class="p-3 rounded-3 bg-light" style="color: var(--faa-darker-red);">
+                                        <i data-lucide="clock" style="width: 24px; height: 24px;"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="display-6 fw-bold mb-1">24m</h3>
+                                        <p class="text-secondary mb-1 small">Avg. Session Time</p>
+                                        <p class="small text-success mb-0">+3m vs last month</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card stat-card shadow-lg">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-start gap-3">
+                                    <div class="p-3 rounded-3 bg-light" style="color: var(--faa-maroon);">
+                                        <i data-lucide="eye" style="width: 24px; height: 24px;"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="display-6 fw-bold mb-1">12.4K</h3>
+                                        <p class="text-secondary mb-1 small">Page Views</p>
+                                        <p class="small text-success mb-0">+15% vs last month</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="pt-5 pb-5 mt-5">
+
+            <!-- Overview Card -->
+            <div class="card shadow-lg mb-4">
+                <div class="card-body p-5">
+                    <div class="d-flex align-items-start gap-3 mb-4">
+                        <div class="p-2 rounded-3" style="background-color: rgba(236, 34, 39, 0.1);">
+                            <i data-lucide="bar-chart-3" style="width: 24px; height: 24px; color: var(--faa-red);"></i>
+                        </div>
+                        <div>
+                            <h2 class="h4 mb-2">System Analytics Overview</h2>
+                            <div class="rounded-pill"
+                                style="height: 4px; width: 80px; background: linear-gradient(to right, var(--faa-red), var(--faa-dark-red));">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <p class="fs-6 text-dark">
+                            The Analytics & Reporting module provides real-time insights into how employees interact
+                            with the
+                            FAA intranet system, enabling data-driven decisions to improve user experience and
+                            operational efficiency.
+                        </p>
+                        <p class="text-secondary">
+                            Our comprehensive analytics platform tracks user behavior, content engagement, workflow
+                            performance,
+                            and departmental usage patterns to provide actionable insights for continuous improvement.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analytics Tabs -->
+            <div class="card shadow-lg">
+                <div class="card-body p-5">
+                    <ul class="nav nav-pills bg-light rounded p-1 mb-4" id="analyticsTabs" role="tablist">
+                        <li class="nav-item flex-fill" role="presentation">
+                            <button class="nav-link active w-100" id="user-tab" data-bs-toggle="tab"
+                                data-bs-target="#user" type="button">User Behavior</button>
+                        </li>
+                        <li class="nav-item flex-fill" role="presentation">
+                            <button class="nav-link w-100" id="workflow-tab" data-bs-toggle="tab"
+                                data-bs-target="#workflow" type="button">Workflow Analytics</button>
+                        </li>
+                        <li class="nav-item flex-fill" role="presentation">
+                            <button class="nav-link w-100" id="department-tab" data-bs-toggle="tab"
+                                data-bs-target="#department" type="button">Department Usage</button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <!-- User Behavior Tab -->
+                        <div class="tab-pane fade show active" id="user">
+                            <!-- Most Visited Pages -->
+                            <div class="mb-5">
+                                <div class="d-flex align-items-center justify-content-between mb-3">
+                                    <h4 class="h5 mb-0">Most Visited Pages</h4>
+                                    <span class="badge" style="background-color: var(--faa-red);">This Month</span>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead class="bg-light">
+                                            <tr>
+                                                <th class="small">Page</th>
+                                                <th class="small">Views</th>
+                                                <th class="small">Avg. Time</th>
+                                                <th class="small">Bounce Rate</th>
+                                                <th class="small">Trend</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="small">Home Dashboard</td>
+                                                <td class="small">3,456</td>
+                                                <td class="small">3:24</td>
+                                                <td class="small">12%</td>
+                                                <td><i data-lucide="trending-up"
+                                                        style="width: 16px; height: 16px; color: #22c55e;"></i></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="small">Documents Search</td>
+                                                <td class="small">2,890</td>
+                                                <td class="small">5:12</td>
+                                                <td class="small">8%</td>
+                                                <td><i data-lucide="trending-up"
+                                                        style="width: 16px; height: 16px; color: #22c55e;"></i></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="small">Knowledge Hub</td>
+                                                <td class="small">2,345</td>
+                                                <td class="small">6:45</td>
+                                                <td class="small">15%</td>
+                                                <td><i data-lucide="trending-up"
+                                                        style="width: 16px; height: 16px; color: #22c55e;"></i></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="small">Organization Directory</td>
+                                                <td class="small">1,987</td>
+                                                <td class="small">4:32</td>
+                                                <td class="small">10%</td>
+                                                <td><i data-lucide="trending-up"
+                                                        style="width: 16px; height: 16px; color: #22c55e;"></i></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="small">Employee Feedback</td>
+                                                <td class="small">1,654</td>
+                                                <td class="small">3:58</td>
+                                                <td class="small">18%</td>
+                                                <td><i data-lucide="trending-up"
+                                                        style="width: 16px; height: 16px; color: #22c55e;"></i></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Document Activity -->
+                            <div class="mb-5">
+                                <div class="d-flex align-items-center justify-content-between mb-3">
+                                    <h4 class="h5 mb-0">Document Activity</h4>
+                                    <span class="badge bg-secondary">Top 5 Documents</span>
+                                </div>
+                                <div class="d-flex flex-column gap-3" id="documentActivity">
+                                    <!-- Documents will be inserted by JavaScript -->
+                                </div>
+                            </div>
+
+                            <!-- Peak Usage Hours -->
+                            <div>
+                                <h4 class="h5 mb-4">Peak Usage Hours</h4>
+                                <div class="card border">
+                                    <div class="card-body p-4">
+                                        <div class="bar-chart-container" id="peakUsageChart">
+                                            <!-- Bars will be inserted by JavaScript -->
+                                        </div>
+                                        <div class="w-100 bg-secondary mt-2" style="height: 1px;"></div>
+                                        <div class="d-flex align-items-center justify-content-center gap-4 mt-4">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <div class="rounded"
+                                                    style="width: 16px; height: 16px; background: linear-gradient(to top, var(--faa-red), #f87171);">
+                                                </div>
+                                                <span class="small text-secondary">User Activity</span>
+                                            </div>
+                                            <div class="d-flex align-items-center gap-2">
+                                                <i data-lucide="trending-up"
+                                                    style="width: 16px; height: 16px; color: #22c55e;"></i>
+                                                <span class="small text-secondary">Peak: 10:00 AM (92 users)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Workflow Analytics Tab -->
+                        <div class="tab-pane fade" id="workflow">
+                            <h4 class="h5 mb-4">Workflow Performance</h4>
+                            <div class="d-flex flex-column gap-4" id="workflowMetrics">
+                                <!-- Workflow items will be inserted by JavaScript -->
+                            </div>
+                        </div>
+
+                        <!-- Department Usage Tab -->
+                        <div class="tab-pane fade" id="department">
+                            <h4 class="h5 mb-4">Department Usage Statistics</h4>
+                            <div class="row g-4" id="departmentUsage">
+                                <!-- Department cards will be inserted by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Export Reports -->
+            <div class="card shadow-lg mt-4">
+                <div class="card-body p-5">
+                    <div class="d-flex align-items-start gap-3 mb-4">
+                        <div class="p-2 rounded-3" style="background-color: rgba(236, 34, 39, 0.1);">
+                            <i data-lucide="file-text" style="width: 24px; height: 24px; color: var(--faa-red);"></i>
+                        </div>
+                        <div>
+                            <h2 class="h4 mb-2">Export Analytics Reports</h2>
+                            <div class="rounded-pill"
+                                style="height: 4px; width: 80px; background: linear-gradient(to right, var(--faa-red), var(--faa-dark-red));">
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-secondary mb-4">
+                        Generate comprehensive reports for management review and strategic planning. Export data in
+                        multiple formats
+                        for further analysis and presentation.
+                    </p>
+                    <div class="d-flex gap-3">
+                        <button class="btn btn-outline-secondary">
+                            <i data-lucide="download" style="width: 16px; height: 16px;"></i>
+                            <span class="ms-2">Export PDF</span>
+                        </button>
+                        <button class="btn btn-outline-secondary">
+                            <i data-lucide="file-text" style="width: 16px; height: 16px;"></i>
+                            <span class="ms-2">Export Excel</span>
+                        </button>
+                        <button class="btn text-white"
+                            style="background: linear-gradient(to right, var(--faa-dark-red), var(--faa-darker-red));">
+                            <i data-lucide="target" style="width: 16px; height: 16px;"></i>
+                            <span class="ms-2">Schedule Report</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Data
+        const documentActivity = [
+            { document: 'Audit Methodology Manual', views: 567, downloads: 234, shares: 45 },
+            { document: 'Federal Law No. 12/2025', views: 489, downloads: 312, shares: 67 },
+            { document: 'Remote Work Policy', views: 456, downloads: 289, shares: 34 },
+            { document: 'Risk Assessment Template', views: 398, downloads: 234, shares: 23 },
+            { document: 'Employee Handbook', views: 345, downloads: 198, shares: 12 },
+        ];
+
+        const peakUsageHours = [
+            { hour: '08:00', usage: 45 },
+            { hour: '09:00', usage: 78 },
+            { hour: '10:00', usage: 92 },
+            { hour: '11:00', usage: 85 },
+            { hour: '12:00', usage: 42 },
+            { hour: '13:00', usage: 38 },
+            { hour: '14:00', usage: 76 },
+            { hour: '15:00', usage: 88 },
+            { hour: '16:00', usage: 65 },
+        ];
+
+        const workflowMetrics = [
+            { workflow: 'Document Approval', total: 456, completed: 398, pending: 58, avgTime: '2.3 days' },
+            { workflow: 'Leave Request', total: 789, completed: 756, pending: 33, avgTime: '1.2 days' },
+            { workflow: 'Training Enrollment', total: 234, completed: 212, pending: 22, avgTime: '0.8 days' },
+            { workflow: 'IT Support Ticket', total: 567, completed: 523, pending: 44, avgTime: '1.5 days' },
+        ];
+
+        const departmentUsage = [
+            { dept: 'Financial Audit', users: 78, sessions: 1234, avgTime: '28m', color: 'text-danger' },
+            { dept: 'Performance Audit', users: 65, sessions: 987, avgTime: '24m', color: 'text-primary' },
+            { dept: 'Compliance', users: 54, sessions: 876, avgTime: '22m', color: 'text-warning' },
+            { dept: 'Support Services', users: 89, sessions: 1456, avgTime: '26m', color: 'text-success' },
+            { dept: 'IT Department', users: 42, sessions: 678, avgTime: '20m', color: 'text-info' },
+        ];
+
+        // Render Document Activity
+        const docActivityContainer = document.getElementById('documentActivity');
+        docActivityContainer.innerHTML = documentActivity.map(doc => `
+            <div class="p-4 bg-light rounded-3 document-activity-card">
+                <h5 class="small fw-semibold mb-3">${doc.document}</h5>
+                <div class="row g-4">
+                    <div class="col-4">
+                        <div class="d-flex align-items-center gap-2">
+                            <i data-lucide="eye" style="width: 16px; height: 16px; color: #9ca3af;"></i>
+                            <span class="small text-secondary">${doc.views} views</span>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="d-flex align-items-center gap-2">
+                            <i data-lucide="download" style="width: 16px; height: 16px; color: #9ca3af;"></i>
+                            <span class="small text-secondary">${doc.downloads} downloads</span>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="d-flex align-items-center gap-2">
+                            <i data-lucide="share-2" style="width: 16px; height: 16px; color: #9ca3af;"></i>
+                            <span class="small text-secondary">${doc.shares} shares</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+
+        // Render Peak Usage Chart
+        const chartContainer = document.getElementById('peakUsageChart');
+        const maxUsage = Math.max(...peakUsageHours.map(h => h.usage));
+        chartContainer.innerHTML = peakUsageHours.map(hour => {
+            const heightPercent = (hour.usage / maxUsage) * 100;
+            return `
+                <div class="bar-item">
+                    <div class="bar" style="height: ${heightPercent}%;">
+                        <div class="bar-tooltip">${hour.usage} users</div>
+                    </div>
+                    <span class="small text-secondary">${hour.hour}</span>
+                </div>
+            `;
+        }).join('');
+
+        // Render Workflow Metrics
+        const workflowContainer = document.getElementById('workflowMetrics');
+        workflowContainer.innerHTML = workflowMetrics.map(workflow => {
+            const completionPercent = (workflow.completed / workflow.total) * 100;
+            return `
+                <div class="p-4 bg-light rounded-3 document-activity-card">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <h5 class="mb-0 small fw-semibold">${workflow.workflow}</h5>
+                        <span class="badge" style="background-color: var(--faa-red);">${workflow.avgTime} avg</span>
+                    </div>
+                    <div class="row g-4 mb-3">
+                        <div class="col-4">
+                            <p class="text-secondary mb-1 small">Total</p>
+                            <p class="mb-0 fs-5">${workflow.total}</p>
+                        </div>
+                        <div class="col-4">
+                            <p class="text-secondary mb-1 small">Completed</p>
+                            <p class="text-success mb-0 fs-5">${workflow.completed}</p>
+                        </div>
+                        <div class="col-4">
+                            <p class="text-secondary mb-1 small">Pending</p>
+                            <p class="text-warning mb-0 fs-5">${workflow.pending}</p>
+                        </div>
+                    </div>
+                    <div class="progress-bar-custom">
+                        <div class="progress-fill" style="width: ${completionPercent}%;"></div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        // Render Department Usage
+        const deptContainer = document.getElementById('departmentUsage');
+        deptContainer.innerHTML = departmentUsage.map(dept => `
+            <div class="col-md-6">
+                <div class="p-4 bg-light rounded-3 document-activity-card">
+                    <div class="d-flex align-items-start justify-content-between mb-4">
+                        <div>
+                            <h5 class="small fw-semibold mb-1">${dept.dept}</h5>
+                            <p class="small text-secondary mb-0">${dept.users} active users</p>
+                        </div>
+                        <div class="p-3 rounded-3 bg-white ${dept.color}">
+                            <i data-lucide="users" style="width: 20px; height: 20px;"></i>
+                        </div>
+                    </div>
+                    <div class="row g-4">
+                        <div class="col-6">
+                            <p class="text-secondary mb-1 small">Sessions</p>
+                            <p class="mb-0 fs-5">${dept.sessions}</p>
+                        </div>
+                        <div class="col-6">
+                            <p class="text-secondary mb-1 small">Avg. Time</p>
+                            <p class="mb-0 fs-5">${dept.avgTime}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+
+        // Reinitialize Lucide icons after dynamic content
+        lucide.createIcons();
+    </script>
+
+</body>
+
+</html>
