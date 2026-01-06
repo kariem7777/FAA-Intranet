@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Job Postings - Financial Audit Authority</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        :root {
+            --faa-red: #ec2227;
+            --faa-dark-red: #7b282d;
+        }
+
+        body {
+            background-color: #f9fafb;
+            min-height: 100vh;
+        }
+
+        .job-card {
+            transition: all 0.2s ease;
+        }
+
+        .job-card:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1) !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container py-4">
+
+        <!-- Header -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-body p-4">
+                <button class="btn btn-sm btn-link text-decoration-none p-0 mb-3" onclick="window.history.back()">
+                    <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i>
+                    <span class="ms-2">Back to Home</span>
+                </button>
+                <div class="d-flex align-items-center gap-3 mb-2">
+                    <i data-lucide="briefcase" style="width: 32px; height: 32px; color: var(--faa-dark-red);"></i>
+                    <h1 class="h3 mb-0">Internal Job Postings & Transfers</h1>
+                </div>
+                <p class="text-muted mb-0">Explore career opportunities within the Financial Audit Authority</p>
+            </div>
+        </div>
+
+        <!-- Search and Filter -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-body p-4">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="position-relative">
+                            <i data-lucide="search"
+                                style="width: 16px; height: 16px; position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #999;"></i>
+                            <input type="text" class="form-control ps-5"
+                                placeholder="Search by title, department, or location..." />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="position-relative">
+                            <i data-lucide="filter"
+                                style="width: 16px; height: 16px; position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #999;"></i>
+                            <select class="form-select ps-5">
+                                <option>All Departments</option>
+                                <option>Financial Audit</option>
+                                <option>Risk Management</option>
+                                <option>IT Audit</option>
+                                <option>Internal Audit</option>
+                                <option>Compliance</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <p class="small text-muted mt-3 mb-0">Showing 9 of 9 positions</p>
+            </div>
+        </div>
+
+        <!-- Job Listings -->
+        <div class="row g-4">
+
+            <!-- Job 1 -->
+            <div class="col-12">
+                <div class="card job-card shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div>
+                                <h5 class="mb-2">Senior Financial Auditor</h5>
+                                <div class="d-flex gap-2 flex-wrap">
+                                    <span class="badge" style="background-color: var(--faa-dark-red);">Senior</span>
+                                    <span class="badge bg-secondary">Full-time</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-4">
+                                <div class="d-flex align-items-center gap-2 small text-muted">
+                                    <i data-lucide="building"
+                                        style="width: 16px; height: 16px; color: var(--faa-dark-red);"></i>
+                                    <span>Financial Audit</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="d-flex align-items-center gap-2 small text-muted">
+                                    <i data-lucide="map-pin"
+                                        style="width: 16px; height: 16px; color: var(--faa-dark-red);"></i>
+                                    <span>Abu Dhabi</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="d-flex align-items-center gap-2 small text-muted">
+                                    <i data-lucide="clock"
+                                        style="width: 16px; height: 16px; color: var(--faa-dark-red);"></i>
+                                    <span>Deadline: 2025-12-15</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="mb-3 text-secondary">We are seeking an experienced Senior Financial Auditor to join
+                            our Financial Audit Department. The successful candidate will lead audit engagements and
+                            mentor junior team members.</p>
+
+                        <div class="row g-4 mb-3">
+                            <div class="col-md-6">
+                                <h6 class="small fw-bold mb-2">Key Requirements:</h6>
+                                <ul class="small text-muted mb-0 ps-3">
+                                    <li>Bachelor's degree in Accounting, Finance, or related field</li>
+                                    <li>Professional certification (CPA, ACCA, or equivalent)</li>
+                                    <li>Minimum 7 years of audit experience</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h6 class="small fw-bold mb-2">Main Responsibilities:</h6>
+                                <ul class="small text-muted mb-0 ps-3">
+                                    <li>Lead financial audit engagements for government entities</li>
+                                    <li>Review and assess internal control systems</li>
+                                    <li>Prepare comprehensive audit reports</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-2 pt-3 border-top">
+                            <button class="btn btn-primary"
+                                style="background-color: var(--faa-dark-red); border-color: var(--faa-dark-red);">Apply
+                                Now</button>
+                            <button class="btn btn-outline-secondary">View Full Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Job 2 -->
+            <div class="col-12">
+                <div class="card job-card shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div>
+                                <h5 class="mb-2">Risk Assessment Specialist</h5>
+                                <div class="d-flex gap-2 flex-wrap">
+                                    <span class="badge" style="background-color: var(--faa-dark-red);">Mid-level</span>
+                                    <span class="badge bg-secondary">Full-time</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-4">
+                                <div class="d-flex align-items-center gap-2 small text-muted">
+                                    <i data-lucide="building"
+                                        style="width: 16px; height: 16px; color: var(--faa-dark-red);"></i>
+                                    <span>Risk Management</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="d-flex align-items-center gap-2 small text-muted">
+                                    <i data-lucide="map-pin"
+                                        style="width: 16px; height: 16px; color: var(--faa-dark-red);"></i>
+                                    <span>Dubai</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="d-flex align-items-center gap-2 small text-muted">
+                                    <i data-lucide="clock"
+                                        style="width: 16px; height: 16px; color: var(--faa-dark-red);"></i>
+                                    <span>Deadline: 2025-12-20</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="mb-3 text-secondary">Join our Risk Management team to help identify, assess, and
+                            mitigate risks across government audit operations.</p>
+
+                        <div class="row g-4 mb-3">
+                            <div class="col-md-6">
+                                <h6 class="small fw-bold mb-2">Key Requirements:</h6>
+                                <ul class="small text-muted mb-0 ps-3">
+                                    <li>Bachelor's degree in Risk Management, Finance, or related field</li>
+                                    <li>Minimum 5 years of risk assessment experience</li>
+                                    <li>Knowledge of risk management frameworks</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h6 class="small fw-bold mb-2">Main Responsibilities:</h6>
+                                <ul class="small text-muted mb-0 ps-3">
+                                    <li>Conduct risk assessments for audit projects</li>
+                                    <li>Develop risk mitigation strategies</li>
+                                    <li>Monitor and report on risk indicators</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-2 pt-3 border-top">
+                            <button class="btn btn-primary"
+                                style="background-color: var(--faa-dark-red); border-color: var(--faa-dark-red);">Apply
+                                Now</button>
+                            <button class="btn btn-outline-secondary">View Full Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Job 3 -->
+            <div class="col-12">
+                <div class="card job-card shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div>
+                                <h5 class="mb-2">IT Audit Manager</h5>
+                                <div class="d-flex gap-2 flex-wrap">
+                                    <span class="badge" style="background-color: var(--faa-dark-red);">Manager</span>
+                                    <span class="badge bg-secondary">Full-time</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-4">
+                                <div class="d-flex align-items-center gap-2 small text-muted">
+                                    <i data-lucide="building"
+                                        style="width: 16px; height: 16px; color: var(--faa-dark-red);"></i>
+                                    <span>IT Audit</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="d-flex align-items-center gap-2 small text-muted">
+                                    <i data-lucide="map-pin"
+                                        style="width: 16px; height: 16px; color: var(--faa-dark-red);"></i>
+                                    <span>Abu Dhabi</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="d-flex align-items-center gap-2 small text-muted">
+                                    <i data-lucide="clock"
+                                        style="width: 16px; height: 16px; color: var(--faa-dark-red);"></i>
+                                    <span>Deadline: 2025-12-25</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="mb-3 text-secondary">Lead our IT Audit team in evaluating technology controls and
+                            cybersecurity measures across government entities.</p>
+
+                        <div class="row g-4 mb-3">
+                            <div class="col-md-6">
+                                <h6 class="small fw-bold mb-2">Key Requirements:</h6>
+                                <ul class="small text-muted mb-0 ps-3">
+                                    <li>Bachelor's degree in IT, Computer Science, or related field</li>
+                                    <li>Professional certification (CISA, CISSP, or equivalent)</li>
+                                    <li>Minimum 8 years of IT audit experience</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h6 class="small fw-bold mb-2">Main Responsibilities:</h6>
+                                <ul class="small text-muted mb-0 ps-3">
+                                    <li>Manage IT audit engagements</li>
+                                    <li>Evaluate IT controls and cybersecurity measures</li>
+                                    <li>Lead technology risk assessments</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-2 pt-3 border-top">
+                            <button class="btn btn-primary"
+                                style="background-color: var(--faa-dark-red); border-color: var(--faa-dark-red);">Apply
+                                Now</button>
+                            <button class="btn btn-outline-secondary">View Full Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+
+</body>
+
+</html>

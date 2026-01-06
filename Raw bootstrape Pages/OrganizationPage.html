@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Organization Structure - Financial Audit Authority</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        :root {
+            --faa-red: #EC2227;
+            --faa-orange: #F97316;
+            --faa-gray: #6B7280;
+            --faa-pink: #EC4899;
+            --faa-blue: #3B82F6;
+            --faa-red-light: #EF4444;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+        }
+
+        .bg-pattern {
+            background-image: url('data:image/svg+xml,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="1" fill="%23000000" opacity="0.05"/></svg>');
+            background-repeat: repeat;
+        }
+
+        .org-card {
+            display: inline-block;
+            padding: 12px 24px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .org-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .org-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .org-connector {
+            width: 2px;
+            height: 48px;
+            background-color: #d1d5db;
+            margin: 0 auto;
+        }
+
+        .org-connector-h {
+            height: 2px;
+            background-color: #d1d5db;
+        }
+
+        .dept-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background-color: #f9fafb;
+            border-radius: 6px;
+            font-size: 12px;
+            color: #374151;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .dept-item:hover {
+            background-color: #f3f4f6;
+        }
+
+        .dept-icon-box {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sector-card {
+            padding: 12px 16px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .sector-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .dept-card {
+            padding: 12px 16px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .dept-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .small-label {
+            font-size: 11px;
+            color: #9ca3af;
+            display: block;
+            margin-bottom: 4px;
+        }
+    </style>
+</head>
+
+<body class="bg-pattern">
+
+    <!-- Header -->
+    <div class="bg-white shadow-sm">
+        <div class="container-fluid px-4 py-3">
+            <div class="d-flex align-items-center justify-content-between">
+                <!-- Left: Back Button and Title -->
+                <div class="d-flex align-items-center gap-3">
+                    <button class="btn btn-link text-secondary text-decoration-none p-0 d-flex align-items-center gap-2"
+                        onclick="window.history.back()">
+                        <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i>
+                        <span>Back to home page</span>
+                    </button>
+                    <div class="vr"></div>
+                    <h1 class="h6 mb-0 fw-semibold">Organization Structure</h1>
+                </div>
+                <!-- Right: Change View Button -->
+                <button class="btn btn-sm btn-outline-secondary" onclick="alert('View mode feature')">
+                    <i data-lucide="layout-grid" style="width: 16px; height: 16px;"></i>
+                    <span class="ms-2">Change View</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Organization Chart -->
+    <div class="container-fluid px-5 py-5">
+        <div class="d-flex flex-column align-items-center">
+
+            <!-- Level 1: Ruler of Dubai -->
+            <div class="mb-3">
+                <div class="org-card">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="org-icon" style="background-color: var(--faa-red);">R</div>
+                        <span class="fw-medium">Ruler of Dubai</span>
+                    </div>
+                </div>
+            </div>
+            <div class="org-connector"></div>
+
+            <!-- Level 2: Chairman -->
+            <div class="mb-3">
+                <div class="org-card">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="org-icon" style="background-color: var(--faa-orange);">C</div>
+                        <span class="fw-medium">Chairman</span>
+                    </div>
+                </div>
+            </div>
+            <div class="org-connector"></div>
+
+            <!-- Level 3: Director General -->
+            <div class="mb-3">
+                <div class="org-card">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="org-icon" style="background-color: var(--faa-gray);">D</div>
+                        <span class="fw-medium">Director General</span>
+                    </div>
+                </div>
+            </div>
+            <div class="org-connector"></div>
+
+            <!-- T-Junction and Branch -->
+            <div class="position-relative" style="width: 800px;">
+                <div class="org-connector-h position-absolute start-0 end-0" style="top: 0;"></div>
+
+                <!-- Level 4: Branch -->
+                <div class="d-flex justify-content-between pt-5">
+                    <!-- Left: Deputy DG -->
+                    <div class="d-flex flex-column align-items-center">
+                        <div class="org-connector" style="margin-top: -48px;"></div>
+                        <div class="org-card">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="org-icon" style="background-color: var(--faa-pink);">D</div>
+                                <span class="fw-medium">Deputy Director General</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: DG Office -->
+                    <div class="d-flex flex-column align-items-center">
+                        <div class="org-connector" style="margin-top: -48px;"></div>
+                        <div class="org-card">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="org-icon" style="background-color: var(--faa-blue);">D</div>
+                                <span class="fw-medium">Director General Office</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Level 5: Departments and Sectors -->
+            <div class="mt-5" style="max-width: 1400px; width: 100%;">
+                <div class="d-flex justify-content-start" style="margin-left: 12.5%;">
+                    <div class="org-connector"></div>
+                </div>
+
+                <div class="row g-5 mt-1">
+                    <!-- Left Column: 3 Departments -->
+                    <div class="col-md-3">
+                        <div class="d-flex flex-column gap-4">
+                            <!-- Strategy Department -->
+                            <div class="dept-card">
+                                <div class="d-flex align-items-start gap-3">
+                                    <div class="org-icon"
+                                        style="width: 28px; height: 28px; background-color: var(--faa-blue); font-size: 12px;">
+                                        D</div>
+                                    <div>
+                                        <span class="small-label">Department</span>
+                                        <div class="small fw-medium">Strategy Department</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Professional Practice & Quality Assurance Department -->
+                            <div class="dept-card">
+                                <div class="d-flex align-items-start gap-3">
+                                    <div class="org-icon"
+                                        style="width: 28px; height: 28px; background-color: var(--faa-blue); font-size: 12px;">
+                                        D</div>
+                                    <div>
+                                        <span class="small-label">Department</span>
+                                        <div class="small fw-medium">Professional Practice & Quality Assurance
+                                            Department</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Consultancy & Business Excellence Department -->
+                            <div class="dept-card">
+                                <div class="d-flex align-items-start gap-3">
+                                    <div class="org-icon"
+                                        style="width: 28px; height: 28px; background-color: var(--faa-blue); font-size: 12px;">
+                                        D</div>
+                                    <div>
+                                        <span class="small-label">Department</span>
+                                        <div class="small fw-medium">Consultancy & Business Excellence Department</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: 3 Sectors with Departments -->
+                    <div class="col-md-9">
+                        <div class="d-flex flex-column gap-4">
+
+                            <!-- Sector 1: Operation, Compliance and Performance Audit -->
+                            <div>
+                                <div class="sector-card mb-3">
+                                    <div class="d-flex align-items-start gap-3">
+                                        <div class="org-icon"
+                                            style="width: 28px; height: 28px; background-color: var(--faa-red-light); font-size: 12px;">
+                                            D</div>
+                                        <div>
+                                            <span class="small-label">Sector</span>
+                                            <div class="small fw-medium">Operation, Compliance and Performance Audit
+                                                Sector</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ms-5 d-flex flex-column gap-2">
+                                    <div class="dept-item">
+                                        <div class="dept-icon-box"><i data-lucide="landmark"
+                                                style="width: 12px; height: 12px; color: #6b7280;"></i></div>
+                                        <span>Ports & Free Zones Audit Department</span>
+                                    </div>
+                                    <div class="dept-item">
+                                        <div class="dept-icon-box"><i data-lucide="building"
+                                                style="width: 12px; height: 12px; color: #6b7280;"></i></div>
+                                        <span>Real Estate, Hotels & Entertainment Audit Department</span>
+                                    </div>
+                                    <div class="dept-item">
+                                        <div class="dept-icon-box"><i data-lucide="layers"
+                                                style="width: 12px; height: 12px; color: #6b7280;"></i></div>
+                                        <span>Energy & Industry Audit Department</span>
+                                    </div>
+                                    <div class="dept-item">
+                                        <div class="dept-icon-box"><i data-lucide="globe"
+                                                style="width: 12px; height: 12px; color: #6b7280;"></i></div>
+                                        <span>Government & Nonprofit Entities Audit Department</span>
+                                    </div>
+                                    <div class="dept-item">
+                                        <div class="dept-icon-box"><i data-lucide="plane"
+                                                style="width: 12px; height: 12px; color: #6b7280;"></i></div>
+                                        <span>Aviation & Transportation Audit Department</span>
+                                    </div>
+                                    <div class="dept-item">
+                                        <div class="dept-icon-box"><i data-lucide="briefcase"
+                                                style="width: 12px; height: 12px; color: #6b7280;"></i></div>
+                                        <span>Banks & Investment Companies Audit Department</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sector 2: Financial Statement Audit and Specialized Audit -->
+                            <div>
+                                <div class="sector-card mb-3">
+                                    <div class="d-flex align-items-start gap-3">
+                                        <div class="org-icon"
+                                            style="width: 28px; height: 28px; background-color: var(--faa-red-light); font-size: 12px;">
+                                            D</div>
+                                        <div>
+                                            <span class="small-label">Sector</span>
+                                            <div class="small fw-medium">Financial Statement Audit and Specialized Audit
+                                                Sector</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ms-5 d-flex flex-column gap-2">
+                                    <div class="dept-item">
+                                        <div class="dept-icon-box"><i data-lucide="file-check"
+                                                style="width: 12px; height: 12px; color: #6b7280;"></i></div>
+                                        <span>Financial Statement Audit Department</span>
+                                    </div>
+                                    <div class="dept-item">
+                                        <div class="dept-icon-box"><i data-lucide="shield-check"
+                                                style="width: 12px; height: 12px; color: #6b7280;"></i></div>
+                                        <span>Financial & Administrative Violation Department</span>
+                                    </div>
+                                    <div class="dept-item">
+                                        <div class="dept-icon-box"><i data-lucide="building"
+                                                style="width: 12px; height: 12px; color: #6b7280;"></i></div>
+                                        <span>Construction & Infrastructure Audit Department</span>
+                                    </div>
+                                    <div class="dept-item">
+                                        <div class="dept-icon-box"><i data-lucide="layers"
+                                                style="width: 12px; height: 12px; color: #6b7280;"></i></div>
+                                        <span>Information Systems Audit Department</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sector 3: Corporate Support -->
+                            <div>
+                                <div class="sector-card mb-3">
+                                    <div class="d-flex align-items-start gap-3">
+                                        <div class="org-icon"
+                                            style="width: 28px; height: 28px; background-color: var(--faa-red-light); font-size: 12px;">
+                                            D</div>
+                                        <div>
+                                            <span class="small-label">Sector</span>
+                                            <div class="small fw-medium">Corporate Support Sector</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ms-5 d-flex flex-column gap-2">
+                                    <div class="dept-item">
+                                        <div class="dept-icon-box"><i data-lucide="users"
+                                                style="width: 12px; height: 12px; color: #6b7280;"></i></div>
+                                        <span>Human Resources Department</span>
+                                    </div>
+                                    <div class="dept-item">
+                                        <div class="dept-icon-box"><i data-lucide="dollar-sign"
+                                                style="width: 12px; height: 12px; color: #6b7280;"></i></div>
+                                        <span>Finance and Procurement Department</span>
+                                    </div>
+                                    <div class="dept-item">
+                                        <div class="dept-icon-box"><i data-lucide="scale"
+                                                style="width: 12px; height: 12px; color: #6b7280;"></i></div>
+                                        <span>Legal Affairs Department</span>
+                                    </div>
+                                    <div class="dept-item">
+                                        <div class="dept-icon-box"><i data-lucide="layers"
+                                                style="width: 12px; height: 12px; color: #6b7280;"></i></div>
+                                        <span>Information Technology Department</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+
+</body>
+
+</html>

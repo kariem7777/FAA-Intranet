@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employee Directory - Financial Audit Authority</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        :root {
+            --faa-red: #ec2227;
+            --faa-dark-red: #7b282d;
+            --faa-blue: #1949a1;
+            --faa-purple: #543671;
+            --faa-cyan: #8cd4e4;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+        }
+
+        .employee-card {
+            transition: all 0.3s ease;
+            border: 1px solid #e0e0e0;
+        }
+
+        .employee-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1) !important;
+            border-color: #d0d0d0;
+        }
+
+        .employee-img {
+            height: 128px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .employee-card:hover .employee-img {
+            transform: scale(1.05);
+        }
+
+        .employee-card:hover h6 {
+            color: var(--faa-red) !important;
+        }
+
+        .employee-card:hover .btn-outline-secondary {
+            background-color: var(--faa-red) !important;
+            color: white !important;
+            border-color: var(--faa-red) !important;
+        }
+
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <div class="bg-white border-bottom shadow-sm sticky-header">
+        <div class="container py-3">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <div class="d-flex align-items-center gap-3">
+                    <button class="btn btn-sm btn-ghost" onclick="window.history.back()">
+                        <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i>
+                        <span class="ms-2">Back</span>
+                    </button>
+                    <div>
+                        <h2 class="h5 mb-1">Employee Directory</h2>
+                        <p class="small text-muted mb-0">Browse all employees and team members</p>
+                    </div>
+                </div>
+                <span class="badge bg-light text-dark border">8 Employees</span>
+            </div>
+
+            <!-- Search and Filter -->
+            <div class="row g-3">
+                <div class="col-md-8">
+                    <div class="position-relative">
+                        <i data-lucide="search"
+                            style="width: 16px; height: 16px; position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #999;"></i>
+                        <input type="text" class="form-control ps-5"
+                            placeholder="Search by name, role, or department..." id="searchInput" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <select class="form-select" id="deptFilter">
+                        <option value="all">All Departments</option>
+                        <option>Ports & Free Zones Audit Department</option>
+                        <option>Real Estate, Hotels & Entertainment Audit</option>
+                        <option>Energy & Industry Audit Department</option>
+                        <option>Government & Nonprofit Entities Audit</option>
+                        <option>Aviation & Transportation Audit</option>
+                        <option>Banks & Investment Companies Audit</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container py-4">
+
+        <!-- Stats -->
+        <div class="row g-3 mb-4">
+            <div class="col-md-3">
+                <div class="card shadow-sm">
+                    <div class="card-body p-3">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="p-2 rounded" style="background-color: rgba(236, 34, 39, 0.1);">
+                                <i data-lucide="users" style="width: 20px; height: 20px; color: var(--faa-red);"></i>
+                            </div>
+                            <div>
+                                <p class="h5 mb-0">8</p>
+                                <p class="small text-muted mb-0">Total Employees</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card shadow-sm">
+                    <div class="card-body p-3">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="p-2 rounded" style="background-color: rgba(25, 73, 161, 0.1);">
+                                <i data-lucide="building-2"
+                                    style="width: 20px; height: 20px; color: var(--faa-blue);"></i>
+                            </div>
+                            <div>
+                                <p class="h5 mb-0">6</p>
+                                <p class="small text-muted mb-0">Departments</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card shadow-sm">
+                    <div class="card-body p-3">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="p-2 rounded" style="background-color: rgba(84, 54, 113, 0.1);">
+                                <i data-lucide="user" style="width: 20px; height: 20px; color: var(--faa-purple);"></i>
+                            </div>
+                            <div>
+                                <p class="h5 mb-0">6</p>
+                                <p class="small text-muted mb-0">Managers</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card shadow-sm">
+                    <div class="card-body p-3">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="p-2 rounded" style="background-color: rgba(140, 212, 228, 0.1);">
+                                <i data-lucide="award" style="width: 20px; height: 20px; color: var(--faa-cyan);"></i>
+                            </div>
+                            <div>
+                                <p class="h5 mb-0">4.5yrs</p>
+                                <p class="small text-muted mb-0">Avg. Tenure</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Employee Grid -->
+        <div class="row g-3" id="employeeGrid">
+            <!-- Employee 1 -->
+            <div class="col-md-3">
+                <div class="card employee-card shadow-sm h-100">
+                    <div class="position-relative overflow-hidden bg-light">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400"
+                            class="card-img-top employee-img" alt="Ahmed Al Mansouri">
+                        <span class="badge bg-white text-dark position-absolute top-0 end-0 m-2">Since 2018</span>
+                    </div>
+                    <div class="card-body p-3">
+                        <h6 class="mb-1">Ahmed Al Mansouri</h6>
+                        <p class="small text-muted mb-2">Sector Director</p>
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <i data-lucide="building-2" style="width: 12px; height: 12px; color: #999;"></i>
+                            <span class="small text-muted text-truncate">Operation, Compliance Audit Sector</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <i data-lucide="mail" style="width: 12px; height: 12px; color: #999;"></i>
+                            <span class="small text-muted text-truncate">ahmed.almansouri@faa.gov.ae</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <i data-lucide="phone" style="width: 12px; height: 12px; color: #999;"></i>
+                            <span class="small text-muted">+971 4 XXX XXXX</span>
+                        </div>
+                        <button class="btn btn-sm btn-outline-secondary w-100">
+                            View Profile
+                            <i data-lucide="chevron-right" style="width: 12px; height: 12px; margin-left: 4px;"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Employee 2 -->
+            <div class="col-md-3">
+                <div class="card employee-card shadow-sm h-100">
+                    <div class="position-relative overflow-hidden bg-light">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400"
+                            class="card-img-top employee-img" alt="Sara Al Hashimi">
+                        <span class="badge bg-white text-dark position-absolute top-0 end-0 m-2">Since 2019</span>
+                    </div>
+                    <div class="card-body p-3">
+                        <h6 class="mb-1">Sara Al Hashimi</h6>
+                        <p class="small text-muted mb-2">Department Manager</p>
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <i data-lucide="building-2" style="width: 12px; height: 12px; color: #999;"></i>
+                            <span class="small text-muted text-truncate">Ports & Free Zones Audit Department</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <i data-lucide="mail" style="width: 12px; height: 12px; color: #999;"></i>
+                            <span class="small text-muted text-truncate">sara.alhashimi@faa.gov.ae</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <i data-lucide="phone" style="width: 12px; height: 12px; color: #999;"></i>
+                            <span class="small text-muted">+971 4 XXX XXXX</span>
+                        </div>
+                        <button class="btn btn-sm btn-outline-secondary w-100">
+                            View Profile
+                            <i data-lucide="chevron-right" style="width: 12px; height: 12px; margin-left: 4px;"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Employee 3 -->
+            <div class="col-md-3">
+                <div class="card employee-card shadow-sm h-100">
+                    <div class="position-relative overflow-hidden bg-light">
+                        <img src="https://images.unsplash.com/photo-1556157382-97eda2f9e2bf?w=400"
+                            class="card-img-top employee-img" alt="Mohammed Al Ketbi">
+                        <span class="badge bg-white text-dark position-absolute top-0 end-0 m-2">Since 2017</span>
+                    </div>
+                    <div class="card-body p-3">
+                        <h6 class="mb-1">Mohammed Al Ketbi</h6>
+                        <p class="small text-muted mb-2">Department Manager</p>
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <i data-lucide="building-2" style="width: 12px; height: 12px; color: #999;"></i>
+                            <span class="small text-muted text-truncate">Real Estate, Hotels Audit</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <i data-lucide="mail" style="width: 12px; height: 12px; color: #999;"></i>
+                            <span class="small text-muted text-truncate">mohammed.alketbi@faa.gov.ae</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <i data-lucide="phone" style="width: 12px; height: 12px; color: #999;"></i>
+                            <span class="small text-muted">+971 4 XXX XXXX</span>
+                        </div>
+                        <button class="btn btn-sm btn-outline-secondary w-100">
+                            View Profile
+                            <i data-lucide="chevron-right" style="width: 12px; height: 12px; margin-left: 4px;"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Employee 4 -->
+            <div class="col-md-3">
+                <div class="card employee-card shadow-sm h-100">
+                    <div class="position-relative overflow-hidden bg-light">
+                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400"
+                            class="card-img-top employee-img" alt="Fatima Al Zaabi">
+                        <span class="badge bg-white text-dark position-absolute top-0 end-0 m-2">Since 2016</span>
+                    </div>
+                    <div class="card-body p-3">
+                        <h6 class="mb-1">Fatima Al Zaabi</h6>
+                        <p class="small text-muted mb-2">Department Manager</p>
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <i data-lucide="building-2" style="width: 12px; height: 12px; color: #999;"></i>
+                            <span class="small text-muted text-truncate">Energy & Industry Audit Department</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <i data-lucide="mail" style="width: 12px; height: 12px; color: #999;"></i>
+                            <span class="small text-muted text-truncate">fatima.alzaabi@faa.gov.ae</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <i data-lucide="phone" style="width: 12px; height: 12px; color: #999;"></i>
+                            <span class="small text-muted">+971 4 XXX XXXX</span>
+                        </div>
+                        <button class="btn btn-sm btn-outline-secondary w-100">
+                            View Profile
+                            <i data-lucide="chevron-right" style="width: 12px; height: 12px; margin-left: 4px;"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- More employees... (Ali, Maryam, Khalid, Noura) -->
+            <div class="col-md-3">
+                <div class="card employee-card shadow-sm h-100">
+                    <div class="position-relative overflow-hidden bg-light">
+                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400"
+                            class="card-img-top employee-img" alt="Ali Al Suwaidi">
+                        <span class="badge bg-white text-dark position-absolute top-0 end-0 m-2">Since 2015</span>
+                    </div>
+                    <div class="card-body p-3">
+                        <h6 class="mb-1">Ali Al Suwaidi</h6>
+                        <p class="small text-muted mb-2">Department Manager</p>
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <i data-lucide="building-2" style="width: 12px; height: 12px; color: #999;"></i>
+                            <span class="small text-muted text-truncate">Government & Nonprofit Entities</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <i data-lucide="mail" style="width: 12px; height: 12px; color: #999;"></i>
+                            <span class="small text-muted text-truncate">ali.alsuwaidi@faa.gov.ae</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <i data-lucide="phone" style="width: 12px; height: 12px; color: #999;"></i>
+                            <span class="small text-muted">+971 4 XXX XXXX</span>
+                        </div>
+                        <button class="btn btn-sm btn-outline-secondary w-100">
+                            View Profile
+                            <i data-lucide="chevron-right" style="width: 12px; height: 12px; margin-left: 4px;"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card employee-card shadow-sm h-100">
+                    <div class="position-relative overflow-hidden bg-light">
+                        <img src="https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=400"
+                            class="card-img-top employee-img" alt="Maryam Al Shamsi">
+                        <span class="badge bg-white text-dark position-absolute top-0 end-0 m-2">Since 2020</span>
+                    </div>
+                    <div class="card-body p-3">
+                        <h6 class="mb-1">Maryam Al Shamsi</h6>
+                        <p class="small text-muted mb-2">Department Manager</p>
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <i data-lucide="building-2" style="width: 12px; height: 12px; color: #999;"></i>
+                            <span class="small text-muted text-truncate">Aviation & Transportation Audit</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <i data-lucide="mail" style="width: 12px; height: 12px; color: #999;"></i>
+                            <span class="small text-muted text-truncate">maryam.alshamsi@faa.gov.ae</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <i data-lucide="phone" style="width: 12px; height: 12px; color: #999;"></i>
+                            <span class="small text-muted">+971 4 XXX XXXX</span>
+                        </div>
+                        <button class="btn btn-sm btn-outline-secondary w-100">
+                            View Profile
+                            <i data-lucide="chevron-right" style="width: 12px; height: 12px; margin-left: 4px;"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card employee-card shadow-sm h-100">
+                    <div class="position-relative overflow-hidden bg-light">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400"
+                            class="card-img-top employee-img" alt="Khalid Al Muhairi">
+                        <span class="badge bg-white text-dark position-absolute top-0 end-0 m-2">Since 2021</span>
+                    </div>
+                    <div class="card-body p-3">
+                        <h6 class="mb-1">Khalid Al Muhairi</h6>
+                        <p class="small text-muted mb-2">Senior Auditor</p>
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <i data-lucide="building-2" style="width: 12px; height: 12px; color: #999;"></i>
+                            <span class="small text-muted text-truncate">Banks & Investment Audit</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <i data-lucide="mail" style="width: 12px; height: 12px; color: #999;"></i>
+                            <span class="small text-muted text-truncate">khalid.almuhairi@faa.gov.ae</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <i data-lucide="phone" style="width: 12px; height: 12px; color: #999;"></i>
+                            <span class="small text-muted">+971 4 XXX XXXX</span>
+                        </div>
+                        <button class="btn btn-sm btn-outline-secondary w-100">
+                            View Profile
+                            <i data-lucide="chevron-right" style="width: 12px; height: 12px; margin-left: 4px;"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card employee-card shadow-sm h-100">
+                    <div class="position-relative overflow-hidden bg-light">
+                        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400"
+                            class="card-img-top employee-img" alt="Noura Al Kaabi">
+                        <span class="badge bg-white text-dark position-absolute top-0 end-0 m-2">Since 2022</span>
+                    </div>
+                    <div class="card-body p-3">
+                        <h6 class="mb-1">Noura Al Kaabi</h6>
+                        <p class="small text-muted mb-2">Senior Auditor</p>
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <i data-lucide="building-2" style="width: 12px; height: 12px; color: #999;"></i>
+                            <span class="small text-muted text-truncate">Ports & Free Zones Audit</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <i data-lucide="mail" style="width: 12px; height: 12px; color: #999;"></i>
+                            <span class="small text-muted text-truncate">noura.alkaabi@faa.gov.ae</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <i data-lucide="phone" style="width: 12px; height: 12px; color: #999;"></i>
+                            <span class="small text-muted">+971 4 XXX XXXX</span>
+                        </div>
+                        <button class="btn btn-sm btn-outline-secondary w-100">
+                            View Profile
+                            <i data-lucide="chevron-right" style="width: 12px; height: 12px; margin-left: 4px;"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+
+</body>
+
+</html>

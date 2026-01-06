@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home - Financial Audit Authority Intranet</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        :root {
+            --faa-red: #ec2227;
+            --faa-dark-red: #7b282d;
+            --faa-darker-red: #971b1e;
+            --faa-cyan: #8cd4e4;
+            --faa-brown: #413f30;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+
+        .bg-pattern {
+            background-image: url('data:image/svg+xml,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="1" fill="%23000000" opacity="0.05"/></svg>');
+            background-repeat: repeat;
+        }
+
+        .hero-banner {
+            background: linear-gradient(135deg, var(--faa-red) 0%, var(--faa-dark-red) 100%);
+            border-radius: 16px;
+            color: white;
+            padding: 60px 48px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .quick-link-btn {
+            transition: all 0.3s ease;
+        }
+
+        .quick-link-btn:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+            border-color: rgba(123, 40, 45, 0.3) !important;
+            background-color: #f8f9fa !important;
+        }
+
+        .quick-link-btn:hover .link-icon-box {
+            transform: scale(1.1);
+        }
+
+        .link-icon-box {
+            transition: transform 0.2s ease;
+        }
+
+        .faa-nav-link {
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .faa-nav-link.active {
+            background-color: white !important;
+            border-bottom-color: var(--faa-dark-red);
+        }
+
+        .announcement-card {
+            transition: all 0.2s ease;
+        }
+
+        .announcement-card:hover {
+            border-color: rgba(123, 40, 45, 0.3) !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+        }
+
+        .announcement-card:hover h6 {
+            color: var(--faa-dark-red) !important;
+        }
+
+        .calendar-day {
+            width: 40px;
+            height: 40px;
+            border-radius: 7px;
+            transition: all 0.2s ease;
+        }
+
+        .calendar-day:hover {
+            background-color: #e5e7eb !important;
+        }
+
+        .calendar-day.has-events {
+            background-color: #dbface !important;
+        }
+
+        .calendar-day.selected {
+            background-color: var(--faa-dark-red) !important;
+            color: white !important;
+        }
+
+        .event-card {
+            transition: all 0.3s ease;
+        }
+
+        .event-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1) !important;
+            border-color: var(--faa-dark-red) !important;
+        }
+
+        .people-card {
+            transition: all 0.3s ease;
+        }
+
+        .people-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .gallery-img {
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.05);
+        }
+
+        .job-card {
+            transition: all 0.2s ease;
+        }
+
+        .job-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+        }
+    </style>
+</head>
+
+<body class="bg-pattern">
+
+    <!-- Hero Banner -->
+    <div class="container-fluid px-5 pt-4">
+        <div class="hero-banner mb-4">
+            <div class="position-relative">
+                <h1 class="display-4 fw-bold mb-3">Welcome Back!</h1>
+                <p class="lead mb-0">Your central hub for all FAA resources, updates, and collaboration</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="container-fluid px-5">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body p-4">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="rounded-3 p-2" style="background-color: rgba(123, 40, 45, 0.1);">
+                            <i data-lucide="external-link"
+                                style="width: 16px; height: 16px; color: var(--faa-dark-red);"></i>
+                        </div>
+                        <h3 class="h5 mb-0">Quick Links</h3>
+                    </div>
+                    <a href="#" class="text-decoration-none small" style="color: var(--faa-dark-red);">View All</a>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-1-5">
+                        <button
+                            class="btn quick-link-btn w-100 p-3 border bg-white d-flex flex-column align-items-center gap-2">
+                            <div class="link-icon-box rounded-3 p-2" style="background-color: #f8e8e9;">
+                                <i data-lucide="external-link" style="width: 20px; height: 20px; color: #971b1e;"></i>
+                            </div>
+                            <span class="small">FAA Website</span>
+                        </button>
+                    </div>
+                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-1-5">
+                        <button
+                            class="btn quick-link-btn w-100 p-3 border bg-white d-flex flex-column align-items-center gap-2">
+                            <div class="link-icon-box rounded-3 p-2" style="background-color: #e8f1f5;">
+                                <i data-lucide="users" style="width: 20px; height: 20px; color: #4a7c9d;"></i>
+                            </div>
+                            <span class="small">TeamMate</span>
+                        </button>
+                    </div>
+                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-1-5">
+                        <button
+                            class="btn quick-link-btn w-100 p-3 border bg-white d-flex flex-column align-items-center gap-2">
+                            <div class="link-icon-box rounded-3 p-2" style="background-color: #e0f5f5;">
+                                <i data-lucide="mail" style="width: 20px; height: 20px; color: #01949a;"></i>
+                            </div>
+                            <span class="small">Email on Web</span>
+                        </button>
+                    </div>
+                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-1-5">
+                        <button
+                            class="btn quick-link-btn w-100 p-3 border bg-white d-flex flex-column align-items-center gap-2">
+                            <div class="link-icon-box rounded-3 p-2" style="background-color: #f0f0ee;">
+                                <i data-lucide="phone" style="width: 20px; height: 20px; color: #6b6b5f;"></i>
+                            </div>
+                            <span class="small">IT Helpdesk</span>
+                        </button>
+                    </div>
+                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-1-5">
+                        <button
+                            class="btn quick-link-btn w-100 p-3 border bg-white d-flex flex-column align-items-center gap-2">
+                            <div class="link-icon-box rounded-3 p-2" style="background-color: #fef5e8;">
+                                <i data-lucide="file-text" style="width: 20px; height: 20px; color: #d4a056;"></i>
+                            </div>
+                            <span class="small">Tarasul</span>
+                        </button>
+                    </div>
+                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-1-5">
+                        <button
+                            class="btn quick-link-btn w-100 p-3 border bg-white d-flex flex-column align-items-center gap-2">
+                            <div class="link-icon-box rounded-3 p-2" style="background-color: #e0f2f7;">
+                                <i data-lucide="trending-up" style="width: 20px; height: 20px; color: #0277bd;"></i>
+                            </div>
+                            <span class="small">Dashboard</span>
+                        </button>
+                    </div>
+                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-1-5">
+                        <button
+                            class="btn quick-link-btn w-100 p-3 border bg-white d-flex flex-column align-items-center gap-2">
+                            <div class="link-icon-box rounded-3 p-2" style="background-color: #f3e8f0;">
+                                <i data-lucide="clipboard-list" style="width: 20px; height: 20px; color: #8e4585;"></i>
+                            </div>
+                            <span class="small">Survey System</span>
+                        </button>
+                    </div>
+                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-1-5">
+                        <button
+                            class="btn quick-link-btn w-100 p-3 border bg-white d-flex flex-column align-items-center gap-2">
+                            <div class="link-icon-box rounded-3 p-2" style="background-color: #e8f5e9;">
+                                <i data-lucide="target" style="width: 20px; height: 20px; color: #43a047;"></i>
+                            </div>
+                            <span class="small">QRP</span>
+                        </button>
+                    </div>
+                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-1-5">
+                        <button
+                            class="btn quick-link-btn w-100 p-3 border bg-white d-flex flex-column align-items-center gap-2">
+                            <div class="link-icon-box rounded-3 p-2" style="background-color: #fff8e1;">
+                                <i data-lucide="star" style="width: 20px; height: 20px; color: #f9a825;"></i>
+                            </div>
+                            <span class="small">AI System</span>
+                        </button>
+                    </div>
+                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-1-5">
+                        <button
+                            class="btn quick-link-btn w-100 p-3 border bg-white d-flex flex-column align-items-center gap-2">
+                            <div class="link-icon-box rounded-3 p-2" style="background-color: #ede7f6;">
+                                <i data-lucide="user-circle" style="width: 20px; height: 20px; color: #5e35b1;"></i>
+                            </div>
+                            <span class="small">Waee</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Row: Corporate Updates + Calendar -->
+    <div class="container-fluid px-5">
+        <div class="row g-4 mb-4">
+
+            <!-- Left: Corporate Updates (Tabs) -->
+            <div class="col-lg-8">
+                <div class="card shadow-sm" style="height: 557px;">
+                    <div class="card-body p-4 d-flex flex-column">
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <div class="rounded-3 p-2" style="background-color: rgba(123, 40, 45, 0.1);">
+                                <i data-lucide="megaphone"
+                                    style="width: 16px; height: 16px; color: var(--faa-dark-red);"></i>
+                            </div>
+                            <h3 class="h5 mb-0">Corporate Updates</h3>
+                        </div>
+
+                        <!-- Tabs -->
+                        <ul class="nav nav-pills bg-light rounded p-1 mb-3" id="updatesTabs" role="tablist">
+                            <li class="nav-item flex-fill" role="presentation">
+                                <button class="nav-link faa-nav-link active small w-100" id="announcements-tab"
+                                    data-bs-toggle="tab" data-bs-target="#announcements"
+                                    type="button">Announcements</button>
+                            </li>
+                            <li class="nav-item flex-fill" role="presentation">
+                                <button class="nav-link faa-nav-link small w-100" id="news-tab" data-bs-toggle="tab"
+                                    data-bs-target="#news" type="button">Media & News</button>
+                            </li>
+                            <li class="nav-item flex-fill" role="presentation">
+                                <button class="nav-link faa-nav-link small w-100" id="policy-tab" data-bs-toggle="tab"
+                                    data-bs-target="#policy" type="button">Policy Updates</button>
+                            </li>
+                            <li class="nav-item flex-fill" role="presentation">
+                                <button class="nav-link faa-nav-link small w-100" id="laws-tab" data-bs-toggle="tab"
+                                    data-bs-target="#laws" type="button">Laws</button>
+                            </li>
+                        </ul>
+
+                        <!-- Tab Content -->
+                        <div class="tab-content flex-fill overflow-auto">
+                            <!-- Announcements Tab -->
+                            <div class="tab-pane fade show active" id="announcements">
+                                <div class="d-flex flex-column gap-3">
+                                    <div class="announcement-card card border">
+                                        <div class="card-body p-3">
+                                            <div class="d-flex align-items-center gap-2 mb-2">
+                                                <span class="badge bg-danger small">Policy</span>
+                                                <span class="small text-muted">2025-11-26</span>
+                                            </div>
+                                            <h6 class="small fw-semibold mb-1">New Audit Standards Released</h6>
+                                            <p class="small text-muted mb-0">Updated international audit standards have
+                                                been published and are now available in the knowledge hub.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="announcement-card card border">
+                                        <div class="card-body p-3">
+                                            <div class="d-flex align-items-center gap-2 mb-2">
+                                                <span class="badge bg-danger small">HR</span>
+                                                <span class="small text-muted">2025-11-25</span>
+                                            </div>
+                                            <h6 class="small fw-semibold mb-1">Remote Work Policy Update</h6>
+                                            <p class="small text-muted mb-0">The updated remote work policy is now
+                                                effective. Please review the new guidelines.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="announcement-card card border">
+                                        <div class="card-body p-3">
+                                            <div class="d-flex align-items-center gap-2 mb-2">
+                                                <span class="badge bg-danger small">Technology</span>
+                                                <span class="small text-muted">2025-11-24</span>
+                                            </div>
+                                            <h6 class="small fw-semibold mb-1">Digital Transformation Initiative Launch
+                                            </h6>
+                                            <p class="small text-muted mb-0">We are excited to announce the launch of
+                                                our digital transformation program.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Media & News Tab -->
+                            <div class="tab-pane fade" id="news">
+                                <div class="row g-3">
+                                    <div class="col-6">
+                                        <div class="announcement-card card border">
+                                            <div class="card-body p-3">
+                                                <div class="d-flex align-items-center gap-2 mb-2">
+                                                    <span class="badge small"
+                                                        style="background-color: #ec2227;">Innovation</span>
+                                                    <span class="small text-muted">2025-11-26</span>
+                                                </div>
+                                                <h6 class="small fw-semibold mb-1">Innovation Workshop: Building
+                                                    Tomorrow's Audit Solutions</h6>
+                                                <p class="small text-muted mb-0"
+                                                    style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                                                    Behind the scenes at our Innovation Workshop! Our teams are working
+                                                    on cutting-edge solutions...</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="announcement-card card border">
+                                            <div class="card-body p-3">
+                                                <div class="d-flex align-items-center gap-2 mb-2">
+                                                    <span class="badge small"
+                                                        style="background-color: #8cd4e4;">Technology</span>
+                                                    <span class="small text-muted">2025-11-25</span>
+                                                </div>
+                                                <h6 class="small fw-semibold mb-1">FAA Launches New Digital Audit
+                                                    Platform</h6>
+                                                <p class="small text-muted mb-0"
+                                                    style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                                                    The Financial Audit Authority has officially launched its new
+                                                    digital audit platform...</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Policy Updates Tab -->
+                            <div class="tab-pane fade" id="policy">
+                                <div class="d-flex flex-column gap-3">
+                                    <div class="announcement-card card border">
+                                        <div class="card-body p-3">
+                                            <div class="d-flex align-items-center gap-2 mb-2">
+                                                <span class="badge bg-danger small">Policy</span>
+                                                <span class="small text-muted">2025-11-26</span>
+                                            </div>
+                                            <h6 class="small fw-semibold mb-1">Remote Work Guidelines v2.1</h6>
+                                            <p class="small text-muted mb-0">Updated guidelines for hybrid work
+                                                arrangements and remote collaboration best practices.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Laws Tab -->
+                            <div class="tab-pane fade" id="laws">
+                                <div class="d-flex flex-column gap-3">
+                                    <div class="announcement-card card border">
+                                        <div class="card-body p-3">
+                                            <div class="d-flex align-items-center gap-2 mb-2">
+                                                <span class="badge bg-secondary small">Law</span>
+                                                <span class="small text-muted">2025-11-20</span>
+                                            </div>
+                                            <h6 class="small fw-semibold mb-1">Federal Law No. 8 of 2011</h6>
+                                            <p class="small text-muted mb-0">Updated regulations for financial audit
+                                                authority operations.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Calendar with Events -->
+            <div class="col-lg-4">
+                <div class="card shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <div class="rounded-3 p-2" style="background-color: rgba(140, 212, 228, 0.1);">
+                                <i data-lucide="calendar"
+                                    style="width: 16px; height: 16px; color: var(--faa-cyan);"></i>
+                            </div>
+                            <h3 class="h5 mb-0">Calendar</h3>
+                        </div>
+
+                        <!-- Calendar Header -->
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <button class="btn btn-sm btn-light" id="prevMonth"><i data-lucide="chevron-left"
+                                    style="width: 16px; height: 16px;"></i></button>
+                            <span class="fw-semibold" id="currentMonthYear">NOVEMBER 2025</span>
+                            <button class="btn btn-sm btn-light" id="nextMonth"><i data-lucide="chevron-right"
+                                    style="width: 16px; height: 16px;"></i></button>
+                        </div>
+
+                        <!-- Calendar Grid -->
+                        <div class="mb-3">
+                            <div class="d-grid gap-1" style="grid-template-columns: repeat(7, 1fr);">
+                                <div class="text-center small text-muted fw-semibold">Sun</div>
+                                <div class="text-center small text-muted fw-semibold">Mon</div>
+                                <div class="text-center small text-muted fw-semibold">Tue</div>
+                                <div class="text-center small text-muted fw-semibold">Wed</div>
+                                <div class="text-center small text-muted fw-semibold">Thu</div>
+                                <div class="text-center small text-muted fw-semibold">Fri</div>
+                                <div class="text-center small text-muted fw-semibold">Sat</div>
+                            </div>
+                            <div class="d-grid gap-1 mt-2" style="grid-template-columns: repeat(7, 1fr);"
+                                id="calendarDays">
+                                <!-- Calendar days will be inserted by JavaScript -->
+                            </div>
+                        </div>
+
+                        <!-- Legend -->
+                        <div class="d-flex justify-content-center gap-3 mb-3 pb-3 border-bottom">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="rounded"
+                                    style="width: 12px; height: 12px; background-color: #8cd4e4;"></span>
+                                <span class="small">Today</span>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="rounded border"
+                                    style="width: 12px; height: 12px; background-color: #dbeafe;"></span>
+                                <span class="small">Has Events</span>
+                            </div>
+                        </div>
+
+                        <!-- Upcoming Events -->
+                        <div>
+                            <h6 class="small fw-semibold mb-2">Upcoming Events</h6>
+                            <div class="d-flex flex-column gap-2" style="max-height: 250px; overflow-y: auto;">
+                                <div class="event-card card border p-2">
+                                    <div class="d-flex gap-2">
+                                        <div class="rounded overflow-hidden flex-shrink-0"
+                                            style="width: 60px; height: 60px; background-color: #e5e7eb;">
+                                            <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=200"
+                                                class="w-100 h-100 object-fit-cover" alt="Event">
+                                        </div>
+                                        <div class="flex-fill">
+                                            <div class="d-flex align-items-center gap-2 mb-1">
+                                                <span class="badge small"
+                                                    style="background-color: #ec2227; font-size: 0.65rem;">Internal</span>
+                                            </div>
+                                            <h6 class="small fw-semibold mb-1" style="font-size: 0.8rem;">Annual Audit
+                                                Planning Meeting</h6>
+                                            <div class="d-flex align-items-center gap-2 text-muted"
+                                                style="font-size: 0.7rem;">
+                                                <i data-lucide="map-pin" style="width: 10px; height: 10px;"></i>
+                                                <span>Main Conference Room</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- People Spotlight & Job Postings Row -->
+    <div class="container-fluid px-5 mb-4">
+        <div class="row g-4">
+
+            <!-- People Spotlight -->
+            <div class="col-lg-8">
+                <div class="card shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <div class="rounded-3 p-2" style="background-color: rgba(236, 34, 39, 0.1);">
+                                <i data-lucide="users" style="width: 16px; height: 16px; color: var(--faa-red);"></i>
+                            </div>
+                            <h3 class="h5 mb-0">People Spotlight</h3>
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-md-6 col-lg-4">
+                                <div class="people-card card border shadow-sm h-100">
+                                    <div class="card-body p-3">
+                                        <div class="d-flex align-items-center gap-3 mb-3">
+                                            <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center text-white fw-bold"
+                                                style="width: 48px; height: 48px;">MA</div>
+                                            <div class="flex-fill">
+                                                <h6 class="small fw-semibold mb-0">Mohammed Ahmed</h6>
+                                                <p class="small text-muted mb-0">Junior Auditor</p>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <span class="badge bg-primary small">NEW</span>
+                                            <span class="small text-muted">Joined Nov 15</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-lg-4">
+                                <div class="people-card card border shadow-sm h-100">
+                                    <div class="card-body p-3">
+                                        <div class="d-flex align-items-center gap-3 mb-3">
+                                            <div class="rounded-circle bg-danger d-flex align-items-center justify-content-center text-white fw-bold"
+                                                style="width: 48px; height: 48px;">KM</div>
+                                            <div class="flex-fill">
+                                                <h6 class="small fw-semibold mb-0">Khalid Al Mansoori</h6>
+                                                <p class="small text-muted mb-0">Senior Director</p>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <span class="badge bg-warning text-dark small">15 Years</span>
+                                            <span class="small text-muted">Anniversary</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-lg-4">
+                                <div class="people-card card border shadow-sm h-100">
+                                    <div class="card-body p-3">
+                                        <div class="d-flex align-items-center gap-3 mb-3">
+                                            <div class="rounded-circle bg-success d-flex align-items-center justify-content-center text-white fw-bold"
+                                                style="width: 48px; height: 48px;">SA</div>
+                                            <div class="flex-fill">
+                                                <h6 class="small fw-semibold mb-0">Sara Abdullah</h6>
+                                                <p class="small text-muted mb-0">Risk Analyst</p>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <span class="badge bg-primary small">NEW</span>
+                                            <span class="small text-muted">Joined Nov 18</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Job Postings -->
+            <div class="col-lg-4">
+                <div class="card shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="rounded-3 p-2" style="background-color: rgba(65, 63, 48, 0.1);">
+                                    <i data-lucide="briefcase"
+                                        style="width: 16px; height: 16px; color: var(--faa-brown);"></i>
+                                </div>
+                                <h3 class="h5 mb-0">Job Openings</h3>
+                            </div>
+                            <a href="#" class="text-decoration-none small" style="color: var(--faa-dark-red);">View
+                                All</a>
+                        </div>
+
+                        <div class="d-flex flex-column gap-2">
+                            <div class="job-card card border">
+                                <div class="card-body p-3">
+                                    <div class="d-flex align-items-start justify-content-between mb-2">
+                                        <h6 class="small fw-semibold mb-1">Senior Financial Auditor</h6>
+                                        <span class="badge bg-danger small">Senior</span>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-2 mb-2 small text-muted">
+                                        <i data-lucide="building" style="width: 12px; height: 12px;"></i>
+                                        <span>Financial Audit</span>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-2 small text-muted">
+                                        <i data-lucide="map-pin" style="width: 12px; height: 12px;"></i>
+                                        <span>Abu Dhabi</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="job-card card border">
+                                <div class="card-body p-3">
+                                    <div class="d-flex align-items-start justify-content-between mb-2">
+                                        <h6 class="small fw-semibold mb-1">Risk Assessment Specialist</h6>
+                                        <span class="badge bg-warning text-dark small">Mid-level</span>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-2 mb-2 small text-muted">
+                                        <i data-lucide="building" style="width: 12px; height: 12px;"></i>
+                                        <span>Risk Management</span>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-2 small text-muted">
+                                        <i data-lucide="map-pin" style="width: 12px; height: 12px;"></i>
+                                        <span>Dubai</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Media Gallery -->
+    <div class="container-fluid px-5 mb-4">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="rounded-3 p-2" style="background-color: rgba(140, 212, 228, 0.1);">
+                            <i data-lucide="image" style="width: 16px; height: 16px; color: var(--faa-cyan);"></i>
+                        </div>
+                        <h3 class="h5 mb-0">Media Gallery</h3>
+                    </div>
+                    <a href="#" class="text-decoration-none small" style="color: var(--faa-dark-red);">View All
+                        Gallery</a>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-md-4 col-lg-2">
+                        <div class="gallery-item rounded overflow-hidden position-relative" style="height: 150px;">
+                            <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=400"
+                                class="gallery-img w-100 h-100 object-fit-cover" alt="Gallery">
+                            <div class="position-absolute bottom-0 start-0 end-0 p-2 bg-dark bg-opacity-50">
+                                <small class="text-white">Executive Meeting</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-2">
+                        <div class="gallery-item rounded overflow-hidden position-relative" style="height: 150px;">
+                            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400"
+                                class="gallery-img w-100 h-100 object-fit-cover" alt="Gallery">
+                            <div class="position-absolute bottom-0 start-0 end-0 p-2 bg-dark bg-opacity-50">
+                                <small class="text-white">Team Workshop</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-2">
+                        <div class="gallery-item rounded overflow-hidden position-relative" style="height: 150px;">
+                            <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=400"
+                                class="gallery-img w-100 h-100 object-fit-cover" alt="Gallery">
+                            <div class="position-absolute bottom-0 start-0 end-0 p-2 bg-dark bg-opacity-50">
+                                <small class="text-white">Recognition Ceremony</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-2">
+                        <div class="gallery-item rounded overflow-hidden position-relative" style="height: 150px;">
+                            <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=400"
+                                class="gallery-img w-100 h-100 object-fit-cover" alt="Gallery">
+                            <div class="position-absolute bottom-0 start-0 end-0 p-2 bg-dark bg-opacity-50">
+                                <small class="text-white">Sports Event</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-2">
+                        <div class="gallery-item rounded overflow-hidden position-relative" style="height: 150px;">
+                            <img src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=400"
+                                class="gallery-img w-100 h-100 object-fit-cover" alt="Gallery">
+                            <div class="position-absolute bottom-0 start-0 end-0 p-2 bg-dark bg-opacity-50">
+                                <small class="text-white">Community Service</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-2">
+                        <div class="gallery-item rounded overflow-hidden position-relative" style="height: 150px;">
+                            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=400"
+                                class="gallery-img w-100 h-100 object-fit-cover" alt="Gallery">
+                            <div class="position-absolute bottom-0 start-0 end-0 p-2 bg-dark bg-opacity-50">
+                                <small class="text-white">Innovation Workshop</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+
+        // Simple calendar implementation
+        const calendarDays = document.getElementById('calendarDays');
+        const currentDate = new Date(2025, 10, 1); // November 2025
+        const daysInMonth = new Date(2025, 11, 0).getDate();
+        const firstDay = new Date(2025, 10, 1).getDay();
+
+        // Days with events
+        const eventDays = [29, 17, 18, 19, 25];
+        let selectedDay = 29;
+
+        // Empty cells for days before month starts
+        for (let i = 0; i < firstDay; i++) {
+            const emptyDiv = document.createElement('div');
+            calendarDays.appendChild(emptyDiv);
+        }
+
+        // Create day buttons
+        for (let day = 1; day <= daysInMonth; day++) {
+            const dayBtn = document.createElement('button');
+            dayBtn.className = 'btn calendar-day text-center p-0 small';
+            dayBtn.textContent = day;
+
+            if (day === selectedDay) {
+                dayBtn.classList.add('selected');
+            } else if (eventDays.includes(day)) {
+                dayBtn.classList.add('has-events');
+            }
+
+            dayBtn.onclick = () => {
+                document.querySelectorAll('.calendar-day').forEach(btn => {
+                    btn.classList.remove('selected');
+                    if (eventDays.includes(parseInt(btn.textContent))) {
+                        btn.classList.add('has-events');
+                    }
+                });
+                dayBtn.classList.add('selected');
+                dayBtn.classList.remove('has-events');
+                selectedDay = day;
+            };
+
+            calendarDays.appendChild(dayBtn);
+        }
+
+        // Reinitialize icons after dynamic content
+        lucide.createIcons();
+    </script>
+
+</body>
+
+</html>

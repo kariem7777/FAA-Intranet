@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About - Financial Audit Authority</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <style>
+    :root {
+      --faa-red: #ec2227;
+      --faa-dark-red: #7b282d;
+      --faa-darker-red: #971b1e;
+      --faa-brown: #413f30;
+      --faa-cyan: #8cd4e4;
+    }
+
+    body {
+      background-color: #f8f9fa;
+      min-height: 100vh;
+    }
+
+    .bg-pattern {
+      background-image: url('data:image/svg+xml,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="1" fill="%23000000" opacity="0.05"/></svg>');
+      background-repeat: repeat;
+    }
+
+    .hero-banner {
+      background: linear-gradient(135deg, var(--faa-red) 0%, var(--faa-dark-red) 100%);
+      border-radius: 16px;
+      color: white;
+      padding: 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-banner::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 400px;
+      height: 400px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+    }
+
+    .stats-cards {
+      margin-top: -60px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .stat-card {
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+    }
+
+    .icon-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-center;
+      background-color: #f8f9fa;
+    }
+
+    .gradient-line {
+      height: 4px;
+      width: 80px;
+      background: linear-gradient(to right, var(--faa-red), var(--faa-dark-red));
+      border-radius: 2px;
+    }
+
+    .resource-card {
+      transition: all 0.3s ease;
+      border-left: 4px solid var(--faa-red);
+    }
+
+    .resource-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+    }
+
+    .category-card {
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border-top: 2px solid transparent;
+    }
+
+    .category-card:hover {
+      border-top-color: var(--faa-red);
+    }
+
+    .category-card:hover .category-icon {
+      background-color: var(--faa-red) !important;
+      color: white !important;
+    }
+
+    .category-icon {
+      transition: all 0.3s ease;
+    }
+  </style>
+</head>
+
+<body class="bg-pattern">
+
+  <!-- Main Container -->
+  <div class="container-fluid px-5 pt-4">
+
+    <!-- Hero Banner -->
+    <div class="hero-banner mb-5">
+      <div class="position-relative">
+        <h1 class="display-5 fw-bold mb-3">About Financial Audit Authority</h1>
+        <p class="lead mb-0">Ensuring accountability, transparency, and excellence in public sector governance since
+          2011</p>
+      </div>
+    </div>
+
+    <!-- Stats Cards - Overlapping Banner -->
+    <div class="row stats-cards g-4 mb-5">
+      <div class="col-md-4">
+        <div class="card stat-card shadow">
+          <div class="card-body p-4">
+            <div class="d-flex align-items-start gap-3">
+              <div class="icon-box text-danger">
+                <i data-lucide="building-2" style="width: 24px; height: 24px;"></i>
+              </div>
+              <div>
+                <h3 class="display-6 fw-bold mb-1">176+</h3>
+                <p class="text-muted mb-0">Audited Entities</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card stat-card shadow">
+          <div class="card-body p-4">
+            <div class="d-flex align-items-start gap-3">
+              <div class="icon-box" style="color: var(--faa-dark-red);">
+                <i data-lucide="users" style="width: 24px; height: 24px;"></i>
+              </div>
+              <div>
+                <h3 class="display-6 fw-bold mb-1">450+</h3>
+                <p class="text-muted mb-0">Professional Staff</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card stat-card shadow">
+          <div class="card-body p-4">
+            <div class="d-flex align-items-start gap-3">
+              <div class="icon-box" style="color: var(--faa-darker-red);">
+                <i data-lucide="award" style="width: 24px; height: 24px;"></i>
+              </div>
+              <div>
+                <h3 class="display-6 fw-bold mb-1">25+</h3>
+                <p class="text-muted mb-0">Years of Excellence</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="row g-4 mb-5">
+      <div class="col-12">
+        <!-- About Overview Card -->
+        <div class="card shadow-sm">
+          <div class="card-body p-5">
+            <div class="d-flex align-items-start gap-3 mb-4">
+              <div class="p-2 rounded-3" style="background-color: rgba(236, 34, 39, 0.1);">
+                <i data-lucide="shield" style="width: 24px; height: 24px; color: var(--faa-red);"></i>
+              </div>
+              <div>
+                <h2 class="h4 mb-2">Who We Are</h2>
+                <div class="gradient-line"></div>
+              </div>
+            </div>
+            <div class="row g-4">
+              <div class="col-12">
+                <p class="fs-5 text-secondary">
+                  The Financial Audit Authority (FAA) is the supreme audit institution of the United Arab Emirates,
+                  established to strengthen financial accountability and enhance transparency in the use of public
+                  resources.
+                </p>
+              </div>
+              <div class="col-12">
+                <p class="text-muted">
+                  Our mandate encompasses auditing all federal government entities, companies, and organizations
+                  to ensure compliance with laws, regulations, and best practices while promoting efficiency and
+                  effectiveness in public sector operations.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Key Resources Section -->
+    <div class="mb-5">
+      <div class="mb-3">
+        <h2 class="h4 mb-2">Key Resources</h2>
+        <p class="text-muted">Access our strategic framework and founding legislation</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-lg-6">
+          <div class="card resource-card shadow-sm">
+            <div class="card-body p-4">
+              <div class="d-flex align-items-start gap-3 mb-3">
+                <div class="p-3 rounded-3" style="background-color: rgba(236, 34, 39, 0.1);">
+                  <i data-lucide="target" style="width: 24px; height: 24px; color: var(--faa-red);"></i>
+                </div>
+                <div class="flex-fill">
+                  <h3 class="h5 mb-2">FAA Strategic Plan 2024-2028</h3>
+                  <p class="text-muted mb-0">Explore our comprehensive strategic framework including strategic pillars,
+                    goals, objectives, and delivery models that guide our mission to enhance public sector
+                    accountability and transparency.</p>
+                </div>
+              </div>
+              <button class="btn w-100" style="background-color: var(--faa-red); color: white;"
+                onclick="window.open('https://www.faa.gov.ae/en/who-we-are#!#strategy', '_blank')">
+                View Strategic Plan
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card resource-card shadow-sm">
+            <div class="card-body p-4">
+              <div class="d-flex align-items-start gap-3 mb-3">
+                <div class="p-3 rounded-3" style="background-color: rgba(236, 34, 39, 0.1);">
+                  <i data-lucide="scale" style="width: 24px; height: 24px; color: var(--faa-red);"></i>
+                </div>
+                <div class="flex-fill">
+                  <h3 class="h5 mb-2">Federal Law No. 8 of 2011</h3>
+                  <p class="text-muted mb-0">The founding legislation establishing the Financial Audit Authority and
+                    defining its mandate, powers, and responsibilities in accordance with the UAE legal framework.</p>
+                </div>
+              </div>
+              <button class="btn w-100" style="background-color: var(--faa-red); color: white;"
+                onclick="window.open('https://www.faa.gov.ae/en/search/law', '_blank')">
+                Read Full Law
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Audit Universe Section -->
+    <div class="mb-5">
+      <div class="card shadow-sm mb-4" style="border-left: 4px solid var(--faa-dark-red);">
+        <div class="card-body p-4">
+          <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+            <div class="d-flex align-items-start gap-3">
+              <div class="p-2 rounded-3" style="background-color: rgba(123, 40, 45, 0.1);">
+                <i data-lucide="building-2" style="width: 24px; height: 24px; color: var(--faa-dark-red);"></i>
+              </div>
+              <div>
+                <h3 class="h5 mb-2">Our Audit Universe</h3>
+                <p class="text-muted mb-0">
+                  The Financial Audit Authority oversees and audits a comprehensive range of federal entities
+                  across various sectors and industries.
+                </p>
+              </div>
+            </div>
+            <button class="btn btn-outline-danger"
+              onclick="window.open('https://www.faa.gov.ae/en/who-we-audit', '_blank')">
+              View Full List
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Audit Categories Grid -->
+      <div class="row g-3">
+        <div class="col-md-3">
+          <div class="card category-card shadow-sm">
+            <div class="card-body p-4">
+              <div class="d-flex align-items-center gap-3 mb-2">
+                <div class="category-icon p-2 rounded-2 bg-light" style="color: var(--faa-red);">
+                  <i data-lucide="building-2" style="width: 20px; height: 20px;"></i>
+                </div>
+                <h4 class="h3 mb-0" style="color: var(--faa-dark-red);">24</h4>
+              </div>
+              <p class="small text-muted mb-0">Federal Ministries</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card category-card shadow-sm">
+            <div class="card-body p-4">
+              <div class="d-flex align-items-center gap-3 mb-2">
+                <div class="category-icon p-2 rounded-2 bg-light" style="color: var(--faa-red);">
+                  <i data-lucide="shield" style="width: 20px; height: 20px;"></i>
+                </div>
+                <h4 class="h3 mb-0" style="color: var(--faa-dark-red);">18</h4>
+              </div>
+              <p class="small text-muted mb-0">Local Government Entities</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card category-card shadow-sm">
+            <div class="card-body p-4">
+              <div class="d-flex align-items-center gap-3 mb-2">
+                <div class="category-icon p-2 rounded-2 bg-light" style="color: var(--faa-red);">
+                  <i data-lucide="target" style="width: 20px; height: 20px;"></i>
+                </div>
+                <h4 class="h3 mb-0" style="color: var(--faa-dark-red);">32</h4>
+              </div>
+              <p class="small text-muted mb-0">Federal Corporations</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card category-card shadow-sm">
+            <div class="card-body p-4">
+              <div class="d-flex align-items-center gap-3 mb-2">
+                <div class="category-icon p-2 rounded-2 bg-light" style="color: var(--faa-red);">
+                  <i data-lucide="users" style="width: 20px; height: 20px;"></i>
+                </div>
+                <h4 class="h3 mb-0" style="color: var(--faa-dark-red);">45</h4>
+              </div>
+              <p class="small text-muted mb-0">Government Owned Companies</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card category-card shadow-sm">
+            <div class="card-body p-4">
+              <div class="d-flex align-items-center gap-3 mb-2">
+                <div class="category-icon p-2 rounded-2 bg-light" style="color: var(--faa-red);">
+                  <i data-lucide="award" style="width: 20px; height: 20px;"></i>
+                </div>
+                <h4 class="h3 mb-0" style="color: var(--faa-dark-red);">15</h4>
+              </div>
+              <p class="small text-muted mb-0">Healthcare Institutions</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card category-card shadow-sm">
+            <div class="card-body p-4">
+              <div class="d-flex align-items-center gap-3 mb-2">
+                <div class="category-icon p-2 rounded-2 bg-light" style="color: var(--faa-red);">
+                  <i data-lucide="book-open" style="width: 20px; height: 20px;"></i>
+                </div>
+                <h4 class="h3 mb-0" style="color: var(--faa-dark-red);">22</h4>
+              </div>
+              <p class="small text-muted mb-0">Educational Institutions</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card category-card shadow-sm">
+            <div class="card-body p-4">
+              <div class="d-flex align-items-center gap-3 mb-2">
+                <div class="category-icon p-2 rounded-2 bg-light" style="color: var(--faa-red);">
+                  <i data-lucide="building-2" style="width: 20px; height: 20px;"></i>
+                </div>
+                <h4 class="h3 mb-0" style="color: var(--faa-dark-red);">28</h4>
+              </div>
+              <p class="small text-muted mb-0">Infrastructure Projects</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card category-card shadow-sm">
+            <div class="card-body p-4">
+              <div class="d-flex align-items-center gap-3 mb-2">
+                <div class="category-icon p-2 rounded-2 bg-light" style="color: var(--faa-red);">
+                  <i data-lucide="users" style="width: 20px; height: 20px;"></i>
+                </div>
+                <h4 class="h3 mb-0" style="color: var(--faa-dark-red);">12</h4>
+              </div>
+              <p class="small text-muted mb-0">Social Development Entities</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+
+</body>
+
+</html>
