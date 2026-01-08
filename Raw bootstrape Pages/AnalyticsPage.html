@@ -10,17 +10,88 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
 
     <style>
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #908e81 #f1f1f1;
+        }
+
+        .shadow-lg {
+            box-shadow:
+                0 10px 15px -3px rgba(0, 0, 0, 0.1),
+                0 4px 6px -4px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .border {
+            border: 1px solid #eaeaea;
+        }
+
         :root {
             --faa-red: #ec2227;
             --faa-dark-red: #7b282d;
             --faa-darker-red: #971b1e;
             --faa-maroon: #513a40;
+
+            /* Border Radius */
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+        }
+
+        h1 {
+            font-size: 2.5rem !important;
+            font-weight: 500 !important;
+            line-height: 1.2 !important;
+        }
+
+        h2 {
+            font-size: 2rem !important;
+            font-weight: 500 !important;
+            line-height: 1.3 !important;
+        }
+
+        h3 {
+            font-size: 1.5rem !important;
+            font-weight: 500 !important;
+            line-height: 1.4 !important;
+        }
+
+        h4 {
+            font-size: 1.25rem !important;
+            font-weight: 500 !important;
+            line-height: 1.4 !important;
+        }
+
+        h5 {
+            font-size: 1.125rem !important;
+            font-weight: 400 !important;
+            line-height: 1.5 !important;
+        }
+
+        h6 {
+            font-size: 1rem !important;
+            font-weight: 400 !important;
+            line-height: 1.5 !important;
+        }
+
+        p {
+            font-size: 1rem !important;
+            line-height: 1.6 !important;
+        }
+
+        a {
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        button {
+            font-family: inherit !important;
         }
 
         body {
             background-color: #f8f9fa;
             min-height: 100vh;
-            font-family: 'Inter', system-ui, sans-serif;
+            font-family: 'Dubai', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         .bg-pattern {
@@ -29,7 +100,7 @@
         }
 
         .hero-banner {
-            background-image: url('./assets/14a7bedb16f5751eddf0fc794da9e33a1599152b.png');
+            background-image: url('./assets/3ca851fd732fadea7ed700a83455499648bbdce7.avif');
             background-size: 100%;
             border-radius: 16px;
             color: white;
@@ -76,19 +147,23 @@
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
         }
 
+        .nav-pills {
+            background-color: #f5f5f5;
+            border-radius: 999px;
+            padding: 6px;
+        }
+
         .nav-pills .nav-link {
+            border-radius: 999px;
             color: #6c757d;
-            background-color: transparent;
-            border-bottom: 2px solid transparent;
-            border-radius: 0;
-            padding: 12px 24px;
         }
 
         .nav-pills .nav-link.active {
-            background-color: white;
-            color: var(--faa-dark-red);
-            border-bottom-color: var(--faa-dark-red);
+            background-color: #fff;
+            color: #000;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
         }
+
 
         .bar-chart-container {
             display: flex;
@@ -157,6 +232,32 @@
         .document-activity-card:hover {
             background-color: #f3f4f6 !important;
         }
+
+        .table-header {
+            background-color: #f5f5f5 !important;
+        }
+
+        .btn-custom-outline {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            height: 40px;
+            border-radius: 6px;
+            gap: 6px;
+            padding: 0 12px;
+            border: 1px solid oklch(.922 0 0);
+            background-color: color-mix(in oklab, oklch(.922 0 0) 30%, transparent);
+            outline: none;
+            color: oklch(.145 0 0) !important;
+        }
+
+        .btn-custom-outline:hover {
+            background-color: #EFEFF0;
+        }
     </style>
 </head>
 
@@ -182,7 +283,7 @@
             <div class="stats-cards px-5">
                 <div class="row g-4">
                     <div class="col-md-3">
-                        <div class="card stat-card shadow-lg">
+                        <div class="card stat-card shadow-lg rounded-4">
                             <div class="card-body p-4">
                                 <div class="d-flex align-items-start gap-3">
                                     <div class="p-3 rounded-3 bg-light text-danger">
@@ -198,7 +299,7 @@
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <div class="card stat-card shadow-lg">
+                        <div class="card stat-card shadow-lg rounded-4">
                             <div class="card-body p-4">
                                 <div class="d-flex align-items-start gap-3">
                                     <div class="p-3 rounded-3 bg-light" style="color: var(--faa-dark-red);">
@@ -214,7 +315,7 @@
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <div class="card stat-card shadow-lg">
+                        <div class="card stat-card shadow-lg rounded-4">
                             <div class="card-body p-4">
                                 <div class="d-flex align-items-start gap-3">
                                     <div class="p-3 rounded-3 bg-light" style="color: var(--faa-darker-red);">
@@ -230,7 +331,7 @@
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <div class="card stat-card shadow-lg">
+                        <div class="card stat-card shadow-lg rounded-4">
                             <div class="card-body p-4">
                                 <div class="d-flex align-items-start gap-3">
                                     <div class="p-3 rounded-3 bg-light" style="color: var(--faa-maroon);">
@@ -253,8 +354,8 @@
         <div class="pt-5 pb-5 mt-5">
 
             <!-- Overview Card -->
-            <div class="card shadow-lg mb-4">
-                <div class="card-body p-5">
+            <div class="card shadow-lg mb-4 rounded-4 border">
+                <div class="card-body p-5 space-y-3">
                     <div class="d-flex align-items-start gap-3 mb-4">
                         <div class="p-2 rounded-3" style="background-color: rgba(236, 34, 39, 0.1);">
                             <i data-lucide="bar-chart-3" style="width: 24px; height: 24px; color: var(--faa-red);"></i>
@@ -266,14 +367,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="space-y-3">
-                        <p class="fs-6 text-dark">
+                    <div>
+                        <p class="fs-6 text-black ">
                             The Analytics & Reporting module provides real-time insights into how employees interact
                             with the
                             FAA intranet system, enabling data-driven decisions to improve user experience and
                             operational efficiency.
                         </p>
-                        <p class="text-secondary">
+                        <p class="text-secondary m-0">
                             Our comprehensive analytics platform tracks user behavior, content engagement, workflow
                             performance,
                             and departmental usage patterns to provide actionable insights for continuous improvement.
@@ -283,81 +384,81 @@
             </div>
 
             <!-- Analytics Tabs -->
-            <div class="card shadow-lg">
+            <div class="card shadow-lg rounded-4 border">
                 <div class="card-body p-5">
-                    <ul class="nav nav-pills bg-light rounded p-1 mb-4" id="analyticsTabs" role="tablist">
-                        <li class="nav-item flex-fill" role="presentation">
+                    <ul class="nav nav-pills mb-4  d-inline-flex  gap-2 px-2 py-1" id="analyticsTabs" role="tablist"
+                        style="background:#f5f5f5; border-radius:999px;">
+                        <li class="nav-item  " role="presentation">
                             <button class="nav-link active w-100" id="user-tab" data-bs-toggle="tab"
-                                data-bs-target="#user" type="button">User Behavior</button>
+                                data-bs-target="#user" type="button" role="tab">User Behavior</button>
                         </li>
-                        <li class="nav-item flex-fill" role="presentation">
+                        <li class="nav-item " role="presentation">
                             <button class="nav-link w-100" id="workflow-tab" data-bs-toggle="tab"
-                                data-bs-target="#workflow" type="button">Workflow Analytics</button>
+                                data-bs-target="#workflow" type="button" role="tab">Workflow Analytics</button>
                         </li>
-                        <li class="nav-item flex-fill" role="presentation">
+                        <li class="nav-item " role="presentation">
                             <button class="nav-link w-100" id="department-tab" data-bs-toggle="tab"
-                                data-bs-target="#department" type="button">Department Usage</button>
+                                data-bs-target="#department" type="button" role="tab">Department Usage</button>
                         </li>
                     </ul>
-
                     <div class="tab-content">
                         <!-- User Behavior Tab -->
-                        <div class="tab-pane fade show active" id="user">
-                            <!-- Most Visited Pages -->
+                        <div class="tab-pane fade show active" id="user" role="tabpanel">
                             <div class="mb-5">
                                 <div class="d-flex align-items-center justify-content-between mb-3">
                                     <h4 class="h5 mb-0">Most Visited Pages</h4>
-                                    <span class="badge" style="background-color: var(--faa-red);">This Month</span>
+                                    <span class="badge py-[3px] px-[6px] fw-normal"
+                                        style="background-color: var(--faa-red);">This Month</span>
                                 </div>
                                 <div class="table-responsive">
                                     <table class="table">
                                         <thead class="bg-light">
                                             <tr>
-                                                <th class="small">Page</th>
-                                                <th class="small">Views</th>
-                                                <th class="small">Avg. Time</th>
-                                                <th class="small">Bounce Rate</th>
-                                                <th class="small">Trend</th>
+                                                <th class="small table-header p-2">Page</th>
+                                                <th class="small table-header p-2">Views</th>
+                                                <th class="small table-header p-2">Avg. Time</th>
+                                                <th class="small table-header p-2">Bounce Rate</th>
+                                                <th class="small table-header p-2">Trend</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td class="small">Home Dashboard</td>
-                                                <td class="small">3,456</td>
-                                                <td class="small">3:24</td>
-                                                <td class="small">12%</td>
+                                                <td class="small p-2">Home Dashboard</td>
+                                                <td class="small p-2">3,456</td>
+                                                <td class="small p-2">3:24</td>
+                                                <td class="small p-2">12%</td>
                                                 <td><i data-lucide="trending-up"
                                                         style="width: 16px; height: 16px; color: #22c55e;"></i></td>
                                             </tr>
                                             <tr>
-                                                <td class="small">Documents Search</td>
-                                                <td class="small">2,890</td>
-                                                <td class="small">5:12</td>
-                                                <td class="small">8%</td>
+                                                <td class="small p-2">Documents Search</td>
+                                                <td class="small p-2">2,890</td>
+                                                <td class="small p-2">5:12</td>
+                                                <td class="small p-2">8%</td>
                                                 <td><i data-lucide="trending-up"
                                                         style="width: 16px; height: 16px; color: #22c55e;"></i></td>
                                             </tr>
                                             <tr>
-                                                <td class="small">Knowledge Hub</td>
-                                                <td class="small">2,345</td>
-                                                <td class="small">6:45</td>
-                                                <td class="small">15%</td>
+                                                <td class="small p-2">Knowledge Hub</td>
+                                                <td class="small p-2">2,345</td>
+                                                <td class="small p-2">6:45</td>
+                                                <td class="small p-2">15%</td>
                                                 <td><i data-lucide="trending-up"
                                                         style="width: 16px; height: 16px; color: #22c55e;"></i></td>
                                             </tr>
                                             <tr>
-                                                <td class="small">Organization Directory</td>
-                                                <td class="small">1,987</td>
-                                                <td class="small">4:32</td>
-                                                <td class="small">10%</td>
+                                                <td class="small p-2">Organization Directory</td>
+                                                <td class="small p-2">1,987</td>
+                                                <td class="small p-2">4:32</td>
+                                                <td class="small p-2">10%</td>
                                                 <td><i data-lucide="trending-up"
                                                         style="width: 16px; height: 16px; color: #22c55e;"></i></td>
                                             </tr>
                                             <tr>
-                                                <td class="small">Employee Feedback</td>
-                                                <td class="small">1,654</td>
-                                                <td class="small">3:58</td>
-                                                <td class="small">18%</td>
+                                                <td class="small p-2">Employee Feedback</td>
+                                                <td class="small p-2">1,654</td>
+                                                <td class="small p-2">3:58</td>
+                                                <td class="small p-2">18%</td>
                                                 <td><i data-lucide="trending-up"
                                                         style="width: 16px; height: 16px; color: #22c55e;"></i></td>
                                             </tr>
@@ -370,7 +471,8 @@
                             <div class="mb-5">
                                 <div class="d-flex align-items-center justify-content-between mb-3">
                                     <h4 class="h5 mb-0">Document Activity</h4>
-                                    <span class="badge bg-secondary">Top 5 Documents</span>
+                                    <span class="badge fw-normal" style="background-color: #A94442;">Top 5
+                                        Documents</span>
                                 </div>
                                 <div class="d-flex flex-column gap-3" id="documentActivity">
                                     <!-- Documents will be inserted by JavaScript -->
@@ -424,7 +526,7 @@
             </div>
 
             <!-- Export Reports -->
-            <div class="card shadow-lg mt-4">
+            <div class="card shadow-lg mt-4 rounded-4 border">
                 <div class="card-body p-5">
                     <div class="d-flex align-items-start gap-3 mb-4">
                         <div class="p-2 rounded-3" style="background-color: rgba(236, 34, 39, 0.1);">
@@ -443,18 +545,18 @@
                         for further analysis and presentation.
                     </p>
                     <div class="d-flex gap-3">
-                        <button class="btn btn-outline-secondary">
+                        <button class="btn btn-custom-outline">
                             <i data-lucide="download" style="width: 16px; height: 16px;"></i>
-                            <span class="ms-2">Export PDF</span>
+                            <span class="ms-2 fw-normal">Export PDF</span>
                         </button>
-                        <button class="btn btn-outline-secondary">
+                        <button class="btn btn-custom-outline">
                             <i data-lucide="file-text" style="width: 16px; height: 16px;"></i>
-                            <span class="ms-2">Export Excel</span>
+                            <span class="ms-2 fw-normal">Export Excel</span>
                         </button>
-                        <button class="btn text-white"
+                        <button class="btn text-white "
                             style="background: linear-gradient(to right, var(--faa-dark-red), var(--faa-darker-red));">
                             <i data-lucide="target" style="width: 16px; height: 16px;"></i>
-                            <span class="ms-2">Schedule Report</span>
+                            <span class="ms-2 fw-normal">Schedule Report</span>
                         </button>
                     </div>
                 </div>
@@ -511,8 +613,8 @@
         // Render Document Activity
         const docActivityContainer = document.getElementById('documentActivity');
         docActivityContainer.innerHTML = documentActivity.map(doc => `
-            <div class="p-4 bg-light rounded-3 document-activity-card">
-                <h5 class="small fw-semibold mb-3">${doc.document}</h5>
+            <div class="p-3 bg-light rounded-3 document-activity-card">
+                <h5 class="small fw-normal mb-3">${doc.document}</h5>
                 <div class="row g-4">
                     <div class="col-4">
                         <div class="d-flex align-items-center gap-2">
@@ -543,7 +645,7 @@
             const heightPercent = (hour.usage / maxUsage) * 100;
             return `
                 <div class="bar-item">
-                    <div class="bar" style="height: ${heightPercent}%;">
+                    <div class="bar" style="height: ${heightPercent}%; background-color: var(--faa-red);">
                         <div class="bar-tooltip">${hour.usage} users</div>
                     </div>
                     <span class="small text-secondary">${hour.hour}</span>
