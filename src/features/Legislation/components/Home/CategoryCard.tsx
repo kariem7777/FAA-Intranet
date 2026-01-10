@@ -60,7 +60,7 @@ export function CategoryCard({
                 />
 
                 {/* Card Content */}
-                <div className="px-6 py-6 flex flex-col items-center justify-start h-full relative z-10">
+                <div className="px-6 py-6 flex flex-col items-center justify-start h-full relative z-5">
                     {/* Icon/Emblem */}
                     <div className="flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-105 h-20">
                         <img

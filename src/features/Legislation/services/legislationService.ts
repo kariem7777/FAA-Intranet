@@ -186,6 +186,38 @@ export class LegislationService extends BaseApiService {
         }
     };
   }
+
+  public async searchGlobal(params: {
+    query: string;
+    entityId: string;
+  }): Promise<ApiResponse<{ results: Array<{ categoryId: number; count: number }>; total: number }>> {
+    await new Promise(resolve => setTimeout(resolve, 600));
+
+    const { query, entityId } = params;
+    const lowerQuery = query.toLowerCase();
+
+    // Search across all category groups for the selected entity
+    const results: Array<{ categoryId: number; count: number }> = [];
+
+    Object.values(this.categoryConfigs).forEach(group => {
+      if (group.categories.length > 0) {
+        // Simulate searching within this category group
+        const categoryCount = Math.floor(Math.random() * 50) + 1;
+        if (categoryCount > 0) {
+          results.push({ categoryId: group.id, count: categoryCount });
+        }
+      }
+    });
+
+    const total = results.reduce((sum, r) => sum + r.count, 0);
+
+    return {
+      data: {
+        results: results.filter(r => r.count > 0),
+        total,
+      }
+    };
+  }
 }
 
 export const legislationService = new LegislationService();

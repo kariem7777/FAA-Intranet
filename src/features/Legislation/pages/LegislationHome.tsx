@@ -1,8 +1,11 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { resetCategories, resetFilters, setSelectedCategory } from '@/features/Legislation/slices/legislationSlice';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { resetCategories, resetFilters } from '@/features/Legislation/slices/legislationSlice';
+import { fetchEntities, performGlobalSearch } from '@/features/Legislation/slices/heroSlice';
 import { LegislationHero, ImportantNoticeModal, ImportantNoticeCard, LegislationCategoriesGrid } from '../components';
 import { LegislationDocumentsPage } from './LegislationDocumentsPage';
+import { LEGISLATION_CATEGORIES } from '../config/categories.config';
+import type { AppDispatch, RootState } from '@/store';
 
 
 interface LegislationHomeProps {
@@ -11,10 +14,23 @@ interface LegislationHomeProps {
 }
 
 function LegislationHome({ }: LegislationHomeProps = {}) {
+  const dispatch = useDispatch<AppDispatch>();
+
   const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null);
 
+  // Get hero state from Redux
+  const { globalSearchQuery } = useSelector((state: RootState) => state.hero);
+  // Fetch entities on mount
+  useEffect(() => {
+    dispatch(fetchEntities());
+  }, [dispatch]);
 
-  const dispatch = useDispatch();
+  // Perform search when query or entity changes
+  useEffect(() => {
+    if (globalSearchQuery) {
+      dispatch(performGlobalSearch());
+    }
+  }, [globalSearchQuery, dispatch]);
 
   // If a category is selected, for now we just show a placeholder since we are refactoring home page
   if (selectedCategoryId) {
@@ -31,11 +47,18 @@ function LegislationHome({ }: LegislationHomeProps = {}) {
     );
   }
 
+  const handleCategorySearch = (categoryId: number) => {
+    setSelectedCategoryId(categoryId);
+  };
+
   return (
     <div className="min-h-screen bg-[#FEFEFE]">
       {/* Hero Banner */}
-      <div className=" relative">
-        <LegislationHero />
+      <div className="relative">
+        <LegislationHero
+          handleCategorySearch={handleCategorySearch}
+          legislationCategories={LEGISLATION_CATEGORIES}
+        />
       </div>
 
       {/* Main Content Area */}
