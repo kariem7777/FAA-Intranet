@@ -1,0 +1,639 @@
+@import "tailwindcss";
+
+/* Import Design Tokens */
+@import "./design-tokens.css";
+
+/* Modern Government-Grade Fonts for Enhanced Readability */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap');
+
+/* Dubai Font - Official Government Font */
+@import url('https://fonts.cdnfonts.com/css/dubai');
+
+/* Fallback @font-face for Dubai (if needed) */
+@font-face {
+  font-family: 'Dubai';
+  src: local('Dubai'), local('Segoe UI'), local('system-ui');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Dubai';
+  src: local('Dubai'), local('Segoe UI'), local('system-ui');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Dubai';
+  src: local('Dubai'), local('Segoe UI'), local('system-ui');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Dubai';
+  src: local('Dubai'), local('Segoe UI'), local('system-ui');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  /* FAA Color Palette */
+  --color-faa-black: #000000;
+  --color-faa-red-dark: #7b282d;
+  --color-faa-red: #ec2227;
+  --color-faa-red-alt: #971b1e;
+  --color-faa-brown-dark: #513a40;
+  --color-faa-brown: #413f30;
+  --color-faa-gray: #908e81;
+  --color-faa-cream: #e4ddc8;
+  --color-faa-blue-dark: #1949a;
+  --color-faa-blue: #54367;
+  --color-faa-blue-light: #cceaf2;
+  --color-faa-blue-bright: #8cd4e4;
+
+  /* Semantic Colors */
+  --color-primary: var(--color-faa-red);
+  --color-primary-dark: var(--color-faa-red-dark);
+  --color-secondary: var(--color-faa-blue-dark);
+  --color-accent: var(--color-faa-cream);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  /* font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif; */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #f5f5f5;
+  color: #1a1a1a;
+  line-height: 1.6;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+h4 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+h5 {
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+h6 {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+p {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--color-primary-dark);
+}
+
+button {
+  font-family: inherit;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-faa-gray);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-faa-brown-dark);
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-faa-gray) #f1f1f1;
+}
+
+/* Enhanced Scrollbar for overflow sections */
+.faa-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(123, 40, 45, 0.2) transparent;
+}
+
+.faa-scroll::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.faa-scroll::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+
+.faa-scroll::-webkit-scrollbar-thumb {
+  background: rgba(123, 40, 45, 0.2);
+  border-radius: 10px;
+  transition: background 0.2s ease;
+}
+
+.faa-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(123, 40, 45, 0.4);
+}
+
+/* Scrollbar variant for lighter sections */
+.faa-scroll-light {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(100, 116, 139, 0.15) transparent;
+}
+
+.faa-scroll-light::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.faa-scroll-light::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+
+.faa-scroll-light::-webkit-scrollbar-thumb {
+  background: rgba(100, 116, 139, 0.15);
+  border-radius: 10px;
+  transition: background 0.2s ease;
+}
+
+.faa-scroll-light::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.3);
+}
+
+/* FAA Card Styles */
+.faa-card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -4px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+}
+
+.faa-card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.faa-card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 15px 20px -3px rgba(0, 0, 0, 0.15), 0px 6px 8px -4px rgba(0, 0, 0, 0.15);
+}
+
+/* Section Headers */
+.faa-section-header {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #1d293d;
+  margin-bottom: 1rem;
+}
+
+.faa-section-title {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #1d293d;
+  line-height: 1.5;
+}
+
+.faa-section-subtitle {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: #45556c;
+  line-height: 1.4;
+}
+
+/* Announcement/News Card */
+.faa-announcement-card {
+  background: rgba(151, 27, 30, 0.08);
+  border-left: 4px solid #971b1e;
+  border-radius: 10px;
+  padding: 16px 16px 16px 20px;
+}
+
+/* Icon Container */
+.faa-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+}
+
+/* Override Tailwind font-weight utilities to reduce weight globally */
+.font-medium {
+  font-weight: 400 !important;
+}
+
+.font-semibold {
+  font-weight: 500 !important;
+}
+
+.font-bold {
+  font-weight: 500 !important;
+}
+
+/* React Slick Base Styles */
+.slick-slider {
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+  user-select: none;
+  touch-action: pan-y;
+}
+
+.slick-list {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.slick-list:focus {
+  outline: none;
+}
+
+.slick-list.dragging {
+  cursor: pointer;
+  cursor: hand;
+}
+
+.slick-slider .slick-track,
+.slick-slider .slick-list {
+  transform: translate3d(0, 0, 0);
+}
+
+.slick-track {
+  position: relative;
+  top: 0;
+  left: 0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.slick-track:before,
+.slick-track:after {
+  display: table;
+  content: '';
+}
+
+.slick-track:after {
+  clear: both;
+}
+
+.slick-loading .slick-track {
+  visibility: hidden;
+}
+
+.slick-slide {
+  display: none;
+  float: left;
+  height: 100%;
+  min-height: 1px;
+}
+
+.slick-slide img {
+  display: block;
+}
+
+.slick-slide.slick-loading img {
+  display: none;
+}
+
+.slick-slide.dragging img {
+  pointer-events: none;
+}
+
+.slick-initialized .slick-slide {
+  display: block;
+}
+
+.slick-loading .slick-slide {
+  visibility: hidden;
+}
+
+.slick-vertical .slick-slide {
+  display: block;
+  height: auto;
+  border: 1px solid transparent;
+}
+
+.slick-arrow.slick-hidden {
+  display: none;
+}
+
+/* News Slider Styles */
+.news-slider-container {
+  position: relative;
+  min-height: 120px;
+}
+
+.news-slider-container .slick-slider {
+  position: relative;
+}
+
+.news-slider-container .slick-list {
+  padding-bottom: 32px !important;
+  overflow: hidden !important;
+  margin: 0;
+}
+
+.news-slider-container .slick-track {
+  display: flex !important;
+  align-items: stretch;
+}
+
+.news-slider-container .slick-slide {
+  opacity: 1;
+  height: auto;
+  display: flex !important;
+  align-items: stretch;
+}
+
+.news-slider-container .slick-slide > div {
+  outline: none;
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+}
+
+.news-slider-container .slick-dots {
+  bottom: 6px !important;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.news-slider-container .slick-dots li {
+  width: 7px;
+  height: 7px;
+  margin: 0;
+}
+
+.news-slider-container .slick-dots li button {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  font-size: 0;
+  line-height: 0;
+  display: block;
+  cursor: pointer;
+  color: transparent;
+  border: 0;
+  outline: none;
+  background: transparent;
+}
+
+.news-slider-container .slick-dots li button:before {
+  content: '';
+  display: block;
+  width: 7px;
+  height: 7px;
+  background-color: #d1d5db;
+  border-radius: 50%;
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+
+.news-slider-container .slick-dots li.slick-active {
+  width: 20px;
+}
+
+.news-slider-container .slick-dots li.slick-active button {
+  width: 20px;
+}
+
+.news-slider-container .slick-dots li.slick-active button:before {
+  background-color: #ec2227;
+  width: 20px;
+  border-radius: 4px;
+}
+
+/* Job Slider Styles */
+.job-slider-container {
+  position: relative;
+  min-height: 180px;
+}
+
+.job-slider-container .slick-slider {
+  position: relative;
+}
+
+.job-slider-container .slick-list {
+  padding-bottom: 32px !important;
+  overflow: visible !important;
+  margin: 0;
+}
+
+.job-slider-container .slick-track {
+  display: flex !important;
+  align-items: stretch;
+}
+
+.job-slider-container .slick-slide {
+  opacity: 1;
+  height: auto;
+  display: flex !important;
+  align-items: stretch;
+}
+
+.job-slider-container .slick-slide > div {
+  outline: none;
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+}
+
+.job-slider-container .slick-dots {
+  bottom: 6px !important;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.job-slider-container .slick-dots li {
+  width: 7px;
+  height: 7px;
+  margin: 0;
+}
+
+.job-slider-container .slick-dots li button {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  font-size: 0;
+  line-height: 0;
+  display: block;
+  cursor: pointer;
+  color: transparent;
+  border: 0;
+  outline: none;
+  background: transparent;
+}
+
+.job-slider-container .slick-dots li button:before {
+  content: '';
+  display: block;
+  width: 7px;
+  height: 7px;
+  background-color: #d1d5db;
+  border-radius: 50%;
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+
+.job-slider-container .slick-dots li.slick-active {
+  width: 20px;
+}
+
+.job-slider-container .slick-dots li.slick-active button {
+  width: 20px;
+}
+
+.job-slider-container .slick-dots li.slick-active button:before {
+  background-color: #7b282d;
+  width: 20px;
+  border-radius: 4px;
+}
+
+/* News Content Styles */
+.news-content p {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #374151;
+  text-align: justify;
+  margin-bottom: 1.25rem;
+}
+
+.news-content h5 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2937;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.news-content ul {
+  list-style-type: disc;
+  margin-left: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.news-content ol {
+  list-style-type: decimal;
+  margin-left: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.news-content li {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+.news-content li strong {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.news-content strong {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.news-content a {
+  color: #ec2227;
+  text-decoration: underline;
+}
+
+.news-content a:hover {
+  color: #971b1e;
+}
+
+/* Fade-in Animation for Important Notice */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeInUp 0.6s ease-out forwards;
+}

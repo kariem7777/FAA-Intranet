@@ -1,0 +1,45 @@
+{
+  "legislation" : {
+    "sectionTitle": "Legislations",
+    "sectionDesc": "Browse through organized collections of legal documents, regulations, and official opinions. Each category is authenticated and regularly updated to ensure accuracy.",
+    "noticeTitle": "Important Notice",
+    "notice1": "It is strictly prohibited to copy any content, transfer or capture any information or data from this platform.",
+    "notice2": "Access is only permitted for authorized users.",
+    "notice3": "We highly appreciate your understanding and adherence to these guidelines.",
+    "acknowledge": "Acknowledge",
+    "accessLabel": "Access",
+    "documentsLabel": "documents",
+    "categories": {
+      "entityLegislation": {
+        "title": "Entity's Legislation",
+        "subtitle": "Internal laws and regulations specific to the entity"
+      },
+      "federalLegislation": {
+        "title": "Federal Legislation",
+        "subtitle": "Federal laws and decrees issued by the federal government"
+      },
+      "localLegislation": {
+        "title": "Local Legislation",
+        "subtitle": "Local laws and legislation for the Emirate of Dubai"
+      },
+      "supremeCommittee": {
+        "title": "Supreme Committee's Legal Opinion",
+        "subtitle": "Legal opinions and guidance issued by the Supreme Committee"
+      },
+      "faaLegalOpinions": {
+        "title": "FAA Legal Opinions",
+        "subtitle": "Legal opinions and consultations issued by the Authority"
+      },
+      "faaLegislation": {
+        "title": "FAA's Legislation",
+        "subtitle": "Legislation and decisions specific to the Financial Audit Authority"
+      }
+    },
+    "stats": {
+      "totalDocuments": "Total Documents",
+      "categories": "Categories",
+      "recentUpdates": "Recent Updates",
+      "activeOpinions": "Active Opinions"
+    }
+  }
+}
