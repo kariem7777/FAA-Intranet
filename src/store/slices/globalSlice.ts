@@ -4,6 +4,7 @@ import i18n from '../../i18n';
 interface GlobalState {
   language: 'en' | 'ar';
   direction: 'ltr' | 'rtl';
+  fontSizeMultiplier: number;
 }
 
 const getInitialLanguage = (): 'en' | 'ar' => {
@@ -17,6 +18,7 @@ const getInitialLanguage = (): 'en' | 'ar' => {
 const initialState: GlobalState = {
   language: getInitialLanguage(),
   direction: getInitialLanguage() === 'ar' ? 'rtl' : 'ltr',
+  fontSizeMultiplier: 1,
 };
 
 // Set initial document direction
@@ -53,8 +55,21 @@ const globalSlice = createSlice({
       // Sync with i18n
       i18n.changeLanguage(newLang);
     },
+    increaseFontSize: (state) => {
+        if (state.fontSizeMultiplier < 1.3) {
+            state.fontSizeMultiplier = parseFloat((state.fontSizeMultiplier + 0.1).toFixed(1));
+        }
+    },
+    decreaseFontSize: (state) => {
+        if (state.fontSizeMultiplier > 0.8) {
+            state.fontSizeMultiplier = parseFloat((state.fontSizeMultiplier - 0.1).toFixed(1));
+        }
+    },
+    setFontSize: (state, action: PayloadAction<number>) => {
+        state.fontSizeMultiplier = action.payload;
+    }
   },
 });
 
-export const { setLanguage, toggleLanguage } = globalSlice.actions;
+export const { setLanguage, toggleLanguage, increaseFontSize, decreaseFontSize, setFontSize } = globalSlice.actions;
 export default globalSlice.reducer;

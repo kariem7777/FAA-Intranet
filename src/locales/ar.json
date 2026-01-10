@@ -1,4 +1,12 @@
 {
+  "common": {
+    "loadingError": "خطأ في التحميل",
+    "retry": "إعادة المحاولة",
+    "somethingWentWrong": "حدث خطأ",
+    "noResultsFound": "لا توجد نتائج",
+    "prev": "السابق",
+    "next": "التالي"
+  },
   "legislation" : {
     "sectionTitle": "التشريعات",
     "sectionDesc": "تصفح من خلال مجموعات منظمة من الوثائق القانونية واللوائح والآراء الرسمية. كل فئة موثقة ومحدثة بانتظام لضمان الدقة.",
@@ -9,7 +17,29 @@
     "acknowledge": "إقرار",
     "accessLabel": "الوصول إلى",
     "documentsLabel": "الوثائق",
+    "backToLegislations": "العودة الى التشريعات",
+    "returnToTop": "العودة إلى الأعلى",
+    "returnToSearch": "العودة للبحث",
+    "hideCategories": "إخفاء التصنيفات",
+    "pageOf": "{{current}} من {{total}}",
+    "failedToLoadCategories": "حدث خطأ أثناء تحميل التصنيفات",
+    "entity": "الجهة",
+    "selectEntity": "اختر الجهة",
+    "searchEntity": "ابحث عن جهة...",
+    "clearSelection": "مسح التحديد",
+    "noEntitiesFound": "لا توجد نتائج",
+    "search": "البحث",
+    "searchWithin": "البحث ضمن {{category}}",
+    "public": "عام",
+    "secret": "سري",
+    "viewDocument": "عرض الوثيقة",
+    "selectEntityToView": "اختر جهة لعرض الوثائق",
+    "selectEntityDescription": "يرجى اختيار جهة من القائمة أعلاه للبدء في تصفح الوثائق",
+    "adjustSearchCriteria": "حاول تعديل معايير البحث",
+    "documentCount": "{{count}} وثيقة",
+    "documentCount_plural": "{{count}} وثيقة",
     "categories": {
+      "title":"التصنيفات",
       "entityLegislation": {
         "title": "تشريعات الجهات الخاضعة",
         "subtitle": "القوانين والأنظمة الداخلية الخاصة بالجهة"

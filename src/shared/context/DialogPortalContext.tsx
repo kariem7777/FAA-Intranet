@@ -12,11 +12,15 @@ interface DialogPortalContextType {
     removeDialog: (id: string) => void;
 }
 
-const DialogPortalContext = createContext<DialogPortalContextType | undefined>(
-    undefined
+export const DialogPortalContext = createContext<DialogPortalContextType | undefined>(
+    undefined,
 );
 
-export function DialogPortalProvider({ children }: { children: React.ReactNode }) {
+export function DialogPortalProvider({
+    children,
+}: {
+    children: React.ReactNode;
+}) {
     const [dialogs, setDialogs] = useState<DialogInstance[]>([]);
 
     const addDialog = useCallback((id: string, component: React.ReactNode) => {
@@ -38,19 +42,15 @@ export function DialogPortalProvider({ children }: { children: React.ReactNode }
     );
 }
 
-export function useDialogPortal() {
-    const context = useContext(DialogPortalContext);
-    if (!context) {
-        throw new Error('useDialogPortal must be used within DialogPortalProvider');
-    }
-    return context;
-}
-
 /**
  * Portal renderer - place this at app root to render all dialogs
  */
 export function DialogPortal() {
-    const { dialogs } = useDialogPortal();
+    const context = useContext(DialogPortalContext);
+    if (!context) {
+        throw new Error('DialogPortal must be used within DialogPortalProvider');
+    }
+    const { dialogs } = context;
 
     if (dialogs.length === 0) return null;
 
@@ -60,6 +60,8 @@ export function DialogPortal() {
                 <div key={dialog.id}>{dialog.component}</div>
             ))}
         </div>,
-        document.body
+        document.body,
     );
 }
+
+

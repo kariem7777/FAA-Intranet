@@ -1,4 +1,6 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { type RootState } from "@/store";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Loading, ErrorPage } from "@/shared";
 import { LegislationLayout } from "./features/Legislation/layout/LegislationLayout";
@@ -30,6 +32,12 @@ const router = createBrowserRouter([
 ]);
 
 const AppRouter = () => {
+    const { fontSizeMultiplier } = useSelector((state: RootState) => state.global);
+
+    useEffect(() => {
+        document.documentElement.style.setProperty('--font-scale', fontSizeMultiplier.toString());
+    }, [fontSizeMultiplier]);
+
     return <RouterProvider router={router} />;
 };
 

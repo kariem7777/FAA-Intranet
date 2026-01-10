@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import globalReducer from './slices/globalSlice';
+import legislationReducer from '@/features/Legislation/slices/legislationSlice';
 
 export const store = configureStore({
     reducer: {
         global: globalReducer,
+        legislation: legislationReducer,
     },
 });
 

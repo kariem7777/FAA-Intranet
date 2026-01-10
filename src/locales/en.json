@@ -1,4 +1,12 @@
 {
+  "common": {
+    "loadingError": "Loading Error",
+    "retry": "Retry",
+    "somethingWentWrong": "Something went wrong",
+    "noResultsFound": "No results found",
+    "prev": "Prev",
+    "next": "Next"
+  },
   "legislation" : {
     "sectionTitle": "Legislations",
     "sectionDesc": "Browse through organized collections of legal documents, regulations, and official opinions. Each category is authenticated and regularly updated to ensure accuracy.",
@@ -9,7 +17,29 @@
     "acknowledge": "Acknowledge",
     "accessLabel": "Access",
     "documentsLabel": "documents",
+    "backToLegislations": "Back to Legislations",
+    "returnToTop": "Return to top",
+    "returnToSearch": "Return to Search",
+    "hideCategories": "Hide Categories",
+    "pageOf": "{{current}} of {{total}}",
+    "failedToLoadCategories": "Failed to load categories",
+    "entity": "Entity",
+    "selectEntity": "Select Entity",
+    "searchEntity": "Search entity...",
+    "clearSelection": "Clear Selection",
+    "noEntitiesFound": "No entities found",
+    "search": "Search",
+    "searchWithin": "Search within {{category}}",
+    "public": "Public",
+    "secret": "Secret",
+    "viewDocument": "View Document",
+    "selectEntityToView": "Select an entity to view documents",
+    "selectEntityDescription": "Please select an entity from the list above to start browsing documents",
+    "adjustSearchCriteria": "Try adjusting your search criteria",
+    "documentCount": "{{count}} document",
+    "documentCount_plural": "{{count}} documents",
     "categories": {
+      "title":"Categories",
       "entityLegislation": {
         "title": "Entity's Legislation",
         "subtitle": "Internal laws and regulations specific to the entity"
