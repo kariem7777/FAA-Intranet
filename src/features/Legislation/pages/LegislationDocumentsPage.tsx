@@ -4,10 +4,10 @@ import { useTranslation } from '@/shared/hooks/useTranslation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSelector } from 'react-redux';
 import type { RootState } from '@/store';
-import { LegislationSidebar } from '../components/LegislationSidebar';
-import { LegislationFilters } from '../components/LegislationFilters';
-import { LegislationDocumentList } from '../components/LegislationDocumentList';
+import { LegislationSidebar } from '../components/LegislationDocuments/LegislationSidebar';
+import { LegislationFilters } from '../components/LegislationDocuments/LegislationFilters';
 import type { LegislationDocument } from '../types';
+import { LegislationDocumentList } from '../components/LegislationDocuments/LegislationDocumentList';
 
 interface LegislationDocumentsPageProps {
   categoryId: number;

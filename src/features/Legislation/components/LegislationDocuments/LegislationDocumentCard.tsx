@@ -1,6 +1,6 @@
 import { Eye, Calendar, FileText } from 'lucide-react';
 import { useTranslation } from '@/shared/hooks/useTranslation';
-import type { LegislationDocument } from '../types';
+import type { LegislationDocument } from '../../types';
 import { motion } from 'framer-motion';
 
 interface LegislationDocumentCardProps {

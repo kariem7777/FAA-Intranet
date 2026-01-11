@@ -38,6 +38,15 @@
     "adjustSearchCriteria": "حاول تعديل معايير البحث",
     "documentCount": "{{count}} وثيقة",
     "documentCount_plural": "{{count}} وثيقة",
+    "referenceNumber": "الرقم المرجعي",
+    "issueDate": "تاريخ الإصدار",
+    "year": "السنة",
+    "classification": "التصنيف",
+    "backToList": "العودة للقائمة",
+    "loadingDocument": "جاري تحميل الوثيقة...",
+    "documentNotFound": "الوثيقة غير موجودة",
+    "openInNewTab": "فتح في علامة تبويب جديدة",
+    "downloadDocument": "تنزيل الوثيقة",
     "categories": {
       "title":"التصنيفات",
       "entityLegislation": {

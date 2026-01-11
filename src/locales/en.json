@@ -38,6 +38,15 @@
     "adjustSearchCriteria": "Try adjusting your search criteria",
     "documentCount": "{{count}} document",
     "documentCount_plural": "{{count}} documents",
+    "referenceNumber": "Reference Number",
+    "issueDate": "Issue Date",
+    "year": "Year",
+    "classification": "Classification",
+    "backToList": "Back to List",
+    "loadingDocument": "Loading document...",
+    "documentNotFound": "Document not found",
+    "openInNewTab": "Open in New Tab",
+    "downloadDocument": "Download Document",
     "categories": {
       "title":"Categories",
       "entityLegislation": {

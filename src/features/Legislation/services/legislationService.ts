@@ -218,6 +218,31 @@ export class LegislationService extends BaseApiService {
       }
     };
   }
+  
+  public async getDocumentDetails(documentId: number): Promise<ApiResponse<LegislationDocument>> {
+    await new Promise(resolve => setTimeout(resolve, 500));
+
+    // Generate mock document matching the ID
+    const titleVariation = this.documentTitles[documentId % this.documentTitles.length];
+    const entity = this.entities[documentId % this.entities.length];
+
+    const document: LegislationDocument = {
+      id: documentId,
+      title: `${titleVariation.en} (${2020 + (documentId % 5)})`,
+      titleAr: `${titleVariation.ar} (${2020 + (documentId % 5)})`,
+      referenceNumber: `${entity.id.toUpperCase()}/FIN/${2020 + (documentId % 5)}/${String(documentId).padStart(3, '0')}`,
+      year: 2020 + (documentId % 5),
+      classification: ['public', 'secret'][documentId % 2] as 'public' | 'secret',
+      entityId: entity.id,
+      entityName: entity.nameEn,
+      entityNameAr: entity.nameAr,
+      category: (documentId % 6) + 1,
+      issueDate: `${2020 + (documentId % 5)}-${String((documentId % 12) + 1).padStart(2, '0')}-15`,
+      pdfUrl: 'https://dlp.dubai.gov.ae/Legislation%20Ar%20Reference/2025/%D9%85%D8%B1%D8%B3%D9%88%D9%85%20%D8%B1%D9%82%D9%85%20(52)%20%D9%84%D8%B3%D9%86%D8%A9%202025%20%D8%A8%D8%B4%D8%A3%D9%86%20%D8%A5%D9%86%D8%B4%D8%A7%D8%A1%20%D9%85%D9%86%D8%B7%D9%82%D8%A9%20%D8%AD%D8%B1%D8%A9%20%D9%81%D9%8A%20%D8%A5%D9%85%D8%A7%D8%B1%D8%A9%20%D8%AF%D8%A8%D9%8A.pdf',
+    };
+
+    return { data: document };
+  }
 }
 
 export const legislationService = new LegislationService();

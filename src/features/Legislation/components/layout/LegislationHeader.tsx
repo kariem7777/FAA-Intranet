@@ -198,7 +198,7 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
 
             {/* Language */}
             <button
-              onClick={() => setLanguage(language === 'en' ? 'ar' : 'en')}
+              onClick={() => handleSetLanguage(language === 'en' ? 'ar' : 'en')}
               className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-white/10 transition-all"
               style={{
                 fontFamily: 'Dubai, Arial, sans-serif',
