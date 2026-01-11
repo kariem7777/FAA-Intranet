@@ -10,6 +10,83 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
 
     <style>
+        h1 {
+            font-size: 2.5rem !important;
+            font-weight: 500 !important;
+            line-height: 1.2 !important;
+        }
+
+        h2 {
+            font-size: 2rem !important;
+            font-weight: 500 !important;
+            line-height: 1.3 !important;
+        }
+
+        h3 {
+            font-size: 1.5rem !important;
+            font-weight: 500 !important;
+            line-height: 1.4 !important;
+        }
+
+        h4 {
+            font-size: 1.25rem !important;
+            font-weight: 500 !important;
+            line-height: 1.4 !important;
+        }
+
+        h5 {
+            font-size: 1.125rem !important;
+            font-weight: 400 !important;
+            line-height: 1.5 !important;
+        }
+
+        h6 {
+            font-size: 1rem !important;
+            font-weight: 400 !important;
+            line-height: 1.5 !important;
+        }
+
+        p {
+            font-size: 1rem !important;
+            line-height: 1.6 !important;
+        }
+
+        a {
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        button {
+            font-family: inherit !important;
+        }
+
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #908e81 #f1f1f1;
+            letter-spacing: 0.5px;
+            font-family: "Dubai", "Tajawal", sans-serif;
+        }
+
+        .custom-container {
+            max-width: 95vw;
+            margin: auto;
+        }
+
+        .shadow-lg {
+            box-shadow:
+                0 10px 15px -3px rgba(0, 0, 0, 0.1),
+                0 4px 6px -4px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .border {
+            border: 1px solid #eaeaea;
+
+        }
+
+        .btn-group {
+            background-color: #F3F4F6;
+        }
+
         :root {
             --faa-red: #ec2227;
             --faa-dark-red: #7b282d;
@@ -28,7 +105,7 @@
         }
 
         .hero-banner {
-            background-image: url('./assets/14a7bedb16f5751eddf0fc794da9e33a1599152b.png');
+            background-image: url('./assets/3ca851fd732fadea7ed700a83455499648bbdce7.avif');
             background-size: 100%;
             border-radius: 16px;
             color: white;
@@ -64,9 +141,14 @@
             transition: all 0.2s ease;
         }
 
+        .view-toggle-btn:hover {
+            background-color: #EBE8DF;
+        }
+
         .view-toggle-btn.active {
             background-color: white !important;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
         }
 
         .sort-btn {
@@ -83,6 +165,10 @@
             transition: all 0.2s ease;
         }
 
+        .category-btn:hover {
+            background-color: #F3F4F6;
+        }
+
         .category-btn.active {
             background-color: var(--faa-darker-red) !important;
             color: white !important;
@@ -93,6 +179,11 @@
             color: white !important;
         }
 
+        .badge {
+            background-color: #E5E7EB;
+            color: #5b5d61;
+        }
+
         .app-card {
             transition: all 0.3s ease;
             cursor: pointer;
@@ -101,6 +192,10 @@
         .app-card:hover {
             border-color: #ced4da !important;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+        }
+
+        .app-card:hover .btn-ghost {
+            opacity: 1 !important;
         }
 
         .app-card:hover .app-icon {
@@ -136,13 +231,32 @@
             position: sticky;
             top: 140px;
         }
+
+        .btn-custom-outline {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            font-size: 0.7rem;
+            transition: all 0.2s;
+            border-radius: 6px;
+            border: 1px solid oklch(.922 0 0);
+            background-color: #F7F7F7;
+            outline: none;
+            padding: 5px 12px;
+            color: oklch(.145 0 0) !important;
+        }
+
+        .btn-custom-outline:hover {
+            background-color: #EFEFF0;
+        }
     </style>
 </head>
 
-<body class="bg-pattern">
+<body class="bg-pattern ">
 
     <!-- Hero Banner -->
-    <div class="container-fluid px-5 py-4">
+    <div class="custom-container px-5 py-4">
         <div class="hero-banner">
             <div class="hero-content">
                 <h2 class="mb-3" style="font-size: 24px; font-weight: 500; line-height: 28px;">Automation Hub</h2>
@@ -154,7 +268,7 @@
     </div>
 
     <!-- Search and Filter Bar -->
-    <div class="bg-white border-bottom shadow-sm">
+    <div class="  bg-white border-bottom shadow-sm">
         <div class="container-fluid px-5 py-3">
             <!-- Search and View Toggle -->
             <div class="d-flex align-items-center gap-3 mb-3">
@@ -167,13 +281,14 @@
                 </div>
 
                 <!-- View Toggle -->
-                <div class="btn-group bg-light rounded p-1" role="group">
-                    <button type="button" class="btn btn-sm view-toggle-btn active" id="gridViewBtn"
-                        onclick="setView('grid')">
+                <div class="btn-group  rounded p-1 rounded-3" role="group">
+                    <button type="button" class="btn btn-sm view-toggle-btn active border-0 p-2 rounded-3 mr-2"
+                        id="gridViewBtn" onclick="setView('grid')">
                         <i data-lucide="layout-grid" style="width: 16px; height: 16px; margin-right: 6px;"></i>
                         Grid
                     </button>
-                    <button type="button" class="btn btn-sm view-toggle-btn" id="listViewBtn" onclick="setView('list')">
+                    <button type="button" class="btn btn-sm view-toggle-btn border-0 p-2 rounded-3" id="listViewBtn"
+                        onclick="setView('list')">
                         <i data-lucide="list" style="width: 16px; height: 16px; margin-right: 6px;"></i>
                         List
                     </button>
@@ -187,35 +302,33 @@
                     <span style="font-size: 0.75rem;">Sort By:</span>
                 </div>
 
-                <button class="btn btn-sm btn-outline-secondary sort-btn active" onclick="setSort('name')">
-                    <i data-lucide="sort-asc" style="width: 12px; height: 12px; margin-right: 6px;"></i>
-                    <span style="font-size: 0.75rem;">Name (A-Z)</span>
+                <button class="btn-custom-outline sort-btn active" onclick="setSort('name')">
+                    <i data-lucide="sort-asc" style="width: 15px; height: 15px; margin-right: 6px;"></i>
+                    <span>Name (A-Z)</span>
                 </button>
-                <button class="btn btn-sm btn-outline-secondary sort-btn" onclick="setSort('recent')">
-                    <i data-lucide="clock" style="width: 12px; height: 12px; margin-right: 6px;"></i>
-                    <span style="font-size: 0.75rem;">Recently Used</span>
+                <button class="btn-custom-outline sort-btn" onclick="setSort('recent')">
+                    <i data-lucide="clock" style="width: 15px; height: 15px; margin-right: 6px;"></i>
+                    <span>Recently Used</span>
                 </button>
-                <button class="btn btn-sm btn-outline-secondary sort-btn" onclick="setSort('popular')">
-                    <i data-lucide="star" style="width: 12px; height: 12px; margin-right: 6px;"></i>
-                    <span style="font-size: 0.75rem;">Most Popular</span>
+                <button class="btn-custom-outline sort-btn" onclick="setSort('popular')">
+                    <i data-lucide="star" style="width: 15px; height: 15px; margin-right: 6px;"></i>
+                    <span>Most Popular</span>
                 </button>
-
-                <span class="badge bg-secondary ms-auto" id="resultCount" style="font-size: 0.75rem;">25
-                    applications</span>
             </div>
         </div>
     </div>
 
     <!-- Main Content -->
-    <div class="container-fluid px-5 py-4">
+    <div class="custom-container px-5 py-4">
         <div class="row g-4">
 
             <!-- Left Sidebar -->
-            <aside class="col-lg-2 d-none d-lg-block">
-                <div class="card sidebar shadow-sm">
+            <aside class="col-lg-2 d-none d-lg-block ">
+                <div class="card sidebar shadow-sm border rounded-4 sticky-top" style="top: 20px;">
                     <div class="card-body p-3">
-                        <p class="text-uppercase small text-secondary mb-3"
-                            style="font-size: 0.75rem; letter-spacing: 0.05em;">Categories</p>
+                        <p class=" h6  text-uppercase fw-semibold text-secondary mb-3" style=" letter-spacing: 0.5px;">
+                            Categories
+                        </p>
                         <nav class="d-flex flex-column gap-1">
                             <button
                                 class="btn category-btn active w-100 d-flex align-items-center justify-content-between p-2 rounded"
@@ -224,7 +337,7 @@
                                     <i data-lucide="layout-grid" style="width: 16px; height: 16px;"></i>
                                     <span style="font-size: 0.75rem;">All</span>
                                 </div>
-                                <span class="badge bg-secondary">25</span>
+                                <span class="badge ">25</span>
                             </button>
                             <button
                                 class="btn category-btn w-100 d-flex align-items-center justify-content-between p-2 rounded"
@@ -233,7 +346,7 @@
                                     <i data-lucide="settings" style="width: 16px; height: 16px;"></i>
                                     <span style="font-size: 0.75rem;">Administration</span>
                                 </div>
-                                <span class="badge bg-secondary">4</span>
+                                <span class="badge">4</span>
                             </button>
                             <button
                                 class="btn category-btn w-100 d-flex align-items-center justify-content-between p-2 rounded"
@@ -242,7 +355,7 @@
                                     <i data-lucide="users" style="width: 16px; height: 16px;"></i>
                                     <span style="font-size: 0.75rem;">Employee</span>
                                 </div>
-                                <span class="badge bg-secondary">4</span>
+                                <span class="badge">4</span>
                             </button>
                             <button
                                 class="btn category-btn w-100 d-flex align-items-center justify-content-between p-2 rounded"
@@ -251,18 +364,16 @@
                                     <i data-lucide="message-square" style="width: 16px; height: 16px;"></i>
                                     <span style="font-size: 0.75rem;">Engagement</span>
                                 </div>
-                                <span class="badge bg-secondary">3</span>
+                                <span class="badge">3</span>
                             </button>
                             <button
                                 class="btn category-btn w-100 d-flex align-items-center justify-content-between p-2 rounded"
                                 onclick="filterCategory('compliance')">
-                                <div class="d-flex align-items-center justify-content-between p-2 rounded"
-                                    onclick="filterCategory('compliance')">
-                                    <div class="d-flex align-items-center gap-2">
-                                        <i data-lucide="shield-check" style="width: 16px; height: 16px;"></i>
-                                        <span style="font-size: 0.75rem;">Audit</span>
-                                    </div>
-                                    <span class="badge bg-secondary">4</span>
+                                <div class="d-flex align-items-center gap-2">
+                                    <i data-lucide="shield-check" style="width: 16px; height: 16px;"></i>
+                                    <span style="font-size: 0.75rem;">Audit</span>
+                                </div>
+                                <span class="badge">4</span>
                             </button>
                             <button
                                 class="btn category-btn w-100 d-flex align-items-center justify-content-between p-2 rounded"
@@ -271,7 +382,7 @@
                                     <i data-lucide="database" style="width: 16px; height: 16px;"></i>
                                     <span style="font-size: 0.75rem;">Systems</span>
                                 </div>
-                                <span class="badge bg-secondary">4</span>
+                                <span class="badge">4</span>
                             </button>
                             <button
                                 class="btn category-btn w-100 d-flex align-items-center justify-content-between p-2 rounded"
@@ -280,7 +391,7 @@
                                     <i data-lucide="file-search" style="width: 16px; height: 16px;"></i>
                                     <span style="font-size: 0.75rem;">Operations</span>
                                 </div>
-                                <span class="badge bg-secondary">2</span>
+                                <span class="badge">2</span>
                             </button>
                             <button
                                 class="btn category-btn w-100 d-flex align-items-center justify-content-between p-2 rounded"
@@ -289,7 +400,7 @@
                                     <i data-lucide="shield" style="width: 16px; height: 16px;"></i>
                                     <span style="font-size: 0.75rem;">Security</span>
                                 </div>
-                                <span class="badge bg-secondary">4</span>
+                                <span class="badge">4</span>
                             </button>
                         </nav>
                     </div>
@@ -304,11 +415,11 @@
                     <div class="d-flex align-items-center gap-2 mb-3">
                         <i data-lucide="pin"
                             style="width: 16px; height: 16px; color: var(--pin-color); fill: var(--pin-color);"></i>
-                        <p class="mb-0 small fw-medium">Pinned Applications</p>
+                        <p class="mb-0 small fw-normal">Pinned Applications</p>
                         <span class="badge bg-light text-dark border">6</span>
                     </div>
 
-                    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3" id="pinnedGrid">
+                    <div id="pinnedGrid">
                         <!-- Pinned apps will be inserted here by JavaScript -->
                     </div>
                 </div>
@@ -381,26 +492,27 @@
         };
 
         let viewMode = 'grid';
-        let Selected = 'all';
+        let selectedCategory = 'all';
+
 
         function createAppCard(app, viewMode) {
             const isPinned = app.pinned;
 
             if (viewMode === 'list') {
                 return `
-          <div class="app-card card mb-2 p-3">
+          <div class="app-card card mb-2 p-3 border rounded-3 ">
             <div class="d-flex align-items-center gap-3">
               <div class="rounded-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 40px; height: 40px; background-color: ${app.color}15;">
                 <i data-lucide="${app.icon}" style="width: 20px; height: 20px; color: ${app.color};"></i>
               </div>
               <div class="flex-fill">
-                <p class="mb-0 small fw-medium text-truncate">${app.name}</p>
+                <p class="mb-0 small fw-normal text-truncate">${app.name}</p>
                 <p class="mb-0 text-muted" style="font-size: 0.75rem;">${app.description}</p>
               </div>
               <button class="btn btn-sm pin-btn p-2" onclick="togglePin(${app.id})">
                 <i data-lucide="pin" class="pin-icon ${isPinned ? 'pinned' : ''}" style="width: 16px; height: 16px;"></i>
               </button>
-              <button class="btn btn-sm btn-ghost">
+              <button class="btn btn-sm btn-ghost opacity-0">
                 <i data-lucide="external-link" style="width: 16px; height: 16px;"></i>
               </button>
             </div>
@@ -410,7 +522,7 @@
 
             return `
         <div class="col">
-          <div class="app-card card p-3 h-100 position-relative">
+          <div class="app-card card p-3 h-100 position-relative border rounded-4">
             <button class="btn btn-sm pin-btn p-1 position-absolute top-0 end-0 m-2" onclick="togglePin(${app.id}); event.stopPropagation();">
               <i data-lucide="pin" class="pin-icon ${isPinned ? 'pinned' : ''}" style="width: 14px; height: 14px;"></i>
             </button>
@@ -419,7 +531,7 @@
                 <i data-lucide="${app.icon}" style="width: 24px; height: 24px; color: ${app.color};"></i>
               </div>
               <div>
-                <p class="mb-0 small fw-medium" style="min-height: 20px;">${app.name}</p>
+                <p class="mb-0 small fw-normal" style="min-height: 20px;">${app.name}</p>
                 <p class="mb-0 text-muted text-truncate" style="font-size: 0.75rem;">${app.description}</p>
               </div>
             </div>
@@ -431,8 +543,10 @@
         function renderApps() {
             const pinnedApps = applications.filter(app => app.pinned);
             const pinnedGrid = document.getElementById('pinnedGrid');
+            pinnedGrid.className = viewMode === 'grid'
+                ? 'row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3'
+                : '';
             pinnedGrid.innerHTML = pinnedApps.map(app => createAppCard(app, viewMode)).join('');
-
             const categoriesContainer = document.getElementById('categoriesContainer');
             let categoriesHTML = '';
 
@@ -444,7 +558,7 @@
                         categoriesHTML += `
               <div class="mb-4">
                 <div class="d-flex align-items-center gap-2 mb-3">
-                  <p class="mb-0 small fw-medium">${categoryNames[cat]}</p>
+                  <p class="mb-0 small fw-normal">${categoryNames[cat]}</p>
                   <span class="badge bg-light text-dark border">${apps.length}</span>
                 </div>
                 <div class="${viewMode === 'grid' ? 'row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3' : ''}">
@@ -459,7 +573,7 @@
                 categoriesHTML = `
           <div class="mb-4">
             <div class="d-flex align-items-center gap-2 mb-3">
-              <p class="mb-0 small fw-medium">${categoryNames[selectedCategory]}</p>
+              <p class="mb-0 small fw-normal">${categoryNames[selectedCategory]}</p>
               <span class="badge bg-light text-dark border">${apps.length}</span>
             </div>
             <div class="${viewMode === 'grid' ? 'row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-3' : ''}">
