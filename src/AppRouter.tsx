@@ -6,6 +6,7 @@ import { Loading, ErrorPage } from "@/shared";
 import { LegislationLayout } from "./features/Legislation/layout/LegislationLayout";
 
 const LegislationHome = lazy(() => import("@/features/Legislation/pages/LegislationHome"));
+const LegislationDashboardPage = lazy(() => import("@/features/Legislation/pages/LegislationDashboardPage"));
 
 
 const router = createBrowserRouter([
@@ -26,7 +27,14 @@ const router = createBrowserRouter([
                     </Suspense>
                 ),
             },
-
+            {
+                path: "dashboard",
+                element: (
+                    <Suspense fallback={<Loading />}>
+                        <LegislationDashboardPage />
+                    </Suspense>
+                ),
+            },
         ]
     },
 ]);
@@ -42,3 +50,4 @@ const AppRouter = () => {
 };
 
 export default AppRouter;
+

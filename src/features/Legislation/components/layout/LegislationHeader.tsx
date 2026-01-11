@@ -65,7 +65,7 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
 
   const navItems = [
     { id: 'home' as const, label: t.home },
-    { id: 'legislations' as const, label: t.legislations },
+    // { id: 'legislations' as const, label: t.legislations },
     // { id: 'search' as const, label: t.search },
     { id: 'dashboard' as const, label: t.dashboard },
     { id: 'documents' as const, label: t.documents },
@@ -226,10 +226,10 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
               >
                 <User className="h-6 w-6 text-white" />
                 {/* Role indicator badge */}
-                {/* <span 
-                className="absolute top-1 right-1 w-2 h-2 rounded-full border-2 border-[#2F4F6F]"
-                style={{ backgroundColor: userRole === 'admin' ? '#C9A24D' : '#4ADE80' }}
-              /> */}
+                <span
+                  className="absolute top-1 right-1 w-2 h-2 rounded-full border-2 border-[#2F4F6F]"
+                  style={{ backgroundColor: userRole === 'admin' ? '#C9A24D' : '#4ADE80' }}
+                />
               </button>
               {showRoleDropdown && (
                 <div

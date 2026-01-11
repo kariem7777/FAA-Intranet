@@ -25,31 +25,26 @@ function LegislationHome({ }: LegislationHomeProps = {}) {
   // Get hero state from Redux
   const { globalSearchQuery } = useSelector((state: RootState) => state.hero);
 
-  // Fetch entities on mount
   useEffect(() => {
     dispatch(fetchEntities());
   }, [dispatch]);
 
-  // Perform search when query or entity changes
   useEffect(() => {
     if (globalSearchQuery) {
       dispatch(performGlobalSearch());
     }
   }, [globalSearchQuery, dispatch]);
 
-  // Handle viewing a document
   const handleViewDocument = (doc: LegislationDocument) => {
     dispatch(setDocument(doc));
     setIsViewingDocument(true);
   };
 
-  // Handle back from document viewer
   const handleBackFromViewer = () => {
     dispatch(clearDocument());
     setIsViewingDocument(false);
   };
 
-  // If viewing a document, show document viewer
   if (isViewingDocument) {
     return (
       <LegislationDocumentViewer

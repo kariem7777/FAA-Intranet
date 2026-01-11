@@ -79,6 +79,66 @@
       "categories": "الفئات",
       "recentUpdates": "التحديثات الأخيرة",
       "activeOpinions": "الآراء النشطة"
+    },
+    "dashboard": {
+      "title": "لوحة تحكم التشريعات",
+      "subtitle": "تحليلات شاملة ومؤشرات الأداء للتشريعات والاستفسارات القانونية",
+      "overview": {
+        "tab": "الإحصائيات",
+        "title": "نظرة عامة - مؤشرات الأداء الرئيسية",
+        "subtitle": "نظرة شاملة على أداء نظام التشريعات والاستفسارات القانونية",
+        "totalDocuments": "إجمالي الوثائق",
+        "totalInquiries": "إجمالي الاستفسارات",
+        "closedCases": "الحالات المغلقة",
+        "pendingCases": "الحالات قيد الانتظار",
+        "avgResponseTime": "متوسط وقت الاستجابة",
+        "days": "أيام",
+        "quickStats": "إحصائيات سريعة",
+        "closureRate": "معدل الإغلاق",
+        "activeDepartments": "الجهات النشطة",
+        "uploadsThisMonth": "التحميلات هذا الشهر"
+      },
+      "cases": {
+        "tab": "الآراء القانونية",
+        "title": "الآراء القانونية",
+        "subtitle": "تتبع وإدارة الآراء القانونية وأداء اتفاقية مستوى الخدمة",
+        "slaPerformance": "أداء اتفاقية مستوى الخدمة",
+        "withinSLA": "ضمن الاتفاقية",
+        "breachedSLA": "تجاوزت الاتفاقية",
+        "casesByStatus": "الحالات حسب الحالة",
+        "conversationMetrics": "مقاييس المحادثة",
+        "filterByPeriod": "تصفية حسب الفترة",
+        "quarter": "الربع",
+        "year": "السنة",
+        "q1": "الربع الأول",
+        "q2": "الربع الثاني",
+        "q3": "الربع الثالث",
+        "q4": "الربع الرابع",
+        "days": "أيام",
+        "inquiriesByDepartment": "الاستفسارات حسب الإدارة",
+        "recentCasesLength": "طول الحالات الأخيرة",
+        "caseId": "رقم الحالة",
+        "department": "الإدارة",
+        "caseTitle": "عنوان الحالة",
+        "conversationLength": "طول المحادثة",
+        "timeLength": "طول الوقت",
+        "status": "الحالة",
+        "exportData": "تصدير البيانات",
+        "messages": "رسالة",
+        "cases": "حالة"
+      },
+      "documents": {
+        "tab": "الوثائق والتشريعات",
+        "title": "الوثائق والتشريعات",
+        "subtitle": "تتبع إحصائيات الوثائق والتحميلات والفئات",
+        "documentsByCategory": "الوثائق حسب الفئة",
+        "documentsByEntity": "الوثائق حسب الجهة",
+        "documents": "وثيقة",
+        "uploadsTrend": "اتجاه التحميلات حسب الربع",
+        "total": "الإجمالي:",
+        "uploads": "تحميل",
+        "ofTotal": "من الإجمالي"
+      }
     }
   }
 }

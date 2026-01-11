@@ -29,8 +29,8 @@ i18n
     resources,
     lng: getInitialLanguage(), // language to use, more information here: https://www.i18next.com/overview/configuration-options#languages-namespaces-resources
     fallbackLng: 'ar',
-    defaultNS: 'legislation', // default namespace used if not passed to translation function
-
+    defaultNS: 'legislation',
+    ns: ["legislation"], 
     interpolation: {
       escapeValue: false // react already safes from xss
     }
