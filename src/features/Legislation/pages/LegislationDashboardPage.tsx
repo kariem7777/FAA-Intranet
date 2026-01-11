@@ -24,10 +24,7 @@ interface LegislationDashboardPageProps {
   onNavigateToOpinionDetail?: (opinionId: number) => void;
 }
 
-export default function LegislationDashboardPage({
-  onNavigateToLegalOpinions,
-  onNavigateToOpinionDetail,
-}: LegislationDashboardPageProps) {
+export default function LegislationDashboardPage() {
   const dispatch = useDispatch<AppDispatch>();
   const { t, language } = useTranslation('legislation');
   const { fontSizeMultiplier } = useSelector((state: RootState) => state.global);
@@ -89,10 +86,7 @@ export default function LegislationDashboardPage({
     switch (activeTab) {
       case 'cases':
         return (
-          <CasesInquiriesDashboard
-            onNavigateToLegalOpinions={onNavigateToLegalOpinions}
-            onNavigateToOpinionDetail={onNavigateToOpinionDetail}
-          />
+          <CasesInquiriesDashboard/>
         );
       case 'documents':
         return <DocumentsLegislationDashboard fontSizeMultiplier={fontSizeMultiplier} />;
@@ -156,7 +150,6 @@ export default function LegislationDashboardPage({
                   onMouseEnter={(e) => {
                     if (!isActive) {
                       e.currentTarget.style.color = colors.primary;
-                      e.currentTarget.style.backgroundColor = '#F8F9FA';
                     }
                   }}
                   onMouseLeave={(e) => {

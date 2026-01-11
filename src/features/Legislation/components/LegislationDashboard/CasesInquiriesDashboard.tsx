@@ -24,15 +24,12 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-interface CasesInquiriesDashboardProps {
-  onNavigateToLegalOpinions?: (filter?: { status?: 'new' | 'replied' | 'closed' }) => void;
-  onNavigateToOpinionDetail?: (opinionId: number) => void;
-}
+// interface CasesInquiriesDashboardProps {
+//   onNavigateToLegalOpinions?: (filter?: { status?: 'new' | 'replied' | 'closed' }) => void;
+//   onNavigateToOpinionDetail?: (opinionId: number) => void;
+// }
 
-export function CasesInquiriesDashboard({
-  onNavigateToLegalOpinions,
-  onNavigateToOpinionDetail
-}: CasesInquiriesDashboardProps) {
+export function CasesInquiriesDashboard() {
   const dispatch = useDispatch<AppDispatch>();
   const { t, language } = useTranslation('legislation');
   const { filters, casesData, departmentsData, recentCases } = useSelector((state: RootState) => state.dashboard);
