@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { motion } from 'framer-motion';
 import { useTranslation } from '@/shared/hooks/useTranslation';
 import type { RootState, AppDispatch } from '@/store';
-import { clearDocument } from '../slices/legislationDocumentSlice';
+import { fetchDocumentDetails, clearDocument } from '../slices/legislationDocumentSlice';
 import { BackButton } from '../components/LegislationDocumentViewer/BackButton';
 import { DocumentMetadata } from '../components/LegislationDocumentViewer/DocumentMetadata';
 import { DocumentPreview } from '../components/LegislationDocumentViewer/DocumentPreview';
@@ -12,16 +12,25 @@ import { LoadingState } from '../components/LegislationDocumentViewer/LoadingSta
 
 
 interface LegislationDocumentViewerProps {
+  documentId: number;
   onBack: () => void;
   fontSizeMultiplier?: number;
 }
 
-export function LegislationDocumentViewer({ onBack, fontSizeMultiplier = 1 }: LegislationDocumentViewerProps) {
+export function LegislationDocumentViewer({ documentId, onBack, fontSizeMultiplier = 1 }: LegislationDocumentViewerProps) {
   const { isRTL } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
 
   const { document, loading, error } = useSelector((state: RootState) => state.legislationDocument);
 
+  // Fetch document details when documentId changes
+  useEffect(() => {
+    if (documentId) {
+      dispatch(fetchDocumentDetails(documentId));
+    }
+  }, [dispatch, documentId]);
+
+  // Cleanup on unmount
   useEffect(() => {
     return () => {
       dispatch(clearDocument());

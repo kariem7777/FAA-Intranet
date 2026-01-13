@@ -8,7 +8,7 @@ export interface LegislationDocument {
   entityId: string;
   entityName: string;
   entityNameAr: string;
-  category: number;
+  category: string;
   issueDate: string;
   pdfUrl: string;
 }

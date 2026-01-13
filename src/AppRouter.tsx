@@ -7,6 +7,7 @@ import { LegislationLayout } from "./features/Legislation/layout/LegislationLayo
 
 const LegislationHome = lazy(() => import("@/features/Legislation/pages/LegislationHome"));
 const LegislationDashboardPage = lazy(() => import("@/features/Legislation/pages/LegislationDashboardPage"));
+const DocumentsManagementPage = lazy(() => import("@/features/Legislation/pages/DocumentsManagementPage").then(module => ({ default: module.DocumentsManagementPage })));
 
 
 const router = createBrowserRouter([
@@ -24,6 +25,17 @@ const router = createBrowserRouter([
                 element: (
                     <Suspense fallback={<Loading />}>
                         <LegislationHome />
+                    </Suspense>
+                ),
+            },
+            {
+                path: "documents",
+                element: (
+                    <Suspense fallback={<Loading />}>
+                        <DocumentsManagementPage
+                            onAddDocument={() => { }}
+                            onEditDocument={() => { }}
+                        />
                     </Suspense>
                 ),
             },

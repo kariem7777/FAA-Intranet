@@ -13,6 +13,7 @@ import type {
   QuarterUploadData,
   DashboardFilters,
 } from '../types';
+import { MOCK_DOCUMENTS, MOCK_ENTITIES, LEGISLATION_GROUPS } from './mockData';
 
 export interface CasesOverviewResponse {
   caseStatusData: CaseStatusData[];
@@ -86,45 +87,75 @@ export class DashboardService extends BaseApiService {
     ];
   }
 
+  // Calculate document statistics from actual mock data
   private getDocumentStats(): DocumentStatistic[] {
+    const totalDocs = MOCK_DOCUMENTS.length;
+    const categoriesCount = Object.values(LEGISLATION_GROUPS).reduce((sum, group) => sum + group.categories.length, 0);
+    const avgDocsPerCategory = categoriesCount > 0 ? Math.round(totalDocs / categoriesCount) : 0;
+
     return [
-      { label: 'Total Documents', labelAr: 'إجمالي الوثائق', value: '1,248', change: '+12%', color: '#8B272D', bgColor: 'rgba(139, 39, 45, 0.1)' },
-      { label: 'Avg. Docs per Category', labelAr: 'متوسط الوثائق لكل فئة', value: '156', change: '+15%', color: '#16A34A', bgColor: 'rgba(22, 163, 74, 0.1)' },
+      { label: 'Total Documents', labelAr: 'إجمالي الوثائق', value: totalDocs.toString(), change: '+12%', color: '#8B272D', bgColor: 'rgba(139, 39, 45, 0.1)' },
+      { label: 'Avg. Docs per Category', labelAr: 'متوسط الوثائق لكل فئة', value: avgDocsPerCategory.toString(), change: '+15%', color: '#16A34A', bgColor: 'rgba(22, 163, 74, 0.1)' },
     ];
   }
 
+  // Calculate category data from actual mock documents
   private getCategoryData(): CategoryDocumentData[] {
-    return [
-      { nameEn: "Entity's Legislation", nameAr: 'تشريعات الجهات الخاضعة', count: 342, color: '#971b1e' },
-      { nameEn: 'Federal Legislation', nameAr: 'التشريعات الاتحادية', count: 215, color: '#064368' },
-      { nameEn: 'Local Legislation', nameAr: 'التشريعات المحلية', count: 189, color: '#01949a' },
-      { nameEn: "Supreme Committees Legal Opinion", nameAr: 'فتاوى اللجنة العليا للتشريعات', count: 156, color: '#908e81' },
-      { nameEn: "FAAs Legislation", nameAr: 'تشريعات الجهاز', count: 70, color: '#513a40' },
-    ];
+    const colors = ['#971b1e', '#064368', '#01949a', '#908e81', '#513a40', '#7d5a44'];
+    
+    return Object.values(LEGISLATION_GROUPS).map((group, index) => {
+      const count = MOCK_DOCUMENTS.filter(doc => doc.legislation === group.key).length;
+      return {
+        nameEn: group.titleEn,
+        nameAr: group.titleAr,
+        count: count > 0 ? count : Math.floor(Math.random() * 200) + 50, // Use real count or generate if no docs
+        color: colors[index % colors.length],
+      };
+    });
   }
 
+  // Calculate entity data from actual mock entities and documents
   private getEntityData(): EntityDocumentData[] {
-    return [
-      { nameEn: 'Finance Department', nameAr: 'إدارة المالية', count: 187, color: '#971b1e' },
-      { nameEn: 'Legal Affairs Department', nameAr: 'إدارة الشؤون القانونية', count: 156, color: '#064368' },
-      { nameEn: 'Human Resources', nameAr: 'الموارد البشرية', count: 142, color: '#01949a' },
-      { nameEn: 'Internal Audit', nameAr: 'التدقيق الداخلي', count: 134, color: '#908e81' },
-      { nameEn: 'Compliance Department', nameAr: 'إدارة الامتثال', count: 128, color: '#513a40' },
-      { nameEn: 'IT Department', nameAr: 'قسم تقنية المعلومات', count: 119, color: '#7d5a44' },
-      { nameEn: 'Operations', nameAr: 'العمليات', count: 108, color: '#2a5c6f' },
-      { nameEn: 'Risk Management', nameAr: 'إدارة المخاطر', count: 95, color: '#b8927d' },
-      { nameEn: 'Administration', nameAr: 'الإدارة العامة', count: 89, color: '#6d4c56' },
-      { nameEn: 'Public Relations', nameAr: 'العلاقات العامة', count: 90, color: '#3d7680' },
-    ];
+    const colors = ['#971b1e', '#064368', '#01949a', '#908e81', '#513a40', '#7d5a44', '#2a5c6f', '#b8927d', '#6d4c56', '#3d7680'];
+    
+    return MOCK_ENTITIES.map((entity, index) => {
+      const count = MOCK_DOCUMENTS.filter(doc => doc.entityId === entity.id).length;
+      return {
+        nameEn: entity.nameEn,
+        nameAr: entity.nameAr,
+        count: count > 0 ? count : Math.floor(Math.random() * 150) + 50, // Use real count or generate if no docs
+        color: colors[index % colors.length],
+      };
+    });
   }
 
+  // Calculate quarter data from actual document upload dates
   private getQuarterData(): QuarterUploadData[] {
-    return [
-      { quarter: 'Q1', quarterAr: 'الربع 1', value: 245, color: '#DC2626' },
-      { quarter: 'Q2', quarterAr: 'الربع 2', value: 312, color: '#2563EB' },
-      { quarter: 'Q3', quarterAr: 'الربع 3', value: 289, color: '#16A34A' },
-      { quarter: 'Q4', quarterAr: 'الربع 4', value: 402, color: '#F59E0B' },
+    const quarters = [
+      { quarter: 'Q1', quarterAr: 'الربع 1', value: 0, color: '#DC2626' },
+      { quarter: 'Q2', quarterAr: 'الربع 2', value: 0, color: '#2563EB' },
+      { quarter: 'Q3', quarterAr: 'الربع 3', value: 0, color: '#16A34A' },
+      { quarter: 'Q4', quarterAr: 'الربع 4', value: 0, color: '#F59E0B' },
     ];
+
+    // Count documents by quarter based on upload date
+    MOCK_DOCUMENTS.forEach(doc => {
+      const month = parseInt(doc.uploadDate.split('-')[1]);
+      const quarterIndex = Math.floor((month - 1) / 3);
+      if (quarterIndex >= 0 && quarterIndex < 4) {
+        quarters[quarterIndex].value++;
+      }
+    });
+
+    // If no real data, generate some reasonable values
+    if (quarters.every(q => q.value === 0)) {
+      quarters[0].value = 245;
+      quarters[1].value = 312;
+      quarters[2].value = 289;
+      quarters[3].value = 402;
+    }
+
+    return quarters;
   }
 
   // API Methods

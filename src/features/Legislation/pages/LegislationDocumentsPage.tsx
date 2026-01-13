@@ -128,7 +128,6 @@ export function LegislationDocumentsPage({
             </motion.div>
           </motion.div>
 
-          {/* SCROLLABLE CONTENT SECTION */}
           <div className="mx-auto px-16 py-10 w-full max-w-[1600px]">
 
             <LegislationFilters />
@@ -139,7 +138,6 @@ export function LegislationDocumentsPage({
         </div>
       </div>
 
-      {/* Floating Scroll to Top */}
       <AnimatePresence>
         {showScrollToTop && (
           <motion.button

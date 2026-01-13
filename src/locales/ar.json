@@ -1,11 +1,15 @@
 {
   "common": {
     "loadingError": "خطأ في التحميل",
+    "loading": "جاري التحميل",
     "retry": "إعادة المحاولة",
     "somethingWentWrong": "حدث خطأ",
     "noResultsFound": "لا توجد نتائج",
     "prev": "السابق",
-    "next": "التالي"
+    "next": "التالي",
+    "previous": "السابق",
+    "page": "صفحة",
+    "of": "من"
   },
   "legislation" : {
     "sectionTitle": "التشريعات",
@@ -139,6 +143,95 @@
         "uploads": "تحميل",
         "ofTotal": "من الإجمالي"
       }
+    },
+    "hero": {
+      "legislationTitle": "منصة التشريعات",
+      "legislationDescription": "بوابتك المركزية لجميع الوثائق القانونية والمراسيم واللوائح عبر مختلف الجهات الحكومية. الوصول والبحث وإدارة المحتوى القانوني بكفاءة.",
+      "documentsTitle": "إدارة الوثائق",
+      "documentsDescription": "إدارة وتحميل وتنظيم الوثائق القانونية مع قدرات متقدمة للتحكم والتتبع.",
+      "addNewDocument": "إضافة وثيقة جديدة",
+      "selectEntityFirst": "اختر جهة أولاً",
+      "searchAllLegislations": "البحث في جميع التشريعات...",
+      "foundResults": "تم العثور على {{count}} نتيجة في {{total}} وثيقة",
+      "documentCount_plural": "{{count}} وثائق"
+    },
+    "documentsManagement": {
+      "allLegislations": "جميع التشريعات",
+      "allCategories": "جميع التصنيفات",
+      "allEntities": "جميع الجهات",
+      "searchPlaceholder": "البحث بالعنوان أو المرجع...",
+      "clearSelection": "مسح التحديد",
+      "documentTitle": "عنوان الوثيقة",
+      "entity": "الجهة",
+      "legislation": "التشريع",
+      "category": "التصنيف",
+      "uploadDate": "تاريخ الرفع",
+      "classification": "التصنيف",
+      "actions": "الإجراءات",
+      "public": "عام",
+      "secret": "سري",
+      "view": "عرض",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "noDocuments": "لم يتم العثور على وثائق",
+      "form": {
+        "titleLabel": "عنوان الوثيقة",
+        "titlePlaceholder": "أدخل عنوان الوثيقة",
+        "entityLabel": "الجهة",
+        "entityPlaceholder": "اختر الجهة",
+        "legislationLabel": "نوع التشريع",
+        "legislationPlaceholder": "اختر نوع التشريع",
+        "categoryLabel": "التصنيف",
+        "categoryPlaceholder": "اختر التصنيف",
+        "classificationLabel": "التصنيف",
+        "fileLabel": "تحميل الملف",
+        "uploadText": "انقر للتحميل أو اسحب وأفلت الملف",
+        "fileSupport": "الصيغ المدعومة: PDF, DOCX (الحد الأقصى 10 ميجابايت)"
+      },
+      "dialogs": {
+        "add": {
+          "title": "إضافة وثيقة جديدة",
+          "cancel": "إلغاء",
+          "submit": "إضافة الوثيقة"
+        },
+        "edit": {
+          "title": "تعديل الوثيقة",
+          "cancel": "إلغاء",
+          "submit": "حفظ التغييرات"
+        },
+        "delete": {
+          "title": "حذف الوثيقة",
+          "message": "هل أنت متأكد أنك تريد حذف هذه الوثيقة؟ لا يمكن التراجع عن هذا الإجراء.",
+          "documentLabel": "الوثيقة المراد حذفها",
+          "cancel": "إلغاء",
+          "confirm": "حذف"
+        }
+      },
+      "toasts": {
+        "addSuccess": "تمت إضافة الوثيقة بنجاح",
+        "addError": "فشلت إضافة الوثيقة",
+        "updateSuccess": "تم تحديث الوثيقة بنجاح",
+        "updateError": "فشل تحديث الوثيقة",
+        "deleteSuccess": "تم حذف الوثيقة بنجاح",
+        "deleteError": "فشل حذف الوثيقة"
+      }
+    }
+  },
+  "options": {
+    "entities": {
+      "federalGovernment": "الحكومة الاتحادية",
+      "cabinet": "مجلس الوزراء",
+      "abuDhabiGovernment": "حكومة أبوظبي",
+      "faa": "هيئة التدقيق المالي",
+      "adcb": "بنك أبوظبي التجاري"
+    },
+    "legislationTypes": {
+      "federalLegislation": "تشريع اتحادي",
+      "localLegislation": "تشريع محلي"
+    },
+    "docCategories": {
+      "laws": "قوانين",
+      "resolutions": "قرارات"
     }
   }
 }

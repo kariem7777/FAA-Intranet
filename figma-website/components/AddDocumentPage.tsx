@@ -33,7 +33,7 @@ export function AddDocumentPage({ onBack, onSave, editDocument }: AddDocumentPag
     documentCategory: editDocument?.documentCategory || '',
     title: editDocument?.title || '',
     file: null as File | null,
-    classification: editDocument?.classification || 'Public',
+    classification: editDocument?.classification || 'public',
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -59,7 +59,7 @@ export function AddDocumentPage({ onBack, onSave, editDocument }: AddDocumentPag
       supportedFiles: 'Supported files: PDF (Max 10MB)',
       dragDrop: 'or drag and drop your file here',
       classification: 'Document Classification',
-      public: 'Public',
+      public: 'public',
       secret: 'Secret',
       publicDesc: 'Accessible to all authorized users',
       secretDesc: 'Restricted access - confidential document',
@@ -466,7 +466,7 @@ export function AddDocumentPage({ onBack, onSave, editDocument }: AddDocumentPag
       </h2>
 
       <div className="grid grid-cols-2 gap-6">
-        {['Public', 'Secret'].map((type) => (
+        {['public', 'Secret'].map((type) => (
           <label
             key={type}
             style={{
@@ -491,13 +491,13 @@ export function AddDocumentPage({ onBack, onSave, editDocument }: AddDocumentPag
                 fontWeight: 600 
               }}
             >
-              {type === 'Public' ? t.public : t.secret}
+              {type === 'public' ? t.public : t.secret}
             </span>
             <p 
               className="mt-1 text-[15px] text-gray-600"
               style={{ fontFamily }}
             >
-              {type === 'Public' ? t.publicDesc : t.secretDesc}
+              {type === 'public' ? t.publicDesc : t.secretDesc}
             </p>
           </label>
         ))}

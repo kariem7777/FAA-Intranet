@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { resetCategories, resetFilters } from '@/features/Legislation/slices/legislationSlice';
 import { fetchEntities, performGlobalSearch } from '@/features/Legislation/slices/heroSlice';
-import { setDocument, clearDocument } from '@/features/Legislation/slices/legislationDocumentSlice';
+import { clearDocument } from '@/features/Legislation/slices/legislationDocumentSlice';
 import { LegislationHero, ImportantNoticeModal, ImportantNoticeCard, LegislationCategoriesGrid } from '../components';
 import { LegislationDocumentsPage } from './LegislationDocumentsPage';
 import { LegislationDocumentViewer } from './LegislationDocumentViewer';
@@ -20,9 +20,8 @@ function LegislationHome({ }: LegislationHomeProps = {}) {
   const dispatch = useDispatch<AppDispatch>();
 
   const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null);
-  const [isViewingDocument, setIsViewingDocument] = useState(false);
+  const [viewingDocumentId, setViewingDocumentId] = useState<number | null>(null);
 
-  // Get hero state from Redux
   const { globalSearchQuery } = useSelector((state: RootState) => state.hero);
 
   useEffect(() => {
@@ -36,24 +35,23 @@ function LegislationHome({ }: LegislationHomeProps = {}) {
   }, [globalSearchQuery, dispatch]);
 
   const handleViewDocument = (doc: LegislationDocument) => {
-    dispatch(setDocument(doc));
-    setIsViewingDocument(true);
+    setViewingDocumentId(doc.id);
   };
 
   const handleBackFromViewer = () => {
     dispatch(clearDocument());
-    setIsViewingDocument(false);
+    setViewingDocumentId(null);
   };
 
-  if (isViewingDocument) {
+  if (viewingDocumentId !== null) {
     return (
       <LegislationDocumentViewer
+        documentId={viewingDocumentId}
         onBack={handleBackFromViewer}
       />
     );
   }
 
-  // If a category is selected, show documents page
   if (selectedCategoryId) {
     return (
       <LegislationDocumentsPage
