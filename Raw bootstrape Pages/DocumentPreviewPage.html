@@ -10,6 +10,83 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
 
     <style>
+        h1 {
+            font-size: 2.5rem !important;
+
+            line-height: 1.2 !important;
+        }
+
+        h2 {
+            font-size: 2rem !important;
+
+            line-height: 1.3 !important;
+        }
+
+        h3 {
+            font-size: 1.5rem !important;
+            font-weight: 500 !important;
+            line-height: 1.4 !important;
+        }
+
+        h4 {
+            font-size: 1.25rem !important;
+            font-weight: 500 !important;
+            line-height: 1.4 !important;
+        }
+
+        h5 {
+            font-size: 1.125rem !important;
+            font-weight: 400 !important;
+            line-height: 1.5 !important;
+        }
+
+        h6 {
+            font-size: 1rem !important;
+            font-weight: 400 !important;
+            line-height: 1.5 !important;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.6 !important;
+        }
+
+        a {
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        button {
+            font-family: inherit !important;
+        }
+
+
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #908e81 #f1f1f1;
+            letter-spacing: 0.5px;
+            font-family: "Dubai", "Tajawal", sans-serif;
+        }
+
+        .fs-small {
+            font-size: 13px;
+        }
+
+        .custom-container {
+            max-width: 80vw;
+            margin: auto;
+        }
+
+        .shadow-lg {
+            box-shadow:
+                0 10px 15px -3px rgba(0, 0, 0, 0.1),
+                0 4px 6px -4px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .border {
+            border: 1px solid #E5E5E5 !important;
+        }
+
         :root {
             --faa-red: #ec2227;
             --faa-dark-red: #7b282d;
@@ -31,10 +108,7 @@
             z-index: 20;
         }
 
-        .color-strip {
-            height: 8px;
-            background-color: var(--theme-color);
-        }
+
 
         .metadata-sidebar {
             background-color: #f8f9fa;
@@ -62,6 +136,45 @@
             position: sticky;
             top: 100px;
         }
+
+        .card {
+            border-top: 7px solid var(--theme-color) !important;
+        }
+
+        .btn-custom-outline {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            height: 40px;
+            border-radius: 6px;
+            gap: 6px;
+            padding: 0 12px;
+            border: 2px solid oklch(.922 0 0);
+            background-color: color-mix(in oklab, oklch(.922 0 0) 30%, transparent);
+            outline: none;
+            color: oklch(.145 0 0) !important;
+        }
+
+        .btn-custom-outline:hover {
+            background-color: #EFEFF0;
+        }
+
+        .fs-medium {
+            font-size: 1.2rem !important;
+            font-weight: 600 !important;
+        }
+
+        .fw-500 {
+            font-weight: 550;
+        }
+
+        .fs-xsm {
+            font-size: 13px;
+        }
     </style>
 </head>
 
@@ -80,27 +193,26 @@
     </div>
 
     <!-- Main Content -->
-    <div class="container-fluid px-4 py-4 mt-3">
-        <div class="card shadow-sm border-2">
-            <!-- Color Strip -->
-            <div class="color-strip"></div>
+    <div class="custom-container px-4 py-4 mt-3 ">
+        <div class="card shadow-sm border rounded-4 ">
+
 
             <!-- Title Section -->
             <div class="card-body p-4 border-bottom">
-                <h2 class="mb-4" id="documentTitle">Annual Financial Report 2024</h2>
+                <h2 class="mb-4 fw-bold" id="documentTitle">Annual Financial Report 2024</h2>
 
                 <!-- Action Buttons -->
                 <div class="d-flex flex-wrap gap-3">
                     <button class="btn text-white" style="background-color: var(--theme-color);">
                         <i data-lucide="download" style="width: 16px; height: 16px;"></i>
-                        <span class="ms-2">Download PDF</span>
+                        <span class="ms-2 fs-small">Download PDF</span>
                     </button>
-                    <button class="btn btn-outline-secondary border-2">
+                    <button class="btn btn-custom-outline">
                         <i data-lucide="external-link" style="width: 16px; height: 16px;"></i>
-                        <span class="ms-2">View Full Document</span>
+                        <span class="ms-2 fs-small">View Full Document</span>
                     </button>
                     <button class="btn text-white" style="background-color: var(--theme-color);">
-                        <span class="me-2">Sign with UAE Pass</span>
+                        <span class="me-2 fs-small">Sign with UAE Pass</span>
                         <i data-lucide="external-link" style="width: 16px; height: 16px;"></i>
                     </button>
                 </div>
@@ -111,7 +223,7 @@
                 <!-- Left Sidebar - Metadata -->
                 <div class="col-lg-3 metadata-sidebar">
                     <div class="p-4 sticky-sidebar">
-                        <h3 class="h5 fw-bold mb-4 pb-3 border-bottom">Metadata</h3>
+                        <h3 class="h5 mb-4 fs-medium pb-3 border-bottom">Metadata</h3>
 
                         <!-- Document Number -->
                         <div class="metadata-item">
@@ -120,8 +232,8 @@
                                     <i data-lucide="file-text" style="width: 20px; height: 20px; color: #0d6efd;"></i>
                                 </div>
                                 <div>
-                                    <p class="small text-secondary mb-1">Document Number</p>
-                                    <p class="fw-medium mb-0" id="docNumber">Report #001</p>
+                                    <p class=" fs-xsm  text-secondary mb-1">Document Number</p>
+                                    <p class="fw-500 mb-0" id="docNumber">Report #001</p>
                                 </div>
                             </div>
                         </div>
@@ -133,8 +245,8 @@
                                     <i data-lucide="calendar" style="width: 20px; height: 20px; color: #198754;"></i>
                                 </div>
                                 <div>
-                                    <p class="small text-secondary mb-1">Issue Date</p>
-                                    <p class="fw-medium mb-0" id="issueDate">2024-11-15</p>
+                                    <p class=" fs-xsm  text-secondary mb-1">Issue Date</p>
+                                    <p class="fw-500 mb-0" id="issueDate">2024-11-15</p>
                                 </div>
                             </div>
                         </div>
@@ -146,8 +258,8 @@
                                     <i data-lucide="building-2" style="width: 20px; height: 20px; color: #ffc107;"></i>
                                 </div>
                                 <div>
-                                    <p class="small text-secondary mb-1">Entity</p>
-                                    <p class="fw-medium mb-0" id="entity">Finance Department</p>
+                                    <p class=" fs-xsm  text-secondary mb-1">Entity</p>
+                                    <p class="fw-500 mb-0" id="entity">Finance Department</p>
                                 </div>
                             </div>
                         </div>
@@ -159,8 +271,8 @@
                                     <i data-lucide="user" style="width: 20px; height: 20px; color: #dc3545;"></i>
                                 </div>
                                 <div>
-                                    <p class="small text-secondary mb-1">Requested by</p>
-                                    <p class="fw-medium mb-0" id="requester">Ahmed Al Mansoori</p>
+                                    <p class=" fs-xsm  text-secondary mb-1">Requested by</p>
+                                    <p class="fw-500 mb-0" id="requester">Ahmed Al Mansoori</p>
                                 </div>
                             </div>
                         </div>
@@ -172,8 +284,8 @@
                                     <i data-lucide="file-text" style="width: 20px; height: 20px; color: #0dcaf0;"></i>
                                 </div>
                                 <div>
-                                    <p class="small text-secondary mb-1">File Size</p>
-                                    <p class="fw-medium mb-0" id="fileSize">2.4 MB</p>
+                                    <p class=" fs-xsm  text-secondary mb-1">File Size</p>
+                                    <p class="fw-500 mb-0" id="fileSize">2.4 MB</p>
                                 </div>
                             </div>
                         </div>
@@ -182,11 +294,11 @@
                         <div class="metadata-item" id="prioritySection">
                             <div class="d-flex align-items-start gap-3">
                                 <div class="metadata-icon" id="priorityIcon">
-                                    <i data-lucide="clock" style="width: 20px; height: 20px;"></i>
+                                    <i data-lucide="clock" style="width: 20px; height: 20px; color: #dc3545;"></i>
                                 </div>
                                 <div>
-                                    <p class="small text-secondary mb-1">Priority</p>
-                                    <p class="fw-medium mb-0" id="priority">High</p>
+                                    <p class=" fs-xsm  text-secondary mb-1">Priority</p>
+                                    <p class="fw-500 mb-0" id="priority">High</p>
                                 </div>
                             </div>
                         </div>
@@ -200,7 +312,7 @@
                         <div class="d-flex align-items-center gap-2 mb-4">
                             <i data-lucide="file-text"
                                 style="width: 20px; height: 20px; color: var(--theme-color);"></i>
-                            <h3 class="h5 mb-0">Document Content</h3>
+                            <h3 class="h5 mb-0 fw-bold">Document Content</h3>
                         </div>
 
                         <!-- PDF Viewer -->
