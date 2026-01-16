@@ -6,6 +6,8 @@ import {
   FileText,
   AlertCircle,
   Plus,
+  ArrowLeft,
+  Gavel,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import PatternDraw from "./Home/PatternDraw";
@@ -24,7 +26,7 @@ import {
 
 interface LegislationBannerProps {
   handleCategorySearch?: (categoryId: number) => void;
-  mode?: "legislation" | "documents";
+  mode?: "legislation" | "documents" | "approved-opinions";
   legislationCategories?: Array<{
     id: number;
     titleKey: string;
@@ -32,6 +34,7 @@ interface LegislationBannerProps {
     customImage?: string;
   }>;
   onAddDocument?: () => void;
+  onBack?: () => void;
 }
 
 export function LegislationHero({
@@ -39,6 +42,7 @@ export function LegislationHero({
   handleCategorySearch,
   legislationCategories = [],
   onAddDocument,
+  onBack,
 }: LegislationBannerProps) {
   const { t, isRTL } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
@@ -68,6 +72,10 @@ export function LegislationHero({
     documents: {
       title: t('legislation.hero.documentsTitle'),
       description: t('legislation.hero.documentsDescription'),
+    },
+    'approved-opinions': {
+      title: t('legislation.hero.approvedOpinionsTitle'),
+      description: t('legislation.hero.approvedOpinionsDescription'),
     },
   };
 
@@ -111,11 +119,38 @@ export function LegislationHero({
         <div className="mb-6">
           <div className="flex items-center gap-4 mb-2 justify-between">
             <div className="flex items-center gap-4">
+              {/* Back button for approved-opinions mode */}
+              {mode === 'approved-opinions' && onBack && (
+                <button
+                  onClick={onBack}
+                  className="flex items-center gap-2 text-white/80 hover:text-white hover:bg-white/10 h-10 px-3 rounded-lg transition-all"
+                  style={{
+                    fontFamily: isRTL
+                      ? "Dubai, Arial, sans-serif"
+                      : "Inter, system-ui, sans-serif",
+                    fontSize: "15px",
+                    fontWeight: 500,
+                  }}
+                >
+                  <ArrowLeft className={`h-5 w-5 ${isRTL ? 'rotate-180' : ''}`} />
+                  {t('legalOpinions.back')}
+                </button>
+              )}
+              {mode === 'approved-opinions' && onBack && (
+                <div className="h-8 w-px bg-white/20"></div>
+              )}
               <div className="w-12 h-12 flex items-center justify-center rounded-lg bg-white/10 backdrop-blur-sm">
-                <Scale
-                  className="w-6 h-6 text-[#C9A24D]"
-                  strokeWidth={1.8}
-                />
+                {mode === 'approved-opinions' ? (
+                  <Gavel
+                    className="w-6 h-6 text-[#C9A24D]"
+                    strokeWidth={1.8}
+                  />
+                ) : (
+                  <Scale
+                    className="w-6 h-6 text-[#C9A24D]"
+                    strokeWidth={1.8}
+                  />
+                )}
               </div>
               <h1
                 className="text-[32px] font-bold text-white"

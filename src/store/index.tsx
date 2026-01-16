@@ -5,6 +5,7 @@ import heroReducer from '@/features/Legislation/slices/heroSlice';
 import legislationDocumentReducer from '@/features/Legislation/slices/legislationDocumentSlice';
 import dashboardReducer from '@/features/Legislation/slices/dashboardSlice';
 import documentsManagementReducer from '@/features/Legislation/slices/documentsManagementSlice';
+import legalOpinionsReducer from '@/features/Legislation/slices/legalOpinionsSlice';
 
 export const store = configureStore({
     reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
         legislationDocument: legislationDocumentReducer,
         dashboard: dashboardReducer,
         documentsManagement: documentsManagementReducer,
+        legalOpinions: legalOpinionsReducer,
     },
 });
 

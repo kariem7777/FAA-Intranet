@@ -48,6 +48,9 @@ export interface DashboardFilters {
     year: number;
 }
 
+// Re-export legal opinions types
+export * from './types/legalOpinions.types';
+
 export interface CaseStatusData {
     name: string;
     nameAr: string;

@@ -40,6 +40,7 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
             category,
             classification,
             uploadedBy: 'Current User', // TODO: Get from auth context
+            pdfUrl: '', // Will be set by the server after file upload
 
         }));
 
