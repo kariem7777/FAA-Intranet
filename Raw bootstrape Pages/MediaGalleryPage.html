@@ -15,6 +15,78 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
+        h1 {
+            font-size: 2.5rem !important;
+
+            line-height: 1.2 !important;
+        }
+
+        h2 {
+            font-size: 2rem !important;
+
+            line-height: 1.3 !important;
+        }
+
+        h3 {
+            font-size: 1.5rem !important;
+            font-weight: 500 !important;
+            line-height: 1.4 !important;
+        }
+
+        h4 {
+            font-size: 1.25rem !important;
+            font-weight: 500 !important;
+            line-height: 1.4 !important;
+        }
+
+        h5 {
+            font-size: 1.125rem !important;
+            font-weight: 400 !important;
+            line-height: 1.5 !important;
+        }
+
+        h6 {
+            font-size: 1rem !important;
+            font-weight: 400 !important;
+            line-height: 1.5 !important;
+        }
+
+        p {
+            font-size: 1.1rem !important;
+            line-height: 1.6 !important;
+        }
+
+        a {
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        button {
+            font-family: inherit !important;
+        }
+
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #908e81 #f1f1f1;
+            letter-spacing: 0.5px;
+
+        }
+
+        .custom-container {
+            max-width: 91vw;
+            margin: auto;
+        }
+
+        .shadow-lg {
+            box-shadow:
+                0 10px 15px -3px rgba(0, 0, 0, 0.1),
+                0 4px 6px -4px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .border {
+            border: 1px solid #E5E5E5 !important;
+        }
+
         :root {
             --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
             --color-faa-red: #ec2227;
@@ -30,29 +102,42 @@
         }
 
         body {
-            font-family: var(--font-sans);
+
             background-color: var(--color-gray-50);
             color: var(--color-gray-900);
         }
 
-        /* Hero Section */
-        .hero-section {
-            background-color: transparent;
-            /* Assuming main layout handles bg or it's transparent on page */
-            padding: 1.5rem 5rem;
-            /* px-20 pt-6 equivalent approx */
+        .hero-banner {
+            background-image: url('./assets/3ca851fd732fadea7ed700a83455499648bbdce7.avif');
+            background-size: 100%;
+            border-radius: 16px;
+            color: white;
+            padding: 60px 48px;
+            position: relative;
+            overflow: hidden;
+            height: 280px;
         }
 
-        .hero-title {
-            font-size: 2.25rem;
-            font-weight: 700;
-            color: var(--color-gray-900);
-            margin-bottom: 0.5rem;
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
         }
 
-        .hero-desc {
-            color: var(--color-gray-600);
-            max-width: 42rem;
+        .hero-content {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: min(957px, calc(100% - 424px));
+            background-color: rgba(81, 58, 64, 0.72);
+            padding: 20px;
+            border-radius: 10px;
         }
 
         /* Filters Section */
@@ -158,11 +243,21 @@
         }
 
         .overlay-icon {
+            width: 32px;
+            height: 32px;
             background: rgba(255, 255, 255, 0.95);
             border-radius: 50%;
-            padding: 0.625rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: #A94442;
         }
+
+        .overlay-icon svg {
+            width: 16px;
+            height: 16px;
+        }
+
 
         .badge-category {
             background-color: var(--color-gray-100);
@@ -319,16 +414,55 @@
                 padding-right: 1.5rem;
             }
         }
+
+        .btn-custom-outline {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            height: 40px;
+            gap: 6px;
+            padding: 0 12px;
+            border: 1px solid oklch(.922 0 0);
+            background-color: color-mix(in oklab, oklch(.922 0 0) 30%, transparent);
+            outline: none;
+            color: oklch(.145 0 0) !important;
+            font-weight: 400;
+        }
+
+        .btn-custom-outline:hover {
+            background-color: #F2F2F2 !important;
+            border: 1px solid oklch(.922 0 0);
+        }
+
+        .download-btn {
+            background-color: var(--color-faa-red-dark);
+            font-size: 13px;
+        }
+
+        .download-btn:hover {
+            background-color: #971B1E;
+            color: white;
+        }
     </style>
 </head>
 
 <body>
 
-    <!-- Hero Banner -->
-    <div class="hero-section">
-        <h1 class="hero-title">Media Gallery</h1>
-        <p class="hero-desc">Explore our collection of images and videos documenting key events, activities, and
-            milestones of the Financial Audit Authority.</p>
+
+    <div class="custom-container pt-4 mb-4 position-relative">
+        <div class="hero-banner">
+            <div class="hero-content">
+
+                <h1 class="hero-title mb-2">Media Gallery</h1>
+                <p class="hero-desc fw-normal">Explore our collection of images and videos documenting key events,
+                    activities, and
+                    milestones of the Financial Audit Authority.</p>
+            </div>
+        </div>
     </div>
 
     <!-- Filter Bar -->
@@ -371,7 +505,8 @@
                     </select>
                 </div>
 
-                <button class="btn btn-outline-custom btn-sm" onclick="resetFilters()">Reset Filters</button>
+                <button class="btn btn-custom-outline rounded-3 btn-sm text-black" onclick="resetFilters()">Reset
+                    Filters</button>
             </div>
         </div>
     </div>
@@ -433,8 +568,9 @@
                     <div class="p-4 bg-white">
                         <div class="d-flex justify-content-between align-items-start gap-4 mb-2">
                             <h4 class="h6 mb-0 text-dark" id="lbTitle">Title</h4>
-                            <button class="btn btn-sm text-white d-flex align-items-center gap-2"
-                                style="background-color: var(--color-faa-red-dark);" onclick="downloadImage()">
+                            <button
+                                class="download-btn px-3 py-1 rounded-3 outline-0 border-0 p-1 btn-sm text-white d-flex align-items-center gap-2"
+                                onclick="downloadImage()">
                                 <i data-lucide="download" style="width: 16px;"></i> Download
                             </button>
                         </div>
@@ -604,7 +740,7 @@
                                 <img src="${item.image}" alt="${item.title}" class="gallery-img">
                                 <div class="hover-overlay">
                                     <div class="overlay-icon">
-                                        <i data-lucide="eye" style="width: 16px; height: 16px;"></i>
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye h-4 w-4 text-[#A94442]" aria-hidden="true"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></svg>
                                     </div>
                                 </div>
                             </div>

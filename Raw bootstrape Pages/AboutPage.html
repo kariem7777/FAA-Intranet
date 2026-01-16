@@ -169,13 +169,24 @@
       background-color: #EFEFF0;
       color: var(--faa-dark-red)
     }
+
+    .custom-container {
+      max-width: 95vw;
+      margin: auto;
+    }
+
+    @media (max-width: 576px) {
+      .hero-content {
+        min-width: 360px;
+      }
+    }
   </style>
 </head>
 
 <body class="bg-pattern">
 
   <!-- Main Container -->
-  <div class="container-fluid px-5 pt-4">
+  <div class="custom-container px-5 pt-4">
 
     <!-- Hero Banner -->
     <div class="pt-4 mb-4 position-relative">
