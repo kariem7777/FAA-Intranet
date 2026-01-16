@@ -10,6 +10,78 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
 
     <style>
+        h1 {
+            font-size: 2.5rem !important;
+
+            line-height: 1.2 !important;
+        }
+
+        h2 {
+            font-size: 2rem !important;
+
+            line-height: 1.3 !important;
+        }
+
+        h3 {
+            font-size: 1.5rem !important;
+            font-weight: 500 !important;
+            line-height: 1.4 !important;
+        }
+
+        h4 {
+            font-size: 1.25rem !important;
+            font-weight: 500 !important;
+            line-height: 1.4 !important;
+        }
+
+        h5 {
+            font-size: 1.125rem !important;
+            font-weight: 400 !important;
+            line-height: 1.5 !important;
+        }
+
+        h6 {
+            font-size: 1rem !important;
+            font-weight: 400 !important;
+            line-height: 1.5 !important;
+        }
+
+        p {
+            font-size: 1rem !important;
+            line-height: 1.6 !important;
+        }
+
+        a {
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        button {
+            font-family: inherit !important;
+        }
+
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #908e81 #f1f1f1;
+            letter-spacing: 0.5px;
+            font-family: "Dubai", "Tajawal", sans-serif;
+        }
+
+        .custom-container {
+            max-width: 95vw;
+            margin: auto;
+        }
+
+        .shadow-lg {
+            box-shadow:
+                0 10px 15px -3px rgba(0, 0, 0, 0.1),
+                0 4px 6px -4px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .border {
+            border: 1px solid #E5E5E5 !important;
+        }
+
         :root {
             --faa-red: #ec2227;
             --faa-dark-red: #7b282d;
@@ -28,7 +100,7 @@
         }
 
         .hero-banner {
-            background-image: url('./assets/14a7bedb16f5751eddf0fc794da9e33a1599152b.png');
+            background-image: url('./assets/3ca851fd732fadea7ed700a83455499648bbdce7.avif');
             background-size: 100%;
             border-radius: 16px;
             color: white;
@@ -75,35 +147,65 @@
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
         }
 
-        .nav-pills .nav-link {
-            color: #4b5563;
-            border-radius: 0.5rem;
-            padding: 0.5rem 1rem;
-            font-size: 0.875rem;
-            transition: all 0.2s;
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
         }
 
-        .nav-pills .nav-link:hover {
+        /* Updated Navigation Styles */
+        .grid-tabs-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
             background-color: #f3f4f6;
+            /* bg-muted/gray-100 */
+            border-radius: 0.75rem;
+            /* rounded-xl */
+            padding: 0.25rem;
+        }
+
+        @media (min-width: 768px) {
+            .grid-tabs-container {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+
+        @media (min-width: 992px) {
+            .grid-tabs-container {
+                grid-template-columns: repeat(10, 1fr);
+            }
+        }
+
+        .nav-pills .nav-link {
+            color: #6b7280;
+            border-radius: 0.5rem;
+            padding: 0.2rem 0.2rem;
+            transition: all 0.2s;
+            background-color: transparent;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            justify-content: center;
+        }
+
+
+        .nav-pills .nav-link:hover {
+            color: #111827;
+        }
+
+        .nav-pills {
+            border-radius: 1.5rem;
+
         }
 
         .nav-pills .nav-link.active {
-            background-color: var(--faa-red);
-            color: white;
-        }
+            background-color: #F0F0F0 !important;
+            border: 0.2px solid #e6e4e4;
+            color: #000000 !important;
+            border-radius: 1.5rem;
 
-        .nav-tabs-scroll {
-            overflow-x: auto;
-            flex-wrap: nowrap;
-            scrollbar-width: none;
-            /* Firefox */
-            -ms-overflow-style: none;
-            /* IE/Edge */
-        }
-
-        .nav-tabs-scroll::-webkit-scrollbar {
-            display: none;
-            /* Chrome/Safari/Opera */
         }
 
         .gradient-line {
@@ -116,11 +218,17 @@
         .card-hover {
             transition: all 0.3s ease;
             cursor: pointer;
+
         }
 
         .card-hover:hover {
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+            box-shadow:
+                0 20px 26px -8px rgba(0, 0, 0, 0.12),
+                0 8px 9px -7px rgba(0, 0, 0, 0.1) !important;
+
         }
+
+
 
         .border-top-hover {
             border-top: 2px solid transparent;
@@ -151,13 +259,153 @@
             color: var(--faa-dark-red);
         }
 
+
+
+        .module-card {
+            background-color: #f9fafb;
+            border-radius: 12px;
+            box-shadow:
+                0 10px 15px -3px rgba(0, 0, 0, 0.08),
+                0 4px 6px -4px rgba(0, 0, 0, 0.08);
+            transition: box-shadow 0.25s ease;
+            will-change: box-shadow;
+        }
+
+        .module-card:hover {
+            box-shadow:
+                0 14px 22px -6px rgba(0, 0, 0, 0.12),
+                0 6px 8px -6px rgba(0, 0, 0, 0.1);
+        }
+
+        .module-completed {
+            background-color: #f0fdf4;
+            border-left: 4px solid #22c55e;
+        }
+
+        .module-pending {
+            border-left: 4px solid transparent;
+        }
+
+        .bg-success {
+            background-color: #00C950 !important;
+        }
+
+        .badge {
+            font-weight: 500 !important;
+        }
+
+        .tag {
+            background-color: transparent !important;
+            padding: 0.4rem !important;
+            border: 1px solid red !important;
+
+        }
+
+        /*Article section*/
+        .article-card {
+            box-sizing: border-box !important;
+        }
+
+        .article-card:hover {
+            border: 1px solid var(--faa-red) !important;
+            border-top: 2px solid var(--faa-red) !important;
+
+        }
+
+        .shadow-sm {
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px !important;
+        }
+
+        .faq-card {
+            border: 0;
+            border-radius: 1rem;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+        }
+
+        .faq-card .card-body {
+            padding: 2rem;
+        }
+
+
+        /* FAQ items */
+        .faq-item {
+            padding: 1.25rem;
+            background-color: #f8f9fa;
+            border-radius: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 4px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .faq-item:hover {
+            border-left-color: #dc2626;
+            /* red border on hover */
+        }
+
+        .faq-item p {
+            margin: 0;
+        }
+
+        .faq-item .views {
+            font-size: 0.8rem;
+            color: #6b7280;
+        }
+
+        .nav-item .nav-link {
+            padding: 0.4rem !important;
+        }
+
+        /* E-learning tab*/
+
+        .E-learning-card {
+            background: linear-gradient(135deg, #f9fafb, #ffffff);
+            border-left: 4px solid var(--faa-red) !important;
+            border: 1px solid var(--faa-red)
+        }
+
+
+        /* Enrichment tab */
+        .enrichment-card:hover {
+            border: 1px solid var(--faa-red) !important;
+            border-top: 2px solid var(--faa-red) !important;
+
+        }
+
+        /* library tab*/
+
+        .library-banner {
+            border-left: 4px solid #7b282d !important;
+            border: 1px solid #7b282d;
+        }
+
+        .btn-lib {
+            background-color: #f7f2f2;
+            color: var(--faa-red);
+            font-size: 14px;
+
+        }
+
+        .btn-lib:hover {
+            background-color: var(--faa-red);
+            color: #f7f2f2;
+        }
+
         .category-card {
-            transition: all 0.3s ease;
+            transition: all 0.3s ease !important;
         }
 
         .category-card:hover .icon-box {
-            background-color: var(--faa-red);
+            background-color: var(--faa-red) !important;
             color: white;
+
+        }
+
+        .category-card:hover {
+            border-top: 2px solid var(--faa-red) !important;
+            border: 1px solid var(--faa-red) !important;
         }
     </style>
 </head>
@@ -165,7 +413,7 @@
 <body class="bg-pattern">
 
     <!-- Main Container -->
-    <div class="container-fluid px-5">
+    <div class="custom-container px-5">
 
         <!-- Hero Banner -->
         <div class="pt-4 mb-4 position-relative">
@@ -178,10 +426,10 @@
             </div>
 
             <!-- Stats Cards - Overlapping Banner -->
-            <div class="stats-cards px-5">
-                <div class="row g-4">
+            <div class="stats-cards px-5 mx-5">
+                <div class="row g-4  mx-auto">
                     <div class="col-md-4">
-                        <div class="card stat-card shadow-lg border-0 h-100">
+                        <div class="card stat-card shadow-lg border-0 h-100 rounded-4">
                             <div class="card-body p-4">
                                 <div class="d-flex align-items-start gap-4">
                                     <div class="p-3 rounded-3 bg-light text-faa-red">
@@ -196,7 +444,7 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="card stat-card shadow-lg border-0 h-100">
+                        <div class="card stat-card shadow-lg border-0 h-100 rounded-4 ">
                             <div class="card-body p-4">
                                 <div class="d-flex align-items-start gap-4">
                                     <div class="p-3 rounded-3 bg-light text-faa-dark-red">
@@ -211,7 +459,7 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="card stat-card shadow-lg border-0 h-100">
+                        <div class="card stat-card shadow-lg border-0 h-100 rounded-4  ">
                             <div class="card-body p-4">
                                 <div class="d-flex align-items-start gap-4">
                                     <div class="p-3 rounded-3 bg-light" style="color: var(--faa-darker-red);">
@@ -230,54 +478,33 @@
         </div>
 
         <!-- Main Content -->
-        <div class="pt-4 pb-5">
+        <div class=" pb-5">
 
             <!-- Tabs Navigation -->
-            <div class="card shadow-sm mb-4 border-0">
+            <div class="card shadow-lg mb-4 border-0 rounded-4 bg-white mb-4">
                 <div class="card-body p-2">
-                    <ul class="nav nav-pills nav-tabs-scroll w-100 d-flex justify-content-between" id="knowledgeTabs"
-                        role="tablist">
-                        <li class="nav-item flex-fill text-center" role="presentation">
-                            <button class="nav-link active w-100" id="overview-tab" data-bs-toggle="pill"
-                                data-bs-target="#overview" type="button" role="tab">Overview</button>
-                        </li>
-                        <li class="nav-item flex-fill text-center" role="presentation">
-                            <button class="nav-link w-100" id="memberships-tab" data-bs-toggle="pill"
-                                data-bs-target="#memberships" type="button" role="tab">Memberships</button>
-                        </li>
-                        <li class="nav-item flex-fill text-center" role="presentation">
-                            <button class="nav-link w-100" id="induction-tab" data-bs-toggle="pill"
-                                data-bs-target="#induction" type="button" role="tab">Induction</button>
-                        </li>
-                        <li class="nav-item flex-fill text-center" role="presentation">
-                            <button class="nav-link w-100" id="practices-tab" data-bs-toggle="pill"
-                                data-bs-target="#practices" type="button" role="tab">Best Practices</button>
-                        </li>
-                        <li class="nav-item flex-fill text-center" role="presentation">
-                            <button class="nav-link w-100" id="articles-tab" data-bs-toggle="pill"
-                                data-bs-target="#articles" type="button" role="tab">Articles</button>
-                        </li>
-                        <li class="nav-item flex-fill text-center" role="presentation">
-                            <button class="nav-link w-100" id="connect-tab" data-bs-toggle="pill"
-                                data-bs-target="#connect" type="button" role="tab">Connect</button>
-                        </li>
-                        <li class="nav-item flex-fill text-center" role="presentation">
-                            <button class="nav-link w-100" id="faqs-tab" data-bs-toggle="pill" data-bs-target="#faqs"
-                                type="button" role="tab">FAQs</button>
-                        </li>
-                        <li class="nav-item flex-fill text-center" role="presentation">
-                            <button class="nav-link w-100" id="elearning-tab" data-bs-toggle="pill"
-                                data-bs-target="#elearning" type="button" role="tab">E-Learning</button>
-                        </li>
-                        <li class="nav-item flex-fill text-center" role="presentation">
-                            <button class="nav-link w-100" id="enrichment-tab" data-bs-toggle="pill"
-                                data-bs-target="#enrichment" type="button" role="tab">Enrichment</button>
-                        </li>
-                        <li class="nav-item flex-fill text-center" role="presentation">
-                            <button class="nav-link w-100" id="library-tab" data-bs-toggle="pill"
-                                data-bs-target="#library" type="button" role="tab">Library</button>
-                        </li>
-                    </ul>
+                    <div class="nav nav-pills grid-tabs-container w-100 p-1" id="knowledgeTabs" role="tablist">
+                        <button class="nav-link active" id="overview-tab" data-bs-toggle="pill"
+                            data-bs-target="#overview" type="button" role="tab">Overview</button>
+                        <button class="nav-link" id="memberships-tab" data-bs-toggle="pill"
+                            data-bs-target="#memberships" type="button" role="tab">Memberships</button>
+                        <button class="nav-link" id="induction-tab" data-bs-toggle="pill" data-bs-target="#induction"
+                            type="button" role="tab">Induction</button>
+                        <button class="nav-link" id="practices-tab" data-bs-toggle="pill" data-bs-target="#practices"
+                            type="button" role="tab">Best Practices</button>
+                        <button class="nav-link" id="articles-tab" data-bs-toggle="pill" data-bs-target="#articles"
+                            type="button" role="tab">Articles</button>
+                        <button class="nav-link" id="connect-tab" data-bs-toggle="pill" data-bs-target="#connect"
+                            type="button" role="tab">Connect</button>
+                        <button class="nav-link" id="faqs-tab" data-bs-toggle="pill" data-bs-target="#faqs"
+                            type="button" role="tab">FAQs</button>
+                        <button class="nav-link" id="elearning-tab" data-bs-toggle="pill" data-bs-target="#elearning"
+                            type="button" role="tab">E-Learning</button>
+                        <button class="nav-link" id="enrichment-tab" data-bs-toggle="pill" data-bs-target="#enrichment"
+                            type="button" role="tab">Enrichment</button>
+                        <button class="nav-link" id="library-tab" data-bs-toggle="pill" data-bs-target="#library"
+                            type="button" role="tab">Library</button>
+                    </div>
                 </div>
             </div>
 
@@ -285,7 +512,7 @@
             <div class="tab-content" id="knowledgeTabsContent">
 
                 <!-- Overview Tab -->
-                <div class="tab-pane fade show active" id="overview" role="tabpanel">
+                <div class="tab-pane fade show active rounded-4 border" id="overview" role="tabpanel">
                     <div class="card shadow-lg border-0 rounded-4">
                         <div class="card-body p-5">
                             <div class="d-flex align-items-start gap-3 mb-4">
@@ -294,19 +521,19 @@
                                         style="width: 24px; height: 24px;"></i>
                                 </div>
                                 <div>
-                                    <h2 class="h4 mb-2">Overview</h2>
+                                    <h1 class="h4 fw-medium mb-2">Overview</h1>
                                     <div class="gradient-line"></div>
                                 </div>
                             </div>
                             <div class="vstack gap-3">
-                                <p class="text-secondary fs-5">
+                                <p class=" fs-5">
                                     The Knowledge Hub serves as your central resource for professional development,
                                     learning materials,
                                     and institutional knowledge. Access comprehensive training programs, industry best
                                     practices, and
                                     collaborative learning opportunities designed to enhance your skills and expertise.
                                 </p>
-                                <p class="text-secondary">
+                                <p class="">
                                     Whether you're a new employee looking for onboarding materials or a seasoned
                                     professional seeking
                                     advanced training, the Knowledge Hub provides the resources and support you need to
@@ -320,15 +547,15 @@
 
                 <!-- Memberships Tab -->
                 <div class="tab-pane fade" id="memberships" role="tabpanel">
-                    <div class="card shadow-lg border-0 rounded-4">
-                        <div class="card-body p-5">
-                            <div class="d-flex align-items-start gap-3 mb-5">
+                    <div class="card shadow-lg border rounded-4">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-start gap-3 mb-4">
                                 <div class="p-2 rounded-3 bg-dark-red-soft">
                                     <i data-lucide="globe" class="text-faa-dark-red"
                                         style="width: 24px; height: 24px;"></i>
                                 </div>
                                 <div class="flex-grow-1">
-                                    <h2 class="h4 mb-2">Memberships and Partnerships</h2>
+                                    <h2 class="h4  fw-medium mb-2">Memberships and Partnerships</h2>
                                     <div class="gradient-line mb-3"></div>
                                     <p class="text-secondary mb-0">Our global network of professional organizations and
                                         strategic partners</p>
@@ -337,7 +564,7 @@
 
                             <div class="row g-4">
                                 <div class="col-md-6 col-lg-3">
-                                    <div class="card h-100 shadow-sm border-0 card-hover">
+                                    <div class="card h-100 shadow-lg border rounded-4 card-hover">
                                         <div class="card-body p-4 text-center">
                                             <div class="rounded-3 d-flex align-items-center justify-content-center mb-4 mx-auto"
                                                 style="width: 64px; height: 64px; background-color: #7b282d;">
@@ -351,7 +578,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-lg-3">
-                                    <div class="card h-100 shadow-sm border-0 card-hover">
+                                    <div class="card h-100 shadow-lg border rounded-4 card-hover">
                                         <div class="card-body p-4 text-center">
                                             <div class="rounded-3 d-flex align-items-center justify-content-center mb-4 mx-auto"
                                                 style="width: 64px; height: 64px; background-color: #971b1e;">
@@ -365,7 +592,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-lg-3">
-                                    <div class="card h-100 shadow-sm border-0 card-hover">
+                                    <div class="card h-100 shadow-lg border rounded-4 card-hover">
                                         <div class="card-body p-4 text-center">
                                             <div class="rounded-3 d-flex align-items-center justify-content-center mb-4 mx-auto"
                                                 style="width: 64px; height: 64px; background-color: #ec2227;">
@@ -378,7 +605,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-lg-3">
-                                    <div class="card h-100 shadow-sm border-0 card-hover">
+                                    <div class="card h-100 shadow-lg border rounded-4 card-hover">
                                         <div class="card-body p-4 text-center">
                                             <div class="rounded-3 d-flex align-items-center justify-content-center mb-4 mx-auto"
                                                 style="width: 64px; height: 64px; background-color: #a94442;">
@@ -398,9 +625,9 @@
 
                 <!-- Induction Tab -->
                 <div class="tab-pane fade" id="induction" role="tabpanel">
-                    <div class="card shadow-lg border-0 rounded-4">
-                        <div class="card-body p-5">
-                            <div class="d-flex align-items-start gap-3 mb-5">
+                    <div class="card shadow-lg border rounded-4">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-start gap-3 mb-4">
                                 <div class="p-2 rounded-3 bg-red-soft">
                                     <i data-lucide="video" class="text-faa-red" style="width: 24px; height: 24px;"></i>
                                 </div>
@@ -413,7 +640,9 @@
                                         needed during their induction.
                                     </p>
                                 </div>
-                                <span class="badge bg-danger rounded-pill px-3 py-2">6 Modules</span>
+                                <span class="badge bg-danger rounded-3 px-2 py-1"
+                                    style="background-color: #EC2227 !important;">6
+                                    Modules</span>
                             </div>
 
                             <!-- Progress -->
@@ -433,8 +662,7 @@
                             <div class="row g-4 mb-4">
                                 <!-- Modules -->
                                 <div class="col-md-6 col-lg-4">
-                                    <div
-                                        class="h-100 p-4 rounded-3 border-start border-4 border-success bg-light cursor-pointer">
+                                    <div class="h-100 p-4 rounded-3 module-completed cursor-pointer">
                                         <div class="d-flex justify-content-between align-items-start mb-3">
                                             <div>
                                                 <div class="d-flex align-items-center gap-2 mb-2">
@@ -449,25 +677,24 @@
                                                 <i data-lucide="video" style="width: 14px; height: 14px;"></i>
                                                 <span>15 min</span>
                                             </div>
-                                            <span class="badge bg-white text-danger border border-danger">Quiz
+                                            <span class="badge text-danger border border-danger tag">Quiz
                                                 Included</span>
                                         </div>
                                         <div
                                             class="pt-3 border-top d-flex justify-content-between align-items-center small">
                                             <span class="text-secondary">Quiz Score:</span>
-                                            <span class="text-success fw-bold">95%</span>
+                                            <span class="text-success ">95%</span>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-md-6 col-lg-4">
-                                    <div
-                                        class="h-100 p-4 rounded-3 border-start border-4 border-success bg-light cursor-pointer">
+                                    <div class="h-100 p-4 rounded-3 module-completed cursor-pointer">
                                         <div class="d-flex justify-content-between align-items-start mb-3">
                                             <div>
                                                 <div class="d-flex align-items-center gap-2 mb-2">
                                                     <span class="small text-muted">Module 2</span>
-                                                    <span class="badge bg-success small">✓ Completed</span>
+                                                    <span class="badge bg-success small ">✓ Completed</span>
                                                 </div>
                                                 <h5 class="h6 mb-0">Our Mission & Values</h5>
                                             </div>
@@ -477,7 +704,7 @@
                                                 <i data-lucide="video" style="width: 14px; height: 14px;"></i>
                                                 <span>20 min</span>
                                             </div>
-                                            <span class="badge bg-white text-danger border border-danger">Quiz
+                                            <span class="badge bg-white text-danger border border-danger tag">Quiz
                                                 Included</span>
                                         </div>
                                         <div
@@ -489,8 +716,7 @@
                                 </div>
 
                                 <div class="col-md-6 col-lg-4">
-                                    <div
-                                        class="h-100 p-4 rounded-3 border-start border-4 border-transparent bg-light cursor-pointer hover:border-danger transition-colors">
+                                    <div class="h-100 p-4 rounded-3 module-pending cursor-pointer">
                                         <div class="d-flex justify-content-between align-items-start mb-3">
                                             <div>
                                                 <div class="d-flex align-items-center gap-2 mb-2">
@@ -504,7 +730,7 @@
                                                 <i data-lucide="video" style="width: 14px; height: 14px;"></i>
                                                 <span>25 min</span>
                                             </div>
-                                            <span class="badge bg-white text-danger border border-danger">Quiz
+                                            <span class="badge bg-white text-danger border border-danger tag">Quiz
                                                 Included</span>
                                         </div>
                                     </div>
@@ -520,8 +746,8 @@
 
                 <!-- Best Practices Tab -->
                 <div class="tab-pane fade" id="practices" role="tabpanel">
-                    <div class="card shadow-lg border-0 rounded-4">
-                        <div class="card-body p-5">
+                    <div class="card shadow-lg border rounded-4">
+                        <div class="card-body p-4">
                             <div class="d-flex align-items-start gap-3 mb-5">
                                 <div class="p-2 rounded-3" style="background-color: rgba(151, 27, 30, 0.1);">
                                     <i data-lucide="lightbulb" style="color: #971b1e; width: 24px; height: 24px;"></i>
@@ -534,9 +760,9 @@
 
                             <div class="row g-4 mb-5">
                                 <div class="col-md-4">
-                                    <div class="card h-100 border-0 shadow-lg text-white p-4 card-hover"
+                                    <div class="card h-100 border rounded-4 shadow-lg text-white p-3 "
                                         style="background-color: #0891b2;">
-                                        <div class="d-flex align-items-center gap-3 mb-3">
+                                        <div class="d-flex align-items-center gap-3 mb-2">
                                             <i data-lucide="trending-up" style="width: 40px; height: 40px;"></i>
                                             <h4 class="h5 mb-0">Benchmarking</h4>
                                         </div>
@@ -545,9 +771,9 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="card h-100 border-0 shadow-lg text-white p-4 card-hover"
+                                    <div class="card h-100 border rounded-4 shadow-lg text-white p-3"
                                         style="background-color: #ec2227;">
-                                        <div class="d-flex align-items-center gap-3 mb-3">
+                                        <div class="d-flex align-items-center gap-3 mb-2">
                                             <i data-lucide="file-text" style="width: 40px; height: 40px;"></i>
                                             <h4 class="h5 mb-0">Competitiveness Reports</h4>
                                         </div>
@@ -556,9 +782,9 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="card h-100 border-0 shadow-lg text-white p-4 card-hover"
+                                    <div class="card h-100 border rounded-4 shadow-lg text-white p-3"
                                         style="background-color: #ec2227;">
-                                        <div class="d-flex align-items-center gap-3 mb-3">
+                                        <div class="d-flex align-items-center gap-3 mb-2">
                                             <i data-lucide="lightbulb" style="width: 40px; height: 40px;"></i>
                                             <h4 class="h5 mb-0">Knowledge Strategy</h4>
                                         </div>
@@ -609,7 +835,8 @@
                             </div>
 
                             <div class="bg-light rounded-3 p-4">
-                                <h4 class="h6 mb-3">Incremental Quality Improvement vs Benchmarking Breakthroughs</h4>
+                                <h4 class=" fw-bold mb-3">Incremental Quality Improvement vs Benchmarking
+                                    Breakthroughs</h4>
                                 <p class="text-secondary mb-0">
                                     Benchmarking has been classified into two distinct categories: technical and
                                     competitive. The House of Quality matrix
@@ -622,9 +849,9 @@
 
                 <!-- Articles Tab -->
                 <div class="tab-pane fade" id="articles" role="tabpanel">
-                    <div class="card shadow-lg border-0 rounded-4">
-                        <div class="card-body p-5">
-                            <div class="d-flex align-items-start gap-3 mb-5">
+                    <div class="card shadow-lg border rounded-4">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-start gap-3 mb-4">
                                 <div class="p-2 rounded-3 bg-red-soft">
                                     <i data-lucide="file-text" class="text-faa-red"
                                         style="width: 24px; height: 24px;"></i>
@@ -637,12 +864,12 @@
                                 </div>
                             </div>
 
-                            <div class="row g-4">
+                            <div class="row g-4 mb-2">
                                 <div class="col-md-6 col-lg-4">
-                                    <div class="card h-100 shadow-sm border-0 card-hover border-top-hover p-4">
+                                    <div class=" article-card h-100  shadow-sm  rounded-4  p-4">
                                         <span class="badge mb-3 align-self-start"
                                             style="background-color: #7b282d;">Digital Transformation</span>
-                                        <h5 class="h6 mb-3">The Future of Government Auditing in the Digital Age</h5>
+                                        <h5 class="h6 mb-2">The Future of Government Auditing in the Digital Age</h5>
                                         <div class="d-flex justify-content-between small text-secondary mt-auto">
                                             <span>Dr. Sarah Al Kaabi</span>
                                             <span>8 min</span>
@@ -651,11 +878,11 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-lg-4">
-                                    <div class="card h-100 shadow-sm border-0 card-hover border-top-hover p-4">
+                                    <div class=" article-card h-100 shadow-sm  rounded-4  p-4">
                                         <span class="badge mb-3 align-self-start"
                                             style="background-color: #7b282d;">Professional Development</span>
-                                        <h5 class="h6 mb-3">Enhancing Audit Quality Through Professional Development
-                                        </h5>
+                                        <h6 class="h6 mb-2">Enhancing Audit Quality Through Professional Development
+                                        </h6>
                                         <div class="d-flex justify-content-between small text-secondary mt-auto">
                                             <span>Mr. Khalid Al Hashemi</span>
                                             <span>6 min</span>
@@ -664,10 +891,10 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-lg-4">
-                                    <div class="card h-100 shadow-sm border-0 card-hover border-top-hover p-4">
+                                    <div class=" article-card h-100 shadow-sm  rounded-4 p-4">
                                         <span class="badge mb-3 align-self-start"
                                             style="background-color: #7b282d;">Standards</span>
-                                        <h5 class="h6 mb-3">International Audit Standards: A Practical Guide</h5>
+                                        <h6 class="h6 mb-2">International Audit Standards: A Practical Guide</h6>
                                         <div class="d-flex justify-content-between small text-secondary mt-auto">
                                             <span>Ms. Mariam Al Suwaidi</span>
                                             <span>10 min</span>
@@ -682,8 +909,8 @@
 
                 <!-- Connect Tab -->
                 <div class="tab-pane fade" id="connect" role="tabpanel">
-                    <div class="card shadow-lg border-0 rounded-4">
-                        <div class="card-body p-5">
+                    <div class="card shadow-lg  rounded-4">
+                        <div class="card-body p-4">
                             <div class="d-flex align-items-start gap-3 mb-5">
                                 <div class="p-2 rounded-3 bg-red-soft">
                                     <i data-lucide="file-text" class="text-faa-red"
@@ -697,10 +924,9 @@
                                 </div>
                             </div>
 
-                            <div class="row g-4">
+                            <div class="row g-4 mb-2">
                                 <div class="col-md-6 col-lg-4">
-                                    <div
-                                        class="card h-100 shadow-sm border-0 card-hover border-top-hover p-4 text-center">
+                                    <div class=" article-card h-100 shadow-sm p-4 text-center rounded-4">
                                         <div class="mx-auto mb-3 rounded-3 d-flex align-items-center justify-content-center"
                                             style="width: 48px; height: 48px; background-color: #ec2227;">
                                             <i data-lucide="file-text" class="text-white"
@@ -713,10 +939,9 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-lg-4">
-                                    <div
-                                        class="card h-100 shadow-sm border-0 card-hover border-top-hover p-4 text-center">
+                                    <div class=" article-card h-100 shadow-sm p-4 text-center rounded-4">
                                         <div class="mx-auto mb-3 rounded-3 d-flex align-items-center justify-content-center"
-                                            style="width: 48px; height: 48px; background-color: #7b282d;">
+                                            style="width: 48px; height: 48px; background-color: #ec2227;">
                                             <i data-lucide="lightbulb" class="text-white"
                                                 style="width: 24px; height: 24px;"></i>
                                         </div>
@@ -726,15 +951,15 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-lg-4">
-                                    <div
-                                        class="card h-100 shadow-sm border-0 card-hover border-top-hover p-4 text-center">
+                                    <div class=" article-card h-100 shadow-sm p-4 text-center rounded-4">
                                         <div class="mx-auto mb-3 rounded-3 d-flex align-items-center justify-content-center"
-                                            style="width: 48px; height: 48px; background-color: #971b1e;">
+                                            style="width: 48px; height: 48px; background-color: #ec2227;">
                                             <i data-lucide="trending-up" class="text-white"
                                                 style="width: 24px; height: 24px;"></i>
                                         </div>
                                         <h5 class="h6 mb-2">CIII Presentations</h5>
-                                        <p class="small text-secondary mb-2">Continuous Improvement & Innovation</p>
+                                        <p class="small text-secondary mb-2">Continuous Improvement & Innovation
+                                            presentations from various departments</p>
                                         <small class="text-muted">32 presentations</small>
                                     </div>
                                 </div>
@@ -745,9 +970,9 @@
 
                 <!-- FAQs Tab -->
                 <div class="tab-pane fade" id="faqs" role="tabpanel">
-                    <div class="card shadow-lg border-0 rounded-4">
-                        <div class="card-body p-5">
-                            <div class="d-flex align-items-start gap-3 mb-5">
+                    <div class="card shadow-lg  rounded-4">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-start gap-3 mb-4">
                                 <div class="p-2 rounded-3 bg-dark-red-soft">
                                     <i data-lucide="help-circle" class="text-faa-dark-red"
                                         style="width: 24px; height: 24px;"></i>
@@ -759,39 +984,71 @@
                                 </div>
                             </div>
 
-                            <!-- Nested Tabs for FAQs Category -->
-                            <ul class="nav nav-tabs mb-4" role="tablist">
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link active" id="audit-tab" data-bs-toggle="tab"
+                            <ul class="nav nav-pills mb-4  d-inline-flex  gap-2 px-2 py-1" id="analyticsTabs"
+                                role="tablist" style="background:#f5f5f5; border-radius:999px;">
+                                <li class="nav-item  " role="presentation">
+                                    <button class="nav-link active w-100" id="audit-tab" data-bs-toggle="tab"
                                         data-bs-target="#audit" type="button" role="tab">Audit Process</button>
                                 </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="hr-tab" data-bs-toggle="tab" data-bs-target="#hr"
+                                <li class="nav-item " role="presentation">
+                                    <button class="nav-link w-100" id="hr-tab" data-bs-toggle="tab" data-bs-target="#hr"
                                         type="button" role="tab">HR & Benefits</button>
                                 </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="it-tab" data-bs-toggle="tab" data-bs-target="#it"
+                                <li class="nav-item " role="presentation">
+                                    <button class="nav-link w-100" id="it-tab" data-bs-toggle="tab" data-bs-target="#it"
                                         type="button" role="tab">IT & Systems</button>
                                 </li>
                             </ul>
 
+
                             <div class="tab-content">
                                 <div class="tab-pane fade show active" id="audit" role="tabpanel">
                                     <div class="vstack gap-3">
-                                        <div
-                                            class="p-4 bg-light rounded-3 d-flex justify-content-between align-items-center border-start border-4 border-transparent hover:border-danger transition-all cursor-pointer">
-                                            <p class="mb-0">What is the typical audit cycle?</p>
-                                            <span class="small text-muted">145 views</span>
+                                        <div class="faq-item">
+                                            <p>What is the typical audit cycle?</p>
+                                            <span class="views">145 views</span>
                                         </div>
-                                        <div
-                                            class="p-4 bg-light rounded-3 d-flex justify-content-between align-items-center border-start border-4 border-transparent hover:border-danger transition-all cursor-pointer">
-                                            <p class="mb-0">How are audit priorities determined?</p>
-                                            <span class="small text-muted">98 views</span>
+                                        <div class="faq-item">
+                                            <p>How are audit priorities determined?</p>
+                                            <span class="views">98 views</span>
                                         </div>
-                                        <div
-                                            class="p-4 bg-light rounded-3 d-flex justify-content-between align-items-center border-start border-4 border-transparent hover:border-danger transition-all cursor-pointer">
-                                            <p class="mb-0">What is risk-based auditing?</p>
-                                            <span class="small text-muted">234 views</span>
+                                        <div class="faq-item">
+                                            <p>What is risk-based auditing?</p>
+                                            <span class="views">234 views</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Additional tabs (HR & IT) -->
+                                <div class="tab-pane fade" id="hr" role="tabpanel">
+                                    <div class="vstack gap-3">
+                                        <div class="faq-item">
+                                            <p>How to apply for benefits?</p>
+                                            <span class="views">76 views</span>
+                                        </div>
+                                        <div class="faq-item">
+                                            <p>What training opportunities are available?</p>
+                                            <span class="views">98 views</span>
+                                        </div>
+                                        <div class="faq-item">
+                                            <p>How is performance evaluated?</p>
+                                            <span class="views">234 views</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="it" role="tabpanel">
+                                    <div class="vstack gap-3">
+                                        <div class="faq-item">
+                                            <p>How to reset my system password?</p>
+                                            <span class="views">120 views</span>
+                                        </div>
+                                        <div class="faq-item">
+                                            <p>Which audit software should I use?</p>
+                                            <span class="views">120 views</span>
+                                        </div>
+                                        <div class="faq-item">
+                                            <p>How to access VPN remotely?</p>
+                                            <span class="views">120 views</span>
                                         </div>
                                     </div>
                                 </div>
@@ -803,9 +1060,9 @@
 
                 <!-- E-Learning Tab -->
                 <div class="tab-pane fade" id="elearning" role="tabpanel">
-                    <div class="card shadow-lg border-0 rounded-4">
-                        <div class="card-body p-5">
-                            <div class="d-flex align-items-start gap-3 mb-5">
+                    <div class="card shadow-lg border rounded-4">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-start gap-3 mb-4">
                                 <div class="p-2 rounded-3 bg-red-soft">
                                     <i data-lucide="video" class="text-faa-red" style="width: 24px; height: 24px;"></i>
                                 </div>
@@ -817,10 +1074,9 @@
                                 </div>
                             </div>
 
-                            <div class="card shadow border-0"
-                                style="background: linear-gradient(135deg, #f9fafb, #ffffff); border-left: 4px solid #ec2227 !important;">
+                            <div class="card shadow-sm rounded-4 E-learning-card">
                                 <div class="card-body p-4">
-                                    <h4 class="h5 mb-3">E-LEARNING PLATFORM FOR TECHNICAL EMPLOYEES</h4>
+                                    <h4 class="h5 fw-bold mb-3">E-LEARNING PLATFORM FOR TECHNICAL EMPLOYEES</h4>
                                     <p class="text-secondary mb-3">
                                         A platform developed in collaboration with PwC, providing employees with access
                                         to a range of training courses and
@@ -830,7 +1086,8 @@
                                         In this phase, it targets a number of employees from Assistant Auditor to Senior
                                         Auditor job levels.
                                     </p>
-                                    <button class="btn text-white px-4 py-2" style="background-color: #ec2227;">Log In
+                                    <button class="btn text-white px-4 py-2"
+                                        style="background-color: var(--faa-red); font-size: 14px;">Log In
                                         (mwgd.com)</button>
                                 </div>
                             </div>
@@ -840,9 +1097,9 @@
 
                 <!-- Enrichment Tab -->
                 <div class="tab-pane fade" id="enrichment" role="tabpanel">
-                    <div class="card shadow-lg border-0 rounded-4">
-                        <div class="card-body p-5">
-                            <div class="d-flex align-items-start gap-3 mb-5">
+                    <div class="card shadow-lg border rounded-4">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-start gap-3 mb-4">
                                 <div class="p-2 rounded-3 bg-dark-red-soft">
                                     <i data-lucide="award" class="text-faa-dark-red"
                                         style="width: 24px; height: 24px;"></i>
@@ -855,10 +1112,10 @@
                                 </div>
                             </div>
 
-                            <div class="row g-4">
+                            <div class="row g-4 mb-2">
                                 <div class="col-md-6 col-lg-3">
                                     <div
-                                        class="card h-100 shadow-sm border-0 card-hover border-top-hover p-4 text-center">
+                                        class=" border-0 enrichment-card card h-100 shadow-sm p-4 text-center rounded-4">
                                         <div class="mx-auto mb-3 rounded-3 d-flex align-items-center justify-content-center"
                                             style="width: 48px; height: 48px; background-color: #ec2227;">
                                             <i data-lucide="award" class="text-white"
@@ -870,7 +1127,7 @@
                                 </div>
                                 <div class="col-md-6 col-lg-3">
                                     <div
-                                        class="card h-100 shadow-sm border-0 card-hover border-top-hover p-4 text-center">
+                                        class=" border-0 enrichment-card card h-100 shadow-sm p-4 text-center rounded-4">
                                         <div class="mx-auto mb-3 rounded-3 d-flex align-items-center justify-content-center"
                                             style="width: 48px; height: 48px; background-color: #ec2227;">
                                             <i data-lucide="users" class="text-white"
@@ -882,7 +1139,7 @@
                                 </div>
                                 <div class="col-md-6 col-lg-3">
                                     <div
-                                        class="card h-100 shadow-sm border-0 card-hover border-top-hover p-4 text-center">
+                                        class=" border-0 enrichment-card card h-100 shadow-sm p-4 text-center rounded-4">
                                         <div class="mx-auto mb-3 rounded-3 d-flex align-items-center justify-content-center"
                                             style="width: 48px; height: 48px; background-color: #ec2227;">
                                             <i data-lucide="lightbulb" class="text-white"
@@ -894,7 +1151,7 @@
                                 </div>
                                 <div class="col-md-6 col-lg-3">
                                     <div
-                                        class="card h-100 shadow-sm border-0 card-hover border-top-hover p-4 text-center">
+                                        class=" border-0 enrichment-card card h-100 shadow-sm p-4 text-center rounded-4">
                                         <div class="mx-auto mb-3 rounded-3 d-flex align-items-center justify-content-center"
                                             style="width: 48px; height: 48px; background-color: #ec2227;">
                                             <i data-lucide="trending-up" class="text-white"
@@ -911,9 +1168,8 @@
 
                 <!-- Library Tab -->
                 <div class="tab-pane fade" id="library" role="tabpanel">
-                    <div class="card shadow-lg border-0 rounded-4">
-                        <div class="card-body p-4 border-start border-4 border-dark-red"
-                            style="border-left-color: #7b282d !important;">
+                    <div class="card shadow-lg rounded-4">
+                        <div class="-body p-4 library-banner rounded-4">
                             <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
                                 <div class="d-flex align-items-center gap-3">
                                     <div class="p-2 rounded-3 bg-dark-red-soft">
@@ -921,19 +1177,19 @@
                                             style="width: 24px; height: 24px;"></i>
                                     </div>
                                     <div>
-                                        <h2 class="h5 mb-1">Our Library</h2>
+                                        <h2 class="h5 mb-1 fw-bold">Our Library</h2>
                                         <p class="text-secondary small mb-0">Access over 1,245 resources including
                                             standards, research, and more.</p>
                                     </div>
                                 </div>
-                                <button class="btn btn-outline-danger">Browse Library</button>
+                                <button class="btn border btn-lib">Browse Library</button>
                             </div>
                         </div>
                     </div>
 
                     <div class="row g-4 mt-2">
                         <div class="col-md-6 col-lg-4">
-                            <div class="card h-100 shadow-sm border-0 card-hover border-top-hover p-4 category-card">
+                            <div class=" h-100 shadow-sm border-0 rounded-4 p-4 category-card">
                                 <div class="d-flex align-items-center gap-3 mb-3">
                                     <div class="icon-box p-2 rounded-3 bg-light text-faa-red transition-all">
                                         <i data-lucide="file-stack" style="width: 20px; height: 20px;"></i>
@@ -944,7 +1200,7 @@
                             </div>
                         </div>
                         <div class="col-md-6 col-lg-4">
-                            <div class="card h-100 shadow-sm border-0 card-hover border-top-hover p-4 category-card">
+                            <div class=" h-100 shadow-sm border-0 rounded-4 p-4 category-card">
                                 <div class="d-flex align-items-center gap-3 mb-3">
                                     <div class="icon-box p-2 rounded-3 bg-light text-faa-red transition-all">
                                         <i data-lucide="book-marked" style="width: 20px; height: 20px;"></i>
@@ -955,7 +1211,7 @@
                             </div>
                         </div>
                         <div class="col-md-6 col-lg-4">
-                            <div class="card h-100 shadow-sm border-0 card-hover border-top-hover p-4 category-card">
+                            <div class=" h-100 shadow-sm border-0 rounded-4 p-4 category-card">
                                 <div class="d-flex align-items-center gap-3 mb-3">
                                     <div class="icon-box p-2 rounded-3 bg-light text-faa-red transition-all">
                                         <i data-lucide="file-text" style="width: 20px; height: 20px;"></i>
@@ -966,7 +1222,7 @@
                             </div>
                         </div>
                         <div class="col-md-6 col-lg-4">
-                            <div class="card h-100 shadow-sm border-0 card-hover border-top-hover p-4 category-card">
+                            <div class="card h-100 shadow-sm border-0 rounded-4 p-4 category-card">
                                 <div class="d-flex align-items-center gap-3 mb-3">
                                     <div class="icon-box p-2 rounded-3 bg-light text-faa-red transition-all">
                                         <i data-lucide="book-open" style="width: 20px; height: 20px;"></i>
@@ -977,7 +1233,7 @@
                             </div>
                         </div>
                         <div class="col-md-6 col-lg-4">
-                            <div class="card h-100 shadow-sm border-0 card-hover border-top-hover p-4 category-card">
+                            <div class="card h-100 shadow-sm border-0 rounded-4 p-4 category-card">
                                 <div class="d-flex align-items-center gap-3 mb-3">
                                     <div class="icon-box p-2 rounded-3 bg-light text-faa-red transition-all">
                                         <i data-lucide="file-text" style="width: 20px; height: 20px;"></i>
@@ -988,7 +1244,7 @@
                             </div>
                         </div>
                         <div class="col-md-6 col-lg-4">
-                            <div class="card h-100 shadow-sm border-0 card-hover border-top-hover p-4 category-card">
+                            <div class="card h-100 shadow-sm border-0 rounded-4 p-4 category-card">
                                 <div class="d-flex align-items-center gap-3 mb-3">
                                     <div class="icon-box p-2 rounded-3 bg-light text-faa-red transition-all">
                                         <i data-lucide="graduation-cap" style="width: 20px; height: 20px;"></i>

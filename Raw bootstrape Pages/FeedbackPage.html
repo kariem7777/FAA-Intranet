@@ -10,6 +10,82 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
 
     <style>
+        h1 {
+            font-size: 2.5rem !important;
+
+            line-height: 1.2 !important;
+        }
+
+        h2 {
+            font-size: 2rem !important;
+
+            line-height: 1.3 !important;
+        }
+
+        h3 {
+            font-size: 1.5rem !important;
+            font-weight: 500 !important;
+            line-height: 1.4 !important;
+        }
+
+        h4 {
+            font-size: 1.25rem !important;
+            font-weight: 500 !important;
+            line-height: 1.4 !important;
+        }
+
+        h5 {
+            font-size: 1.125rem !important;
+            font-weight: 400 !important;
+            line-height: 1.5 !important;
+        }
+
+        h6 {
+            font-size: 1rem !important;
+            font-weight: 400 !important;
+            line-height: 1.5 !important;
+        }
+
+        p {
+            font-size: 1rem !important;
+            line-height: 1.6 !important;
+        }
+
+        a {
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        button {
+            font-family: inherit !important;
+        }
+
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #908e81 #f1f1f1;
+            letter-spacing: 0.5px;
+            font-family: "Dubai", "Tajawal", sans-serif;
+        }
+
+        .fs-small {
+            font-size: 13px;
+        }
+
+        .custom-container {
+            max-width: 95vw;
+            margin: auto;
+        }
+
+        .shadow-lg {
+            box-shadow:
+                0 10px 15px -3px rgba(0, 0, 0, 0.1),
+                0 4px 6px -4px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .border {
+            border: 1px solid #E5E5E5 !important;
+        }
+
         :root {
             --faa-red: #ec2227;
             --faa-dark-red: #7b282d;
@@ -27,7 +103,7 @@
         }
 
         .hero-banner {
-            background-image: url('./assets/14a7bedb16f5751eddf0fc794da9e33a1599152b.png');
+            background-image: url('./assets/3ca851fd732fadea7ed700a83455499648bbdce7.avif');
             background-size: 100%;
             border-radius: 16px;
             color: white;
@@ -116,13 +192,62 @@
         .feedback-card:hover {
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
         }
+
+        .form-control {
+            background-color: #F7F7F7;
+            font-size: 14px;
+
+
+            border-radius: 0.5rem;
+            outline: none;
+            transition: box-shadow 0.2s, border-color 0.2s;
+        }
+
+        .form-control:focus {
+            background-color: #F7F7F7;
+            font-size: 14px;
+            box-shadow: none;
+            border-color: #b49f7744;
+            box-shadow: 0 0 0 3px #b49f777a;
+            border: 1px solid #afabab;
+        }
+
+        .submit-btn {
+            background-color: var(--faa-red);
+            color: white;
+            border-color: var(--faa-red);
+            transition: background-color 0.2s ease;
+            border: 0;
+            font-size: 14px;
+        }
+
+        .submit-btn:hover {
+            background-color: #7B282D !important;
+            color: white;
+
+        }
+
+        .badge-warning {
+            background-color: #FEF9C2 !important;
+            color: #a65f00 !important;
+        }
+
+        .badge-inprogree {
+            color: #1447e6 !important;
+            background-color: #DBEAFE !important;
+        }
+
+        .badge-resolved {
+            background-color: #DBFCE7;
+            color: #008236;
+        }
     </style>
 </head>
 
 <body class="bg-pattern">
 
     <!-- Main Container -->
-    <div class="container-fluid px-5">
+    <div class="custom-container px-5">
 
         <!-- Hero Banner -->
         <div class="pt-4 mb-4 position-relative">
@@ -137,9 +262,9 @@
 
             <!-- Stats Cards - Overlapping Banner -->
             <div class="stats-cards px-5">
-                <div class="row g-4">
-                    <div class="col-md-4">
-                        <div class="card stat-card shadow-lg">
+                <div class="row g-4 mx-5">
+                    <div class="col-md-4 mx-auto">
+                        <div class="card stat-card shadow-lg rounded-4">
                             <div class="card-body p-4">
                                 <div class="d-flex align-items-start gap-3">
                                     <div class="p-3 rounded-3 bg-light text-danger">
@@ -155,7 +280,7 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="card stat-card shadow-lg">
+                        <div class="card stat-card shadow-lg rounded-4">
                             <div class="card-body p-4">
                                 <div class="d-flex align-items-start gap-3">
                                     <div class="p-3 rounded-3 bg-light" style="color: var(--faa-dark-red);">
@@ -171,7 +296,7 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="card stat-card shadow-lg">
+                        <div class="card stat-card shadow-lg rounded-4">
                             <div class="card-body p-4">
                                 <div class="d-flex align-items-start gap-3">
                                     <div class="p-3 rounded-3 bg-light" style="color: var(--faa-darker-red);">
@@ -191,13 +316,13 @@
         </div>
 
         <!-- Main Content -->
-        <div class="pt-5 pb-5">
+        <div class="pt-4 pb-5">
             <!-- Feedback Form & Quick Feedback -->
             <div class="row g-4 mb-5">
 
                 <!-- Feedback Form -->
                 <div class="col-lg-6">
-                    <div class="card shadow-lg">
+                    <div class="card shadow-lg border rounded-4">
                         <div class="card-body p-4">
                             <div class="d-flex align-items-start gap-3 mb-4">
                                 <div class="p-2 rounded-3" style="background-color: rgba(236, 34, 39, 0.1);">
@@ -205,7 +330,7 @@
                                         style="width: 24px; height: 24px; color: var(--faa-red);"></i>
                                 </div>
                                 <div>
-                                    <h3 class="h5 mb-2">Submit Feedback</h3>
+                                    <h3 class="h5 mb-2 fw-bold">Submit Feedback</h3>
                                     <div class="gradient-line"
                                         style="background: linear-gradient(to right, var(--faa-red), var(--faa-dark-red));">
                                     </div>
@@ -228,9 +353,9 @@
                                 </div>
 
                                 <!-- Rating -->
-                                <div class="mb-3">
-                                    <label class="form-label fw-medium">Overall Rating</label>
-                                    <div class="d-flex gap-2 mt-2" id="ratingStars">
+                                <div class="mb-2">
+                                    <label class="form-label fw-medium fs-small ">Overall Rating</label>
+                                    <div class="d-flex gap-2" id="ratingStars">
                                         <span class="rating-star" data-rating="1">★</span>
                                         <span class="rating-star" data-rating="2">★</span>
                                         <span class="rating-star" data-rating="3">★</span>
@@ -242,30 +367,30 @@
 
                                 <!-- Feedback -->
                                 <div class="mb-3">
-                                    <label for="feedback" class="form-label fw-medium">Your Feedback</label>
+                                    <label for="feedback" class="form-label fw-medium fs-small">Your Feedback</label>
                                     <textarea class="form-control mt-2" id="feedback" rows="4"
                                         placeholder="Tell us what you think about the intranet. What works well? What could be improved?"></textarea>
                                 </div>
 
                                 <!-- Recommendation -->
                                 <div class="mb-3">
-                                    <label class="form-label fw-medium">Would you recommend this intranet to
+                                    <label class="form-label fw-medium fs-small">Would you recommend this intranet to
                                         colleagues?</label>
                                     <div class="mt-2">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="recommend" id="yes"
                                                 value="yes" checked>
-                                            <label class="form-check-label" for="yes">Yes, definitely</label>
+                                            <label class="form-check-label fs-small" for="yes">Yes, definitely</label>
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="recommend" id="maybe"
                                                 value="maybe">
-                                            <label class="form-check-label" for="maybe">Maybe</label>
+                                            <label class="form-check-label fs-small" for="maybe">Maybe</label>
                                         </div>
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="recommend" id="no"
                                                 value="no">
-                                            <label class="form-check-label" for="no">No</label>
+                                            <label class="form-check-label fs-small" for="no">No</label>
                                         </div>
                                     </div>
                                 </div>
@@ -279,8 +404,7 @@
                                 </div>
 
                                 <!-- Submit Button -->
-                                <button type="submit" class="btn w-100"
-                                    style="background-color: var(--faa-red); color: white; border-color: var(--faa-red);">
+                                <button type="submit" class="p-2 btn submit-btn w-100">
                                     <i data-lucide="send" style="width: 16px; height: 16px; margin-right: 8px;"></i>
                                     Submit Feedback
                                 </button>
@@ -291,7 +415,7 @@
 
                 <!-- Quick Feedback -->
                 <div class="col-lg-6">
-                    <div class="card shadow-lg">
+                    <div class="card shadow-lg border rounded-4">
                         <div class="card-body p-4">
                             <div class="d-flex align-items-start gap-3 mb-4">
                                 <div class="p-2 rounded-3" style="background-color: rgba(123, 40, 45, 0.1);">
@@ -299,7 +423,7 @@
                                         style="width: 24px; height: 24px; color: var(--faa-dark-red);"></i>
                                 </div>
                                 <div>
-                                    <h3 class="h5 mb-2">Quick Feedback</h3>
+                                    <h3 class="h5 mb-2 fw-bold ">Quick Feedback</h3>
                                     <div class="gradient-line"
                                         style="background: linear-gradient(to right, var(--faa-dark-red), var(--faa-darker-red));">
                                     </div>
@@ -319,7 +443,7 @@
                                 <button
                                     class="quick-feedback-btn btn d-flex flex-column align-items-center gap-2 p-3 border border-2 border-secondary rounded-3"
                                     style="min-width: 100px;">
-                                    <span style="font-size: 2rem;">😐</span>
+                                    <i data-lucide="frown" style="width: 32px; height: 32px; color: #cdcf46;"></i>
                                     <span class="small">Okay</span>
                                 </button>
                                 <button
@@ -379,14 +503,15 @@
 
             <!-- Recent Feedback & Responses -->
             <div class="mb-4">
-                <h2 class="h4 mb-2">Recent Feedback & Responses</h2>
+                <h2 class="h4 mb-2 fw-bold">Recent Feedback & Responses</h2>
                 <p class="text-secondary mb-4">See how we're responding to employee feedback</p>
             </div>
 
             <div class="row g-4">
                 <!-- Feedback Item 1 -->
                 <div class="col-12">
-                    <div class="card feedback-card shadow-lg">
+                    <div class="card feedback-card shadow-lg border rounded-4
+                    ">
                         <div class="card-body p-4">
                             <div class="d-flex align-items-start justify-content-between mb-3">
                                 <div class="d-flex align-items-center gap-3">
@@ -408,7 +533,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <span class="badge bg-success-subtle text-success border-0">Reviewed</span>
+                                <span class="rounded-pill badge badge-warning fw-normal border-0">Reviewed</span>
                             </div>
                             <p class="text-secondary mb-3">The new search functionality is much faster and more
                                 intuitive.</p>
@@ -423,7 +548,7 @@
 
                 <!-- Feedback Item 2 -->
                 <div class="col-12">
-                    <div class="card feedback-card shadow-lg">
+                    <div class="card feedback-card shadow-lg border rounded-4">
                         <div class="card-body p-4">
                             <div class="d-flex align-items-start justify-content-between mb-3">
                                 <div class="d-flex align-items-center gap-3">
@@ -445,7 +570,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <span class="badge bg-primary-subtle text-primary border-0">In Progress</span>
+                                <span class=" rounded-pill badge badge-inprogree fw-normal border-0">In Progress</span>
                             </div>
                             <p class="text-secondary mb-3">Would like to see more video tutorials in the Knowledge Hub.
                             </p>
@@ -460,7 +585,7 @@
 
                 <!-- Feedback Item 3 -->
                 <div class="col-12">
-                    <div class="card feedback-card shadow-lg">
+                    <div class="card feedback-card shadow-lg border rounded-4">
                         <div class="card-body p-4">
                             <div class="d-flex align-items-start justify-content-between mb-3">
                                 <div class="d-flex align-items-center gap-3">
@@ -482,7 +607,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <span class="badge bg-success-subtle text-success border-0">Resolved</span>
+                                <span class="rounded-pill badge badge-resolved fw-normal border-0">Resolved</span>
                             </div>
                             <p class="text-secondary mb-3">The document download speeds have improved significantly.</p>
                             <div class="ps-3 border-start border-4 border-danger bg-light p-3 rounded-end">
@@ -557,43 +682,3 @@
 </body>
 
 </html>
-
-
-
-
-
-
-
-FAA’s Legislative Platform (Admin) منصة الجهاز التشريعية (Admin)
-FAA’s Legislative Platform منصة الجهاز التشريعية
-
-
-
-PK_RolesID FK_AppID RoleName RoleDescEn
-1 1 Administrators Administrators
-2 2 EntitiesAntiFraud Entities AntiFraud
-3 2 FAAAntiFraudAdmin FAA AntiFraud Admin (Manage User)
-4 2 FAAAntiFraud FAA AntiFraud
-5 4 EntitiesFinancialStatements Entities ExternalAffairs
-6 4 FAAFinancialStatementsAdmin FAA ExternalAffairs Admin (Manage User)
-7 4 FAAFinancialStatements FAA External Affairs
-8 3 EntitiesTaxAudit Entities TaxAudit
-9 3 FAATaxAudit FAA TaxAudit
-10 3 FAATaxAuditAdmin FAA TaxAuditAdmin (Manage User)
-
-Application Name Arabic App Name
-Anti-Fraud الاخطار عن المخالفات المالية
-Financial Statements Platform منصة القوائم المالية
-Tax Audit on Foreign Banks التدقيق الضريبي على البنوك الأجنبية
-
-
-Id TypeNameEn TypeNameAr AttachmentCategory
-1 Tax Forms النماذج الضريبية النماذج الضريبية .xlsx
-2 Branch Audited Tax Return الإقرار الضريبي المدقق للخاضع للضريبةِ pdf
-3 Branch Audited Financial Statements القوائم والإيضاحات المالية المدققة للخاضع للضريبة pdf
-4 Audited Head Office Certificate شهادة معتمدة بحصة الخاضع للضريبة من مصاريف الإدارة المركزية على أن تكون مدققة من قبل
-المدقق الخارجي للمركز الرئيسي pdf
-5 Audited Regional Office Certificate شهادة معتمدة بحصة الخاضع للضريبة من مصاريف الإدارة الإقليمية على أن تكون مدققة pdf
-6 Voluntary Disclosure التصريح الطوعي pdf
-7 Supporting Documents المستندات الداعمة null
-8 Final Document Final Document null
