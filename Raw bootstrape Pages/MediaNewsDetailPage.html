@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media News Detail - FAA Intranet</title>
+    <!-- Bootstrap 5.3.2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Tajawal:wght@300;400;500;700;800&display=swap"
+        rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        h1 {
+            font-size: 2.5rem !important;
+
+            line-height: 1.2 !important;
+        }
+
+        h2 {
+            font-size: 2rem !important;
+
+            line-height: 1.3 !important;
+        }
+
+        h3 {
+            font-size: 1.5rem !important;
+            font-weight: 500 !important;
+            line-height: 1.4 !important;
+        }
+
+        h4 {
+            font-size: 1.25rem !important;
+            font-weight: 500 !important;
+            line-height: 1.4 !important;
+        }
+
+        h5 {
+            font-size: 1.125rem !important;
+            font-weight: 400 !important;
+            line-height: 1.5 !important;
+        }
+
+        h6 {
+            font-size: 1.02rem !important;
+            font-weight: 300 !important;
+            line-height: 1.5 !important;
+        }
+
+        p {
+            font-size: 0.9rem !important;
+            line-height: 1.6 !important;
+        }
+
+        a {
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        button {
+            font-family: inherit !important;
+        }
+
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #908e81 #f1f1f1;
+            letter-spacing: 0.5px;
+            font-family: "Dubai", "Tajawal", sans-serif;
+        }
+
+        .custom-container {
+            max-width: 90vw;
+            margin: auto;
+        }
+
+        .shadow-lg {
+            box-shadow:
+                0 10px 15px -3px rgba(0, 0, 0, 0.1),
+                0 4px 6px -4px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .border {
+            border: 1px solid #E5E5E5 !important;
+        }
+
+        :root {
+            --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+            --color-faa-red: #ec2227;
+            --color-faa-red-dark: #bd1722;
+            --color-faa-cream: #e4ddc8;
+            --color-gray-50: #f9fafb;
+            --color-gray-100: #f3f4f6;
+            --color-gray-200: #e5e7eb;
+            --color-gray-500: #6b7280;
+            --color-gray-600: #4b5563;
+            --color-gray-900: #111827;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--color-gray-50);
+            color: var(--color-gray-900);
+        }
+
+        /* FAA Card Style */
+        .faa-card {
+            background: white;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border-radius: 0.75rem;
+            /* rounded-xl approx */
+            padding: 1.5rem;
+        }
+
+        /* Buttons */
+        .btn-ghost-custom {
+            color: var(--color-faa-red);
+            background: transparent;
+            border: none;
+            padding: 0.5rem 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .btn-ghost-custom:hover {
+            color: var(--color-faa-red-dark);
+            background-color: #F1EDE3;
+        }
+
+        .btn-faa-primary {
+            background-color: var(--color-faa-red);
+            border-color: var(--color-faa-red);
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-faa-primary:hover {
+            background-color: var(--color-faa-red-dark);
+            border-color: var(--color-faa-red-dark);
+            color: white;
+        }
+
+        .btn-bookmark {
+            color: var(--color-gray-500);
+            padding: 0.25rem 0.5rem;
+            border: none;
+            background: transparent;
+        }
+
+        .btn-bookmark.active {
+            color: var(--color-faa-red);
+        }
+
+        .btn-bookmark:hover {
+            color: var(--color-faa-red);
+        }
+
+        /* Layout Utilities */
+        .hero-image-container {
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+        }
+
+        .hero-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .content-overlap {
+            margin-top: -4rem;
+            /* -mt-16 */
+            position: relative;
+            z-index: 10;
+        }
+
+        .badge-custom {
+            font-weight: 500;
+            padding: 0.35em 0.65em;
+            border-radius: 9999px;
+            color: white;
+        }
+
+        .meta-divider {
+            border-bottom: 1px solid var(--color-gray-200);
+            padding-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--color-gray-600);
+        }
+
+        .prose {
+            max-width: none;
+            color: var(--color-gray-600);
+            line-height: 1.625;
+        }
+
+        .prose h5 {
+            color: var(--color-gray-900);
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.125rem;
+        }
+
+        .prose ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .prose li {
+            margin-bottom: 0.25rem;
+        }
+
+        .prose p {
+            margin-bottom: 1rem;
+        }
+
+        /* Comments */
+        .avatar-circle {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            background-color: var(--color-faa-red);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .comment-bubble {
+            background-color: var(--color-gray-50);
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+
+        .form-control-custom {
+            background-color: #F7F7F7;
+            font-size: 14px;
+
+
+            border-radius: 0.5rem;
+            outline: none;
+            transition: box-shadow 0.2s, border-color 0.2s;
+        }
+
+        .form-control-custom:focus {
+            background-color: #F7F7F7;
+            font-size: 14px;
+            box-shadow: none;
+            border-color: #b49f7744;
+            box-shadow: 0 0 0 3px #b49f777a;
+            border: 1px solid #afabab;
+        }
+    </style>
+</head>
+
+<body class="bg-light">
+
+
+    <div class="min-vh-100 pb-5">
+        <div class="container py-4">
+            <a href="HomePage.html" class="btn btn-ghost-custom text-decoration-none">
+                <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i>
+                Back to Home
+            </a>
+        </div>
+
+        <!-- Featured Image -->
+        <div class="hero-image-container">
+
+            <img src="./assets/cb64f9a87ac606d9926884eed9a827a7172105de.webp" alt="Innovation Workshop"
+                id="featuredImage">
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="container px-4">
+            <div class="d-flex flex-column gap-4 content-overlap">
+
+                <!-- News Article Card -->
+                <div class="faa-card">
+                    <!-- Header: Badge & Actions -->
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <span class="badge badge-custom" id="categoryBadge"
+                            style="background-color: #ec2227;">Innovation</span>
+
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="d-flex align-items-center gap-1 text-muted small">
+                                <i data-lucide="eye" style="width: 16px; height: 16px;"></i>
+                                <span id="viewCount">245 views</span>
+                            </div>
+                            <button class="btn-bookmark" id="bookmarkBtn" onclick="toggleBookmark()">
+                                <i data-lucide="bookmark" style="width: 16px; height: 16px;" id="bookmarkIcon"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Title -->
+                    <h2 class="mb-4 fw-bold text-dark" id="articleTitle">Innovation Workshop: Building Tomorrow's Audit
+                        Solutions</h2>
+
+                    <!-- Meta Data Row -->
+                    <div class="meta-divider">
+                        <div class="d-flex flex-wrap gap-4">
+                            <div class="meta-item">
+                                <i data-lucide="user" style="width: 16px; height: 16px;"></i>
+                                <span id="authorName">Communications Department</span>
+                            </div>
+                            <div class="meta-item">
+                                <i data-lucide="calendar" style="width: 16px; height: 16px;"></i>
+                                <span id="publishDate">2025-11-26</span>
+                            </div>
+                            <div class="meta-item">
+                                <i data-lucide="clock" style="width: 16px; height: 16px;"></i>
+                                <span id="publishTime">10:00 AM</span>
+                            </div>
+                            <div class="meta-item">
+                                <i data-lucide="message-circle" style="width: 16px; height: 16px;"></i>
+                                <span id="commentCountMain">3 comments</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Article Content -->
+                    <div class="prose" id="articleContent">
+                        <p>Behind the scenes at our Innovation Workshop! Our teams are working on cutting-edge solutions
+                            to enhance audit efficiency and transparency. This two-day intensive workshop brings
+                            together our brightest minds to develop next-generation audit tools and methodologies.</p>
+
+                        <h5>Workshop Highlights:</h5>
+                        <ul>
+                            <li><strong>AI-Driven Audit Analytics</strong> - Developing machine learning models to
+                                identify patterns and anomalies in financial data.</li>
+                            <li><strong>Blockchain Integration</strong> - Exploring distributed ledger technology for
+                                immutable audit trails.</li>
+                            <li><strong>Automated Risk Assessment</strong> - Creating intelligent systems for real-time
+                                risk evaluation.</li>
+                            <li><strong>Collaborative Audit Tools</strong> - Building platforms for seamless team
+                                collaboration and knowledge sharing.</li>
+                            <li><strong>Data Visualization</strong> - Designing intuitive dashboards for complex audit
+                                data presentation.</li>
+                        </ul>
+
+                        <h5>Innovation Teams:</h5>
+                        <p>Cross-functional teams from IT Audit, Financial Audit, Risk Management, and Analytics
+                            departments are collaborating on various projects. Each team is focused on addressing
+                            specific challenges in our audit processes.</p>
+
+                        <h5>Expected Outcomes:</h5>
+                        <p>The workshop aims to produce at least three pilot projects that will be tested in Q1 2026.
+                            Successful projects will be rolled out across all audit divisions by mid-2026.</p>
+
+                        <p>We're committed to staying at the forefront of audit technology and methodology, ensuring
+                            that FAA continues to set the standard for excellence in government financial oversight.</p>
+                    </div>
+                </div>
+
+                <!-- Comments Section -->
+                <div class="faa-card">
+                    <h4 class="mb-4 fw-bold">Comments (<span id="commentCountHeader">3</span>)</h4>
+
+                    <!-- Add Comment Form -->
+                    <div class="mb-5 pb-4 border-bottom">
+                        <textarea class="form-control form-control-custom mb-3" rows="4"
+                            placeholder="Share your thoughts or questions..." id="commentInput"
+                            style="resize: none;"></textarea>
+                        <div class="d-flex justify-content-end">
+                            <button class="btn btn-faa-primary " id="postCommentBtn" onclick="postComment()">
+                                <i data-lucide="send" style="width: 16px; height: 16px;"></i>
+                                Post Comment
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Comments List -->
+                    <div class="d-flex flex-column gap-4" id="commentsList">
+                        <!-- Comment 1 -->
+                        <div class="d-flex gap-3">
+                            <div class="avatar-circle flex-shrink-0">MA</div>
+                            <div class="flex-grow-1">
+                                <div class="comment-bubble">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <div>
+                                            <div class="fw-medium text-dark">Mohammed Al Shamsi</div>
+                                            <div class="small text-muted">IT Audit Manager • IT Audit</div>
+                                        </div>
+                                        <div class="small text-muted">2025-11-26 at 11:30 AM</div>
+                                    </div>
+                                    <p class="mb-0 small text-secondary">This is a significant milestone for the FAA!
+                                        The new digital platform will greatly enhance our audit capabilities and
+                                        efficiency. Looking forward to the training sessions.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Comment 2 -->
+                        <div class="d-flex gap-3">
+                            <div class="avatar-circle flex-shrink-0">SA</div>
+                            <div class="flex-grow-1">
+                                <div class="comment-bubble">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <div>
+                                            <div class="fw-medium text-dark">Sarah Abdullah</div>
+                                            <div class="small text-muted">Data Analytics Specialist • Analytics</div>
+                                        </div>
+                                        <div class="small text-muted">2025-11-26 at 2:15 PM</div>
+                                    </div>
+                                    <p class="mb-0 small text-secondary">The AI-powered analytics feature sounds
+                                        promising. Will this integrate with our existing systems? Excited to see it in
+                                        action!</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Comment 3 -->
+                        <div class="d-flex gap-3">
+                            <div class="avatar-circle flex-shrink-0">OH</div>
+                            <div class="flex-grow-1">
+                                <div class="comment-bubble">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <div>
+                                            <div class="fw-medium text-dark">Omar Hassan</div>
+                                            <div class="small text-muted">Senior Auditor • Financial Audit</div>
+                                        </div>
+                                        <div class="small text-muted">2025-11-27 at 10:20 AM</div>
+                                    </div>
+                                    <p class="mb-0 small text-secondary">Great initiative! Real-time reporting will
+                                        definitely streamline our processes. When can we expect the rollout to all
+                                        departments?</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Init Icons
+        lucide.createIcons();
+
+        // Bookmark Toggle Logic
+        let isBookmarked = false;
+        function toggleBookmark() {
+            isBookmarked = !isBookmarked;
+            const btn = document.getElementById('bookmarkBtn');
+            const icon = document.getElementById('bookmarkIcon');
+
+            if (isBookmarked) {
+                btn.classList.add('active');
+                icon.setAttribute('fill', 'currentColor');
+            } else {
+                btn.classList.remove('active');
+                icon.removeAttribute('fill');
+            }
+            lucide.createIcons(); // Re-render icons if needed, though fill change handles it via pure DOM usually
+            // Quick fix: re-inject SVG if simple attr change doesn't work with Lucide
+            icon.innerHTML = isBookmarked
+                ? '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="currentColor"></polygon>'
+                : '<path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path>';
+        }
+
+        // Comment Input Logic
+        const commentInput = document.getElementById('commentInput');
+        const postCommentBtn = document.getElementById('postCommentBtn');
+
+        commentInput.addEventListener('input', function () {
+            if (this.value.trim().length > 0) {
+                postCommentBtn.classList.remove('disabled');
+            } else {
+                postCommentBtn.classList.add('disabled');
+            }
+        });
+
+        function postComment() {
+            const content = commentInput.value.trim();
+            if (!content) return;
+
+            const commentsList = document.getElementById('commentsList');
+            const newCommentHtml = `
+                <div class="d-flex gap-3">
+                    <div class="avatar-circle flex-shrink-0">You</div>
+                    <div class="flex-grow-1">
+                        <div class="comment-bubble">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <div>
+                                    <div class="fw-medium text-dark">You</div>
+                                    <div class="small text-muted">Current User • Your Department</div>
+                                </div>
+                                <div class="small text-muted">Just now</div>
+                            </div>
+                            <p class="mb-0 small text-secondary">${escapeHtml(content)}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            commentsList.insertAdjacentHTML('beforeend', newCommentHtml);
+            commentInput.value = '';
+            postCommentBtn.classList.add('disabled');
+
+            // Update counts
+            const currentCount = parseInt(document.getElementById('commentCountHeader').innerText) || 0;
+            const newCount = currentCount + 1;
+            document.getElementById('commentCountHeader').innerText = newCount;
+            document.getElementById('commentCountMain').innerText = `${newCount} comments`;
+        }
+
+        function escapeHtml(text) {
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+
+</html>
