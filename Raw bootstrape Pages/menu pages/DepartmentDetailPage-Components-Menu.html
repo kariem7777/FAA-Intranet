@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Department Detail Page - Component Menu</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #908e81 #f1f1f1;
+            font-family: "Dubai", "Tajawal", sans-serif;
+        }
+
+        :root {
+            --faa-red: #ec2227;
+            --faa-dark-red: #7b282d;
+            --faa-darker-red: #971b1e;
+            --faa-burgundy: #A94442;
+            --color-gray-200: #E5E7EB;
+            --color-gray-500: #6b7280;
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+        }
+
+        .bg-pattern {
+            background-image: url('data:image/svg+xml,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="1" fill="%23000000" opacity="0.05"/></svg>');
+            background-repeat: repeat;
+        }
+
+        .hero-banner {
+            height: 320px;
+            background: linear-gradient(to right, var(--faa-dark-red), var(--faa-darker-red), var(--faa-red));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-image {
+            width: 128px;
+            height: 128px;
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card {
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+        }
+
+        .collapsible-section {
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .collapsible-section:hover {
+            background-color: #f8f9fa;
+        }
+
+        .badge-glass {
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .activity-dot {
+            width: 8px;
+            height: 8px;
+            margin-top: 6px;
+        }
+
+        .progress-bar-custom {
+            height: 8px;
+            border-radius: 4px;
+            background-color: #e5e7eb;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .icon-box-xl {
+            width: 40px;
+            height: 40px;
+        }
+
+        .icon-box-md {
+            width: 32px;
+            height: 32px;
+        }
+
+        .icon-sm {
+            width: 16px;
+            height: 16px;
+        }
+
+        .icon-md {
+            width: 20px;
+            height: 20px;
+        }
+
+        .icon-blue {
+            color: #155dfc;
+        }
+
+        .icon-red {
+            color: #ec2227;
+        }
+
+        .icon-purple {
+            color: #543671;
+        }
+
+        .icon-green {
+            color: #10b981;
+        }
+
+        .icon-info {
+            color: #0092b8;
+        }
+
+        .icon-primary {
+            color: #4f39f6;
+        }
+
+        .icon-warning {
+            color: #f54a00;
+        }
+
+        .icon-success {
+            color: #198754;
+        }
+
+        .icon-violet {
+            color: #6f42c1;
+        }
+
+        .icon-gray {
+            color: #9ca3af;
+        }
+
+        .bg-blue-subtle {
+            background-color: rgba(25, 73, 161, 0.08);
+        }
+
+        .bg-red-subtle {
+            background-color: rgba(236, 34, 39, 0.08);
+        }
+
+        .bg-purple-subtle {
+            background-color: rgba(84, 54, 113, 0.08);
+        }
+
+        .bg-green-subtle {
+            background-color: rgba(16, 185, 129, 0.08);
+        }
+
+        .bg-Dark-green {
+            background-color: #00C950;
+        }
+
+        .bg-Dark-purple {
+            background-color: #AD46FF;
+        }
+
+        .bg-light-blue {
+            background-color: #EFF6FF;
+        }
+
+        .bg-light-green {
+            background-color: #F0FDF4;
+        }
+
+        .bg-light-yellow {
+            background-color: #FFFBEB;
+        }
+
+        .bg-light-red {
+            background-color: #FEF2F2;
+        }
+
+        .dark-yellow {
+            color: #d08700;
+        }
+
+        .btn-custom-outline {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            height: 40px;
+            border-radius: 6px;
+            gap: 6px;
+            padding: 0 12px;
+            border: 1px solid oklch(.922 0 0);
+            background-color: color-mix(in oklab, oklch(.922 0 0) 30%, transparent);
+            outline: none;
+            color: oklch(.145 0 0) !important;
+        }
+
+        .btn-custom-outline:hover {
+            background-color: #EFEFF0;
+        }
+
+        /* Component Menu Specific Styles */
+        .component-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--faa-dark-red);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--faa-red);
+        }
+
+        .component-demo {
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .component-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .champion-badge {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid white;
+        }
+    </style>
+</head>
+
+<body class="bg-pattern">
+
+    <div class="container-fluid px-4 py-4">
+
+        <!-- Page Header -->
+        <div class="mb-5">
+            <h1 class="display-4 fw-bold text-dark mb-2">Department Detail Page - Component Library</h1>
+            <p class="text-secondary fs-5">A comprehensive showcase of all components and styles used in the Department
+                Detail page</p>
+        </div>
+
+        <!-- 1. HERO BANNER SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Hero Banner</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Hero Banner with Gradient Background</div>
+                <div class="hero-banner">
+                    <div class="position-relative p-4">
+                        <button class="btn btn-ghost text-white">
+                            <i data-lucide="arrow-left" class="icon-sm"></i>
+                            <span class="ms-2">Back to Organization</span>
+                        </button>
+                    </div>
+                    <div class="h-100 d-flex align-items-start px-4 pb-4">
+                        <div class="d-flex align-items-start gap-4 w-100">
+                            <div class="profile-image bg-white overflow-hidden flex-shrink-0">
+                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400"
+                                    alt="Profile" class="w-100 h-100 object-fit-cover">
+                            </div>
+                            <div class="flex-grow-1 pb-2">
+                                <span class="badge text-white mb-2 badge-glass">Department Leadership</span>
+                                <h1 class="text-white display-6 mb-1">Sara Al Hashimi</h1>
+                                <p class="text-white mb-2 opacity-75">Department Head</p>
+                                <div class="d-flex align-items-center gap-4 small text-white opacity-75">
+                                    <div class="d-flex align-items-center gap-1">
+                                        <i data-lucide="calendar" class="icon-sm"></i>
+                                        <span>Joined 2019</span>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-1">
+                                        <i data-lucide="mail" class="icon-sm"></i>
+                                        <span>sara.alhashimi@faa.gov.ae</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. BUTTONS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Buttons</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Primary Button (FAA Red)</div>
+                <button class="btn btn-danger fs-6 fw-normal d-flex align-items-center justify-content-between"
+                    style="background-color: var(--faa-red);">
+                    <span>View Team Members</span>
+                    <i data-lucide="users" class="icon-sm"></i>
+                </button>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Custom Outline Button</div>
+                <button class="btn fw-normal fs-6 btn-custom-outline d-flex align-items-center justify-content-between">
+                    <span>Department Reports</span>
+                    <i data-lucide="chevron-right" class="icon-sm"></i>
+                </button>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Ghost Button (White Text)</div>
+                <button class="btn btn-ghost text-white">
+                    <i data-lucide="arrow-left" class="icon-sm"></i>
+                    <span class="ms-2">Back to Organization</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- 3. CARDS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Cards</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Stat Cards (Hoverable with Icon Boxes)</div>
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <div class="card stat-card shadow-md rounded-3 border"
+                            style="border-color: var(--color-gray-200);">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-start justify-content-between mb-3">
+                                    <div
+                                        class="rounded-3 d-flex align-items-center justify-content-center icon-box-xl bg-blue-subtle">
+                                        <i data-lucide="users" class="icon-md icon-blue"></i>
+                                    </div>
+                                </div>
+                                <p class="h2 mb-1 fw-normal">24</p>
+                                <p class="small text-secondary mb-0">Team Members</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card stat-card shadow-md rounded-3 border"
+                            style="border-color: var(--color-gray-200);">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-start justify-content-between mb-3">
+                                    <div
+                                        class="rounded-3 d-flex align-items-center justify-content-center icon-box-xl bg-red-subtle">
+                                        <i data-lucide="file-text" class="icon-md icon-red"></i>
+                                    </div>
+                                </div>
+                                <p class="h2 mb-1 fw-normal">12</p>
+                                <p class="small text-secondary mb-0">Active Audits</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card stat-card shadow-md rounded-3 border"
+                            style="border-color: var(--color-gray-200);">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-start justify-content-between mb-3">
+                                    <div
+                                        class="rounded-3 d-flex align-items-center justify-content-center icon-box-xl bg-purple-subtle">
+                                        <i data-lucide="briefcase" class="icon-md icon-purple"></i>
+                                    </div>
+                                </div>
+                                <p class="h2 mb-1 fw-normal">45</p>
+                                <p class="small text-secondary mb-0">Annual Projects</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card stat-card shadow-md rounded-3 border"
+                            style="border-color: var(--color-gray-200);">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-start justify-content-between mb-3">
+                                    <div
+                                        class="rounded-3 d-flex align-items-center justify-content-center icon-box-xl bg-green-subtle">
+                                        <i data-lucide="trending-up" class="icon-md icon-green"></i>
+                                    </div>
+                                </div>
+                                <p class="h2 mb-1 fw-normal">96%</p>
+                                <p class="small text-secondary mb-0">Completion Rate</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Section Card with Icon Header</div>
+                <div class="card shadow-sm rounded-3 border">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div
+                                class="rounded-3 bg-info bg-opacity-10 d-flex align-items-center justify-content-center icon-box-xl">
+                                <i data-lucide="info" class="icon-md icon-info"></i>
+                            </div>
+                            <h4 class="small fw-medium mb-0">About This Department</h4>
+                        </div>
+                        <p class="small text-secondary mb-0">Specialized in conducting comprehensive audits for ports
+                            and free zone operations across Dubai</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Collapsible Section Card</div>
+                <div class="card shadow-sm rounded-3 border">
+                    <div class="collapsible-section p-4 d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center gap-3">
+                            <div
+                                class="rounded-3 bg-primary bg-opacity-10 d-flex align-items-center justify-content-center icon-box-xl">
+                                <i data-lucide="briefcase" class="icon-md icon-primary"></i>
+                            </div>
+                            <div>
+                                <h4 class="small fw-medium mb-0">Active Projects</h4>
+                                <p class="small text-secondary mb-0">Current audit engagements and initiatives</p>
+                            </div>
+                        </div>
+                        <i data-lucide="chevron-down" class="icon-md icon-gray"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Vision/Mission Cards</div>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="h-100 p-3 bg-light-blue bg-opacity-10 rounded-3">
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                <i data-lucide="target" class="icon-sm icon-blue"></i>
+                                <p class="small text-primary fw-normal mb-0">Vision</p>
+                            </div>
+                            <p class="small text-secondary mb-0">To be the premier audit authority for ports and free
+                                zones in the region</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="h-100 p-3 rounded-3" style="background-color: #FAF5FF;">
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                <i data-lucide="award" class="icon-sm" style="color: #8d29f0;"></i>
+                                <p class="small fw-normal mb-0" style="color: #8d29f0;">Mission</p>
+                            </div>
+                            <p class="small text-secondary mb-0">Ensuring transparency, compliance, and operational
+                                excellence in ports and free zone entities</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. BADGES SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Badges</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Glass Badge (White with Blur)</div>
+                <span class="badge text-white badge-glass">Department Leadership</span>
+            </div>
+        </div>
+
+        <!-- 5. PROGRESS BARS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Progress Bars</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Custom Progress Bar</div>
+                <div class="progress-bar-custom">
+                    <div class="progress-fill bg-success" style="width: 75%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. ACTIVITY INDICATORS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Activity Indicators</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Activity Dots (Timeline)</div>
+                <div class="d-flex flex-column gap-3">
+                    <div class="d-flex gap-3">
+                        <div class="rounded-circle bg-Dark-green flex-shrink-0 activity-dot"></div>
+                        <div>
+                            <p class="small text-dark mb-1">Port audit completed</p>
+                            <p class="small text-secondary mb-0">3 days ago</p>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-3">
+                        <div class="rounded-circle bg-primary flex-shrink-0 activity-dot"></div>
+                        <div>
+                            <p class="small text-dark mb-1">New project initiated</p>
+                            <p class="small text-secondary mb-0">1 week ago</p>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-3">
+                        <div class="rounded-circle bg-Dark-purple flex-shrink-0 activity-dot"></div>
+                        <div>
+                            <p class="small text-dark mb-1">Team training session</p>
+                            <p class="small text-secondary mb-0">2 weeks ago</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. ICONS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Icons & Icon Boxes</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Icon Sizes</div>
+                <div class="d-flex gap-3 align-items-center">
+                    <i data-lucide="users" class="icon-sm"></i>
+                    <span class="small">16px (icon-sm)</span>
+                    <i data-lucide="users" class="icon-md ms-3"></i>
+                    <span class="small">20px (icon-md)</span>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Icon Box Sizes</div>
+                <div class="d-flex gap-3 align-items-center">
+                    <div class="rounded-3 d-flex align-items-center justify-content-center icon-box-md bg-blue-subtle">
+                        <i data-lucide="mail" class="icon-sm icon-primary"></i>
+                    </div>
+                    <span class="small">32px (icon-box-md)</span>
+                    <div
+                        class="rounded-3 d-flex align-items-center justify-content-center icon-box-xl bg-blue-subtle ms-3">
+                        <i data-lucide="users" class="icon-md icon-blue"></i>
+                    </div>
+                    <span class="small">40px (icon-box-xl)</span>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Icon Colors</div>
+                <div class="d-flex gap-3">
+                    <i data-lucide="circle" class="icon-md icon-blue"></i>
+                    <i data-lucide="circle" class="icon-md icon-red"></i>
+                    <i data-lucide="circle" class="icon-md icon-purple"></i>
+                    <i data-lucide="circle" class="icon-md icon-green"></i>
+                    <i data-lucide="circle" class="icon-md icon-info"></i>
+                    <i data-lucide="circle" class="icon-md icon-primary"></i>
+                    <i data-lucide="circle" class="icon-md icon-warning"></i>
+                    <i data-lucide="circle" class="icon-md icon-success"></i>
+                    <i data-lucide="circle" class="icon-md icon-violet"></i>
+                    <i data-lucide="circle" class="icon-md icon-gray"></i>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Icon Box Backgrounds (Subtle)</div>
+                <div class="d-flex gap-3">
+                    <div class="rounded-3 icon-box-xl bg-blue-subtle d-flex align-items-center justify-content-center">
+                        <i data-lucide="users" class="icon-md icon-blue"></i>
+                    </div>
+                    <div class="rounded-3 icon-box-xl bg-red-subtle d-flex align-items-center justify-content-center">
+                        <i data-lucide="file-text" class="icon-md icon-red"></i>
+                    </div>
+                    <div
+                        class="rounded-3 icon-box-xl bg-purple-subtle d-flex align-items-center justify-content-center">
+                        <i data-lucide="briefcase" class="icon-md icon-purple"></i>
+                    </div>
+                    <div class="rounded-3 icon-box-xl bg-green-subtle d-flex align-items-center justify-content-center">
+                        <i data-lucide="trending-up" class="icon-md icon-green"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8. CHAMPION AVATARS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Champion Avatars</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Champion Avatar with Trophy Badge</div>
+                <div class="text-center" style="max-width: 150px;">
+                    <div class="position-relative d-inline-block mb-2">
+                        <div class="rounded-circle border border-2 overflow-hidden"
+                            style="width: 80px; height: 80px; border-color: #e5e7eb !important;">
+                            <div
+                                class="w-100 h-100 bg-secondary d-flex align-items-center justify-content-center text-white fw-bold">
+                                FA
+                            </div>
+                        </div>
+                        <div class="champion-badge" style="background-color: #ef4444;">
+                            <i data-lucide="trophy" style="width: 12px; height: 12px; color: white;"></i>
+                        </div>
+                    </div>
+                    <p class="small fw-normal mb-1">Fatima Al Zaabi</p>
+                    <p class="small text-secondary mb-2">Risk Champion</p>
+                    <span class="badge border fw-normal small"
+                        style="background-color: #ef444415; color: #ef4444; border-color: #ef4444 !important;">
+                        Risk
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 9. KPI CARDS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">KPI Cards</h2>
+
+            <div class="component-demo">
+                <div class="component-label">KPI Card (Exceeds Target)</div>
+                <div class="col-md-4" style="max-width: 350px;">
+                    <div class="card border-2 rounded-3 bg-light-green" style="border-color: #b9f8cf !important;">
+                        <div class="card-body p-3">
+                            <div class="d-flex align-items-start justify-content-between mb-3">
+                                <div class="rounded-3 bg-light-green border d-flex align-items-center justify-content-center"
+                                    style="width: 36px; height: 36px; border-color: #b9f8cf !important;">
+                                    <i data-lucide="activity" style="width: 16px; height: 16px; color: #198754;"></i>
+                                </div>
+                                <i data-lucide="trending-up" style="width: 16px; height: 16px; color: #198754;"></i>
+                            </div>
+                            <h3 class="small fw-medium mb-1">Audit Completion Rate</h3>
+                            <p class="small text-secondary mb-3">Percentage of scheduled audits completed</p>
+                            <div class="d-flex justify-content-between small mb-2">
+                                <span class="text-secondary">Target:</span>
+                                <span class="text-dark">90%</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-3">
+                                <span class="small text-secondary">Current:</span>
+                                <span class="small fw-medium text-success">96%</span>
+                            </div>
+                            <span class="fw-normal badge w-100 bg-light-green text-success border small"
+                                style="border-color: #b9f8cf !important;">Exceeds Target</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 10. RISK CARDS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Risk Cards</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Risk Card (High Level)</div>
+                <div class="card border rounded-3 bg-light-red" style="border-color: #ffc9c9 !important;">
+                    <div class="card-body p-3">
+                        <div class="d-flex align-items-start justify-content-between mb-2">
+                            <h4 class="small fw-medium mb-0 flex-grow-1">Data Access Delays</h4>
+                            <span class="badge fw-normal bg-light-red text-danger border small ms-2"
+                                style="border-color: #ffc9c9 !important;">High</span>
+                        </div>
+                        <p class="small text-secondary mb-3">Delays in receiving data from audited entities may impact
+                            timelines</p>
+                        <div class="pt-3 border-top">
+                            <p class="small text-secondary mb-1">Mitigation Owner:</p>
+                            <div class="d-flex align-items-center gap-2">
+                                <i data-lucide="user" style="width: 12px; height: 12px; color: #6c757d;"></i>
+                                <div>
+                                    <p class="small fw-normal mb-0">Fatima Al Zaabi</p>
+                                    <p class="small text-secondary mb-0">Audit Manager</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 11. PROJECT CARDS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Project Cards</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Project Card (In Progress)</div>
+                <div class="p-3 border rounded-3 bg-light-blue" style="border-color: #bedbff !important;">
+                    <div class="d-flex align-items-start justify-content-between mb-2">
+                        <h5 class="small fw-medium mb-0">Dubai Ports Authority Annual Audit</h5>
+                        <span class="badge fw-normal bg-light-blue text-primary border"
+                            style="border-color: #bedbff !important;">In Progress</span>
+                    </div>
+                    <div class="mb-3">
+                        <div class="progress-bar-custom mb-2">
+                            <div class="progress-fill" style="width: 75%; background-color: #3b82f6;"></div>
+                        </div>
+                        <p class="small text-secondary mb-0">75% Complete</p>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between small text-secondary">
+                        <div class="d-flex align-items-center gap-1">
+                            <i data-lucide="user" style="width: 12px; height: 12px;"></i>
+                            <span>Mohammed Al Ketbi</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-1">
+                            <i data-lucide="calendar" style="width: 12px; height: 12px;"></i>
+                            <span>Due Dec 2024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 12. TEAM CARDS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Team Cards</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Team Card (Collapsible)</div>
+                <div class="card bg-light border rounded-3">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-start justify-content-between">
+                            <div class="flex-grow-1">
+                                <h3 class="small fw-medium mb-1">Port Operations Audit Team</h3>
+                                <p class="small text-secondary mb-3">Conduct audits of port operations and logistics</p>
+                                <div class="row g-3 mb-3">
+                                    <div class="col-md-6">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div class="rounded-3 bg-primary bg-opacity-10 d-flex align-items-center justify-content-center"
+                                                style="width: 32px; height: 32px;">
+                                                <i data-lucide="user"
+                                                    style="width: 12px; height: 12px; color: #4f39f6;"></i>
+                                            </div>
+                                            <div>
+                                                <p class="small text-secondary mb-0">Team Lead</p>
+                                                <p class="small fw-normal mb-0">Mohammed Al Ketbi</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div class="rounded-3 d-flex align-items-center justify-content-center"
+                                                style="width: 32px; height: 32px; background-color: #F3E8FF;">
+                                                <i data-lucide="user"
+                                                    style="width: 12px; height: 12px; color: #543671;"></i>
+                                            </div>
+                                            <div>
+                                                <p class="small text-secondary mb-0">Coordinator</p>
+                                                <p class="small fw-normal mb-0">Fatima Al Zaabi</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-sm btn-ghost ms-3">
+                                <i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Team Member Item</div>
+                <div class="col-md-6" style="max-width: 300px;">
+                    <div class="d-flex align-items-center gap-2 p-2 bg-white rounded border">
+                        <div class="rounded-circle bg-secondary bg-opacity-10 d-flex align-items-center justify-content-center"
+                            style="width: 24px; height: 24px;">
+                            <i data-lucide="user" style="width: 12px; height: 12px;"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <p class="fw-normal mb-0">Ali Al Suwaidi</p>
+                            <p class="small text-secondary mb-0">Senior Auditor</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 13. RESPONSIBILITY LIST SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Responsibility List Items</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Responsibility Item with Checkmark</div>
+                <div class="col-md-6">
+                    <div class="d-flex align-items-start gap-2">
+                        <div class="rounded-circle bg-success d-flex align-items-center justify-content-center flex-shrink-0"
+                            style="width: 20px; height: 20px;">
+                            <i data-lucide="chevron-right" style="width: 12px; height: 12px; color: #198754;"></i>
+                        </div>
+                        <p class="small text-secondary mb-0">Conduct operational audits of port facilities and
+                            operations</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 14. COLOR PALETTE SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Color Palette</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Primary Colors</div>
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-white text-center" style="background-color: var(--faa-red);">
+                            <strong>FAA Red</strong>
+                            <div class="small mt-2">#ec2227</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-white text-center"
+                            style="background-color: var(--faa-dark-red);">
+                            <strong>FAA Dark Red</strong>
+                            <div class="small mt-2">#7b282d</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-white text-center"
+                            style="background-color: var(--faa-darker-red);">
+                            <strong>FAA Darker Red</strong>
+                            <div class="small mt-2">#971b1e</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-white text-center"
+                            style="background-color: var(--faa-burgundy);">
+                            <strong>FAA Burgundy</strong>
+                            <div class="small mt-2">#A94442</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Icon Colors</div>
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-white text-center" style="background-color: #155dfc;">
+                            <strong>Blue</strong>
+                            <div class="small mt-2">#155dfc</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-white text-center" style="background-color: #543671;">
+                            <strong>Purple</strong>
+                            <div class="small mt-2">#543671</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-white text-center" style="background-color: #10b981;">
+                            <strong>Green</strong>
+                            <div class="small mt-2">#10b981</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-white text-center" style="background-color: #0092b8;">
+                            <strong>Info</strong>
+                            <div class="small mt-2">#0092b8</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Background Colors (Light)</div>
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-dark text-center bg-light-blue">
+                            <strong>Light Blue</strong>
+                            <div class="small mt-2">#EFF6FF</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-dark text-center bg-light-green">
+                            <strong>Light Green</strong>
+                            <div class="small mt-2">#F0FDF4</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-dark text-center bg-light-yellow">
+                            <strong>Light Yellow</strong>
+                            <div class="small mt-2">#FFFBEB</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-dark text-center bg-light-red">
+                            <strong>Light Red</strong>
+                            <div class="small mt-2">#FEF2F2</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Activity Dot Colors</div>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-white text-center bg-Dark-green">
+                            <strong>Dark Green</strong>
+                            <div class="small mt-2">#00C950</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-white text-center bg-Dark-purple">
+                            <strong>Dark Purple</strong>
+                            <div class="small mt-2">#AD46FF</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+
+</body>
+
+</html>

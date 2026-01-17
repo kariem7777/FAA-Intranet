@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feedback Page - Component Menu</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #908e81 #f1f1f1;
+            letter-spacing: 0.5px;
+            font-family: "Dubai", "Tajawal", sans-serif;
+        }
+
+        .fs-small {
+            font-size: 13px;
+        }
+
+        .custom-container {
+            max-width: 95vw;
+            margin: auto;
+        }
+
+        .shadow-lg {
+            box-shadow:
+                0 10px 15px -3px rgba(0, 0, 0, 0.1),
+                0 4px 6px -4px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .border {
+            border: 1px solid #E5E5E5 !important;
+        }
+
+        :root {
+            --faa-red: #ec2227;
+            --faa-dark-red: #7b282d;
+            --faa-darker-red: #971b1e;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+        }
+
+        .bg-pattern {
+            background-image: url('data:image/svg+xml,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="1" fill="%23000000" opacity="0.05"/></svg>');
+            background-repeat: repeat;
+        }
+
+        .hero-banner {
+            background-image: url('../assets/3ca851fd732fadea7ed700a83455499648bbdce7.avif');
+            background-size: 100%;
+            border-radius: 16px;
+            color: white;
+            padding: 60px 48px;
+            position: relative;
+            overflow: hidden;
+            height: 280px;
+        }
+
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: min(957px, calc(100% - 424px));
+            background-color: rgba(81, 58, 64, 0.72);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .stats-cards {
+            margin-top: -80px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .stat-card {
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+        }
+
+        .gradient-line {
+            height: 4px;
+            width: 80px;
+            border-radius: 2px;
+        }
+
+        .rating-star {
+            cursor: pointer;
+            font-size: 2rem;
+            transition: color 0.2s ease;
+            color: #d1d5db;
+            user-select: none;
+        }
+
+        .rating-star.active {
+            color: #fbbf24;
+        }
+
+        .quick-feedback-btn {
+            transition: all 0.3s ease;
+        }
+
+        .quick-feedback-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .topic-card {
+            transition: background-color 0.2s ease;
+            cursor: pointer;
+        }
+
+        .topic-card:hover {
+            background-color: #f3f4f6 !important;
+        }
+
+        .feedback-card {
+            transition: all 0.3s ease;
+        }
+
+        .feedback-card:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+        }
+
+        .form-control {
+            background-color: #F7F7F7;
+            font-size: 14px;
+            border-radius: 0.5rem;
+            outline: none;
+            transition: box-shadow 0.2s, border-color 0.2s;
+        }
+
+        .form-control:focus {
+            background-color: #F7F7F7;
+            font-size: 14px;
+            box-shadow: none;
+            border-color: #b49f7744;
+            box-shadow: 0 0 0 3px #b49f777a;
+            border: 1px solid #afabab;
+        }
+
+        .submit-btn {
+            background-color: var(--faa-red);
+            color: white;
+            border-color: var(--faa-red);
+            transition: background-color 0.2s ease;
+            border: 0;
+            font-size: 14px;
+        }
+
+        .submit-btn:hover {
+            background-color: #7B282D !important;
+            color: white;
+        }
+
+        .badge-warning {
+            background-color: #FEF9C2 !important;
+            color: #a65f00 !important;
+        }
+
+        .badge-inprogree {
+            color: #1447e6 !important;
+            background-color: #DBEAFE !important;
+        }
+
+        .badge-resolved {
+            background-color: #DBFCE7;
+            color: #008236;
+        }
+
+        /* Component Menu Specific Styles */
+        .component-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--faa-dark-red);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--faa-red);
+        }
+
+        .component-demo {
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .component-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+    </style>
+</head>
+
+<body class="bg-pattern">
+
+    <div class="custom-container px-5 py-4">
+
+        <!-- Page Header -->
+        <div class="mb-5">
+            <h1 class="display-4 fw-bold text-dark mb-2">Feedback Page - Component Library</h1>
+            <p class="text-secondary fs-5">A comprehensive showcase of all components and styles used in the Employee
+                Feedback page</p>
+        </div>
+
+        <!-- 1. BUTTONS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Buttons</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Submit Button (Red)</div>
+                <button type="submit" class="p-2 btn submit-btn">
+                    <i data-lucide="send" style="width: 16px; height: 16px; margin-right: 8px;"></i>
+                    Submit Feedback
+                </button>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Quick Feedback Buttons</div>
+                <div class="d-flex gap-3">
+                    <button
+                        class="quick-feedback-btn btn d-flex flex-column align-items-center gap-2 p-3 border border-2 border-secondary rounded-3"
+                        style="min-width: 100px;">
+                        <i data-lucide="thumbs-up" style="width: 32px; height: 32px; color: #22c55e;"></i>
+                        <span class="small">Very Useful</span>
+                    </button>
+                    <button
+                        class="quick-feedback-btn btn d-flex flex-column align-items-center gap-2 p-3 border border-2 border-secondary rounded-3"
+                        style="min-width: 100px;">
+                        <i data-lucide="frown" style="width: 32px; height: 32px; color: #cdcf46;"></i>
+                        <span class="small">Okay</span>
+                    </button>
+                    <button
+                        class="quick-feedback-btn btn d-flex flex-column align-items-center gap-2 p-3 border border-2 border-secondary rounded-3"
+                        style="min-width: 100px;">
+                        <i data-lucide="thumbs-down" style="width: 32px; height: 32px; color: #ef4444;"></i>
+                        <span class="small">Not Useful</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. CARDS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Cards</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Stat Card (Hoverable)</div>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card stat-card shadow-lg rounded-4">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-start gap-3">
+                                    <div class="p-3 rounded-3 bg-light text-danger">
+                                        <i data-lucide="message-square" style="width: 24px; height: 24px;"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="display-6 fw-bold mb-1">1,234</h3>
+                                        <p class="text-secondary mb-0">Total Submissions</p>
+                                        <p class="small text-success mb-0">+12% this month</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Form Card with Section Header</div>
+                <div class="card shadow-lg border rounded-4">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-start gap-3 mb-4">
+                            <div class="p-2 rounded-3" style="background-color: rgba(236, 34, 39, 0.1);">
+                                <i data-lucide="message-square"
+                                    style="width: 24px; height: 24px; color: var(--faa-red);"></i>
+                            </div>
+                            <div>
+                                <h3 class="h5 mb-2 fw-bold">Submit Feedback</h3>
+                                <div class="gradient-line"
+                                    style="background: linear-gradient(to right, var(--faa-red), var(--faa-dark-red));">
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-secondary mb-0">Form content goes here...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Topic Card (Hoverable)</div>
+                <div class="row g-3">
+                    <div class="col-6" style="max-width: 200px;">
+                        <div class="topic-card p-3 bg-light rounded-3">
+                            <h5 class="h6 mb-1" style="color: var(--faa-dark-red);">45</h5>
+                            <p class="small text-secondary mb-0">Search Functionality</p>
+                        </div>
+                    </div>
+                    <div class="col-6" style="max-width: 200px;">
+                        <div class="topic-card p-3 bg-light rounded-3">
+                            <h5 class="h6 mb-1" style="color: var(--faa-dark-red);">38</h5>
+                            <p class="small text-secondary mb-0">Mobile Experience</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Feedback Card (Hoverable with Response)</div>
+                <div class="card feedback-card shadow-lg border rounded-4">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-start justify-content-between mb-3">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="p-2 rounded-3 bg-light">
+                                    <i data-lucide="message-square"
+                                        style="width: 20px; height: 20px; color: var(--faa-red);"></i>
+                                </div>
+                                <div>
+                                    <span class="fw-medium">Navigation</span>
+                                    <div class="d-flex align-items-center gap-2 mt-1">
+                                        <div class="d-flex">
+                                            <span class="small text-warning">★</span>
+                                            <span class="small text-warning">★</span>
+                                            <span class="small text-warning">★</span>
+                                            <span class="small text-warning">★</span>
+                                            <span class="small text-warning">★</span>
+                                        </div>
+                                        <span class="small text-secondary">• 2025-11-26</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="rounded-pill badge badge-warning fw-normal border-0">Reviewed</span>
+                        </div>
+                        <p class="text-secondary mb-3">The new search functionality is much faster and more intuitive.
+                        </p>
+                        <div class="ps-3 border-start border-4 border-danger bg-light p-3 rounded-end">
+                            <p class="small text-secondary mb-1">Response:</p>
+                            <p class="small text-dark mb-0">Thank you for your positive feedback! We're glad the
+                                improvements are working well.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. BADGES SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Badges</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Status Badges</div>
+                <span class="rounded-pill badge badge-warning fw-normal border-0">Reviewed</span>
+                <span class="rounded-pill badge badge-inprogree fw-normal border-0 ms-2">In Progress</span>
+                <span class="rounded-pill badge badge-resolved fw-normal border-0 ms-2">Resolved</span>
+            </div>
+        </div>
+
+        <!-- 4. FORM ELEMENTS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Form Elements</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Select Dropdown</div>
+                <label for="category" class="form-label fw-medium">Feedback Category</label>
+                <select class="form-select mt-2" id="category">
+                    <option value="">Select a category</option>
+                    <option value="navigation">Navigation & Usability</option>
+                    <option value="content">Content & Information</option>
+                    <option value="performance">Performance & Speed</option>
+                </select>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Textarea</div>
+                <label for="feedback" class="form-label fw-medium fs-small">Your Feedback</label>
+                <textarea class="form-control mt-2" id="feedback" rows="4"
+                    placeholder="Tell us what you think about the intranet. What works well? What could be improved?"></textarea>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Radio Buttons</div>
+                <label class="form-label fw-medium fs-small">Would you recommend this intranet to colleagues?</label>
+                <div class="mt-2">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="recommend" id="yes" value="yes" checked>
+                        <label class="form-check-label fs-small" for="yes">Yes, definitely</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="recommend" id="maybe" value="maybe">
+                        <label class="form-check-label fs-small" for="maybe">Maybe</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="recommend" id="no" value="no">
+                        <label class="form-check-label fs-small" for="no">No</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Rating Stars (Interactive)</div>
+                <label class="form-label fw-medium fs-small">Overall Rating</label>
+                <div class="d-flex gap-2">
+                    <span class="rating-star">★</span>
+                    <span class="rating-star">★</span>
+                    <span class="rating-star active">★</span>
+                    <span class="rating-star active">★</span>
+                    <span class="rating-star active">★</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. HERO BANNER SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Hero Banner</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Hero Banner with Overlay Content</div>
+                <div class="hero-banner">
+                    <div class="hero-content">
+                        <h2 class="mb-3" style="font-size: 24px; font-weight: 500; line-height: 28px;">Employee Feedback
+                        </h2>
+                        <p class="mb-0" style="font-size: 18px; font-weight: 400; line-height: 25.6px;">Help us improve
+                            your intranet experience</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. ICONS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Icons</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Large Icons (32px - Quick Feedback)</div>
+                <div class="d-flex gap-3">
+                    <i data-lucide="thumbs-up" style="width: 32px; height: 32px; color: #22c55e;"></i>
+                    <i data-lucide="frown" style="width: 32px; height: 32px; color: #cdcf46;"></i>
+                    <i data-lucide="thumbs-down" style="width: 32px; height: 32px; color: #ef4444;"></i>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Medium Icons (24px - Stat Cards & Section Headers)</div>
+                <div class="d-flex gap-3">
+                    <i data-lucide="message-square" style="width: 24px; height: 24px;"></i>
+                    <i data-lucide="star" style="width: 24px; height: 24px;"></i>
+                    <i data-lucide="thumbs-up" style="width: 24px; height: 24px;"></i>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Small Icons (20px & 16px)</div>
+                <div class="d-flex gap-3 align-items-center">
+                    <i data-lucide="message-square" style="width: 20px; height: 20px; color: var(--faa-red);"></i>
+                    <i data-lucide="send" style="width: 16px; height: 16px;"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. DECORATIVE ELEMENTS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Decorative Elements</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Gradient Line</div>
+                <div class="gradient-line"
+                    style="background: linear-gradient(to right, var(--faa-red), var(--faa-dark-red));"></div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Response Box (Left Border)</div>
+                <div class="ps-3 border-start border-4 border-danger bg-light p-3 rounded-end">
+                    <p class="small text-secondary mb-1">Response:</p>
+                    <p class="small text-dark mb-0">Thank you for your positive feedback! We're glad the improvements
+                        are working well.</p>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Rating Stars Display</div>
+                <div class="d-flex">
+                    <span class="small text-warning">★</span>
+                    <span class="small text-warning">★</span>
+                    <span class="small text-warning">★</span>
+                    <span class="small text-warning">★</span>
+                    <span class="small text-secondary">★</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8. COLOR PALETTE SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Color Palette</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Primary Colors</div>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-white text-center" style="background-color: var(--faa-red);">
+                            <strong>FAA Red</strong>
+                            <div class="small mt-2">#ec2227</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-white text-center"
+                            style="background-color: var(--faa-dark-red);">
+                            <strong>FAA Dark Red</strong>
+                            <div class="small mt-2">#7b282d</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-white text-center"
+                            style="background-color: var(--faa-darker-red);">
+                            <strong>FAA Darker Red</strong>
+                            <div class="small mt-2">#971b1e</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Status Badge Colors</div>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-center" style="background-color: #FEF9C2; color: #a65f00;">
+                            <strong>Warning/Reviewed</strong>
+                            <div class="small mt-2">#FEF9C2 / #a65f00</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-center" style="background-color: #DBEAFE; color: #1447e6;">
+                            <strong>In Progress</strong>
+                            <div class="small mt-2">#DBEAFE / #1447e6</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-center" style="background-color: #DBFCE7; color: #008236;">
+                            <strong>Resolved</strong>
+                            <div class="small mt-2">#DBFCE7 / #008236</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Quick Feedback Colors</div>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-white text-center" style="background-color: #22c55e;">
+                            <strong>Very Useful</strong>
+                            <div class="small mt-2">#22c55e</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-dark text-center" style="background-color: #cdcf46;">
+                            <strong>Okay</strong>
+                            <div class="small mt-2">#cdcf46</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-white text-center" style="background-color: #ef4444;">
+                            <strong>Not Useful</strong>
+                            <div class="small mt-2">#ef4444</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Background & Text Colors</div>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-dark text-center" style="background-color: #F7F7F7;">
+                            <strong>Form Control</strong>
+                            <div class="small mt-2">#F7F7F7</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-dark text-center" style="background-color: #f3f4f6;">
+                            <strong>Topic Card Hover</strong>
+                            <div class="small mt-2">#f3f4f6</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-white text-center" style="background-color: #fbbf24;">
+                            <strong>Rating Star Active</strong>
+                            <div class="small mt-2">#fbbf24</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 9. BORDER & SHADOW STYLES SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Border & Shadow Styles</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Border Radius Options</div>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="p-3 bg-light border rounded-4 text-center">
+                            <strong>rounded-4</strong>
+                            <div class="small text-secondary mt-1">Cards</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3 bg-light border rounded-3 text-center">
+                            <strong>rounded-3</strong>
+                            <div class="small text-secondary mt-1">Buttons, Topic Cards</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3 bg-light border rounded-pill text-center">
+                            <strong>rounded-pill</strong>
+                            <div class="small text-secondary mt-1">Status Badges</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Shadow Options</div>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="p-3 bg-white shadow-lg rounded-3 text-center">
+                            <strong>shadow-lg</strong>
+                            <div class="small text-secondary mt-1">Large shadow for cards</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="p-3 bg-white rounded-3 text-center"
+                            style="box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);">
+                            <strong>Hover Shadow</strong>
+                            <div class="small text-secondary mt-1">Stat card & feedback card hover</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Special Borders</div>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="p-3 bg-light text-center border-start border-4 border-danger">
+                            <strong>Left Border (4px Red)</strong>
+                            <div class="small text-secondary mt-1">Response boxes</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="p-3 bg-white text-center border border-2 border-secondary rounded-3">
+                            <strong>Border 2px Secondary</strong>
+                            <div class="small text-secondary mt-1">Quick feedback buttons</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+
+</body>
+
+</html>

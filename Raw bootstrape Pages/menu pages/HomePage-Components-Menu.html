@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page - Component Menu</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #908e81 #f1f1f1;
+            font-family: "Dubai", "Tajawal", sans-serif;
+        }
+
+        :root {
+            --faa-red: #ec2227;
+            --faa-dark-red: #7b282d;
+            --faa-darker-red: #971b1e;
+            --faa-cyan: #8cd4e4;
+            --faa-brown: #413f30;
+            --faa-bg: #f8f9fa;
+        }
+
+        body {
+            background-color: var(--faa-bg);
+            min-height: 100vh;
+        }
+
+        .hero-banner {
+            background-image: url('../assets/3ca851fd732fadea7ed700a83455499648bbdce7.avif');
+            background-size: 100%;
+            border-radius: 16px;
+            color: white;
+            padding: 60px 48px;
+            position: relative;
+            overflow: hidden;
+            height: 280px;
+        }
+
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: min(957px, calc(100% - 424px));
+            background-color: rgba(81, 58, 64, 0.72);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+
+        .section-icon-bg {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background-color: rgba(123, 40, 45, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quick-link-btn {
+            border: 1px solid #e5e7eb;
+            background-color: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quick-link-btn:hover {
+            border-color: rgba(123, 40, 45, 0.3);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            background-color: #f9fafb;
+        }
+
+        .quick-link-icon-box {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-pills .nav-link {
+            color: #6b7280;
+            font-size: 0.75rem;
+            padding: 0.2rem 1rem;
+            border-radius: 6px;
+        }
+
+        .nav-pills .nav-link.active {
+            background-color: #EFEFF1;
+            color: black;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            border: 1px solid #e5e5e7;
+        }
+
+        .update-item {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 0.75rem;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .update-item:hover {
+            border-color: rgba(123, 40, 45, 0.3);
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        .gallery-main {
+            height: 300px;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .gallery-main img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .gallery-main:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-thumb {
+            flex: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            height: 117px;
+        }
+
+        .gallery-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .gallery-thumb:hover img {
+            transform: scale(1.05);
+        }
+
+        .calendar-wrapper {
+            background-image: linear-gradient(130.575deg, rgba(204, 234, 242, 0.2) 0%, rgb(255, 255, 255) 100%);
+            border-radius: 10px;
+            padding: 12px;
+            border: 1px solid #e5e7eb;
+            width: 290px;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+
+        .calendar-day-btn {
+            height: 40px;
+            border-radius: 6.8px;
+            border: none;
+            background: transparent;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #364153;
+            transition: all 0.2s;
+        }
+
+        .calendar-day-btn:hover {
+            background-color: #f3f4f6;
+        }
+
+        .calendar-day-btn.selected {
+            background-color: var(--faa-dark-red);
+            color: white;
+        }
+
+        .calendar-day-btn.has-events {
+            background-color: #dbeafe;
+            color: #1c398e;
+        }
+
+        .event-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 12px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .event-card:hover {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border-color: var(--faa-dark-red);
+            transform: translateY(-2px);
+        }
+
+        .offer-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 0.625rem;
+            background-color: white;
+        }
+
+        .spotlight-col {
+            background-color: #f8f9fa;
+            border: 1px solid #f3f4f6;
+            border-radius: 8px;
+        }
+
+        .spotlight-card {
+            background: white;
+            border: 1px solid #f3f4f6;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .user-avatar-lg {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            margin: 0 auto 0.5rem auto;
+        }
+
+        .job-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 1rem;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .job-card:hover {
+            border-color: rgba(123, 40, 45, 0.3);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Component Menu Specific Styles */
+        .component-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--faa-dark-red);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--faa-red);
+        }
+
+        .component-demo {
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .component-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container py-4">
+
+        <!-- Page Header -->
+        <div class="mb-5">
+            <h1 class="display-4 fw-bold text-dark mb-2">Home Page - Component Library</h1>
+            <p class="text-secondary fs-5">A comprehensive showcase of all components and styles used in the FAA
+                Intranet Home page</p>
+        </div>
+
+        <!-- 1. HERO BANNER SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Hero Banner</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Hero Banner with Background Image</div>
+                <div class="hero-banner" style="max-width: 800px;">
+                    <div class="hero-content">
+                        <h2 class="mb-3" style="font-size: 24px; font-weight: 500; line-height: 28px;">Financial Audit
+                            Authority Intranet Welcomes You</h2>
+                        <p class="mb-0" style="font-size: 18px; font-weight: 400; line-height: 25.6px;">Welcome to the
+                            Financial Audit Authority Intranet, your central hub for resources, updates, and tools.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. CARDS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Cards</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Main Card (12px border-radius, shadow)</div>
+                <div class="card p-4" style="max-width: 400px;">
+                    <h5 class="mb-2">Card Title</h5>
+                    <p class="text-secondary mb-0">This is the main card style with rounded corners and shadow.</p>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Section Header with Icon</div>
+                <div class="d-flex align-items-center gap-2">
+                    <div class="section-icon-bg">
+                        <i data-lucide="external-link"
+                            style="width: 16px; height: 16px; color: var(--faa-dark-red);"></i>
+                    </div>
+                    <h3 class="fw-medium" style="font-size: 1.125rem; color: black; margin-bottom: 0;">Section Title
+                    </h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. QUICK LINKS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Quick Links</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Quick Link Button (with colored icon box)</div>
+                <div class="row g-3">
+                    <div class="col-auto">
+                        <div class="quick-link-btn" style="width: 120px;">
+                            <div class="quick-link-icon-box" style="background-color: #f8e8e9;">
+                                <i data-lucide="external-link" style="color: #971b1e; width: 20px;"></i>
+                            </div>
+                            <span class="small text-center">FAA Website</span>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <div class="quick-link-btn" style="width: 120px;">
+                            <div class="quick-link-icon-box" style="background-color: #e8f1f5;">
+                                <i data-lucide="users" style="color: #4a7c9d; width: 20px;"></i>
+                            </div>
+                            <span class="small text-center">TeamMate</span>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <div class="quick-link-btn" style="width: 120px;">
+                            <div class="quick-link-icon-box" style="background-color: #e0f5f5;">
+                                <i data-lucide="mail" style="color: #01949a; width: 20px;"></i>
+                            </div>
+                            <span class="small text-center">Email on Web</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. NAVIGATION TABS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Navigation Tabs</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Primary Nav Pills (Gray background)</div>
+                <ul class="nav nav-pills rounded p-1" style="background-color: #F3F4F6; max-width: 600px;">
+                    <li class="nav-item flex-fill">
+                        <button class="nav-link w-100 active">Announcements</button>
+                    </li>
+                    <li class="nav-item flex-fill">
+                        <button class="nav-link w-100">Media & News</button>
+                    </li>
+                    <li class="nav-item flex-fill">
+                        <button class="nav-link w-100">Policy Updates</button>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Sub Nav Pills (Nested tabs)</div>
+                <ul class="nav nav-pills rounded p-1" style="background-color: #F9FAFB; max-width: 400px;">
+                    <li class="nav-item flex-fill">
+                        <button class="nav-link w-100 active">Laws</button>
+                    </li>
+                    <li class="nav-item flex-fill">
+                        <button class="nav-link w-100">Official Journals</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 5. UPDATE ITEMS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Update Items</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Update Item Card (Announcements)</div>
+                <div class="update-item" style="max-width: 600px;">
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                        <span class="badge fw-normal bg-danger small" style="background-color: #ec2227;">Policy</span>
+                        <span class="small text-muted">2025-11-26</span>
+                    </div>
+                    <h6 class="fs-5 fw-medium mb-1">New Audit Standards Released</h6>
+                    <p class="small text-muted mb-0">Updated international audit standards have been published and are
+                        now available in the knowledge hub.</p>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Update Item Card (Media & News - Grid)</div>
+                <div class="update-item" style="max-width: 300px;">
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                        <span class="badge small" style="background-color: #ec2227;">Innovation</span>
+                        <span class="small text-muted">2025-11-26</span>
+                    </div>
+                    <h6 class="fs-5 fw-medium mb-1">Innovation Workshop</h6>
+                    <p class="small text-muted mb-0">Behind the scenes at our Innovation Workshop! Our teams are working
+                        on...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. MEDIA GALLERY SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Media Gallery</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Gallery Main Image (300px height)</div>
+                <div class="gallery-main" style="max-width: 400px;">
+                    <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=600" alt="Event">
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Gallery Thumbnails (117px height)</div>
+                <div class="d-flex gap-2" style="max-width: 400px;">
+                    <div class="gallery-thumb">
+                        <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=200" alt="Thumb">
+                    </div>
+                    <div class="gallery-thumb">
+                        <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=200" alt="Thumb">
+                    </div>
+                    <div class="gallery-thumb">
+                        <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=200" alt="Thumb">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. CALENDAR SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Calendar</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Calendar Wrapper (290px width, gradient background)</div>
+                <div class="calendar-wrapper">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <span class="fw-normal">NOVEMBER 2025</span>
+                        <div class="d-flex gap-1">
+                            <button class="btn btn-sm btn-light border"><i data-lucide="chevron-left"
+                                    style="width: 14px;"></i></button>
+                            <button class="btn btn-sm btn-light border"><i data-lucide="chevron-right"
+                                    style="width: 14px;"></i></button>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded p-2 border">
+                        <div class="calendar-grid mb-1">
+                            <div class="text-center" style="font-size: 12px; color: #6a7282;">S</div>
+                            <div class="text-center" style="font-size: 12px; color: #6a7282;">M</div>
+                            <div class="text-center" style="font-size: 12px; color: #6a7282;">T</div>
+                            <div class="text-center" style="font-size: 12px; color: #6a7282;">W</div>
+                            <div class="text-center" style="font-size: 12px; color: #6a7282;">T</div>
+                            <div class="text-center" style="font-size: 12px; color: #6a7282;">F</div>
+                            <div class="text-center" style="font-size: 12px; color: #6a7282;">S</div>
+                        </div>
+                        <div class="calendar-grid">
+                            <button class="calendar-day-btn">1</button>
+                            <button class="calendar-day-btn">2</button>
+                            <button class="calendar-day-btn has-events">3<span
+                                    style="width: 4px; height: 4px; background-color: #7b282d; border-radius: 50%; margin-top: 2px;"></span></button>
+                            <button class="calendar-day-btn">4</button>
+                            <button class="calendar-day-btn selected">5</button>
+                            <button class="calendar-day-btn">6</button>
+                            <button class="calendar-day-btn">7</button>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center gap-3 mt-3 pt-2 border-top">
+                        <div class="d-flex align-items-center gap-2">
+                            <span
+                                style="width: 12px; height: 12px; border-radius: 4px; background-color: #8cd4e4;"></span>
+                            <span class="small text-muted">Today</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <span
+                                style="width: 12px; height: 12px; border-radius: 4px; background-color: #dbeafe; border: 1px solid #bedbff;"></span>
+                            <span class="small text-muted">Has Events</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Event Card</div>
+                <div class="event-card" style="max-width: 500px;">
+                    <div class="d-flex gap-3">
+                        <div
+                            style="width: 80px; height: 80px; border-radius: 8px; overflow: hidden; background: #e5e7eb; flex-shrink: 0;">
+                            <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=200"
+                                class="w-100 h-100 object-fit-cover" alt="Event">
+                        </div>
+                        <div class="flex-grow-1">
+                            <div class="d-flex justify-content-between align-items-start mb-1">
+                                <h6 class="small fw-bold mb-0">Annual Audit Planning Meeting</h6>
+                                <span class="badge px-2 py-1 fw-normal"
+                                    style="background-color: #ec2227; font-size: 9px;">INTERNAL</span>
+                            </div>
+                            <p class="small text-muted mb-2">Join us for the annual audit planning meeting...</p>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="d-flex align-items-center gap-1 small text-muted">
+                                        <i data-lucide="clock" style="width: 12px;"></i> 10:00 am - 12:00 pm
+                                    </div>
+                                    <div class="d-flex align-items-center gap-1 small text-muted">
+                                        <i data-lucide="map-pin" style="width: 12px;"></i> Main Conference Room
+                                    </div>
+                                </div>
+                                <div class="rounded px-2 py-1" style="font-size: 11px;">10d 09h</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8. OFFERS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Offers</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Offer Card</div>
+                <div class="offer-card" style="max-width: 300px;">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <h5 class="h6 mb-0">Dubai Mall</h5>
+                        <span class="badge fs-6 bg-danger">20% Off</span>
+                    </div>
+                    <p class="text-muted small mb-0">Shopping</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 9. PEOPLE SPOTLIGHT SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">People Spotlight</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Spotlight Column (New Faces)</div>
+                <div class="spotlight-col d-flex flex-column" style="max-width: 300px;">
+                    <div class="d-flex align-items-center justify-content-between px-3">
+                        <div class="d-flex align-items-center gap-2 my-3">
+                            <div class="section-icon-bg" style="background-color: rgba(1, 148, 154, 0.1);">
+                                <i data-lucide="smile" style="width: 14px; height: 14px; color: #01949a;"></i>
+                            </div>
+                            <h5 class="h6 mb-0">New Faces</h5>
+                        </div>
+                        <div class="d-flex gap-1">
+                            <button
+                                class="btn btn-sm btn-white border p-0 d-flex align-items-center justify-content-center rounded-pill"
+                                style="width: 24px; height: 24px;">
+                                <i data-lucide="chevron-left" style="width: 12px;"></i>
+                            </button>
+                            <button
+                                class="btn btn-sm btn-white border p-0 d-flex align-items-center justify-content-center rounded-pill"
+                                style="width: 24px; height: 24px;">
+                                <i data-lucide="chevron-right" style="width: 12px;"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="spotlight-card">
+                        <span
+                            class="fw-normal bg-success bg-opacity-10 border-0 badge rounded-pill mb-2 small text-uppercase"
+                            style="color: #01949a !important;">New</span>
+                        <div class="user-avatar-lg"
+                            style="background: linear-gradient(135deg, rgba(1,148,154,0.2), rgba(6,67,104,0.2)); color: #064368;">
+                            MA</div>
+                        <h5 class="h6 mb-1">Mohammed Ahmed</h5>
+                        <p class="small text-muted mb-0">Junior Auditor</p>
+                        <p class="small text-secondary mb-0">Financial Audit</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Spotlight Column (Employee of Month)</div>
+                <div class="spotlight-col d-flex flex-column" style="background-color: #fffbf0; max-width: 300px;">
+                    <div class="d-flex align-items-center gap-2 px-3 my-3">
+                        <div class="section-icon-bg" style="background-color: rgba(212, 175, 55, 0.15);">
+                            <i data-lucide="award" style="width: 14px; height: 14px; color: #d4af37;"></i>
+                        </div>
+                        <h5 class="h6 mb-0">Employee of the Month</h5>
+                    </div>
+                    <div class="spotlight-card">
+                        <span
+                            class="badge fw-normal p-2 rounded-pill bg-warning bg-opacity-10 border-0 mb-2 small text-uppercase"
+                            style="color: #d4af37 !important; font-size: 10px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24"
+                                fill="none">
+                                <path
+                                    d="M12 15C15.866 15 19 11.866 19 8C19 4.13401 15.866 1 12 1C8.13401 1 5 4.13401 5 8C5 11.866 8.13401 15 12 15Z"
+                                    stroke="#D4AF37" stroke-width="2" />
+                                <path d="M8.21 13.89L7 23L12 20L17 23L15.79 13.88" stroke="#D4AF37" stroke-width="2" />
+                            </svg>
+                            Star Performer
+                        </span>
+                        <div class="user-avatar-lg" style="background-color: #fbedd1; color: #d4af37;">FA</div>
+                        <h5 class="h6 mb-1">Fatima Al Zaabi</h5>
+                        <p class="small text-muted mb-0">Lead Auditor</p>
+                        <p class="small text-secondary mb-0">Outstanding Performance</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Spotlight Column (Celebrations)</div>
+                <div class="spotlight-col d-flex flex-column" style="background-color: #f5f3ff; max-width: 300px;">
+                    <div class="d-flex align-items-center justify-content-between px-3">
+                        <div class="d-flex align-items-center gap-2 my-3">
+                            <div class="section-icon-bg" style="background-color: rgba(139, 92, 246, 0.1);">
+                                <i data-lucide="party-popper" style="width: 14px; height: 14px; color: #8b5cf6;"></i>
+                            </div>
+                            <h5 class="h6 mb-0">Celebrations</h5>
+                        </div>
+                        <div class="d-flex gap-1">
+                            <button
+                                class="btn btn-sm btn-white border p-0 d-flex align-items-center justify-content-center rounded-pill"
+                                style="width: 24px; height: 24px;">
+                                <i data-lucide="chevron-left" style="width: 12px;"></i>
+                            </button>
+                            <button
+                                class="btn btn-sm btn-white border p-0 d-flex align-items-center justify-content-center rounded-pill"
+                                style="width: 24px; height: 24px;">
+                                <i data-lucide="chevron-right" style="width: 12px;"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="spotlight-card">
+                        <span class="badge border-0 rounded-pill bg-light mb-2 small text-uppercase"
+                            style="color: #8b5cf6 !important; background-color: rgba(139,92,246,0.1) !important;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24"
+                                fill="none">
+                                <path
+                                    d="M12 15C15.866 15 19 11.866 19 8C19 4.13401 15.866 1 12 1C8.13401 1 5 4.13401 5 8C5 11.866 8.13401 15 12 15Z"
+                                    stroke="#8b5cf6" stroke-width="2" />
+                                <path d="M8.21 13.89L7 23L12 20L17 23L15.79 13.88" stroke="#8b5cf6" stroke-width="2" />
+                            </svg>
+                            Anniversary
+                        </span>
+                        <div class="user-avatar-lg" style="background-color: rgba(139,92,246,0.1); color: #8b5cf6;">
+                            <div class="d-flex flex-column lh-1"><span class="fs-5">15</span><span class="mt-2"
+                                    style="font-size: 9px;">Years</span></div>
+                        </div>
+                        <h5 class="h6 mb-1">Khalid Al Mansoori</h5>
+                        <p class="small text-muted mb-0">15 Years of Service</p>
+                        <p class="small text-secondary mb-0">Finance Department</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 10. JOB POSTINGS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Job Postings</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Job Card</div>
+                <div class="job-card" style="max-width: 300px;">
+                    <div class="d-flex justify-content-between mb-2">
+                        <h6 class="small fw-bold mb-0">Senior Financial Auditor</h6>
+                        <span class="badge bg-danger d-flex align-items-center gap-1">Senior</span>
+                    </div>
+                    <div class="d-flex flex-column gap-1 small text-muted">
+                        <div class="d-flex align-items-center gap-2"><i data-lucide="building" style="width: 12px;"></i>
+                            Financial Audit</div>
+                        <div class="d-flex align-items-center gap-2"><i data-lucide="map-pin" style="width: 12px;"></i>
+                            Abu Dhabi</div>
+                        <div class="d-flex align-items-center gap-2"><i data-lucide="clock" style="width: 12px;"></i>
+                            Deadline: 2025-12-15</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 11. CONDOLENCES SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Condolences</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Condolence Card with Dots Indicator</div>
+                <div style="max-width: 300px;">
+                    <div class="mb-3">
+                        <p class="mb-0 fw-medium">Ahmed Al Mansouri</p>
+                        <p class="text-muted small">Loss of his father</p>
+                    </div>
+                    <div class="border-top pt-3 text-center">
+                        <p class="fst-italic text-muted small mb-0">Our thoughts and prayers are with our colleagues
+                            during this difficult time</p>
+                    </div>
+                    <div class="d-flex justify-content-center gap-2 mt-3">
+                        <span
+                            style="width: 6px; height: 6px; background-color: var(--faa-dark-red); border-radius: 50%;"></span>
+                        <span style="width: 6px; height: 6px; background-color: #d1d5db; border-radius: 50%;"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 12. BADGES SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Badges</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Category Badges (Various Colors)</div>
+                <div class="d-flex flex-wrap gap-2">
+                    <span class="badge fw-normal bg-danger small" style="background-color: #ec2227;">Policy</span>
+                    <span class="badge fw-normal bg-danger small" style="background-color: #ec2227;">HR</span>
+                    <span class="badge small" style="background-color: #ec2227;">Innovation</span>
+                    <span class="badge small" style="background-color: #8cd4e4;">Technology</span>
+                    <span class="badge small text-white" style="background-color: #7b282d;">New</span>
+                    <span class="badge small text-white" style="background-color: #7b282d;">Law</span>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Event Type Badges (Small, 9px font)</div>
+                <div class="d-flex flex-wrap gap-2">
+                    <span class="badge px-2 py-1 fw-normal"
+                        style="background-color: #ec2227; font-size: 9px;">INTERNAL</span>
+                    <span class="badge px-2 py-1 fw-normal"
+                        style="background-color: #8cd4e4; font-size: 9px;">TRAINING</span>
+                    <span class="badge px-2 py-1 fw-normal"
+                        style="background-color: #413f30; font-size: 9px;">CULTURAL</span>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Job Level Badges</div>
+                <div class="d-flex flex-wrap gap-2">
+                    <span class="badge bg-danger">Senior</span>
+                    <span class="badge bg-danger">Mid-Level</span>
+                    <span class="badge bg-danger">Manager</span>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Discount Badges</div>
+                <div class="d-flex flex-wrap gap-2">
+                    <span class="badge fs-6 bg-danger">20% Off</span>
+                    <span class="badge fs-6 bg-danger">25% Off</span>
+                    <span class="badge fs-6 bg-danger">30% Off</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 13. BUTTONS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Buttons</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Small Circular Navigation Buttons (24px)</div>
+                <div class="d-flex gap-2">
+                    <button
+                        class="btn btn-sm btn-white border p-0 d-flex align-items-center justify-content-center rounded-pill"
+                        style="width: 24px; height: 24px;">
+                        <i data-lucide="chevron-left" style="width: 12px;"></i>
+                    </button>
+                    <button
+                        class="btn btn-sm btn-white border p-0 d-flex align-items-center justify-content-center rounded-pill"
+                        style="width: 24px; height: 24px;">
+                        <i data-lucide="chevron-right" style="width: 12px;"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Calendar Month Navigation</div>
+                <div class="d-flex gap-1">
+                    <button class="btn btn-sm btn-light border"><i data-lucide="chevron-left"
+                            style="width: 14px;"></i></button>
+                    <button class="btn btn-sm btn-light border"><i data-lucide="chevron-right"
+                            style="width: 14px;"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 14. COLOR PALETTE SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Color Palette</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Primary Colors</div>
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-white text-center" style="background-color: var(--faa-red);">
+                            <strong>FAA Red</strong>
+                            <div class="small mt-2">#ec2227</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-white text-center"
+                            style="background-color: var(--faa-dark-red);">
+                            <strong>FAA Dark Red</strong>
+                            <div class="small mt-2">#7b282d</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-white text-center"
+                            style="background-color: var(--faa-darker-red);">
+                            <strong>FAA Darker Red</strong>
+                            <div class="small mt-2">#971b1e</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-dark text-center" style="background-color: var(--faa-cyan);">
+                            <strong>FAA Cyan</strong>
+                            <div class="small mt-2">#8cd4e4</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-white text-center" style="background-color: var(--faa-brown);">
+                            <strong>FAA Brown</strong>
+                            <div class="small mt-2">#413f30</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Quick Link Icon Colors</div>
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-center" style="background-color: #f8e8e9;">
+                            <strong style="color: #971b1e;">Red Light</strong>
+                            <div class="small mt-2">#f8e8e9 / #971b1e</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-center" style="background-color: #e8f1f5;">
+                            <strong style="color: #4a7c9d;">Blue Light</strong>
+                            <div class="small mt-2">#e8f1f5 / #4a7c9d</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-center" style="background-color: #e0f5f5;">
+                            <strong style="color: #01949a;">Cyan Light</strong>
+                            <div class="small mt-2">#e0f5f5 / #01949a</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-center" style="background-color: #fef5e8;">
+                            <strong style="color: #d4a056;">Gold Light</strong>
+                            <div class="small mt-2">#fef5e8 / #d4a056</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Spotlight Background Colors</div>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-dark text-center" style="background-color: #fffbf0;">
+                            <strong>Employee of Month</strong>
+                            <div class="small mt-2">#fffbf0</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-dark text-center" style="background-color: #f5f3ff;">
+                            <strong>Celebrations</strong>
+                            <div class="small mt-2">#f5f3ff</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-dark text-center" style="background-color: #fbedd1;">
+                            <strong>Award Gold</strong>
+                            <div class="small mt-2">#fbedd1 / #d4af37</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+
+</body>
+
+</html>

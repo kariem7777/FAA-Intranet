@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Media News Detail Page - Component Menu</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #908e81 #f1f1f1;
+            font-family: "Dubai", "Tajawal", sans-serif;
+        }
+
+        :root {
+            --color-faa-red: #ec2227;
+            --color-faa-red-dark: #bd1722;
+            --color-gray-50: #f9fafb;
+            --color-gray-100: #f3f4f6;
+            --color-gray-200: #e5e7eb;
+            --color-gray-500: #6b7280;
+            --color-gray-600: #4b5563;
+            --color-gray-900: #111827;
+        }
+
+        body {
+            background-color: var(--color-gray-50);
+            min-height: 100vh;
+        }
+
+        .faa-card {
+            background: white;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+        }
+
+        .btn-ghost-custom {
+            color: var(--color-faa-red);
+            background: transparent;
+            border: none;
+            padding: 0.5rem 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .btn-ghost-custom:hover {
+            color: var(--color-faa-red-dark);
+            background-color: #F1EDE3;
+        }
+
+        .btn-faa-primary {
+            background-color: var(--color-faa-red);
+            border-color: var(--color-faa-red);
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-faa-primary:hover {
+            background-color: var(--color-faa-red-dark);
+            border-color: var(--color-faa-red-dark);
+            color: white;
+        }
+
+        .btn-bookmark {
+            color: var(--color-gray-500);
+            padding: 0.25rem 0.5rem;
+            border: none;
+            background: transparent;
+        }
+
+        .btn-bookmark.active {
+            color: var(--color-faa-red);
+        }
+
+        .btn-bookmark:hover {
+            color: var(--color-faa-red);
+        }
+
+        .hero-image-container {
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+        }
+
+        .hero-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .content-overlap {
+            margin-top: -4rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .badge-custom {
+            font-weight: 500;
+            padding: 0.35em 0.65em;
+            border-radius: 9999px;
+            color: white;
+        }
+
+        .meta-divider {
+            border-bottom: 1px solid var(--color-gray-200);
+            padding-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--color-gray-600);
+        }
+
+        .prose {
+            max-width: none;
+            color: var(--color-gray-600);
+            line-height: 1.625;
+        }
+
+        .prose h5 {
+            color: var(--color-gray-900);
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.125rem;
+        }
+
+        .prose ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .prose li {
+            margin-bottom: 0.25rem;
+        }
+
+        .prose p {
+            margin-bottom: 1rem;
+        }
+
+        .avatar-circle {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            background-color: var(--color-faa-red);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .comment-bubble {
+            background-color: var(--color-gray-50);
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+
+        .form-control-custom {
+            background-color: #F7F7F7;
+            font-size: 14px;
+            border-radius: 0.5rem;
+            outline: none;
+            transition: box-shadow 0.2s, border-color 0.2s;
+        }
+
+        .form-control-custom:focus {
+            background-color: #F7F7F7;
+            font-size: 14px;
+            box-shadow: none;
+            border-color: #b49f7744;
+            box-shadow: 0 0 0 3px #b49f777a;
+            border: 1px solid #afabab;
+        }
+
+        /* Component Menu Specific Styles */
+        .component-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--color-faa-red-dark);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--color-faa-red);
+        }
+
+        .component-demo {
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .component-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container py-4">
+
+        <!-- Page Header -->
+        <div class="mb-5">
+            <h1 class="display-4 fw-bold text-dark mb-2">Media News Detail Page - Component Library</h1>
+            <p class="text-secondary fs-5">A comprehensive showcase of all components and styles used in the Media News
+                Detail page</p>
+        </div>
+
+        <!-- 1. BUTTONS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Buttons</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Ghost Button (Back Link)</div>
+                <button class="btn-ghost-custom">
+                    <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i>
+                    Back to Home
+                </button>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Primary Button (FAA Red)</div>
+                <button class="btn btn-faa-primary">
+                    <i data-lucide="send" style="width: 16px; height: 16px;"></i>
+                    Post Comment
+                </button>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Bookmark Button (Toggle)</div>
+                <div class="d-flex gap-2">
+                    <button class="btn-bookmark">
+                        <i data-lucide="bookmark" style="width: 16px; height: 16px;"></i>
+                    </button>
+                    <button class="btn-bookmark active">
+                        <i data-lucide="bookmark" style="width: 16px; height: 16px;" fill="currentColor"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. CARDS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Cards</h2>
+
+            <div class="component-demo">
+                <div class="component-label">FAA Card (Main Content)</div>
+                <div class="faa-card" style="max-width: 600px;">
+                    <h4 class="mb-3 fw-bold">Card Title</h4>
+                    <p class="text-secondary mb-0">This is the main content card with shadow and rounded corners.</p>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Hero Image Container</div>
+                <div class="hero-image-container" style="max-width: 600px;">
+                    <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=600" alt="Hero">
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Content Overlap Card</div>
+                <div style="position: relative; background: var(--color-gray-200); height: 200px; max-width: 600px;">
+                    <div class="content-overlap" style="position: absolute; bottom: -2rem; left: 1rem; right: 1rem;">
+                        <div class="faa-card">
+                            <p class="mb-0">This card overlaps the hero image with negative margin</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. BADGES SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Badges</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Category Badge (Custom)</div>
+                <span class="badge badge-custom" style="background-color: #ec2227;">Innovation</span>
+                <span class="badge badge-custom ms-2" style="background-color: #0d6efd;">Technology</span>
+                <span class="badge badge-custom ms-2" style="background-color: #198754;">Success</span>
+            </div>
+        </div>
+
+        <!-- 4. META INFORMATION SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Meta Information</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Meta Items Row</div>
+                <div class="meta-divider">
+                    <div class="d-flex flex-wrap gap-4">
+                        <div class="meta-item">
+                            <i data-lucide="user" style="width: 16px; height: 16px;"></i>
+                            <span>Communications Department</span>
+                        </div>
+                        <div class="meta-item">
+                            <i data-lucide="calendar" style="width: 16px; height: 16px;"></i>
+                            <span>2025-11-26</span>
+                        </div>
+                        <div class="meta-item">
+                            <i data-lucide="clock" style="width: 16px; height: 16px;"></i>
+                            <span>10:00 AM</span>
+                        </div>
+                        <div class="meta-item">
+                            <i data-lucide="message-circle" style="width: 16px; height: 16px;"></i>
+                            <span>3 comments</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">View Count</div>
+                <div class="d-flex align-items-center gap-1 text-muted small">
+                    <i data-lucide="eye" style="width: 16px; height: 16px;"></i>
+                    <span>245 views</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. PROSE CONTENT SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Prose Content</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Article Content (Prose Styling)</div>
+                <div class="prose" style="max-width: 600px;">
+                    <p>Behind the scenes at our Innovation Workshop! Our teams are working on cutting-edge solutions to
+                        enhance audit efficiency and transparency.</p>
+
+                    <h5>Workshop Highlights:</h5>
+                    <ul>
+                        <li><strong>AI-Driven Audit Analytics</strong> - Developing machine learning models to identify
+                            patterns.</li>
+                        <li><strong>Blockchain Integration</strong> - Exploring distributed ledger technology.</li>
+                        <li><strong>Automated Risk Assessment</strong> - Creating intelligent systems for real-time risk
+                            evaluation.</li>
+                    </ul>
+
+                    <p>We're committed to staying at the forefront of audit technology and methodology.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. COMMENTS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Comments</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Comment Item</div>
+                <div class="d-flex gap-3" style="max-width: 600px;">
+                    <div class="avatar-circle flex-shrink-0">MA</div>
+                    <div class="flex-grow-1">
+                        <div class="comment-bubble">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <div>
+                                    <div class="fw-medium text-dark">Mohammed Al Shamsi</div>
+                                    <div class="small text-muted">IT Audit Manager • IT Audit</div>
+                                </div>
+                                <div class="small text-muted">2025-11-26 at 11:30 AM</div>
+                            </div>
+                            <p class="mb-0 small text-secondary">This is a significant milestone for the FAA! The new
+                                digital platform will greatly enhance our audit capabilities.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Comment Form</div>
+                <div style="max-width: 600px;">
+                    <textarea class="form-control form-control-custom mb-3" rows="4"
+                        placeholder="Share your thoughts or questions..." style="resize: none;"></textarea>
+                    <div class="d-flex justify-content-end">
+                        <button class="btn btn-faa-primary">
+                            <i data-lucide="send" style="width: 16px; height: 16px;"></i>
+                            Post Comment
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. AVATARS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Avatars</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Avatar Circle (Initials)</div>
+                <div class="d-flex gap-2">
+                    <div class="avatar-circle">MA</div>
+                    <div class="avatar-circle">SA</div>
+                    <div class="avatar-circle">OH</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8. FORM ELEMENTS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Form Elements</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Custom Textarea</div>
+                <textarea class="form-control form-control-custom" rows="4"
+                    placeholder="Share your thoughts or questions..."
+                    style="resize: none; max-width: 600px;"></textarea>
+            </div>
+        </div>
+
+        <!-- 9. COLOR PALETTE SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Color Palette</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Primary Colors</div>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-white text-center"
+                            style="background-color: var(--color-faa-red);">
+                            <strong>FAA Red</strong>
+                            <div class="small mt-2">#ec2227</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-white text-center"
+                            style="background-color: var(--color-faa-red-dark);">
+                            <strong>FAA Dark Red</strong>
+                            <div class="small mt-2">#bd1722</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Gray Scale</div>
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-dark text-center"
+                            style="background-color: var(--color-gray-50);">
+                            <strong>Gray 50</strong>
+                            <div class="small mt-2">#f9fafb</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-dark text-center"
+                            style="background-color: var(--color-gray-100);">
+                            <strong>Gray 100</strong>
+                            <div class="small mt-2">#f3f4f6</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-white text-center"
+                            style="background-color: var(--color-gray-500);">
+                            <strong>Gray 500</strong>
+                            <div class="small mt-2">#6b7280</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-white text-center"
+                            style="background-color: var(--color-gray-900);">
+                            <strong>Gray 900</strong>
+                            <div class="small mt-2">#111827</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Background Colors</div>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-dark text-center" style="background-color: #F1EDE3;">
+                            <strong>Hover Background</strong>
+                            <div class="small mt-2">#F1EDE3</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-dark text-center" style="background-color: #F7F7F7;">
+                            <strong>Form Background</strong>
+                            <div class="small mt-2">#F7F7F7</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employee Profile Page - Component Menu</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #908e81 #f1f1f1;
+            letter-spacing: 0.5px;
+            font-family: "Dubai", "Tajawal", sans-serif;
+        }
+
+        :root {
+            --faa-red: #ec2227;
+            --faa-dark-red: #7b282d;
+            --faa-darker-red: #971b1e;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+        }
+
+        .bg-pattern {
+            background-image: url('data:image/svg+xml,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="1" fill="%23000000" opacity="0.05"/></svg>');
+            background-repeat: repeat;
+        }
+
+        .profile-section {
+            transition: all 0.3s ease;
+        }
+
+        .profile-section:hover {
+            background-color: #f8f9fa;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -9px;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: var(--faa-red);
+            border: 2px solid white;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 24px;
+            padding-bottom: 16px;
+            border-left: 2px solid #e5e7eb;
+        }
+
+        .timeline-item:last-child {
+            border-left: 0;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked+.slider {
+            background-color: var(--faa-red);
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(20px);
+        }
+
+        /* Component Menu Specific Styles */
+        .component-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--faa-dark-red);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--faa-red);
+        }
+
+        .component-demo {
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .component-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+    </style>
+</head>
+
+<body class="bg-pattern">
+
+    <div class="container py-4">
+
+        <!-- Page Header -->
+        <div class="mb-5">
+            <h1 class="display-4 fw-bold text-dark mb-2">Employee Profile Page - Component Library</h1>
+            <p class="text-secondary fs-5">A comprehensive showcase of all components and styles used in the Employee
+                Profile page</p>
+        </div>
+
+        <!-- 1. STICKY HEADER SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Sticky Header</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Profile Header with Visibility Toggle</div>
+                <div class="bg-white shadow-sm p-4 rounded-3">
+                    <div class="mb-3">
+                        <a href="#" class="text-decoration-none text-secondary">
+                            <div class="d-flex align-items-center gap-2">
+                                <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i>
+                                <span class="small">Back to Directory</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="d-flex align-items-center gap-4">
+                        <div class="rounded-3 overflow-hidden bg-light border" style="width: 64px; height: 64px;">
+                            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400" alt="Profile"
+                                class="w-100 h-100 object-fit-cover">
+                        </div>
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-center gap-3 mb-1">
+                                <h1 class="h3 mb-0 fw-bold text-dark">Ahmed Al Mansouri</h1>
+                                <span class="badge text-white rounded-1"
+                                    style="background-color: var(--faa-dark-red); font-size: 11px; padding: 6px 8px;">FAA-2018-042</span>
+                            </div>
+                            <div class="d-flex align-items-center gap-2 text-secondary small">
+                                <span>Sector Director</span>
+                                <span class="text-muted">•</span>
+                                <span class="text-muted">Operation, Compliance Audit Sector</span>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center gap-3 p-2 bg-light rounded-3 border px-3">
+                            <div class="text-end">
+                                <div class="small text-secondary mb-0" style="font-size: 10px; line-height: 1;">Profile
+                                    Visibility</div>
+                                <div class="d-flex align-items-center gap-1 justify-content-end">
+                                    <i data-lucide="eye" style="width: 10px; height: 10px; color: #22c55e;"></i>
+                                    <span class="small text-success fw-bold" style="font-size: 11px;">Visible</span>
+                                </div>
+                            </div>
+                            <label class="switch" style="width: 36px; height: 20px;">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. CARDS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Cards</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Contact Info Cards</div>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card shadow-sm border-0 rounded-4 h-100">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="rounded-3 bg-primary bg-opacity-10 d-flex align-items-center justify-content-center"
+                                        style="width: 48px; height: 48px;">
+                                        <i data-lucide="mail" style="width: 20px; height: 20px; color: #0d6efd;"></i>
+                                    </div>
+                                    <div>
+                                        <p class="small text-secondary mb-0">Email</p>
+                                        <p class="fw-medium mb-0 text-dark" style="font-size: 0.95rem;">ahmed@faa.gov.ae
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card shadow-sm border-0 rounded-4 h-100">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="rounded-3 bg-success bg-opacity-10 d-flex align-items-center justify-content-center"
+                                        style="width: 48px; height: 48px;">
+                                        <i data-lucide="phone" style="width: 20px; height: 20px; color: #198754;"></i>
+                                    </div>
+                                    <div>
+                                        <p class="small text-secondary mb-0">Phone</p>
+                                        <p class="fw-medium mb-0 text-dark" style="font-size: 0.95rem;">+971 4 XXX XXXX
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card shadow-sm border-0 rounded-4 h-100">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="rounded-3 d-flex align-items-center justify-content-center"
+                                        style="width: 48px; height: 48px; background-color: #FAF5FF;">
+                                        <i data-lucide="map-pin" style="width: 20px; height: 20px; color: #9810FA;"></i>
+                                    </div>
+                                    <div>
+                                        <p class="small text-secondary mb-0">Location</p>
+                                        <p class="fw-medium mb-0 text-dark" style="font-size: 0.95rem;">Dubai, UAE</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Collapsible Section Card</div>
+                <div class="card shadow-sm border-0 rounded-4">
+                    <button
+                        class="btn text-start profile-section border-0 p-4 d-flex align-items-center justify-content-between rounded-4">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="rounded-3 bg-danger bg-opacity-10 d-flex align-items-center justify-content-center"
+                                style="width: 40px; height: 40px;">
+                                <i data-lucide="users" style="width: 20px; height: 20px; color: var(--faa-red);"></i>
+                            </div>
+                            <span class="fw-medium text-dark">About & Social Profile</span>
+                        </div>
+                        <i data-lucide="chevron-down" style="width: 20px; height: 20px; color: #9ca3af;"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Certification Cards</div>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="p-3 border rounded-3">
+                            <p class="small fw-medium mb-1">Certified Public Accountant (CPA)</p>
+                            <p class="small text-secondary mb-0">AICPA • 2013</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="p-3 border rounded-3">
+                            <p class="small fw-medium mb-1">Certified Internal Auditor (CIA)</p>
+                            <p class="small text-secondary mb-0">IIA • 2014</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Training/Achievement Cards</div>
+                <div class="d-flex align-items-start gap-3 p-3 bg-light rounded-3">
+                    <i data-lucide="file-text" class="flex-shrink-0 mt-1"
+                        style="width: 16px; height: 16px; color: #9ca3af;"></i>
+                    <div>
+                        <p class="small fw-medium mb-1 text-dark">Advanced Financial Reporting</p>
+                        <p class="small text-secondary mb-0" style="font-size: 0.75rem;">PwC Academy • 2023 • 3 Days</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Language Cards</div>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="text-center p-3 border rounded-3 h-100">
+                            <i data-lucide="globe" style="width: 24px; height: 24px; color: #9ca3af;"
+                                class="mx-auto mb-2"></i>
+                            <p class="small fw-medium mb-1">Arabic</p>
+                            <span class="badge border bg-white text-dark fw-normal">Native</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-center p-3 border rounded-3 h-100">
+                            <i data-lucide="globe" style="width: 24px; height: 24px; color: #9ca3af;"
+                                class="mx-auto mb-2"></i>
+                            <p class="small fw-medium mb-1">English</p>
+                            <span class="badge border bg-white text-dark fw-normal">Fluent</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. BADGES SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Badges</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Employee ID Badge (Dark Red)</div>
+                <span class="badge text-white rounded-1"
+                    style="background-color: var(--faa-dark-red); font-size: 11px; padding: 6px 8px;">FAA-2018-042</span>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Count Badge (Secondary)</div>
+                <span class="badge bg-secondary bg-opacity-10 text-dark small rounded-pill">4</span>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Social Profile Badges</div>
+                <div class="d-flex gap-2">
+                    <span
+                        class="badge border text-dark bg-white fw-normal p-2 px-3 rounded-pill d-flex align-items-center gap-2">
+                        <i data-lucide="globe" style="width: 14px; height: 14px;"></i>
+                        <span>linkedin.com/in/ahmedalmansouri</span>
+                    </span>
+                    <span
+                        class="badge border text-dark bg-white fw-normal p-2 px-3 rounded-pill d-flex align-items-center gap-2">
+                        <i data-lucide="globe" style="width: 14px; height: 14px;"></i>
+                        <span>@ahmedalmansouri</span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Skills Badges</div>
+                <div class="d-flex flex-wrap gap-2">
+                    <span class="badge bg-secondary bg-opacity-10 text-dark fw-normal p-2 px-3 rounded-pill">Audit
+                        Management</span>
+                    <span class="badge bg-secondary bg-opacity-10 text-dark fw-normal p-2 px-3 rounded-pill">Risk
+                        Assessment</span>
+                    <span
+                        class="badge bg-secondary bg-opacity-10 text-dark fw-normal p-2 px-3 rounded-pill">Compliance</span>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Language Level Badges</div>
+                <div class="d-flex gap-2">
+                    <span class="badge border bg-white text-dark fw-normal">Native</span>
+                    <span class="badge border bg-white text-dark fw-normal">Fluent</span>
+                    <span class="badge border bg-white text-dark fw-normal">Intermediate</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. TOGGLE SWITCHES SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Toggle Switches</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Profile Visibility Toggle</div>
+                <div class="d-flex align-items-center gap-3 p-3 bg-light rounded-3 border">
+                    <div class="d-flex align-items-center gap-3">
+                        <i data-lucide="eye" style="width: 16px; height: 16px; color: var(--faa-red);"></i>
+                        <div>
+                            <p class="small fw-medium mb-0">Display to Others</p>
+                            <p class="small text-secondary mb-0">Your profile info is visible to other employees</p>
+                        </div>
+                    </div>
+                    <label class="switch" style="width: 36px; height: 20px;">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. TIMELINE SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Timeline</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Work Experience Timeline</div>
+                <div class="timeline-item">
+                    <p class="fw-medium mb-1">Sector Director</p>
+                    <p class="small text-secondary mb-1">Operation, Compliance and Performance Audit Sector</p>
+                    <p class="small text-muted mb-2">2020 - Present</p>
+                    <ul class="small text-dark ps-3">
+                        <li>Lead operational audit strategy across all sectors</li>
+                        <li>Manage team of 140+ audit professionals</li>
+                    </ul>
+                </div>
+                <div class="timeline-item">
+                    <p class="fw-medium mb-1">Department Manager</p>
+                    <p class="small text-secondary mb-1">Government Entities Audit Department</p>
+                    <p class="small text-muted mb-2">2018 - 2020</p>
+                    <ul class="small text-dark ps-3">
+                        <li>Managed government entity audit operations</li>
+                        <li>Led team of 25 senior auditors</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. ICONS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Icons & Icon Boxes</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Icon Sizes</div>
+                <div class="d-flex gap-3 align-items-center">
+                    <i data-lucide="eye" style="width: 10px; height: 10px;"></i>
+                    <span class="small">10px (visibility status)</span>
+                    <i data-lucide="globe" style="width: 14px; height: 14px;" class="ms-3"></i>
+                    <span class="small">14px (social badges)</span>
+                    <i data-lucide="arrow-left" style="width: 16px; height: 16px;" class="ms-3"></i>
+                    <span class="small">16px (back button)</span>
+                    <i data-lucide="mail" style="width: 20px; height: 20px;" class="ms-3"></i>
+                    <span class="small">20px (section headers, contact cards)</span>
+                    <i data-lucide="globe" style="width: 24px; height: 24px;" class="ms-3"></i>
+                    <span class="small">24px (language cards)</span>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Icon Box Sizes with Colored Backgrounds</div>
+                <div class="d-flex gap-3">
+                    <div class="rounded-3 bg-danger bg-opacity-10 d-flex align-items-center justify-content-center"
+                        style="width: 40px; height: 40px;">
+                        <i data-lucide="users" style="width: 20px; height: 20px; color: var(--faa-red);"></i>
+                    </div>
+                    <div class="rounded-3 bg-primary bg-opacity-10 d-flex align-items-center justify-content-center"
+                        style="width: 48px; height: 48px;">
+                        <i data-lucide="mail" style="width: 20px; height: 20px; color: #0d6efd;"></i>
+                    </div>
+                    <div class="rounded-3 bg-success bg-opacity-10 d-flex align-items-center justify-content-center"
+                        style="width: 48px; height: 48px;">
+                        <i data-lucide="phone" style="width: 20px; height: 20px; color: #198754;"></i>
+                    </div>
+                    <div class="rounded-3 d-flex align-items-center justify-content-center"
+                        style="width: 48px; height: 48px; background-color: #FAF5FF;">
+                        <i data-lucide="map-pin" style="width: 20px; height: 20px; color: #9810FA;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. COLOR PALETTE SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Color Palette</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Primary Colors</div>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-white text-center" style="background-color: var(--faa-red);">
+                            <strong>FAA Red</strong>
+                            <div class="small mt-2">#ec2227</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-white text-center"
+                            style="background-color: var(--faa-dark-red);">
+                            <strong>FAA Dark Red</strong>
+                            <div class="small mt-2">#7b282d</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Section Icon Colors</div>
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-white text-center" style="background-color: #0d6efd;">
+                            <strong>Primary Blue</strong>
+                            <div class="small mt-2">#0d6efd</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-white text-center" style="background-color: #198754;">
+                            <strong>Success Green</strong>
+                            <div class="small mt-2">#198754</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-white text-center" style="background-color: #9810FA;">
+                            <strong>Purple</strong>
+                            <div class="small mt-2">#9810FA</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-white text-center" style="background-color: #d97706;">
+                            <strong>Warning Orange</strong>
+                            <div class="small mt-2">#d97706</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Background Colors</div>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-dark text-center" style="background-color: #FAF5FF;">
+                            <strong>Purple Subtle</strong>
+                            <div class="small mt-2">#FAF5FF</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-dark text-center" style="background-color: #fff7ed;">
+                            <strong>Orange Subtle</strong>
+                            <div class="small mt-2">#fff7ed</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+
+</body>
+
+</html>

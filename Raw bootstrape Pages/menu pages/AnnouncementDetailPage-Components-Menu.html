@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Announcement Detail Page - Component Menu</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        :root {
+            --faa-red: #ec2227;
+            --faa-dark-red: #7b282d;
+            --faa-darker-red: #971b1e;
+        }
+
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #908e81 #f1f1f1;
+        }
+
+        .border {
+            border: 1px solid #eaeaea;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+
+        .faa-card {
+            border-radius: 12px;
+            box-shadow:
+                0 10px 15px -3px rgba(0, 0, 0, 0.1),
+                0 4px 6px -4px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--faa-red);
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .comment-box {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #e5e7eb;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 40px;
+            padding-bottom: 24px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 0;
+            top: 4px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow:
+                0 10px 15px -3px rgba(0, 0, 0, 0.1),
+                0 4px 6px -4px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .prose h5 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: #1f2937;
+        }
+
+        .prose ul {
+            margin-top: 0.75rem;
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+        }
+
+        .prose li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        .prose p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .sticky-sidebar {
+            position: sticky;
+            top: 96px;
+        }
+
+        /* Component Menu Specific Styles */
+        .component-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--faa-dark-red);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--faa-red);
+        }
+
+        .component-demo {
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .component-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container py-4">
+
+        <!-- Page Header -->
+        <div class="mb-5">
+            <h1 class="display-4 fw-bold text-dark mb-2">Announcement Detail Page - Component Library</h1>
+            <p class="text-secondary fs-5">A comprehensive showcase of all components and styles used in the
+                Announcement Detail page</p>
+        </div>
+
+        <!-- 1. BUTTONS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Buttons</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Back Button (Link Style)</div>
+                <button class="btn btn-link text-decoration-none p-0" style="color: var(--faa-red);">
+                    <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i>
+                    <span class="ms-2">Back to Announcements</span>
+                </button>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Post Comment Button</div>
+                <button class="btn text-white" style="background-color: var(--faa-red);">
+                    <i data-lucide="send" style="width: 16px; height: 16px;"></i>
+                    <span class="ms-2">Post Comment</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- 2. CARDS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Cards</h2>
+
+            <div class="component-demo">
+                <div class="component-label">FAA Card (Main Content Card)</div>
+                <div class="card faa-card border">
+                    <div class="card-body p-4">
+                        <span class="badge text-white mb-3 fw-normal"
+                            style="background-color: var(--faa-red);">Policy</span>
+                        <h2 class="mb-4">New Audit Standards Released</h2>
+                        <div
+                            class="d-flex flex-wrap align-items-center gap-4 small text-secondary mb-4 pb-4 border-bottom">
+                            <div class="d-flex align-items-center gap-2">
+                                <i data-lucide="user" style="width: 16px; height: 16px;"></i>
+                                <span>Policy Department</span>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <i data-lucide="calendar" style="width: 16px; height: 16px;"></i>
+                                <span>2025-11-26</span>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <i data-lucide="clock" style="width: 16px; height: 16px;"></i>
+                                <span>9:00 AM</span>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <i data-lucide="message-circle" style="width: 16px; height: 16px;"></i>
+                                <span>4 comments</span>
+                            </div>
+                        </div>
+                        <p class="mb-0">We are pleased to announce the release of updated international audit
+                            standards...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Sticky Sidebar Card</div>
+                <div class="card faa-card sticky-sidebar border">
+                    <div class="card-body p-4">
+                        <h4 class="mb-4">Activity Timeline</h4>
+                        <p class="text-secondary mb-0">Timeline content goes here...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. BADGES SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Badges</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Category Badge (Red)</div>
+                <span class="badge text-white fw-normal" style="background-color: var(--faa-red);">Policy</span>
+            </div>
+        </div>
+
+        <!-- 4. AVATARS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Avatars</h2>
+
+            <div class="component-demo">
+                <div class="component-label">User Avatar (Initials)</div>
+                <div class="d-flex gap-3">
+                    <div class="avatar">AM</div>
+                    <div class="avatar">NA</div>
+                    <div class="avatar">KR</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. COMMENTS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Comments</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Comment Box</div>
+                <div class="d-flex gap-3">
+                    <div class="avatar flex-shrink-0">AM</div>
+                    <div class="flex-grow-1">
+                        <div class="comment-box">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <div>
+                                    <p class="fw-medium mb-0">Ahmed Al Maktoum</p>
+                                    <p class="small text-secondary mb-0">Senior Auditor • Financial Audit</p>
+                                </div>
+                                <span class="small text-secondary">2025-11-26 at 10:30 AM</span>
+                            </div>
+                            <p class="small mb-0 mt-2">This is a very important update. I've reviewed the new standards
+                                and they align well with our current practices.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Comment Form (Textarea)</div>
+                <textarea class="form-control mb-3" rows="4" placeholder="Share your thoughts or questions..."
+                    style="resize: none;"></textarea>
+                <div class="d-flex justify-content-end">
+                    <button class="btn text-white" style="background-color: var(--faa-red);">
+                        <i data-lucide="send" style="width: 16px; height: 16px;"></i>
+                        <span class="ms-2">Post Comment</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. TIMELINE SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Timeline</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Timeline with Dots and Line</div>
+                <div class="position-relative" style="min-height: 300px;">
+                    <!-- Timeline Line -->
+                    <div class="timeline-line"></div>
+
+                    <!-- Timeline Items -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot" style="background-color: #8cd4e4;">
+                            <i data-lucide="edit" style="width: 16px; height: 16px;"></i>
+                        </div>
+                        <div>
+                            <p class="fw-medium mb-1">Announcement Created</p>
+                            <p class="small text-secondary mb-2">Initial draft created and reviewed</p>
+                            <div class="small text-muted">
+                                <p class="mb-0">Policy Department</p>
+                                <p class="mb-0">2025-11-20 at 3:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot" style="background-color: #543671;">
+                            <i data-lucide="edit" style="width: 16px; height: 16px;"></i>
+                        </div>
+                        <div>
+                            <p class="fw-medium mb-1">Content Updated</p>
+                            <p class="small text-secondary mb-2">Added implementation timeline and resource links</p>
+                            <div class="small text-muted">
+                                <p class="mb-0">Policy Department</p>
+                                <p class="mb-0">2025-11-24 at 11:30 AM</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot" style="background-color: #ec2227;">
+                            <i data-lucide="check-circle" style="width: 16px; height: 16px;"></i>
+                        </div>
+                        <div>
+                            <p class="fw-medium mb-1">Approved for Publishing</p>
+                            <p class="small text-secondary mb-2">Reviewed and approved by Senior Management</p>
+                            <div class="small text-muted">
+                                <p class="mb-0">Executive Office</p>
+                                <p class="mb-0">2025-11-25 at 4:15 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Timeline Dot Colors</div>
+                <div class="d-flex gap-3">
+                    <div class="timeline-dot" style="background-color: #8cd4e4; position: static;">
+                        <i data-lucide="edit" style="width: 16px; height: 16px;"></i>
+                    </div>
+                    <div class="timeline-dot" style="background-color: #543671; position: static;">
+                        <i data-lucide="edit" style="width: 16px; height: 16px;"></i>
+                    </div>
+                    <div class="timeline-dot" style="background-color: #ec2227; position: static;">
+                        <i data-lucide="check-circle" style="width: 16px; height: 16px;"></i>
+                    </div>
+                    <div class="timeline-dot" style="background-color: #7b282d; position: static;">
+                        <i data-lucide="message-circle" style="width: 16px; height: 16px;"></i>
+                    </div>
+                    <div class="timeline-dot" style="background-color: #908e81; position: static;">
+                        <i data-lucide="clock" style="width: 16px; height: 16px;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. PROSE/CONTENT SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Prose Content Styles</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Prose Typography</div>
+                <div class="prose">
+                    <p>We are pleased to announce the release of updated international audit standards, which are now
+                        available in the Knowledge Hub.</p>
+
+                    <h5>Key Updates Include:</h5>
+                    <ul>
+                        <li><strong>Enhanced Risk Assessment Procedures</strong> - New methodologies for identifying and
+                            evaluating audit risks.</li>
+                        <li><strong>Digital Audit Tools Integration</strong> - Guidelines for incorporating AI and data
+                            analytics.</li>
+                        <li><strong>Sustainability Reporting Standards</strong> - Updated requirements for environmental
+                            audits.</li>
+                    </ul>
+
+                    <h5>Implementation Timeline:</h5>
+                    <p>All audit teams are expected to review and implement these standards by Q1 2026.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8. ICONS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Icons</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Small Icons (16px)</div>
+                <div class="d-flex gap-3 align-items-center">
+                    <i data-lucide="user" style="width: 16px; height: 16px;"></i>
+                    <i data-lucide="calendar" style="width: 16px; height: 16px;"></i>
+                    <i data-lucide="clock" style="width: 16px; height: 16px;"></i>
+                    <i data-lucide="message-circle" style="width: 16px; height: 16px;"></i>
+                    <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i>
+                    <i data-lucide="send" style="width: 16px; height: 16px;"></i>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Timeline Icons (16px in dots)</div>
+                <div class="d-flex gap-3 align-items-center">
+                    <i data-lucide="edit" style="width: 16px; height: 16px;"></i>
+                    <i data-lucide="check-circle" style="width: 16px; height: 16px;"></i>
+                    <i data-lucide="message-circle" style="width: 16px; height: 16px;"></i>
+                    <i data-lucide="shield" style="width: 16px; height: 16px;"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- 9. COLOR PALETTE SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Color Palette</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Primary Colors</div>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-white text-center" style="background-color: var(--faa-red);">
+                            <strong>FAA Red</strong>
+                            <div class="small mt-2">#ec2227</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-white text-center"
+                            style="background-color: var(--faa-dark-red);">
+                            <strong>FAA Dark Red</strong>
+                            <div class="small mt-2">#7b282d</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-white text-center"
+                            style="background-color: var(--faa-darker-red);">
+                            <strong>FAA Darker Red</strong>
+                            <div class="small mt-2">#971b1e</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Timeline Colors</div>
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-white text-center" style="background-color: #8cd4e4;">
+                            <strong>Cyan</strong>
+                            <div class="small mt-2">#8cd4e4</div>
+                            <div class="small">Created</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-white text-center" style="background-color: #543671;">
+                            <strong>Purple</strong>
+                            <div class="small mt-2">#543671</div>
+                            <div class="small">Updated</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-white text-center" style="background-color: #908e81;">
+                            <strong>Gray</strong>
+                            <div class="small mt-2">#908e81</div>
+                            <div class="small">Default</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-dark text-center" style="background-color: #e5e7eb;">
+                            <strong>Light Gray</strong>
+                            <div class="small mt-2">#e5e7eb</div>
+                            <div class="small">Timeline Line</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Background Colors</div>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="p-4 rounded-3 text-dark text-center" style="background-color: #f8f9fa;">
+                            <strong>Light Gray</strong>
+                            <div class="small mt-2">#f8f9fa</div>
+                            <div class="small">Comment Box, Body Background</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="p-4 rounded-3 text-dark text-center border">
+                            <strong>Border Gray</strong>
+                            <div class="small mt-2">#eaeaea</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 10. BORDER & SHADOW STYLES SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Border & Shadow Styles</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Border Radius Options</div>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="p-3 bg-light border text-center" style="border-radius: 12px;">
+                            <strong>12px</strong>
+                            <div class="small text-secondary mt-1">FAA Card</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3 bg-light border text-center" style="border-radius: 8px;">
+                            <strong>8px</strong>
+                            <div class="small text-secondary mt-1">Comment Box</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3 bg-light border text-center" style="border-radius: 50%;">
+                            <strong>50%</strong>
+                            <div class="small text-secondary mt-1">Avatar, Timeline Dot</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">FAA Card Shadow</div>
+                <div class="p-3 bg-white text-center faa-card">
+                    <strong>FAA Card Shadow</strong>
+                    <div class="small text-secondary mt-1">Large shadow with blur</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+
+</body>
+
+</html>

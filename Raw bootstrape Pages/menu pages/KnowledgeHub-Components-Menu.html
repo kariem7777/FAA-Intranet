@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Knowledge Hub - Component Menu</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        h1 {
+            font-size: 2.5rem !important;
+            line-height: 1.2 !important;
+        }
+
+        h2 {
+            font-size: 2rem !important;
+            line-height: 1.3 !important;
+        }
+
+        h3 {
+            font-size: 1.5rem !important;
+            font-weight: 500 !important;
+            line-height: 1.4 !important;
+        }
+
+        h4 {
+            font-size: 1.25rem !important;
+            font-weight: 500 !important;
+            line-height: 1.4 !important;
+        }
+
+        h5 {
+            font-size: 1.125rem !important;
+            font-weight: 400 !important;
+            line-height: 1.5 !important;
+        }
+
+        h6 {
+            font-size: 1rem !important;
+            font-weight: 400 !important;
+            line-height: 1.5 !important;
+        }
+
+        p {
+            font-size: 1rem !important;
+            line-height: 1.6 !important;
+        }
+
+        a {
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        button {
+            font-family: inherit !important;
+        }
+
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #908e81 #f1f1f1;
+            letter-spacing: 0.5px;
+            font-family: "Dubai", "Tajawal", sans-serif;
+        }
+
+        .custom-container {
+            max-width: 95vw;
+            margin: auto;
+        }
+
+        .shadow-lg {
+            box-shadow:
+                0 10px 15px -3px rgba(0, 0, 0, 0.1),
+                0 4px 6px -4px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .border {
+            border: 1px solid #E5E5E5 !important;
+        }
+
+        :root {
+            --faa-red: #ec2227;
+            --faa-dark-red: #7b282d;
+            --faa-darker-red: #971b1e;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif;
+        }
+
+        .bg-pattern {
+            background-image: url('data:image/svg+xml,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="1" fill="%23000000" opacity="0.05"/></svg>');
+            background-repeat: repeat;
+        }
+
+        .hero-banner {
+            background-image: url('../assets/3ca851fd732fadea7ed700a83455499648bbdce7.avif');
+            background-size: 100%;
+            border-radius: 16px;
+            color: white;
+            padding: 60px 48px;
+            position: relative;
+            overflow: hidden;
+            height: 280px;
+        }
+
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: min(957px, calc(100% - 424px));
+            background-color: rgba(81, 58, 64, 0.72);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .stats-cards {
+            margin-top: -80px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .stat-card {
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+        }
+
+        /* Updated Navigation Styles */
+        .grid-tabs-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+            background-color: #f3f4f6;
+            border-radius: 0.75rem;
+            padding: 0.25rem;
+        }
+
+        @media (min-width: 768px) {
+            .grid-tabs-container {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+
+        @media (min-width: 992px) {
+            .grid-tabs-container {
+                grid-template-columns: repeat(10, 1fr);
+            }
+        }
+
+        .nav-pills .nav-link {
+            color: #6b7280;
+            border-radius: 0.5rem;
+            padding: 0.2rem 0.2rem;
+            transition: all 0.2s;
+            background-color: transparent;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            justify-content: center;
+        }
+
+        .nav-pills .nav-link:hover {
+            color: #111827;
+        }
+
+        .nav-pills {
+            border-radius: 1.5rem;
+        }
+
+        .nav-pills .nav-link.active {
+            background-color: #F0F0F0 !important;
+            border: 0.2px solid #e6e4e4;
+            color: #000000 !important;
+            border-radius: 1.5rem;
+        }
+
+        .gradient-line {
+            height: 4px;
+            width: 80px;
+            border-radius: 2px;
+            background: linear-gradient(to right, var(--faa-red), var(--faa-dark-red));
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card-hover:hover {
+            box-shadow:
+                0 20px 26px -8px rgba(0, 0, 0, 0.12),
+                0 8px 9px -7px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .border-top-hover {
+            border-top: 2px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        .border-top-hover:hover {
+            border-top-color: var(--faa-red);
+        }
+
+        .progress-bar-gradient {
+            background: linear-gradient(to right, var(--faa-red), var(--faa-dark-red));
+        }
+
+        .bg-red-soft {
+            background-color: rgba(236, 34, 39, 0.1);
+        }
+
+        .bg-dark-red-soft {
+            background-color: rgba(123, 40, 45, 0.1);
+        }
+
+        .text-faa-red {
+            color: var(--faa-red);
+        }
+
+        .text-faa-dark-red {
+            color: var(--faa-dark-red);
+        }
+
+        .module-card {
+            background-color: #f9fafb;
+            border-radius: 12px;
+            box-shadow:
+                0 10px 15px -3px rgba(0, 0, 0, 0.08),
+                0 4px 6px -4px rgba(0, 0, 0, 0.08);
+            transition: box-shadow 0.25s ease;
+            will-change: box-shadow;
+        }
+
+        .module-card:hover {
+            box-shadow:
+                0 14px 22px -6px rgba(0, 0, 0, 0.12),
+                0 6px 8px -6px rgba(0, 0, 0, 0.1);
+        }
+
+        .module-completed {
+            background-color: #f0fdf4;
+            border-left: 4px solid #22c55e;
+        }
+
+        .module-pending {
+            border-left: 4px solid transparent;
+        }
+
+        .bg-success {
+            background-color: #00C950 !important;
+        }
+
+        .badge {
+            font-weight: 500 !important;
+        }
+
+        .tag {
+            background-color: transparent !important;
+            padding: 0.4rem !important;
+            border: 1px solid red !important;
+        }
+
+        /*Article section*/
+        .article-card {
+            box-sizing: border-box !important;
+        }
+
+        .article-card:hover {
+            border: 1px solid var(--faa-red) !important;
+            border-top: 2px solid var(--faa-red) !important;
+        }
+
+        .shadow-sm {
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px !important;
+        }
+
+        .faq-card {
+            border: 0;
+            border-radius: 1rem;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+        }
+
+        .faq-card .card-body {
+            padding: 2rem;
+        }
+
+        /* FAQ items */
+        .faq-item {
+            padding: 1.25rem;
+            background-color: #f8f9fa;
+            border-radius: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 4px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .faq-item:hover {
+            border-left-color: #dc2626;
+        }
+
+        .faq-item p {
+            margin: 0;
+        }
+
+        .faq-item .views {
+            font-size: 0.8rem;
+            color: #6b7280;
+        }
+
+        .nav-item .nav-link {
+            padding: 0.4rem !important;
+        }
+
+        /* E-learning tab*/
+        .E-learning-card {
+            background: linear-gradient(135deg, #f9fafb, #ffffff);
+            border-left: 4px solid var(--faa-red) !important;
+            border: 1px solid var(--faa-red)
+        }
+
+        /* Enrichment tab */
+        .enrichment-card:hover {
+            border: 1px solid var(--faa-red) !important;
+            border-top: 2px solid var(--faa-red) !important;
+        }
+
+        /* library tab*/
+        .library-banner {
+            border-left: 4px solid #7b282d !important;
+            border: 1px solid #7b282d;
+        }
+
+        .btn-lib {
+            background-color: #f7f2f2;
+            color: var(--faa-red);
+            font-size: 14px;
+        }
+
+        .btn-lib:hover {
+            background-color: var(--faa-red);
+            color: #f7f2f2;
+        }
+
+        .category-card {
+            transition: all 0.3s ease !important;
+        }
+
+        .category-card:hover .icon-box {
+            background-color: var(--faa-red) !important;
+            color: white;
+        }
+
+        .category-card:hover {
+            border-top: 2px solid var(--faa-red) !important;
+            border: 1px solid var(--faa-red) !important;
+        }
+
+        /* Component Menu Specific Styles */
+        .component-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--faa-dark-red);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--faa-red);
+        }
+
+        .component-demo {
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .component-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+    </style>
+</head>
+
+<body class="bg-pattern">
+
+    <!-- Main Container -->
+    <div class="custom-container px-5 py-4">
+
+        <!-- Page Header -->
+        <div class="mb-5">
+            <h1 class="display-4 fw-bold text-faa-dark-red mb-2">Knowledge Hub - Component Library</h1>
+            <p class="text-secondary fs-5">A comprehensive showcase of all components and styles used in the Knowledge
+                Hub page</p>
+            <div class="gradient-line"></div>
+        </div>
+
+        <!-- 1. BUTTONS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Buttons</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Primary Button (FAA Red)</div>
+                <button class="btn text-white px-4 py-2" style="background-color: var(--faa-red);">
+                    Primary Button
+                </button>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Continue Button (Full Width)</div>
+                <button class="btn w-100 text-white py-2" style="background-color: var(--faa-red);">
+                    Continue Induction Program
+                </button>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Library Button (Custom Style)</div>
+                <button class="btn border btn-lib">Browse Library</button>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">E-Learning Login Button</div>
+                <button class="btn text-white px-4 py-2" style="background-color: var(--faa-red); font-size: 14px;">
+                    Log In (mwgd.com)
+                </button>
+            </div>
+        </div>
+
+        <!-- 2. CARDS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Cards</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Stat Card (Hoverable)</div>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card stat-card shadow-lg border-0 h-100 rounded-4">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-start gap-4">
+                                    <div class="p-3 rounded-3 bg-light text-faa-red">
+                                        <i data-lucide="video" style="width: 24px; height: 24px;"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="display-6 fw-bold mb-1">24+</h3>
+                                        <p class="text-secondary mb-0">E-Learning Courses</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card stat-card shadow-lg border-0 h-100 rounded-4">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-start gap-4">
+                                    <div class="p-3 rounded-3 bg-light text-faa-dark-red">
+                                        <i data-lucide="library" style="width: 24px; height: 24px;"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="display-6 fw-bold mb-1">1,245</h3>
+                                        <p class="text-secondary mb-0">Library Resources</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Membership Card (Hoverable)</div>
+                <div class="row g-4">
+                    <div class="col-md-3">
+                        <div class="card h-100 shadow-lg border rounded-4 card-hover">
+                            <div class="card-body p-4 text-center">
+                                <div class="rounded-3 d-flex align-items-center justify-content-center mb-4 mx-auto"
+                                    style="width: 64px; height: 64px; background-color: #7b282d;">
+                                    <i data-lucide="users" class="text-white" style="width: 32px; height: 32px;"></i>
+                                </div>
+                                <h5 class="h6 mb-2">INTOSAI</h5>
+                                <p class="small text-secondary mb-0">International Organization of Supreme Audit
+                                    Institutions</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Module Card - Completed</div>
+                <div class="col-md-6">
+                    <div class="h-100 p-4 rounded-3 module-completed cursor-pointer">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div>
+                                <div class="d-flex align-items-center gap-2 mb-2">
+                                    <span class="small text-muted">Module 1</span>
+                                    <span class="badge bg-success small">✓ Completed</span>
+                                </div>
+                                <h5 class="h6 mb-0">Welcome to FAA</h5>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center gap-3 small text-secondary mb-3">
+                            <div class="d-flex align-items-center gap-1">
+                                <i data-lucide="video" style="width: 14px; height: 14px;"></i>
+                                <span>15 min</span>
+                            </div>
+                            <span class="badge text-danger border border-danger tag">Quiz Included</span>
+                        </div>
+                        <div class="pt-3 border-top d-flex justify-content-between align-items-center small">
+                            <span class="text-secondary">Quiz Score:</span>
+                            <span class="text-success">95%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Module Card - Pending</div>
+                <div class="col-md-6">
+                    <div class="h-100 p-4 rounded-3 module-pending cursor-pointer">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div>
+                                <div class="d-flex align-items-center gap-2 mb-2">
+                                    <span class="small text-muted">Module 3</span>
+                                </div>
+                                <h5 class="h6 mb-0">FAA Structure & Departments</h5>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center gap-3 small text-secondary mb-3">
+                            <div class="d-flex align-items-center gap-1">
+                                <i data-lucide="video" style="width: 14px; height: 14px;"></i>
+                                <span>25 min</span>
+                            </div>
+                            <span class="badge bg-white text-danger border border-danger tag">Quiz Included</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Article Card (Hover Effect)</div>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="article-card h-100 shadow-sm rounded-4 p-4">
+                            <span class="badge mb-3 align-self-start" style="background-color: #7b282d;">Digital
+                                Transformation</span>
+                            <h5 class="h6 mb-2">The Future of Government Auditing in the Digital Age</h5>
+                            <div class="d-flex justify-content-between small text-secondary mt-auto">
+                                <span>Dr. Sarah Al Kaabi</span>
+                                <span>8 min</span>
+                            </div>
+                            <p class="small text-muted mt-2 mb-0">2025-12-01</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">E-Learning Card (Special Border)</div>
+                <div class="card shadow-sm rounded-4 E-learning-card">
+                    <div class="card-body p-4">
+                        <h4 class="h5 fw-bold mb-3">E-LEARNING PLATFORM FOR TECHNICAL EMPLOYEES</h4>
+                        <p class="text-secondary mb-3">
+                            A platform developed in collaboration with PwC, providing employees with access
+                            to a range of training courses and educational workshops in the field of control and audit.
+                        </p>
+                        <button class="btn text-white px-4 py-2"
+                            style="background-color: var(--faa-red); font-size: 14px;">
+                            Log In (mwgd.com)
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Enrichment Card (Hover Effect)</div>
+                <div class="row g-4">
+                    <div class="col-md-3">
+                        <div class="border-0 enrichment-card card h-100 shadow-sm p-4 text-center rounded-4">
+                            <div class="mx-auto mb-3 rounded-3 d-flex align-items-center justify-content-center"
+                                style="width: 48px; height: 48px; background-color: #ec2227;">
+                                <i data-lucide="award" class="text-white" style="width: 24px; height: 24px;"></i>
+                            </div>
+                            <h5 class="h6 mb-2">Professional Certification</h5>
+                            <p class="small text-secondary mb-0">45 participants</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Category Card (Library - Hover Effect)</div>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="h-100 shadow-sm border-0 rounded-4 p-4 category-card">
+                            <div class="d-flex align-items-center gap-3 mb-3">
+                                <div class="icon-box p-2 rounded-3 bg-light text-faa-red transition-all">
+                                    <i data-lucide="file-stack" style="width: 20px; height: 20px;"></i>
+                                </div>
+                                <h4 class="h4 mb-0 text-faa-dark-red">284</h4>
+                            </div>
+                            <p class="small text-secondary mb-0">Audit Standards & Guidelines</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Best Practices Cards (Colored Backgrounds)</div>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card h-100 border rounded-4 shadow-lg text-white p-3"
+                            style="background-color: #0891b2;">
+                            <div class="d-flex align-items-center gap-3 mb-2">
+                                <i data-lucide="trending-up" style="width: 40px; height: 40px;"></i>
+                                <h4 class="h5 mb-0">Benchmarking</h4>
+                            </div>
+                            <p class="small opacity-75 mb-0">Measure products, services, and processes against industry
+                                leaders</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100 border rounded-4 shadow-lg text-white p-3"
+                            style="background-color: #ec2227;">
+                            <div class="d-flex align-items-center gap-3 mb-2">
+                                <i data-lucide="file-text" style="width: 40px; height: 40px;"></i>
+                                <h4 class="h5 mb-0">Competitiveness Reports</h4>
+                            </div>
+                            <p class="small opacity-75 mb-0">Comprehensive analysis of organizational performance
+                                metrics</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. BADGES SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Badges</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Standard Badge (Danger/Red)</div>
+                <span class="badge bg-danger rounded-3 px-2 py-1" style="background-color: #EC2227 !important;">6
+                    Modules</span>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Success Badge (Completed)</div>
+                <span class="badge bg-success small">✓ Completed</span>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Tag Badge (Outlined)</div>
+                <span class="badge text-danger border border-danger tag">Quiz Included</span>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Category Badge (Dark Red Background)</div>
+                <span class="badge mb-3" style="background-color: #7b282d;">Digital Transformation</span>
+                <span class="badge mb-3 ms-2" style="background-color: #7b282d;">Professional Development</span>
+                <span class="badge mb-3 ms-2" style="background-color: #7b282d;">Standards</span>
+            </div>
+        </div>
+
+        <!-- 4. NAVIGATION TABS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Navigation & Tabs</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Grid Tabs Container (Main Navigation)</div>
+                <div class="card shadow-lg mb-4 border-0 rounded-4 bg-white">
+                    <div class="card-body p-2">
+                        <div class="nav nav-pills grid-tabs-container w-100 p-1" id="demoTabs1" role="tablist">
+                            <button class="nav-link active" type="button">Overview</button>
+                            <button class="nav-link" type="button">Memberships</button>
+                            <button class="nav-link" type="button">Induction</button>
+                            <button class="nav-link" type="button">Best Practices</button>
+                            <button class="nav-link" type="button">Articles</button>
+                            <button class="nav-link" type="button">Connect</button>
+                            <button class="nav-link" type="button">FAQs</button>
+                            <button class="nav-link" type="button">E-Learning</button>
+                            <button class="nav-link" type="button">Enrichment</button>
+                            <button class="nav-link" type="button">Library</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Inline Pills Navigation (FAQ Tabs)</div>
+                <ul class="nav nav-pills mb-4 d-inline-flex gap-2 px-2 py-1" role="tablist"
+                    style="background:#f5f5f5; border-radius:999px;">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active w-100" type="button">Audit Process</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link w-100" type="button">HR & Benefits</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link w-100" type="button">IT & Systems</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 5. PROGRESS BARS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Progress Bars</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Gradient Progress Bar</div>
+                <div class="rounded-3 p-4"
+                    style="background: linear-gradient(135deg, rgba(236, 34, 39, 0.05), rgba(123, 40, 45, 0.05));">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h5 class="h6 mb-0">Your Progress</h5>
+                        <span class="small text-secondary">2 of 6 completed</span>
+                    </div>
+                    <div class="progress" role="progressbar" style="height: 12px; background-color: #e5e7eb;">
+                        <div class="progress-bar progress-bar-gradient rounded-pill" style="width: 33.3%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. ICONS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Icons & Icon Boxes</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Icon with Soft Background (Red)</div>
+                <div class="d-flex gap-3">
+                    <div class="p-2 rounded-3 bg-red-soft">
+                        <i data-lucide="book-open" class="text-faa-red" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <div class="p-2 rounded-3 bg-red-soft">
+                        <i data-lucide="file-text" class="text-faa-red" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <div class="p-2 rounded-3 bg-red-soft">
+                        <i data-lucide="video" class="text-faa-red" style="width: 24px; height: 24px;"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Icon with Soft Background (Dark Red)</div>
+                <div class="d-flex gap-3">
+                    <div class="p-2 rounded-3 bg-dark-red-soft">
+                        <i data-lucide="globe" class="text-faa-dark-red" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <div class="p-2 rounded-3 bg-dark-red-soft">
+                        <i data-lucide="help-circle" class="text-faa-dark-red" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <div class="p-2 rounded-3 bg-dark-red-soft">
+                        <i data-lucide="award" class="text-faa-dark-red" style="width: 24px; height: 24px;"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Icon Box (Solid Background)</div>
+                <div class="d-flex gap-3">
+                    <div class="rounded-3 d-flex align-items-center justify-content-center"
+                        style="width: 64px; height: 64px; background-color: #7b282d;">
+                        <i data-lucide="users" class="text-white" style="width: 32px; height: 32px;"></i>
+                    </div>
+                    <div class="rounded-3 d-flex align-items-center justify-content-center"
+                        style="width: 64px; height: 64px; background-color: #971b1e;">
+                        <i data-lucide="users" class="text-white" style="width: 32px; height: 32px;"></i>
+                    </div>
+                    <div class="rounded-3 d-flex align-items-center justify-content-center"
+                        style="width: 64px; height: 64px; background-color: #ec2227;">
+                        <i data-lucide="users" class="text-white" style="width: 32px; height: 32px;"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Small Icon Box (48px)</div>
+                <div class="d-flex gap-3">
+                    <div class="rounded-3 d-flex align-items-center justify-content-center"
+                        style="width: 48px; height: 48px; background-color: #ec2227;">
+                        <i data-lucide="file-text" class="text-white" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <div class="rounded-3 d-flex align-items-center justify-content-center"
+                        style="width: 48px; height: 48px; background-color: #ec2227;">
+                        <i data-lucide="lightbulb" class="text-white" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <div class="rounded-3 d-flex align-items-center justify-content-center"
+                        style="width: 48px; height: 48px; background-color: #ec2227;">
+                        <i data-lucide="trending-up" class="text-white" style="width: 24px; height: 24px;"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Icon in Stat Card</div>
+                <div class="p-3 rounded-3 bg-light text-faa-red d-inline-flex">
+                    <i data-lucide="video" style="width: 24px; height: 24px;"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. FAQ ITEMS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">FAQ Items</h2>
+
+            <div class="component-demo">
+                <div class="component-label">FAQ Item (Hover for Red Border)</div>
+                <div class="vstack gap-3">
+                    <div class="faq-item">
+                        <p>What is the typical audit cycle?</p>
+                        <span class="views">145 views</span>
+                    </div>
+                    <div class="faq-item">
+                        <p>How are audit priorities determined?</p>
+                        <span class="views">98 views</span>
+                    </div>
+                    <div class="faq-item">
+                        <p>What is risk-based auditing?</p>
+                        <span class="views">234 views</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8. TEXT ELEMENTS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Text Elements & Headers</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Section Header with Icon and Gradient Line</div>
+                <div class="d-flex align-items-start gap-3">
+                    <div class="p-2 rounded-3 bg-red-soft">
+                        <i data-lucide="book-open" class="text-faa-red" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <div>
+                        <h1 class="h4 fw-medium mb-2">Overview</h1>
+                        <div class="gradient-line"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Section Header with Description</div>
+                <div class="d-flex align-items-start gap-3">
+                    <div class="p-2 rounded-3 bg-dark-red-soft">
+                        <i data-lucide="globe" class="text-faa-dark-red" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h2 class="h4 fw-medium mb-2">Memberships and Partnerships</h2>
+                        <div class="gradient-line mb-3"></div>
+                        <p class="text-secondary mb-0">Our global network of professional organizations and strategic
+                            partners</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Gradient Line (Standalone)</div>
+                <div class="gradient-line"></div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Typography Samples</div>
+                <h1>Heading 1 - 2.5rem</h1>
+                <h2>Heading 2 - 2rem</h2>
+                <h3>Heading 3 - 1.5rem</h3>
+                <h4>Heading 4 - 1.25rem</h4>
+                <h5>Heading 5 - 1.125rem</h5>
+                <h6>Heading 6 - 1rem</h6>
+                <p>Paragraph - 1rem with 1.6 line height</p>
+                <p class="text-secondary">Secondary text color</p>
+                <p class="text-muted">Muted text color</p>
+                <p class="small">Small text</p>
+            </div>
+        </div>
+
+        <!-- 9. HERO BANNER SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Hero Banner</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Hero Banner with Overlay Content</div>
+                <div class="hero-banner">
+                    <div class="hero-content">
+                        <h2 class="mb-3" style="font-size: 24px; font-weight: 500; line-height: 28px;">Knowledge Hub
+                        </h2>
+                        <p class="mb-0" style="font-size: 18px; font-weight: 400; line-height: 25.6px;">
+                            Your comprehensive gateway to learning, development, and professional excellence
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 10. SPECIAL BANNERS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Special Banners</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Library Banner (Custom Border)</div>
+                <div class="library-banner rounded-4 p-4">
+                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="p-2 rounded-3 bg-dark-red-soft">
+                                <i data-lucide="library" class="text-faa-dark-red"
+                                    style="width: 24px; height: 24px;"></i>
+                            </div>
+                            <div>
+                                <h2 class="h5 mb-1 fw-bold">Our Library</h2>
+                                <p class="text-secondary small mb-0">Access over 1,245 resources including standards,
+                                    research, and more.</p>
+                            </div>
+                        </div>
+                        <button class="btn border btn-lib">Browse Library</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Progress Container (Gradient Background)</div>
+                <div class="rounded-3 p-4"
+                    style="background: linear-gradient(135deg, rgba(236, 34, 39, 0.05), rgba(123, 40, 45, 0.05));">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h5 class="h6 mb-0">Your Progress</h5>
+                        <span class="small text-secondary">2 of 6 completed</span>
+                    </div>
+                    <div class="progress" role="progressbar" style="height: 12px; background-color: #e5e7eb;">
+                        <div class="progress-bar progress-bar-gradient rounded-pill" style="width: 33.3%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Info Box (Light Background)</div>
+                <div class="bg-light rounded-3 p-4">
+                    <p class="text-secondary mb-3">
+                        Benchmarking is defined as the process of measuring products, services, and
+                        processes against those of organizations known to be leaders in one or more aspects of their
+                        operations.
+                    </p>
+                    <p class="text-secondary mb-0">
+                        Benchmarking can also help organizations identify areas, systems, or processes for improvements.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 11. COLOR PALETTE SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Color Palette</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Primary Colors</div>
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-white text-center" style="background-color: var(--faa-red);">
+                            <strong>FAA Red</strong>
+                            <div class="small mt-2">#ec2227</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-white text-center"
+                            style="background-color: var(--faa-dark-red);">
+                            <strong>FAA Dark Red</strong>
+                            <div class="small mt-2">#7b282d</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-white text-center"
+                            style="background-color: var(--faa-darker-red);">
+                            <strong>FAA Darker Red</strong>
+                            <div class="small mt-2">#971b1e</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-white text-center" style="background-color: #0891b2;">
+                            <strong>Cyan/Teal</strong>
+                            <div class="small mt-2">#0891b2</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Soft Backgrounds</div>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 bg-red-soft text-center">
+                            <strong class="text-faa-red">Red Soft</strong>
+                            <div class="small mt-2 text-secondary">rgba(236, 34, 39, 0.1)</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 bg-dark-red-soft text-center">
+                            <strong class="text-faa-dark-red">Dark Red Soft</strong>
+                            <div class="small mt-2 text-secondary">rgba(123, 40, 45, 0.1)</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 bg-light text-center">
+                            <strong>Light Gray</strong>
+                            <div class="small mt-2 text-secondary">Bootstrap bg-light</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Success Color</div>
+                <div class="col-md-3">
+                    <div class="p-4 rounded-3 text-white text-center bg-success">
+                        <strong>Success Green</strong>
+                        <div class="small mt-2">#00C950</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 12. BORDER STYLES SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Border & Shadow Styles</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Border Radius Options</div>
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <div class="p-3 bg-light border rounded-4 text-center">
+                            <strong>rounded-4</strong>
+                            <div class="small text-secondary mt-1">Most cards</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-3 bg-light border rounded-3 text-center">
+                            <strong>rounded-3</strong>
+                            <div class="small text-secondary mt-1">Containers</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-3 bg-light border text-center" style="border-radius: 999px;">
+                            <strong>border-radius: 999px</strong>
+                            <div class="small text-secondary mt-1">Pills</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Shadow Options</div>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="p-3 bg-white shadow-sm rounded-3 text-center">
+                            <strong>shadow-sm</strong>
+                            <div class="small text-secondary mt-1">Subtle shadow</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3 bg-white shadow-lg rounded-3 text-center">
+                            <strong>shadow-lg</strong>
+                            <div class="small text-secondary mt-1">Large shadow</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Special Borders</div>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="p-3 bg-white rounded-3"
+                            style="border-left: 4px solid #22c55e; background-color: #f0fdf4;">
+                            <strong>Left Border - Completed</strong>
+                            <div class="small text-secondary mt-1">Green left border</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="p-3 bg-white rounded-3"
+                            style="border-left: 4px solid var(--faa-red); border: 1px solid var(--faa-red);">
+                            <strong>Left Border - Red</strong>
+                            <div class="small text-secondary mt-1">E-learning card style</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Page - Component Menu</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #908e81 #f1f1f1;
+        }
+
+        .border {
+            border: 1px solid #eaeaea;
+        }
+
+        .shadow-lg {
+            box-shadow:
+                0 10px 15px -3px rgba(0, 0, 0, 0.1),
+                0 4px 6px -4px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        :root {
+            --faa-red: #a94442;
+            --faa-dark-red: #971B1E;
+            --faa-darker-red: #7B282D;
+            --faa-maroon: #513a40;
+            --faa-brown: #413f30;
+            --faa-cyan: #8cd4e4;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+        }
+
+        .bg-pattern {
+            background-image: url('data:image/svg+xml,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="1" fill="%23000000" opacity="0.05"/></svg>');
+            background-repeat: repeat;
+        }
+
+        .hero-banner {
+            background-image: url('../assets/3ca851fd732fadea7ed700a83455499648bbdce7.avif');
+            background-size: 100%;
+            border-radius: 16px;
+            color: white;
+            padding: 60px 48px;
+            position: relative;
+            overflow: hidden;
+            height: 280px;
+        }
+
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: min(957px, calc(100% - 424px));
+            background-color: rgba(81, 58, 64, 0.72);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .stats-cards {
+            margin-top: -80px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .stat-card {
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+        }
+
+        .icon-box {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f8f9fa;
+        }
+
+        .gradient-line {
+            height: 4px;
+            width: 80px;
+            background: linear-gradient(to right, var(--faa-red), var(--faa-dark-red));
+            border-radius: 2px;
+        }
+
+        .resource-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--faa-dark-red) !important;
+            border: 1px solid var(--faa-dark-red);
+        }
+
+        .resource-card:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+        }
+
+        .resource-card .btn:hover {
+            background-color: var(--faa-darker-red) !important;
+        }
+
+        .category-card {
+            cursor: pointer;
+            border: 0;
+        }
+
+        .category-card:hover {
+            border-top: 2px solid var(--faa-dark-red) !important;
+            border: 1px solid var(--faa-dark-red);
+        }
+
+        .category-card:hover .category-icon {
+            background-color: var(--faa-dark-red) !important;
+            color: white !important;
+        }
+
+        .category-icon {
+            transition: all 0.3s ease;
+        }
+
+        .btn-custom-outline {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            height: 32px;
+            border-radius: 6px;
+            gap: 6px;
+            padding: 0 12px;
+            border: 1px solid oklch(.922 0 0);
+            background-color: color-mix(in oklab, oklch(.922 0 0) 30%, transparent);
+            outline: none;
+            color: var(--faa-dark-red)
+        }
+
+        .btn-custom-outline:hover {
+            background-color: #EFEFF0;
+            color: var(--faa-dark-red)
+        }
+
+        .custom-container {
+            max-width: 95vw;
+            margin: auto;
+        }
+
+        /* Component Menu Specific Styles */
+        .component-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--faa-dark-red);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--faa-red);
+        }
+
+        .component-demo {
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .component-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+    </style>
+</head>
+
+<body class="bg-pattern">
+
+    <!-- Main Container -->
+    <div class="custom-container px-5 py-4">
+
+        <!-- Page Header -->
+        <div class="mb-5">
+            <h1 class="display-4 fw-bold text-dark mb-2">About Page - Component Library</h1>
+            <p class="text-secondary fs-5">A comprehensive showcase of all components and styles used in the About page
+            </p>
+            <div class="gradient-line"></div>
+        </div>
+
+        <!-- 1. BUTTONS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Buttons</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Primary Button (Dark Red)</div>
+                <button class="btn w-100" style="background-color: var(--faa-dark-red); color: white;">
+                    View Strategic Plan
+                </button>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Custom Outline Button</div>
+                <button class="btn-custom-outline fw-normal">
+                    View Full List
+                </button>
+            </div>
+        </div>
+
+        <!-- 2. CARDS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Cards</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Stat Card (Hoverable)</div>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card stat-card shadow-lg rounded-4">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-start gap-3">
+                                    <div class="icon-box text-danger">
+                                        <i data-lucide="building-2" style="width: 20px; height: 20px;"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="h5 fw-bold mb-1">176+</h3>
+                                        <p class="text-muted mb-0">Audited Entities</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card stat-card shadow rounded-4">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-start gap-3">
+                                    <div class="icon-box" style="color: var(--faa-dark-red);">
+                                        <i data-lucide="users" style="width: 20px; height: 20px;"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="h5 fw-bold mb-1">450+</h3>
+                                        <p class="text-muted mb-0">Professional Staff</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Resource Card (Left Border)</div>
+                <div class="card resource-card shadow-lg rounded-4">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-start gap-3 mb-3">
+                            <div class="p-3 rounded-3" style="background-color: rgba(236, 34, 39, 0.1);">
+                                <i data-lucide="target"
+                                    style="width: 24px; height: 24px; color: var(--faa-darker-red);"></i>
+                            </div>
+                            <div class="flex-fill">
+                                <h3 class="h5 mb-2">FAA Strategic Plan 2024-2028</h3>
+                                <p class="text-muted mb-0">Explore our comprehensive strategic framework including
+                                    strategic pillars,
+                                    goals, objectives, and delivery models that guide our mission to enhance public
+                                    sector
+                                    accountability and transparency.</p>
+                            </div>
+                        </div>
+                        <button class="btn w-100" style="background-color: var(--faa-dark-red); color: white;">
+                            View Strategic Plan
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Category Card (Hover Effect)</div>
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <div class="card category-card shadow-lg rounded-4">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-center gap-3 mb-2">
+                                    <div class="category-icon p-2 rounded-2 bg-light" style="color: var(--faa-red);">
+                                        <i data-lucide="building-2" style="width: 20px; height: 20px;"></i>
+                                    </div>
+                                    <h4 class="h3 mb-0" style="color: var(--faa-dark-red);">24</h4>
+                                </div>
+                                <p class="small text-muted mb-0">Federal Ministries</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card category-card shadow-lg rounded-4">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-center gap-3 mb-2">
+                                    <div class="category-icon p-2 rounded-2 bg-light" style="color: var(--faa-red);">
+                                        <i data-lucide="shield" style="width: 20px; height: 20px;"></i>
+                                    </div>
+                                    <h4 class="h3 mb-0" style="color: var(--faa-dark-red);">18</h4>
+                                </div>
+                                <p class="small text-muted mb-0">Local Government Entities</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Overview Card (With Icon Header)</div>
+                <div class="card shadow-lg rounded-4 border">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-start gap-3 mb-4">
+                            <div class="p-2 rounded-3" style="background-color: rgba(236, 34, 39, 0.1);">
+                                <i data-lucide="shield" style="width: 24px; height: 24px; color: var(--faa-red);"></i>
+                            </div>
+                            <div>
+                                <h2 class="h2 mb-2">Who We Are</h2>
+                                <div class="gradient-line"></div>
+                            </div>
+                        </div>
+                        <div class="row g-4">
+                            <div class="col-12">
+                                <p class="fs-small text-secondary mb-0">
+                                    The Financial Audit Authority (FAA) is the supreme audit institution of the United
+                                    Arab Emirates,
+                                    established to strengthen financial accountability and enhance transparency in the
+                                    use of public
+                                    resources.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Audit Universe Banner Card</div>
+                <div class="card resource-card shadow-lg mb-4 rounded-4">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                            <div class="d-flex align-items-start gap-3">
+                                <div class="p-2 rounded-3" style="background-color: rgba(123, 40, 45, 0.1);">
+                                    <i data-lucide="building-2"
+                                        style="width: 24px; height: 24px; color: var(--faa-dark-red);"></i>
+                                </div>
+                                <div>
+                                    <h3 class="h5 mb-2">Our Audit Universe</h3>
+                                    <p class="text-muted mb-0">
+                                        The Financial Audit Authority oversees and audits a comprehensive range of
+                                        federal entities
+                                        across various sectors and industries.
+                                    </p>
+                                </div>
+                            </div>
+                            <button class="btn-custom-outline fw-normal">
+                                View Full List
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. ICONS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Icons & Icon Boxes</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Icon Box (48px - Light Background)</div>
+                <div class="d-flex gap-3">
+                    <div class="icon-box text-danger">
+                        <i data-lucide="building-2" style="width: 20px; height: 20px;"></i>
+                    </div>
+                    <div class="icon-box" style="color: var(--faa-dark-red);">
+                        <i data-lucide="users" style="width: 20px; height: 20px;"></i>
+                    </div>
+                    <div class="icon-box" style="color: var(--faa-darker-red);">
+                        <i data-lucide="award" style="width: 20px; height: 20px;"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Icon with Soft Background (Red)</div>
+                <div class="d-flex gap-3">
+                    <div class="p-2 rounded-3" style="background-color: rgba(236, 34, 39, 0.1);">
+                        <i data-lucide="shield" style="width: 24px; height: 24px; color: var(--faa-red);"></i>
+                    </div>
+                    <div class="p-3 rounded-3" style="background-color: rgba(236, 34, 39, 0.1);">
+                        <i data-lucide="target" style="width: 24px; height: 24px; color: var(--faa-darker-red);"></i>
+                    </div>
+                    <div class="p-3 rounded-3" style="background-color: rgba(236, 34, 39, 0.1);">
+                        <i data-lucide="scale" style="width: 24px; height: 24px; color: var(--faa-red);"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Icon with Soft Background (Dark Red)</div>
+                <div class="d-flex gap-3">
+                    <div class="p-2 rounded-3" style="background-color: rgba(123, 40, 45, 0.1);">
+                        <i data-lucide="building-2" style="width: 24px; height: 24px; color: var(--faa-dark-red);"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Category Icon (Hoverable)</div>
+                <div class="d-flex gap-3">
+                    <div class="category-icon p-2 rounded-2 bg-light" style="color: var(--faa-red);">
+                        <i data-lucide="building-2" style="width: 20px; height: 20px;"></i>
+                    </div>
+                    <div class="category-icon p-2 rounded-2 bg-light" style="color: var(--faa-red);">
+                        <i data-lucide="shield" style="width: 20px; height: 20px;"></i>
+                    </div>
+                    <div class="category-icon p-2 rounded-2 bg-light" style="color: var(--faa-red);">
+                        <i data-lucide="target" style="width: 20px; height: 20px;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. HERO BANNER SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Hero Banner</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Hero Banner with Overlay Content</div>
+                <div class="hero-banner">
+                    <div class="hero-content">
+                        <h2 class="mb-3 h2">About Financial Audit Authority</h2>
+                        <p class="mb-0" style="font-size: 18px; font-weight: 400; line-height: 25.6px;">Ensuring
+                            accountability,
+                            transparency, and excellence in public sector governance since 2011</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. TEXT ELEMENTS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Text Elements & Headers</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Section Header with Icon and Gradient Line</div>
+                <div class="d-flex align-items-start gap-3 mb-4">
+                    <div class="p-2 rounded-3" style="background-color: rgba(236, 34, 39, 0.1);">
+                        <i data-lucide="shield" style="width: 24px; height: 24px; color: var(--faa-red);"></i>
+                    </div>
+                    <div>
+                        <h2 class="h2 mb-2">Who We Are</h2>
+                        <div class="gradient-line"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Gradient Line (Standalone)</div>
+                <div class="gradient-line"></div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Typography Samples</div>
+                <h2 class="h2">Heading 2 (h2)</h2>
+                <h3 class="h5">Heading 5 (h5)</h3>
+                <p class="fs-small text-secondary">Small paragraph with secondary color</p>
+                <p class="text-muted">Muted text color</p>
+                <p class="small text-muted">Small muted text</p>
+            </div>
+        </div>
+
+        <!-- 6. COLOR PALETTE SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Color Palette</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Primary Colors</div>
+                <div class="row g-3">
+                    <div class="col-md-2">
+                        <div class="p-4 rounded-3 text-white text-center" style="background-color: var(--faa-red);">
+                            <strong>FAA Red</strong>
+                            <div class="small mt-2">#a94442</div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="p-4 rounded-3 text-white text-center"
+                            style="background-color: var(--faa-dark-red);">
+                            <strong>FAA Dark Red</strong>
+                            <div class="small mt-2">#971B1E</div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="p-4 rounded-3 text-white text-center"
+                            style="background-color: var(--faa-darker-red);">
+                            <strong>FAA Darker Red</strong>
+                            <div class="small mt-2">#7B282D</div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="p-4 rounded-3 text-white text-center" style="background-color: var(--faa-maroon);">
+                            <strong>FAA Maroon</strong>
+                            <div class="small mt-2">#513a40</div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="p-4 rounded-3 text-white text-center" style="background-color: var(--faa-brown);">
+                            <strong>FAA Brown</strong>
+                            <div class="small mt-2">#413f30</div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="p-4 rounded-3 text-dark text-center" style="background-color: var(--faa-cyan);">
+                            <strong>FAA Cyan</strong>
+                            <div class="small mt-2">#8cd4e4</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Soft Backgrounds</div>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-center" style="background-color: rgba(236, 34, 39, 0.1);">
+                            <strong style="color: var(--faa-red);">Red Soft</strong>
+                            <div class="small mt-2 text-secondary">rgba(236, 34, 39, 0.1)</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-center" style="background-color: rgba(123, 40, 45, 0.1);">
+                            <strong style="color: var(--faa-dark-red);">Dark Red Soft</strong>
+                            <div class="small mt-2 text-secondary">rgba(123, 40, 45, 0.1)</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 bg-light text-center">
+                            <strong>Light Gray</strong>
+                            <div class="small mt-2 text-secondary">#f8f9fa</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. BORDER & SHADOW STYLES SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Border & Shadow Styles</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Border Radius Options</div>
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <div class="p-3 bg-light border rounded-4 text-center">
+                            <strong>rounded-4</strong>
+                            <div class="small text-secondary mt-1">Most cards</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-3 bg-light border rounded-3 text-center">
+                            <strong>rounded-3</strong>
+                            <div class="small text-secondary mt-1">Containers</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-3 bg-light border rounded-2 text-center">
+                            <strong>rounded-2</strong>
+                            <div class="small text-secondary mt-1">Small elements</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Shadow Options</div>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="p-3 bg-white shadow-lg rounded-3 text-center">
+                            <strong>shadow-lg</strong>
+                            <div class="small text-secondary mt-1">Large shadow</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3 bg-white shadow rounded-3 text-center">
+                            <strong>shadow</strong>
+                            <div class="small text-secondary mt-1">Default shadow</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Special Borders</div>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="p-3 bg-white rounded-3"
+                            style="border-left: 4px solid var(--faa-dark-red); border: 1px solid var(--faa-dark-red);">
+                            <strong>Left Border - Dark Red</strong>
+                            <div class="small text-secondary mt-1">Resource card style</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="p-3 bg-white rounded-3 border">
+                            <strong>Standard Border</strong>
+                            <div class="small text-secondary mt-1">#eaeaea</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+
+</body>
+
+</html>

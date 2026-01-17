@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Digital Signature Page - Component Menu</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #908e81 #f1f1f1;
+            letter-spacing: 0.5px;
+            font-family: "Dubai", "Tajawal", sans-serif;
+        }
+
+        .fs-small {
+            font-size: 12px;
+        }
+
+        .custom-container {
+            max-width: 95vw;
+            margin: auto;
+        }
+
+        .shadow-lg {
+            box-shadow:
+                0 10px 15px -3px rgba(0, 0, 0, 0.1),
+                0 4px 6px -4px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .border {
+            border: 1px solid #E5E5E5 !important;
+        }
+
+        :root {
+            --faa-red: #ec2227;
+            --faa-dark-red: #7b282d;
+            --faa-darker-red: #971b1e;
+            --faa-maroon: #A94442;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+
+        .bg-pattern {
+            background-image: url('data:image/svg+xml,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="1" fill="%23000000" opacity="0.05"/></svg>');
+            background-repeat: repeat;
+        }
+
+        .hero-banner {
+            background-image: url('../assets/3ca851fd732fadea7ed700a83455499648bbdce7.avif');
+            background-size: 100%;
+            border-radius: 16px;
+            color: white;
+            padding: 60px 48px;
+            position: relative;
+            overflow: hidden;
+            height: 280px;
+        }
+
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: min(957px, calc(100% - 424px));
+            background-color: rgba(81, 58, 64, 0.72);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .stats-cards {
+            margin-top: -80px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .stat-card {
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+        }
+
+        .tab-navigation {
+            background-color: white;
+            border-radius: 12px;
+            padding: 4px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 16px 24px;
+            border: none;
+            background: transparent;
+            color: #6c757d;
+            font-weight: 600;
+            font-size: 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .tab-btn:hover {
+            background-color: #f8f9fa;
+        }
+
+        .tab-btn.active {
+            background-color: var(--faa-maroon);
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-btn.active .badge {
+            background-color: rgba(255, 255, 255, 0.2) !important;
+            color: white !important;
+            border: none !important;
+        }
+
+        .document-card {
+            transition: all 0.3s ease;
+        }
+
+        .document-card:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+        }
+
+        .info-alert {
+            background-color: #EFF6FF;
+            border: 1px solid #c4d9f5;
+            border-radius: 12px;
+        }
+
+        .btn-maroon {
+            background-color: var(--faa-maroon);
+            border-color: var(--faa-maroon);
+            color: white;
+        }
+
+        .btn-maroon:hover {
+            background-color: var(--faa-dark-red);
+            border-color: var(--faa-dark-red);
+            color: white;
+        }
+
+        .file-upload-area {
+            border: 2px dashed #dee2e6;
+            border-radius: 8px;
+            padding: 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .file-upload-area:hover {
+            border-color: var(--faa-red);
+            background-color: #f8f9fa;
+        }
+
+        .file-upload-icon {
+            width: 48px;
+            height: 48px;
+            background-color: #f3f4f6;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+
+        .priority-high {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .priority-medium {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .priority-low {
+            background-color: #f8f9fa;
+            color: #212529;
+            border: 1px solid #dee2e6;
+        }
+
+        .badge-signed {
+            background-color: #F0FDF4;
+            color: #1aa17b;
+            border: 1px solid #77f3c2;
+        }
+
+        .card-btn {
+            background-color: #F7F7F7;
+        }
+
+        .card-btn:hover {
+            background-color: #F2F2F2;
+        }
+
+        /* Component Menu Specific Styles */
+        .component-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--faa-dark-red);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--faa-red);
+        }
+
+        .component-demo {
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .component-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+    </style>
+</head>
+
+<body class="bg-pattern">
+
+    <div class="custom-container px-5 py-4">
+
+        <!-- Page Header -->
+        <div class="mb-5">
+            <h1 class="display-4 fw-bold text-dark mb-2">Digital Signature Page - Component Library</h1>
+            <p class="text-secondary fs-5">A comprehensive showcase of all components and styles used in the Digital
+                Signature page</p>
+        </div>
+
+        <!-- 1. BUTTONS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Buttons</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Maroon Button (Primary)</div>
+                <button class="btn btn-maroon">
+                    <i data-lucide="plus" style="width: 16px; height: 16px;"></i>
+                    <span class="ms-2">Add Document</span>
+                </button>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Card Button (Light Gray)</div>
+                <button class="btn card-btn">
+                    <i data-lucide="eye" style="width: 16px; height: 16px;"></i>
+                    <span class="ms-2">Preview</span>
+                </button>
+                <button class="btn card-btn ms-2">
+                    <i data-lucide="download" style="width: 16px; height: 16px;"></i>
+                    <span class="ms-2">Download</span>
+                </button>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Outline Button</div>
+                <button class="btn btn-outline-secondary">
+                    Cancel
+                </button>
+            </div>
+        </div>
+
+        <!-- 2. CARDS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Cards</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Stat Card (Hoverable)</div>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card stat-card shadow-lg rounded-4">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-start gap-3">
+                                    <div class="p-3 rounded-3 bg-light text-danger">
+                                        <i data-lucide="pen-tool" style="width: 24px; height: 24px;"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="display-6 fw-bold mb-1">8</h3>
+                                        <p class="text-secondary mb-0">Pending Signatures</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card stat-card shadow-lg rounded-4">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-start gap-3">
+                                    <div class="p-3 rounded-3 bg-light" style="color: var(--faa-dark-red);">
+                                        <i data-lucide="check-circle" style="width: 24px; height: 24px;"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="display-6 fw-bold mb-1">34</h3>
+                                        <p class="text-secondary mb-0">Completed This Month</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Document Card (Hoverable)</div>
+                <div class="card document-card shadow-lg rounded-4 border">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-start justify-content-between gap-3 mb-3">
+                            <div class="flex-grow-1">
+                                <div class="d-flex align-items-start justify-content-between mb-2">
+                                    <h5 class="mb-1">Annual Audit Report 2024</h5>
+                                    <span class="badge priority-high">High</span>
+                                </div>
+                                <div class="d-flex flex-wrap gap-3 small text-secondary">
+                                    <span class="d-flex align-items-center gap-1">
+                                        <i data-lucide="user" style="width: 14px; height: 14px;"></i>
+                                        Ahmed Al Mansoori
+                                    </span>
+                                    <span class="d-flex align-items-center gap-1">
+                                        <i data-lucide="building" style="width: 14px; height: 14px;"></i>
+                                        Financial Audit
+                                    </span>
+                                    <span class="d-flex align-items-center gap-1">
+                                        <i data-lucide="calendar" style="width: 14px; height: 14px;"></i>
+                                        2025-11-26
+                                    </span>
+                                    <span class="badge bg-light text-dark border">Report</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button class="btn card-btn btn-sm">
+                                <i data-lucide="eye" style="width: 14px; height: 14px;"></i>
+                                <span class="ms-1">Preview</span>
+                            </button>
+                            <button class="btn card-btn btn-sm">
+                                <i data-lucide="download" style="width: 14px; height: 14px;"></i>
+                                <span class="ms-1">Download</span>
+                            </button>
+                            <button class="btn btn-maroon btn-sm ms-auto">
+                                Sign with UAE Pass
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Info Alert Card</div>
+                <div class="card info-alert p-3">
+                    <div class="d-flex align-items-start gap-3">
+                        <i data-lucide="shield" style="width: 20px; height: 20px; color: #2563eb; flex-shrink: 0;"></i>
+                        <div class="flex-grow-1">
+                            <p class="small text-dark mb-0">
+                                <strong>Secure Signing Process:</strong> All documents are signed exclusively through
+                                UAE Pass. You can preview and download documents before signing.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Tab Navigation Card</div>
+                <div class="card shadow-lg rounded-4 border">
+                    <div class="card-body p-0">
+                        <div class="tab-navigation d-flex gap-1">
+                            <button class="tab-btn active">
+                                <div class="d-flex align-items-center justify-content-center gap-2">
+                                    <i data-lucide="pen-tool" style="width: 20px; height: 20px;"></i>
+                                    <span>Pending Signature</span>
+                                    <span class="badge bg-white text-dark border">8</span>
+                                </div>
+                            </button>
+                            <button class="tab-btn">
+                                <div class="d-flex align-items-center justify-content-center gap-2">
+                                    <i data-lucide="check-circle" style="width: 20px; height: 20px;"></i>
+                                    <span>Signed Documents</span>
+                                    <span class="badge bg-white text-dark border">5</span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. BADGES SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Badges</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Priority Badges</div>
+                <span class="badge priority-high">High</span>
+                <span class="badge priority-medium ms-2">Medium</span>
+                <span class="badge priority-low ms-2">Low</span>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Signed Badge (Success)</div>
+                <span class="badge badge-signed">✓ Signed</span>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Document Type Badge</div>
+                <span class="badge bg-light text-dark border">Report</span>
+                <span class="badge bg-light text-dark border ms-2">Contract</span>
+                <span class="badge bg-light text-dark border ms-2">Policy</span>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Count Badge (Light)</div>
+                <span class="badge bg-light text-black fw-normal border fs-6 p-3">
+                    <span>8</span>
+                    <span class="ms-1">Documents</span>
+                </span>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Tab Badge (Active State)</div>
+                <span class="badge bg-white text-dark border">8</span>
+                <span class="badge ms-2" style="background-color: rgba(255, 255, 255, 0.2); color: white;">8</span>
+            </div>
+        </div>
+
+        <!-- 4. FORM ELEMENTS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Form Elements</h2>
+
+            <div class="component-demo">
+                <div class="component-label">File Upload Area</div>
+                <div class="file-upload-area">
+                    <div class="file-upload-icon">
+                        <i data-lucide="file-text" style="width: 32px; height: 32px; color: #9ca3af;"></i>
+                    </div>
+                    <p class="fw-medium text-dark mb-1">Choose PDF or DOC</p>
+                    <p class="small text-secondary mb-0">or drag and drop</p>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Text Input</div>
+                <label class="form-label fw-medium">Document Title</label>
+                <input type="text" class="form-control" placeholder="Enter document title">
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Select Dropdown</div>
+                <label class="form-label fw-medium">Document Type</label>
+                <select class="form-select">
+                    <option value="">Select type</option>
+                    <option value="report">Report</option>
+                    <option value="approval">Approval</option>
+                    <option value="contract">Contract</option>
+                    <option value="policy">Policy</option>
+                </select>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Radio Buttons</div>
+                <label class="form-label fw-medium">Recipient</label>
+                <div class="d-flex flex-column gap-2">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="recipient" id="myself" checked>
+                        <label class="form-check-label d-flex align-items-center gap-2" for="myself">
+                            <i data-lucide="pen-tool" style="width: 16px; height: 16px;"></i>
+                            For My Signature
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="recipient" id="colleague">
+                        <label class="form-check-label d-flex align-items-center gap-2" for="colleague">
+                            <i data-lucide="users" style="width: 16px; height: 16px;"></i>
+                            Send to Colleague
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. HERO BANNER SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Hero Banner</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Hero Banner with Overlay Content</div>
+                <div class="hero-banner">
+                    <div class="hero-content">
+                        <h2 class="mb-3" style="font-size: 24px; font-weight: 500; line-height: 28px;">Digital Signature
+                        </h2>
+                        <p class="mb-0" style="font-size: 18px; font-weight: 400; line-height: 25.6px;">Secure document
+                            signing with UAE Pass integration</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. ICONS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Icons</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Large Icons (24px - Stat Cards)</div>
+                <div class="d-flex gap-3">
+                    <div class="p-3 rounded-3 bg-light text-danger">
+                        <i data-lucide="pen-tool" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <div class="p-3 rounded-3 bg-light" style="color: var(--faa-dark-red);">
+                        <i data-lucide="check-circle" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <div class="p-3 rounded-3 bg-light" style="color: var(--faa-darker-red);">
+                        <i data-lucide="file-text" style="width: 24px; height: 24px;"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Medium Icons (20px - Tabs)</div>
+                <div class="d-flex gap-3 align-items-center">
+                    <i data-lucide="pen-tool" style="width: 20px; height: 20px;"></i>
+                    <i data-lucide="check-circle" style="width: 20px; height: 20px;"></i>
+                    <i data-lucide="shield" style="width: 20px; height: 20px; color: #2563eb;"></i>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Small Icons (14-16px)</div>
+                <div class="d-flex gap-3 align-items-center">
+                    <i data-lucide="user" style="width: 14px; height: 14px;"></i>
+                    <i data-lucide="building" style="width: 14px; height: 14px;"></i>
+                    <i data-lucide="calendar" style="width: 14px; height: 14px;"></i>
+                    <i data-lucide="plus" style="width: 16px; height: 16px;"></i>
+                    <i data-lucide="eye" style="width: 16px; height: 16px;"></i>
+                    <i data-lucide="download" style="width: 16px; height: 16px;"></i>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">File Upload Icon (32px)</div>
+                <div class="file-upload-icon">
+                    <i data-lucide="file-text" style="width: 32px; height: 32px; color: #9ca3af;"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. COLOR PALETTE SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Color Palette</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Primary Colors</div>
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-white text-center" style="background-color: var(--faa-red);">
+                            <strong>FAA Red</strong>
+                            <div class="small mt-2">#ec2227</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-white text-center"
+                            style="background-color: var(--faa-dark-red);">
+                            <strong>FAA Dark Red</strong>
+                            <div class="small mt-2">#7b282d</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-white text-center"
+                            style="background-color: var(--faa-darker-red);">
+                            <strong>FAA Darker Red</strong>
+                            <div class="small mt-2">#971b1e</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-white text-center" style="background-color: var(--faa-maroon);">
+                            <strong>FAA Maroon</strong>
+                            <div class="small mt-2">#A94442</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Priority Colors</div>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-white text-center" style="background-color: #dc3545;">
+                            <strong>High Priority</strong>
+                            <div class="small mt-2">#dc3545</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-white text-center" style="background-color: #6c757d;">
+                            <strong>Medium Priority</strong>
+                            <div class="small mt-2">#6c757d</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-dark text-center border" style="background-color: #f8f9fa;">
+                            <strong>Low Priority</strong>
+                            <div class="small mt-2">#f8f9fa</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Status Colors</div>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-center"
+                            style="background-color: #F0FDF4; color: #1aa17b; border: 1px solid #77f3c2;">
+                            <strong>Signed</strong>
+                            <div class="small mt-2">#F0FDF4 / #1aa17b</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-center"
+                            style="background-color: #EFF6FF; color: #2563eb; border: 1px solid #c4d9f5;">
+                            <strong>Info Alert</strong>
+                            <div class="small mt-2">#EFF6FF / #2563eb</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Background Colors</div>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-dark text-center" style="background-color: #F7F7F7;">
+                            <strong>Card Button</strong>
+                            <div class="small mt-2">#F7F7F7</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-dark text-center" style="background-color: #f3f4f6;">
+                            <strong>File Upload Icon</strong>
+                            <div class="small mt-2">#f3f4f6</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-dark text-center border" style="background-color: #E5E5E5;">
+                            <strong>Border</strong>
+                            <div class="small mt-2">#E5E5E5</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8. BORDER & SHADOW STYLES SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Border & Shadow Styles</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Border Radius Options</div>
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <div class="p-3 bg-light border text-center" style="border-radius: 12px;">
+                            <strong>12px</strong>
+                            <div class="small text-secondary mt-1">Tab Navigation, Info Alert</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-3 bg-light border text-center" style="border-radius: 8px;">
+                            <strong>8px</strong>
+                            <div class="small text-secondary mt-1">Tab Button, File Upload</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-3 bg-light border text-center rounded-4">
+                            <strong>rounded-4</strong>
+                            <div class="small text-secondary mt-1">Cards</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-3 bg-light border text-center" style="border-radius: 50%;">
+                            <strong>50%</strong>
+                            <div class="small text-secondary mt-1">File Upload Icon</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Shadow Options</div>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="p-3 bg-white shadow-lg rounded-3 text-center">
+                            <strong>shadow-lg</strong>
+                            <div class="small text-secondary mt-1">Large shadow for cards</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="p-3 bg-white text-center"
+                            style="box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); border-radius: 8px;">
+                            <strong>Tab Active Shadow</strong>
+                            <div class="small text-secondary mt-1">Medium shadow for active tab</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Special Borders</div>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="p-3 bg-white text-center" style="border: 2px dashed #dee2e6; border-radius: 8px;">
+                            <strong>Dashed Border</strong>
+                            <div class="small text-secondary mt-1">File upload area</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="p-3 bg-white text-center" style="border: 1px solid #E5E5E5; border-radius: 8px;">
+                            <strong>Solid Border</strong>
+                            <div class="small text-secondary mt-1">Standard cards</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+
+</body>
+
+</html>

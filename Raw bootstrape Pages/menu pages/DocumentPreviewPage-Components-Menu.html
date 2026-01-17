@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document Preview Page - Component Menu</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #908e81 #f1f1f1;
+            font-family: "Dubai", "Tajawal", sans-serif;
+        }
+
+        :root {
+            --faa-red: #ec2227;
+            --faa-dark-red: #7b282d;
+            --faa-darker-red: #971b1e;
+            --theme-color: #A94442;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+        }
+
+        .top-bar {
+            background-color: white;
+            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+
+        .metadata-sidebar {
+            background-color: #f8f9fa;
+            border-right: 1px solid #e5e7eb;
+        }
+
+        .metadata-item {
+            margin-bottom: 24px;
+        }
+
+        .metadata-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .document-viewer {
+            background-color: white;
+        }
+
+        .sticky-sidebar {
+            position: sticky;
+            top: 100px;
+        }
+
+        .card {
+            border-top: 7px solid var(--theme-color) !important;
+        }
+
+        .btn-custom-outline {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            height: 40px;
+            border-radius: 6px;
+            gap: 6px;
+            padding: 0 12px;
+            border: 2px solid #e5e7eb;
+            background-color: rgba(229, 231, 235, 0.3);
+            outline: none;
+            color: #111827 !important;
+        }
+
+        .btn-custom-outline:hover {
+            background-color: #EFEFF0;
+        }
+
+        .fs-medium {
+            font-size: 1.2rem !important;
+            font-weight: 600 !important;
+        }
+
+        .fw-500 {
+            font-weight: 550;
+        }
+
+        .fs-xsm {
+            font-size: 13px;
+        }
+
+        /* Component Menu Specific Styles */
+        .component-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--faa-dark-red);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--faa-red);
+        }
+
+        .component-demo {
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .component-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container py-4">
+
+        <!-- Page Header -->
+        <div class="mb-5">
+            <h1 class="display-4 fw-bold text-dark mb-2">Document Preview Page - Component Library</h1>
+            <p class="text-secondary fs-5">A comprehensive showcase of all components and styles used in the Document
+                Preview page</p>
+        </div>
+
+        <!-- 1. TOP BAR SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Top Bar</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Sticky Top Bar with Breadcrumb</div>
+                <div class="top-bar" style="position: static;">
+                    <div class="px-4 py-3">
+                        <button class="btn btn-link text-decoration-none text-secondary p-0">
+                            <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i>
+                            <span class="ms-2">Back</span>
+                            <span class="text-muted mx-2">/</span>
+                            <span class="text-dark">Digital Signature</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. BUTTONS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Buttons</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Primary Button (Theme Color)</div>
+                <button class="btn text-white" style="background-color: var(--theme-color);">
+                    <i data-lucide="download" style="width: 16px; height: 16px;"></i>
+                    <span class="ms-2 fs-small">Download PDF</span>
+                </button>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Custom Outline Button</div>
+                <button class="btn btn-custom-outline">
+                    <i data-lucide="external-link" style="width: 16px; height: 16px;"></i>
+                    <span class="ms-2 fs-small">View Full Document</span>
+                </button>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">UAE Pass Button</div>
+                <button class="btn text-white" style="background-color: var(--theme-color);">
+                    <span class="me-2 fs-small">Sign with UAE Pass</span>
+                    <i data-lucide="external-link" style="width: 16px; height: 16px;"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- 3. CARDS SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Cards</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Main Card with Top Border</div>
+                <div class="card shadow-sm border rounded-4" style="max-width: 600px;">
+                    <div class="card-body p-4">
+                        <h2 class="mb-3 fw-bold">Annual Financial Report 2024</h2>
+                        <p class="text-secondary mb-0">This card has a 7px top border in the theme color.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. METADATA SIDEBAR SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Metadata Sidebar</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Metadata Item (Document Number)</div>
+                <div class="metadata-item">
+                    <div class="d-flex align-items-start gap-3">
+                        <div class="metadata-icon bg-primary bg-opacity-10">
+                            <i data-lucide="file-text" style="width: 20px; height: 20px; color: #0d6efd;"></i>
+                        </div>
+                        <div>
+                            <p class="fs-xsm text-secondary mb-1">Document Number</p>
+                            <p class="fw-500 mb-0">Report #001</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Metadata Item (Issue Date)</div>
+                <div class="metadata-item">
+                    <div class="d-flex align-items-start gap-3">
+                        <div class="metadata-icon bg-success bg-opacity-10">
+                            <i data-lucide="calendar" style="width: 20px; height: 20px; color: #198754;"></i>
+                        </div>
+                        <div>
+                            <p class="fs-xsm text-secondary mb-1">Issue Date</p>
+                            <p class="fw-500 mb-0">2024-11-15</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Metadata Item (Entity)</div>
+                <div class="metadata-item">
+                    <div class="d-flex align-items-start gap-3">
+                        <div class="metadata-icon bg-warning bg-opacity-10">
+                            <i data-lucide="building-2" style="width: 20px; height: 20px; color: #ffc107;"></i>
+                        </div>
+                        <div>
+                            <p class="fs-xsm text-secondary mb-1">Entity</p>
+                            <p class="fw-500 mb-0">Finance Department</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Metadata Item (Requested By)</div>
+                <div class="metadata-item">
+                    <div class="d-flex align-items-start gap-3">
+                        <div class="metadata-icon bg-danger bg-opacity-10">
+                            <i data-lucide="user" style="width: 20px; height: 20px; color: #dc3545;"></i>
+                        </div>
+                        <div>
+                            <p class="fs-xsm text-secondary mb-1">Requested by</p>
+                            <p class="fw-500 mb-0">Ahmed Al Mansoori</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Metadata Item (File Size)</div>
+                <div class="metadata-item">
+                    <div class="d-flex align-items-start gap-3">
+                        <div class="metadata-icon bg-info bg-opacity-10">
+                            <i data-lucide="file-text" style="width: 20px; height: 20px; color: #0dcaf0;"></i>
+                        </div>
+                        <div>
+                            <p class="fs-xsm text-secondary mb-1">File Size</p>
+                            <p class="fw-500 mb-0">2.4 MB</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Metadata Item (Priority - High)</div>
+                <div class="metadata-item">
+                    <div class="d-flex align-items-start gap-3">
+                        <div class="metadata-icon" style="background-color: #FEE2E2;">
+                            <i data-lucide="clock" style="width: 20px; height: 20px; color: #DC2626;"></i>
+                        </div>
+                        <div>
+                            <p class="fs-xsm text-secondary mb-1">Priority</p>
+                            <p class="fw-500 mb-0">High</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Metadata Item (Priority - Medium)</div>
+                <div class="metadata-item">
+                    <div class="d-flex align-items-start gap-3">
+                        <div class="metadata-icon" style="background-color: #FEF3C7;">
+                            <i data-lucide="clock" style="width: 20px; height: 20px; color: #D97706;"></i>
+                        </div>
+                        <div>
+                            <p class="fs-xsm text-secondary mb-1">Priority</p>
+                            <p class="fw-500 mb-0">Medium</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Metadata Item (Priority - Low)</div>
+                <div class="metadata-item">
+                    <div class="d-flex align-items-start gap-3">
+                        <div class="metadata-icon" style="background-color: #E0F2FE;">
+                            <i data-lucide="clock" style="width: 20px; height: 20px; color: #0284C7;"></i>
+                        </div>
+                        <div>
+                            <p class="fs-xsm text-secondary mb-1">Priority</p>
+                            <p class="fw-500 mb-0">Low</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. DOCUMENT VIEWER SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Document Viewer</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Document Header</div>
+                <div class="d-flex align-items-center gap-2">
+                    <i data-lucide="file-text" style="width: 20px; height: 20px; color: var(--theme-color);"></i>
+                    <h3 class="h5 mb-0 fw-bold">Document Content</h3>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">PDF Viewer Container</div>
+                <div class="border-2 border rounded-3 overflow-hidden shadow-sm"
+                    style="max-width: 600px; height: 400px; background: #e5e7eb; display: flex; align-items: center; justify-content: center;">
+                    <p class="text-muted">PDF Iframe Container (800px height)</p>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Document Footer</div>
+                <div class="d-flex justify-content-between align-items-center small text-secondary">
+                    <p class="mb-0">Last updated: 2024-11-15</p>
+                    <p class="mb-0">Preview version only</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. LAYOUT SECTIONS -->
+        <div class="component-section">
+            <h2 class="section-title">Layout Sections</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Metadata Sidebar (Background)</div>
+                <div class="metadata-sidebar p-4 rounded-3" style="max-width: 300px;">
+                    <h3 class="h5 mb-4 fs-medium pb-3 border-bottom">Metadata</h3>
+                    <p class="text-secondary small mb-0">This is the left sidebar with light gray background and right
+                        border.</p>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Document Viewer (Background)</div>
+                <div class="document-viewer p-4 rounded-3" style="max-width: 600px;">
+                    <p class="text-dark mb-0">This is the main document viewer area with white background.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. COLOR PALETTE SECTION -->
+        <div class="component-section">
+            <h2 class="section-title">Color Palette</h2>
+
+            <div class="component-demo">
+                <div class="component-label">Primary Colors</div>
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-white text-center" style="background-color: var(--faa-red);">
+                            <strong>FAA Red</strong>
+                            <div class="small mt-2">#ec2227</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-white text-center"
+                            style="background-color: var(--faa-dark-red);">
+                            <strong>FAA Dark Red</strong>
+                            <div class="small mt-2">#7b282d</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-white text-center"
+                            style="background-color: var(--faa-darker-red);">
+                            <strong>FAA Darker Red</strong>
+                            <div class="small mt-2">#971b1e</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-white text-center" style="background-color: var(--theme-color);">
+                            <strong>Theme Color</strong>
+                            <div class="small mt-2">#A94442</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Bootstrap Colors (Metadata Icons)</div>
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-white text-center" style="background-color: #0d6efd;">
+                            <strong>Primary</strong>
+                            <div class="small mt-2">#0d6efd</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-white text-center" style="background-color: #198754;">
+                            <strong>Success</strong>
+                            <div class="small mt-2">#198754</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-dark text-center" style="background-color: #ffc107;">
+                            <strong>Warning</strong>
+                            <div class="small mt-2">#ffc107</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-white text-center" style="background-color: #dc3545;">
+                            <strong>Danger</strong>
+                            <div class="small mt-2">#dc3545</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-4 rounded-3 text-dark text-center" style="background-color: #0dcaf0;">
+                            <strong>Info</strong>
+                            <div class="small mt-2">#0dcaf0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Priority Colors</div>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-center" style="background-color: #FEE2E2;">
+                            <strong style="color: #DC2626;">High Priority</strong>
+                            <div class="small mt-2" style="color: #DC2626;">#FEE2E2 / #DC2626</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-center" style="background-color: #FEF3C7;">
+                            <strong style="color: #D97706;">Medium Priority</strong>
+                            <div class="small mt-2" style="color: #D97706;">#FEF3C7 / #D97706</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-center" style="background-color: #E0F2FE;">
+                            <strong style="color: #0284C7;">Low Priority</strong>
+                            <div class="small mt-2" style="color: #0284C7;">#E0F2FE / #0284C7</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <div class="component-label">Background Colors</div>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-dark text-center" style="background-color: #f8f9fa;">
+                            <strong>Light Gray</strong>
+                            <div class="small mt-2">#f8f9fa</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-dark text-center" style="background-color: #e5e7eb;">
+                            <strong>Border Gray</strong>
+                            <div class="small mt-2">#e5e7eb</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-4 rounded-3 text-dark text-center" style="background-color: #EFEFF0;">
+                            <strong>Hover Gray</strong>
+                            <div class="small mt-2">#EFEFF0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+
+</body>
+
+</html>
