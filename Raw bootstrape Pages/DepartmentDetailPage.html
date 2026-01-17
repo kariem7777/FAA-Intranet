@@ -6,13 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Department Detail - Financial Audit Authority</title>
 
-    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
 
     <style>
         /* Dubai Font - Official Government Font */
         @import url('https://fonts.cdnfonts.com/css/dubai');
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #908e81 #f1f1f1;
+            font-family: "Dubai", "Tajawal", sans-serif;
+        }
+
+        .custom-container {
+            max-width: 95vw;
+            margin: auto;
+        }
+
+        .shadow-lg {
+            box-shadow:
+                0 10px 15px -3px rgba(0, 0, 0, 0.1),
+                0 4px 6px -4px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .border {
+            border: 1px solid #E5E5E5 !important;
+        }
 
         :root {
             /* FAA Color Palette */
@@ -27,7 +47,7 @@
             --color-gray-100: #F3F4F6;
             --color-gray-200: #E5E7EB;
             --color-gray-300: #D1D5DB;
-            --color-gray-500: #6B7280;
+            --color-gray-500: #6b7280;
             --color-gray-600: #4B5563;
             --color-gray-700: #374151;
             --color-gray-900: #111827;
@@ -152,7 +172,7 @@
         }
 
         h4 {
-            font-size: 1.25rem !important;
+            font-size: 1.3rem !important;
             font-weight: 500 !important;
             line-height: 1.4 !important;
         }
@@ -170,7 +190,7 @@
         }
 
         p {
-            font-size: 1rem !important;
+            font-size: 1.1rem !important;
             line-height: 1.6 !important;
         }
 
@@ -201,16 +221,260 @@
 
         /* Text colors matching design tokens */
         .text-dark {
-            color: var(--color-gray-900) !important;
+            color: var(--color-gray-700) !important;
         }
 
         .text-secondary {
-            color: var(--color-gray-600) !important;
+            color: var(--color-gray-500) !important;
         }
 
         /* Border colors */
         .border-gray-200 {
             border-color: var(--color-gray-200) !important;
+        }
+
+        .btn-custom-outline {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            height: 40px;
+            border-radius: 6px;
+            gap: 6px;
+            padding: 0 12px;
+            border: 1px solid oklch(.922 0 0);
+            background-color: color-mix(in oklab, oklch(.922 0 0) 30%, transparent);
+            outline: none;
+            color: oklch(.145 0 0) !important;
+        }
+
+        .btn-custom-outline:hover {
+            background-color: #EFEFF0;
+        }
+
+        .bg-purple {
+            background-color: #FAF5FF;
+        }
+
+        .text-purple {
+            color: #8d29f0;
+        }
+
+        /* Icons */
+        .icon-xs {
+            width: 12px;
+            height: 12px;
+        }
+
+        .icon-sm {
+            width: 16px;
+            height: 16px;
+        }
+
+        .icon-md {
+            width: 20px;
+            height: 20px;
+        }
+
+        .icon-lg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .icon-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon-box-xxs {
+            width: 20px;
+            height: 20px;
+        }
+
+        .icon-box-xs {
+            width: 24px;
+            height: 24px;
+        }
+
+        .icon-box-sm {
+            width: 28px;
+            height: 28px;
+        }
+
+        .icon-box-md {
+            width: 32px;
+            height: 32px;
+        }
+
+        .icon-box-lg {
+            width: 36px;
+            height: 36px;
+        }
+
+        .icon-box-xl {
+            width: 40px;
+            height: 40px;
+        }
+
+        /* Icon Colors */
+        .icon-blue {
+            color: #155dfc;
+        }
+
+        .icon-red {
+            color: #ec2227;
+        }
+
+        .icon-purple {
+            color: #543671;
+        }
+
+        .icon-green {
+            color: #10b981;
+        }
+
+        .icon-info {
+            color: #0092b8;
+        }
+
+        .icon-primary {
+            color: #4f39f6;
+        }
+
+        .icon-warning {
+            color: #f54a00;
+        }
+
+        .icon-danger {
+            color: #e7000b;
+        }
+
+        .icon-success {
+            color: #198754;
+        }
+
+        .icon-gray {
+            color: #9ca3af;
+        }
+
+        .icon-dark-gray {
+            color: #6c757d;
+        }
+
+        .icon-violet {
+            color: #6f42c1;
+        }
+
+        .icon-orange {
+            color: #e17100;
+        }
+
+        .icon-white {
+            color: white;
+        }
+
+        /* Icon Box Backgrounds */
+        .bg-blue-subtle {
+            background-color: rgba(25, 73, 161, 0.08);
+        }
+
+        .bg-red-subtle {
+            background-color: rgba(236, 34, 39, 0.08);
+        }
+
+        .bg-purple-subtle {
+            background-color: rgba(84, 54, 113, 0.08);
+        }
+
+        .bg-green-subtle {
+            background-color: rgba(16, 185, 129, 0.08);
+        }
+
+        .bg-Dark-purple {
+            background-color: #AD46FF;
+        }
+
+        .bg-Dark-green {
+            background-color: #00C950;
+        }
+
+        .bg-success {
+            background-color: #DBFCE7 !important;
+        }
+
+        .bg-light-blue {
+            background-color: #EFF6FF;
+        }
+
+        .bg-light-green {
+            background-color: #F0FDF4;
+        }
+
+        .bg-light-yellow {
+            background-color: #FFFBEB;
+        }
+
+        .bg-light-red {
+            background-color: #FEF2F2;
+        }
+
+        .badge-glass {
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .activity-dot {
+            width: 8px;
+            height: 8px;
+            margin-top: 6px;
+        }
+
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .champion-avatar {
+            width: 80px;
+            height: 80px;
+            border-color: #e5e7eb !important;
+        }
+
+        .bg-faa-red {
+            background-color: var(--faa-red);
+        }
+
+        .border-light-blue {
+            border-color: #bedbff !important;
+        }
+
+        .border-light-yellow {
+            border-color: #fee685 !important;
+        }
+
+        .border-light-green {
+            border-color: #b9f8cf !important;
+        }
+
+        .border-dark-red {
+            border-color: #ffc9c9 !important;
+        }
+
+        .dark-yellow {
+            color: #d08700;
+
+        }
+
+        .btn-danger:hover {
+            background-color: #D41F24 !important;
+
         }
     </style>
 </head>
@@ -220,16 +484,16 @@
     <!-- Hero Banner -->
     <div class="hero-banner">
         <!-- Back Button -->
-        <div class="position-absolute top-0 start-0 p-4" style="z-index: 20;">
+        <div class="position-relative p-4 z-5">
             <button class="btn btn-ghost text-white" onclick="window.history.back()">
-                <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i>
+                <i data-lucide="arrow-left" class="icon-sm"></i>
                 <span class="ms-2">Back to Organization</span>
             </button>
         </div>
 
         <!-- Profile Section -->
-        <div class="position-relative h-100 d-flex align-items-end px-4 pb-4" style="z-index: 10;">
-            <div class="d-flex align-items-end gap-4 w-100">
+        <div class=" h-100 d-flex align-items-start px-4 pb-4 ">
+            <div class="d-flex align-items-start gap-4 w-100">
                 <!-- Profile Image -->
                 <div class="profile-image bg-white overflow-hidden flex-shrink-0">
                     <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400" alt="Sara Al Hashimi"
@@ -238,18 +502,17 @@
 
                 <!-- Profile Info -->
                 <div class="flex-grow-1 pb-2">
-                    <span class="badge text-white mb-2"
-                        style="background-color: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px);">Department
+                    <span class="badge text-white mb-2 badge-glass">Department
                         Leadership</span>
                     <h1 class="text-white display-6 mb-1">Sara Al Hashimi</h1>
                     <p class="text-white mb-2 opacity-75">Department Head</p>
                     <div class="d-flex align-items-center gap-4 small text-white opacity-75">
                         <div class="d-flex align-items-center gap-1">
-                            <i data-lucide="calendar" style="width: 16px; height: 16px;"></i>
+                            <i data-lucide="calendar" class="icon-sm"></i>
                             <span>Joined 2019</span>
                         </div>
                         <div class="d-flex align-items-center gap-1">
-                            <i data-lucide="mail" style="width: 16px; height: 16px;"></i>
+                            <i data-lucide="mail" class="icon-sm"></i>
                             <span>sara.alhashimi@faa.gov.ae</span>
                         </div>
                     </div>
@@ -267,12 +530,12 @@
                 <div class="card stat-card shadow-md rounded-3 border border-gray-200">
                     <div class="card-body p-4">
                         <div class="d-flex align-items-start justify-content-between mb-3">
-                            <div class="rounded-3 d-flex align-items-center justify-content-center"
-                                style="width: 40px; height: 40px; background-color: rgba(25, 73, 161, 0.08);">
-                                <i data-lucide="users" style="width: 20px; height: 20px; color: #1949a1;"></i>
+                            <div
+                                class="rounded-3 d-flex align-items-center justify-content-center icon-box-xl bg-blue-subtle">
+                                <i data-lucide="users" class="icon-md icon-blue"></i>
                             </div>
                         </div>
-                        <p class="h2 mb-1">24</p>
+                        <p class="h2 mb-1 fw-normal">24</p>
                         <p class="small text-secondary mb-0">Team Members</p>
                     </div>
                 </div>
@@ -281,12 +544,12 @@
                 <div class="card stat-card shadow-md rounded-3 border border-gray-200">
                     <div class="card-body p-4">
                         <div class="d-flex align-items-start justify-content-between mb-3">
-                            <div class="rounded-3 d-flex align-items-center justify-content-center"
-                                style="width: 40px; height: 40px; background-color: rgba(236, 34, 39, 0.08);">
-                                <i data-lucide="file-text" style="width: 20px; height: 20px; color: #ec2227;"></i>
+                            <div
+                                class="rounded-3 d-flex align-items-center justify-content-center icon-box-xl bg-red-subtle">
+                                <i data-lucide="file-text" class="icon-md icon-red"></i>
                             </div>
                         </div>
-                        <p class="h2 mb-1">12</p>
+                        <p class="h2 mb-1 fw-normal">12</p>
                         <p class="small text-secondary mb-0">Active Audits</p>
                     </div>
                 </div>
@@ -295,12 +558,12 @@
                 <div class="card stat-card shadow-md rounded-3 border border-gray-200">
                     <div class="card-body p-4">
                         <div class="d-flex align-items-start justify-content-between mb-3">
-                            <div class="rounded-3 d-flex align-items-center justify-content-center"
-                                style="width: 40px; height: 40px; background-color: rgba(84, 54, 113, 0.08);">
-                                <i data-lucide="briefcase" style="width: 20px; height: 20px; color: #543671;"></i>
+                            <div
+                                class="rounded-3 d-flex align-items-center justify-content-center icon-box-xl bg-purple-subtle">
+                                <i data-lucide="briefcase" class="icon-md icon-purple"></i>
                             </div>
                         </div>
-                        <p class="h2 mb-1">45</p>
+                        <p class="h2 mb-1 fw-normal">45</p>
                         <p class="small text-secondary mb-0">Annual Projects</p>
                     </div>
                 </div>
@@ -309,12 +572,12 @@
                 <div class="card stat-card shadow-md rounded-3 border border-gray-200">
                     <div class="card-body p-4">
                         <div class="d-flex align-items-start justify-content-between mb-3">
-                            <div class="rounded-3 d-flex align-items-center justify-content-center"
-                                style="width: 40px; height: 40px; background-color: rgba(16, 185, 129, 0.08);">
-                                <i data-lucide="trending-up" style="width: 20px; height: 20px; color: #10b981;"></i>
+                            <div
+                                class="rounded-3 d-flex align-items-center justify-content-center icon-box-xl bg-green-subtle">
+                                <i data-lucide="trending-up" class="icon-md icon-green"></i>
                             </div>
                         </div>
-                        <p class="h2 mb-1">96%</p>
+                        <p class="h2 mb-1 fw-normal">96%</p>
                         <p class="small text-secondary mb-0">Completion Rate</p>
                     </div>
                 </div>
@@ -325,7 +588,7 @@
         <div class="mb-4">
             <div class="d-flex align-items-center gap-2 small text-secondary">
                 <span>Operation, Compliance and Performance Audit Sector</span>
-                <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i>
+                <i data-lucide="chevron-right" class="icon-sm"></i>
                 <span class="text-dark">Ports & Free Zones Audit Department</span>
             </div>
         </div>
@@ -340,33 +603,36 @@
                 <div class="card shadow-sm mb-4 rounded-3 border">
                     <div class="card-body p-4">
                         <div class="d-flex align-items-center gap-3 mb-3">
-                            <div class="rounded-3 bg-info bg-opacity-10 d-flex align-items-center justify-content-center"
-                                style="width: 40px; height: 40px;">
-                                <i data-lucide="info" style="width: 20px; height: 20px; color: #0dcaf0;"></i>
+                            <div
+                                class="rounded-3 bg-info bg-opacity-10 d-flex align-items-center justify-content-center icon-box-xl">
+                                <i data-lucide="info" class="icon-md icon-info"></i>
                             </div>
-                            <h4 class="small fw-medium mb-0">About This Department</h4>
+                            <h4 class="small fw-medium mb-0 ">About This Department</h4>
                         </div>
-                        <p class="small text-dark mb-3">Specialized in conducting comprehensive audits for ports and
+                        <p class="small text-secondary mb-3">Specialized in conducting comprehensive audits for ports
+                            and
                             free zone operations across Dubai</p>
 
                         <div class="row g-3 mb-3">
                             <div class="col-md-6">
-                                <div class="p-3 bg-primary bg-opacity-10 rounded-3">
+                                <div class="h-100 p-3 bg-light-blue bg-opacity-10 rounded-3">
                                     <div class="d-flex align-items-center gap-2 mb-2">
-                                        <i data-lucide="target" style="width: 16px; height: 16px; color: #0d6efd;"></i>
-                                        <p class="small text-primary fw-medium mb-0">Vision</p>
+                                        <i data-lucide="target" class="icon-sm icon-blue"></i>
+                                        <p class="small text-primary fw-normal mb-0">Vision</p>
                                     </div>
-                                    <p class="small text-dark mb-0">To be the premier audit authority for ports and free
+                                    <p class="small text-secondary mb-0">To be the premier audit authority for ports and
+                                        free
                                         zones in the region</p>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="p-3 bg-warning bg-opacity-10 rounded-3">
+                                <div class="h-100 p-3 bg-purple bg-opacity-10 rounded-3">
                                     <div class="d-flex align-items-center gap-2 mb-2">
-                                        <i data-lucide="award" style="width: 16px; height: 16px; color: #ffc107;"></i>
-                                        <p class="small text-warning fw-medium mb-0">Mission</p>
+                                        <i data-lucide="award" class="text-purple icon-sm"></i>
+                                        <p class="small text-purple fw-normal mb-0">Mission</p>
                                     </div>
-                                    <p class="small text-dark mb-0">Ensuring transparency, compliance, and operational
+                                    <p class=" small text-secondary mb-0">Ensuring transparency, compliance, and
+                                        operational
                                         excellence in ports and free zone entities</p>
                                 </div>
                             </div>
@@ -374,8 +640,10 @@
 
                         <div class="p-3 bg-light rounded-3 border">
                             <p class="small text-secondary mb-2">Leadership Message</p>
-                            <p class="small text-dark fst-italic mb-2">"Our department is dedicated to maintaining the
-                                highest standards of audit excellence for ports and free zones, ensuring compliance and
+                            <p class="small text-secondary fst-italic mb-2">"Our department is dedicated to maintaining
+                                the
+                                highest standards of audit excellence for ports and free zones, ensuring compliance
+                                and
                                 driving operational improvements."</p>
                             <p class="small text-secondary mb-0">- Sara Al Hashimi</p>
                         </div>
@@ -386,9 +654,9 @@
                 <div class="card shadow-sm mb-4 rounded-3 border">
                     <div class="card-body p-4">
                         <div class="d-flex align-items-center gap-3 mb-3">
-                            <div class="rounded-3 bg-warning bg-opacity-10 d-flex align-items-center justify-content-center"
-                                style="width: 40px; height: 40px;">
-                                <i data-lucide="list-checks" style="width: 20px; height: 20px; color: #ffc107;"></i>
+                            <div
+                                class="rounded-3 bg-warning bg-opacity-10 d-flex align-items-center justify-content-center icon-box-xl">
+                                <i data-lucide="list-checks" class="icon-md icon-warning"></i>
                             </div>
                             <h4 class="small fw-medium mb-0">Core Responsibilities</h4>
                         </div>
@@ -403,19 +671,18 @@
                     <div class="collapsible-section p-4 d-flex align-items-center justify-content-between"
                         data-section="projects">
                         <div class="d-flex align-items-center gap-3">
-                            <div class="rounded-3 bg-primary bg-opacity-10 d-flex align-items-center justify-content-center"
-                                style="width: 40px; height: 40px;">
-                                <i data-lucide="briefcase" style="width: 20px; height: 20px; color: #0d6efd;"></i>
+                            <div
+                                class="rounded-3 bg-primary bg-opacity-10 d-flex align-items-center justify-content-center icon-box-xl">
+                                <i data-lucide="briefcase" class="icon-md icon-primary"></i>
                             </div>
                             <div>
                                 <h4 class="small fw-medium mb-0">Active Projects</h4>
                                 <p class="small text-secondary mb-0">Current audit engagements and initiatives</p>
                             </div>
                         </div>
-                        <i data-lucide="chevron-down" class="section-icon"
-                            style="width: 20px; height: 20px; color: #9ca3af;"></i>
+                        <i data-lucide="chevron-down" class="section-icon icon-md icon-gray"></i>
                     </div>
-                    <div class="section-content px-4 pb-4" id="projectsContent">
+                    <div class="section-content" id="projectsContent">
                         <!-- Projects will be inserted by JavaScript -->
                     </div>
                 </div>
@@ -429,27 +696,27 @@
                 <div class="card shadow-sm mb-4 rounded-3 border">
                     <div class="card-body p-4">
                         <div class="d-flex align-items-center gap-3 mb-3">
-                            <div class="rounded-3 bg-warning bg-opacity-10 d-flex align-items-center justify-content-center"
-                                style="width: 40px; height: 40px;">
-                                <i data-lucide="zap" style="width: 20px; height: 20px; color: #ffc107;"></i>
+                            <div
+                                class="rounded-3 bg-warning bg-opacity-10 d-flex align-items-center justify-content-center icon-box-xl">
+                                <i data-lucide="zap" class="icon-md dark-yellow"></i>
                             </div>
                             <h4 class="small fw-medium mb-0">Quick Actions</h4>
                         </div>
                         <div class="d-flex flex-column gap-2">
-                            <button class="btn btn-danger w-100 d-flex align-items-center justify-content-between"
-                                style="background-color: var(--faa-red);">
+                            <button
+                                class="btn btn-danger fs-6 fw-normal w-100 d-flex align-items-center justify-content-between bg-faa-red">
                                 <span>View Team Members</span>
-                                <i data-lucide="users" style="width: 16px; height: 16px;"></i>
+                                <i data-lucide="users" class="icon-sm"></i>
                             </button>
                             <button
-                                class="btn btn-outline-secondary w-100 d-flex align-items-center justify-content-between">
+                                class="btn fw-normal fs-6 btn-custom-outline w-100 d-flex align-items-center justify-content-between">
                                 <span>Department Reports</span>
-                                <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i>
+                                <i data-lucide="chevron-right" class="icon-sm"></i>
                             </button>
                             <button
-                                class="btn btn-outline-secondary w-100 d-flex align-items-center justify-content-between">
+                                class="btn fw-normal fs-6 btn-custom-outline w-100 d-flex align-items-center justify-content-between">
                                 <span>Contact Department</span>
-                                <i data-lucide="mail" style="width: 16px; height: 16px;"></i>
+                                <i data-lucide="mail" class="icon-sm"></i>
                             </button>
                         </div>
                     </div>
@@ -459,17 +726,17 @@
                 <div class="card shadow-sm mb-4 rounded-3 border">
                     <div class="card-body p-4">
                         <div class="d-flex align-items-center gap-3 mb-3">
-                            <div class="rounded-3 bg-success bg-opacity-10 d-flex align-items-center justify-content-center"
-                                style="width: 40px; height: 40px;">
-                                <i data-lucide="mail" style="width: 20px; height: 20px; color: #198754;"></i>
+                            <div
+                                class="rounded-3 bg-success bg-opacity-10 d-flex align-items-center justify-content-center icon-box-xl">
+                                <i data-lucide="mail" class="icon-md icon-success"></i>
                             </div>
                             <h4 class="small fw-medium mb-0">Contact Information</h4>
                         </div>
                         <div class="d-flex flex-column gap-3">
                             <div class="d-flex align-items-start gap-3">
-                                <div class="rounded-3 bg-primary bg-opacity-10 d-flex align-items-center justify-content-center flex-shrink-0"
-                                    style="width: 32px; height: 32px;">
-                                    <i data-lucide="mail" style="width: 16px; height: 16px; color: #0d6efd;"></i>
+                                <div
+                                    class="rounded-3 bg-primary bg-opacity-10 d-flex align-items-center justify-content-center flex-shrink-0 icon-box-md">
+                                    <i data-lucide="mail" class="icon-sm icon-primary"></i>
                                 </div>
                                 <div>
                                     <p class="small text-secondary mb-1">Email</p>
@@ -477,9 +744,9 @@
                                 </div>
                             </div>
                             <div class="d-flex align-items-start gap-3">
-                                <div class="rounded-3 bg-success bg-opacity-10 d-flex align-items-center justify-content-center flex-shrink-0"
-                                    style="width: 32px; height: 32px;">
-                                    <i data-lucide="phone" style="width: 16px; height: 16px; color: #198754;"></i>
+                                <div
+                                    class="rounded-3 bg-success bg-opacity-10 d-flex align-items-center justify-content-center flex-shrink-0 icon-box-md">
+                                    <i data-lucide="phone" class="icon-sm icon-success"></i>
                                 </div>
                                 <div>
                                     <p class="small text-secondary mb-1">Phone</p>
@@ -487,9 +754,9 @@
                                 </div>
                             </div>
                             <div class="d-flex align-items-start gap-3">
-                                <div class="rounded-3 bg-warning bg-opacity-10 d-flex align-items-center justify-content-center flex-shrink-0"
-                                    style="width: 32px; height: 32px;">
-                                    <i data-lucide="building-2" style="width: 16px; height: 16px; color: #ffc107;"></i>
+                                <div class="rounded-3 d-flex align-items-center justify-content-center flex-shrink-0 icon-box-md"
+                                    style="background-color: #FAF5FF;">
+                                    <i data-lucide="building-2" class="icon-sm icon-violet"></i>
                                 </div>
                                 <div>
                                     <p class="small text-secondary mb-1">Location</p>
@@ -504,32 +771,29 @@
                 <div class="card shadow-sm rounded-3 border">
                     <div class="card-body p-4">
                         <div class="d-flex align-items-center gap-3 mb-3">
-                            <div class="rounded-3 bg-primary bg-opacity-10 d-flex align-items-center justify-content-center"
-                                style="width: 40px; height: 40px;">
-                                <i data-lucide="clock" style="width: 20px; height: 20px; color: #0d6efd;"></i>
+                            <div
+                                class="rounded-3 bg-primary bg-opacity-10 d-flex align-items-center justify-content-center icon-box-xl">
+                                <i data-lucide="clock" class="icon-md icon-blue"></i>
                             </div>
                             <h4 class="small fw-medium mb-0">Recent Activity</h4>
                         </div>
                         <div class="d-flex flex-column gap-3">
                             <div class="d-flex gap-3">
-                                <div class="rounded-circle bg-success flex-shrink-0"
-                                    style="width: 8px; height: 8px; margin-top: 6px;"></div>
+                                <div class="rounded-circle bg-Dark-green flex-shrink-0 activity-dot"></div>
                                 <div>
                                     <p class="small text-dark mb-1">Port audit completed</p>
                                     <p class="small text-secondary mb-0">3 days ago</p>
                                 </div>
                             </div>
                             <div class="d-flex gap-3">
-                                <div class="rounded-circle bg-primary flex-shrink-0"
-                                    style="width: 8px; height: 8px; margin-top: 6px;"></div>
+                                <div class="rounded-circle bg-primary flex-shrink-0 activity-dot"></div>
                                 <div>
                                     <p class="small text-dark mb-1">New project initiated</p>
                                     <p class="small text-secondary mb-0">1 week ago</p>
                                 </div>
                             </div>
                             <div class="d-flex gap-3">
-                                <div class="rounded-circle bg-warning flex-shrink-0"
-                                    style="width: 8px; height: 8px; margin-top: 6px;"></div>
+                                <div class="rounded-circle bg-Dark-purple flex-shrink-0 activity-dot"></div>
                                 <div>
                                     <p class="small text-dark mb-1">Team training session</p>
                                     <p class="small text-secondary mb-0">2 weeks ago</p>
@@ -547,20 +811,21 @@
             <div class="collapsible-section p-4 d-flex align-items-center justify-content-between"
                 data-section="champions">
                 <div class="d-flex align-items-center gap-3">
-                    <div class="rounded-3 bg-warning bg-opacity-10 d-flex align-items-center justify-content-center"
-                        style="width: 40px; height: 40px;">
-                        <i data-lucide="trophy" style="width: 20px; height: 20px; color: #ffc107;"></i>
+                    <div
+                        class="rounded-3 bg-warning bg-opacity-10 d-flex align-items-center justify-content-center icon-box-xl">
+                        <i data-lucide="trophy" class="icon-md icon-warning"></i>
                     </div>
                     <div>
                         <h4 class="small fw-medium mb-0">Department Champions</h4>
-                        <p class="small text-secondary mb-0">Key individuals driving excellence across different areas
+                        <p class="small text-secondary mb-0">Key individuals driving excellence across different
+                            areas
                         </p>
                     </div>
                 </div>
                 <i data-lucide="chevron-down" class="section-icon"
                     style="width: 20px; height: 20px; color: #9ca3af;"></i>
             </div>
-            <div class="section-content px-4 pb-4" id="championsContent">
+            <div class="section-content" id="championsContent">
                 <!-- Champions will be inserted by JavaScript -->
             </div>
         </div>
@@ -569,9 +834,9 @@
         <div class="card shadow-sm mt-4 rounded-3 border">
             <div class="collapsible-section p-4 d-flex align-items-center justify-content-between" data-section="kpis">
                 <div class="d-flex align-items-center gap-3">
-                    <div class="rounded-3 bg-primary bg-opacity-10 d-flex align-items-center justify-content-center"
-                        style="width: 40px; height: 40px;">
-                        <i data-lucide="activity" style="width: 20px; height: 20px; color: #0d6efd;"></i>
+                    <div
+                        class="rounded-3 bg-primary bg-opacity-10 d-flex align-items-center justify-content-center icon-box-xl">
+                        <i data-lucide="activity" class="icon-md icon-blue"></i>
                     </div>
                     <div>
                         <h4 class="small fw-medium mb-0">Department Key Performance Indicators</h4>
@@ -581,7 +846,7 @@
                 <i data-lucide="chevron-down" class="section-icon"
                     style="width: 20px; height: 20px; color: #9ca3af;"></i>
             </div>
-            <div class="section-content px-4 pb-4" id="kpisContent">
+            <div class="section-content" id="kpisContent">
                 <!-- KPIs will be inserted by JavaScript -->
             </div>
         </div>
@@ -590,20 +855,21 @@
         <div class="card shadow-sm mt-4 rounded-3 border">
             <div class="collapsible-section p-4 d-flex align-items-center justify-content-between" data-section="risks">
                 <div class="d-flex align-items-center gap-3">
-                    <div class="rounded-3 bg-danger bg-opacity-10 d-flex align-items-center justify-content-center"
-                        style="width: 40px; height: 40px;">
-                        <i data-lucide="alert-triangle" style="width: 20px; height: 20px; color: #dc3545;"></i>
+                    <div
+                        class="rounded-3 bg-danger bg-opacity-10 d-flex align-items-center justify-content-center icon-box-xl">
+                        <i data-lucide="alert-triangle" class="icon-md icon-danger"></i>
                     </div>
                     <div>
                         <h4 class="small fw-medium mb-0">Department Risks</h4>
-                        <p class="small text-secondary mb-0">Strategic and operational risks with mitigation strategies
+                        <p class="small text-secondary mb-0">Strategic and operational risks with mitigation
+                            strategies
                         </p>
                     </div>
                 </div>
                 <i data-lucide="chevron-down" class="section-icon"
                     style="width: 20px; height: 20px; color: #9ca3af;"></i>
             </div>
-            <div class="section-content px-4 pb-4" id="risksContent">
+            <div class="section-content" id="risksContent">
                 <!-- Risks will be inserted by JavaScript -->
             </div>
         </div>
@@ -612,9 +878,9 @@
         <div class="card shadow-sm mt-4 mb-4 rounded-3 border">
             <div class="collapsible-section p-4 d-flex align-items-center justify-content-between" data-section="teams">
                 <div class="d-flex align-items-center gap-3">
-                    <div class="rounded-3 bg-primary bg-opacity-10 d-flex align-items-center justify-content-center"
-                        style="width: 40px; height: 40px;">
-                        <i data-lucide="users-2" style="width: 20px; height: 20px; color: #0d6efd;"></i>
+                    <div
+                        class="rounded-3 bg-primary bg-opacity-10 d-flex align-items-center justify-content-center icon-box-xl">
+                        <i data-lucide="users-2" class="icon-md icon-primary"></i>
                     </div>
                     <div>
                         <h4 class="small fw-medium mb-0">Department Teams</h4>
@@ -624,7 +890,7 @@
                 <i data-lucide="chevron-down" class="section-icon"
                     style="width: 20px; height: 20px; color: #9ca3af;"></i>
             </div>
-            <div class="section-content px-4 pb-4" id="teamsContent">
+            <div class="section-content" id="teamsContent">
                 <!-- Teams will be inserted by JavaScript -->
             </div>
         </div>
@@ -727,28 +993,28 @@
         responsibilitiesList.innerHTML = responsibilities.map(resp => `
             <div class="col-md-6">
                 <div class="d-flex align-items-start gap-2">
-                    <div class="rounded-circle bg-success bg-opacity-25 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 20px; height: 20px;">
-                        <i data-lucide="chevron-right" style="width: 12px; height: 12px; color: #198754;"></i>
+                    <div class="rounded-circle bg-success d-flex align-items-center justify-content-center flex-shrink-0 icon-box-xxs">
+                        <i data-lucide="chevron-right" class="icon-xs icon-success"></i>
                     </div>
-                    <p class="small text-dark mb-0">${resp}</p>
+                    <p class="small text-secondary mb-0">${resp}</p>
                 </div>
             </div>
         `).join('');
 
         // Render projects
         const projectsContent = document.getElementById('projectsContent');
-        projectsContent.innerHTML = projects.map(project => {
+        projectsContent.innerHTML = '<div class="px-4 pb-4">' + projects.map(project => {
             const statusConfig = {
-                'In Progress': { color: 'text-primary', bg: 'bg-primary', bgOpacity: 'bg-opacity-10', border: 'border-primary', barColor: '#3b82f6' },
-                'Planning': { color: 'text-warning', bg: 'bg-warning', bgOpacity: 'bg-opacity-10', border: 'border-warning', barColor: '#f59e0b' },
-                'Completed': { color: 'text-success', bg: 'bg-success', bgOpacity: 'bg-opacity-10', border: 'border-success', barColor: '#10b981' }
+                'In Progress': { color: 'text-primary', bg: 'bg-light-blue', border: 'border-light-blue', barColor: '#3b82f6' },
+                'Planning': { color: 'dark-yellow', bg: 'bg-light-yellow', border: 'border-light-yellow', barColor: '#f59e0b' },
+                'Completed': { color: 'text-success', bg: 'bg-light-green', border: 'border-light-green', barColor: '#10b981' }
             };
             const config = statusConfig[project.status];
             return `
-                <div class="p-3 border ${config.border} ${config.bg} ${config.bgOpacity} rounded-3 mb-3">
+                <div class="p-3 border  ${config.border} ${config.bg}  rounded-3 mb-3">
                     <div class="d-flex align-items-start justify-content-between mb-2">
                         <h5 class="small fw-medium mb-0">${project.name}</h5>
-                        <span class="badge ${config.bg} ${config.color} border ${config.border} small">${project.status}</span>
+                        <span class="badge fw-normal ${config.bg} ${config.color} border ${config.border} ">${project.status}</span>
                     </div>
                     <div class="mb-3">
                         <div class="progress-bar-custom mb-2">
@@ -758,71 +1024,75 @@
                     </div>
                     <div class="d-flex align-items-center justify-content-between small text-secondary">
                         <div class="d-flex align-items-center gap-1">
-                            <i data-lucide="user" style="width: 12px; height: 12px;"></i>
+                            <i data-lucide="user" class="icon-xs"></i>
                             <span>${project.lead}</span>
                         </div>
                         <div class="d-flex align-items-center gap-1">
-                            <i data-lucide="calendar" style="width: 12px; height: 12px;"></i>
+                            <i data-lucide="calendar" class="icon-xs"></i>
                             <span>Due ${project.dueDate}</span>
                         </div>
                     </div>
                 </div>
             `;
-        }).join('');
+        }).join('') + '</div>';
 
         // Render champions
         const championsContent = document.getElementById('championsContent');
         championsContent.innerHTML = `
-            <div class="row g-3">
+            <div class="px-4 pb-4">
+                <div class="row g-3">
                 ${champions.map(champion => `
                     <div class="col-6 col-md-3">
                         <div class="text-center">
                             <div class="position-relative d-inline-block mb-2">
-                                <div class="rounded-circle border border-2 overflow-hidden" style="width: 80px; height: 80px; border-color: #e5e7eb !important;">
+                                <div class="rounded-circle border border-2 overflow-hidden champion-avatar">
                                     <div class="w-100 h-100 bg-secondary d-flex align-items-center justify-content-center text-white fw-bold">
                                         ${champion.name.split(' ').map(n => n[0]).join('')}
                                     </div>
                                 </div>
                                 <div class="champion-badge" style="background-color: ${champion.categoryColor};">
-                                    <i data-lucide="trophy" style="width: 12px; height: 12px; color: white;"></i>
+                                    <i data-lucide="trophy" class="icon-xs icon-white"></i>
                                 </div>
                             </div>
-                            <p class="small fw-medium mb-1">${champion.name}</p>
+                            <p class="small fw-normal mb-1">${champion.name}</p>
                             <p class="small text-secondary mb-2">${champion.role}</p>
-                            <span class="badge border small" style="background-color: ${champion.categoryColor}15; color: ${champion.categoryColor}; border-color: ${champion.categoryColor} !important;">
+                            <span class="badge border fw-normal  small" style="background-color: ${champion.categoryColor}15; color: ${champion.categoryColor}; border-color: ${champion.categoryColor} !important;">
                                 ${champion.category}
                             </span>
                         </div>
                     </div>
                 `).join('')}
+                </div>
             </div>
         `;
 
         // Render KPIs
         const kpisContent = document.getElementById('kpisContent');
         const kpiStatusConfig = {
-            exceeds: { color: 'text-success', bg: 'bg-success', bgOpacity: 'bg-opacity-10', border: 'border-success', label: 'Exceeds Target' },
-            meets: { color: 'text-primary', bg: 'bg-primary', bgOpacity: 'bg-opacity-10', border: 'border-primary', label: 'Meets Target' },
-            below: { color: 'text-warning', bg: 'bg-warning', bgOpacity: 'bg-opacity-10', border: 'border-warning', label: 'Below Target' }
+
+            exceeds: { color: 'text-success', bg: 'bg-light-green', border: 'border-light-green', label: 'Exceeds Target' },
+            meets: { color: 'text-primary', bg: 'bg-light-blue', border: 'border-light-blue', label: 'Meets Target' },
+            below: { color: 'dark-yellow', bg: 'bg-light-yellow', border: 'border-light-yellow', label: 'Below Target' }
         };
 
         kpisContent.innerHTML = `
-            <div class="row g-3">
+            <div class="px-4 pb-4">
+                <div class="row g-3">
                 ${kpis.map(kpi => {
             const config = kpiStatusConfig[kpi.status];
             const trendIcon = kpi.trend === 'up' ? 'trending-up' : kpi.trend === 'down' ? 'trending-down' : 'minus';
             return `
                         <div class="col-md-6 col-lg-4">
-                            <div class="card border-2 rounded-3 ${config.border} ${config.bg} ${config.bgOpacity}">
+                            <div class="card border-2 rounded-3 ${config.border} ${config.bg} ">
                                 <div class="card-body p-3">
                                     <div class="d-flex align-items-start justify-content-between mb-3">
-                                        <div class="rounded-3 ${config.bg} ${config.bgOpacity} border ${config.border} d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;">
-                                            <i data-lucide="activity" style="width: 16px; height: 16px;" class="${config.color}"></i>
+                                        <div class="rounded-3 ${config.bg}  border ${config.border} d-flex align-items-center justify-content-center icon-box-lg">
+                                            <i data-lucide="activity" class="icon-sm ${config.color}"></i>
                                         </div>
-                                        <i data-lucide="${trendIcon}" style="width: 16px; height: 16px;" class="${config.color}"></i>
+                                        <i data-lucide="${trendIcon}" class="icon-sm ${config.color}"></i>
                                     </div>
-                                    <h5 class="small fw-medium mb-1">${kpi.title}</h5>
-                                    <p class="small text-secondary mb-3" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${kpi.description}</p>
+                                    <h3 class="small fw-medium mb-1">${kpi.title}</h3>
+                                    <p class="small text-secondary mb-3 line-clamp-2">${kpi.description}</p>
                                     <div class="d-flex justify-content-between small mb-2">
                                         <span class="text-secondary">Target:</span>
                                         <span class="text-dark">${kpi.target}</span>
@@ -831,48 +1101,49 @@
                                         <span class="small text-secondary">Current:</span>
                                         <span class="small fw-medium ${config.color}">${kpi.metric}</span>
                                     </div>
-                                    <span class="badge w-100 ${config.bg} ${config.color} border ${config.border} small">${config.label}</span>
+                                    <span class="fw-normal badge w-100 ${config.bg} ${config.color} border ${config.border} small">${config.label}</span>
                                 </div>
                             </div>
                         </div>
                     `;
         }).join('')}
             </div>
-        `;
+        </div>`;
 
         // Render Risks
         const risksContent = document.getElementById('risksContent');
         const riskLevelConfig = {
-            High: { color: 'text-danger', bg: 'bg-danger', bgOpacity: 'bg-opacity-10', border: 'border-danger' },
-            Medium: { color: 'text-warning', bg: 'bg-warning', bgOpacity: 'bg-opacity-10', border: 'border-warning' },
-            Low: { color: 'text-success', bg: 'bg-success', bgOpacity: 'bg-opacity-10', border: 'border-success' }
+            High: { color: 'text-danger', bg: 'bg-light-red', border: 'border-dark-red' },
+            Medium: { color: 'dark-yellow', bg: 'bg-light-yellow', border: 'border-light-yellow' },
+            Low: { color: 'text-success', bg: 'bg-light-green', border: 'border-light-green' }
         };
 
         risksContent.innerHTML = `
-            <div class="row g-4">
+            <div class="px-4 pb-4">
+                <div class="row g-4">
                 <div class="col-lg-6">
                     <div class="d-flex align-items-center gap-2 mb-3">
-                        <i data-lucide="target" style="width: 20px; height: 20px; color: #6f42c1;"></i>
-                        <h5 class="small fw-medium mb-0">Strategic Risks</h5>
+                        <i data-lucide="target" class="icon-md icon-violet"></i>
+                        <h3 class="small fw-medium mb-0">Strategic Risks</h3>
                         <span class="badge border text-secondary small">${risks.strategic.length}</span>
                     </div>
                     <div class="d-flex flex-column gap-3">
                         ${risks.strategic.map(risk => {
             const config = riskLevelConfig[risk.level];
             return `
-                            <div class="card border rounded-3 ${config.border} ${config.bg} ${config.bgOpacity}">
+                            <div class="card border rounded-3 ${config.border} ${config.bg}">
                                 <div class="card-body p-3">
                                     <div class="d-flex align-items-start justify-content-between mb-2">
-                                        <h5 class="small fw-medium mb-0 flex-grow-1">${risk.title}</h5>
-                                        <span class="badge ${config.bg} ${config.color} border ${config.border} small ms-2">${risk.level}</span>
+                                        <h4 class="small  fw-medium mb-0 flex-grow-1">${risk.title}</h4>
+                                        <span class="badge fw-normal ${config.bg} ${config.color} border ${config.border} small ms-2">${risk.level}</span>
                                     </div>
                                     <p class="small text-secondary mb-3">${risk.description}</p>
                                     <div class="pt-3 border-top">
                                         <p class="small text-secondary mb-1">Mitigation Owner:</p>
                                         <div class="d-flex align-items-center gap-2">
-                                            <i data-lucide="user" style="width: 12px; height: 12px; color: #6c757d;"></i>
+                                            <i data-lucide="user" class="icon-xs icon-dark-gray"></i>
                                             <div>
-                                                <p class="small fw-medium mb-0">${risk.mitigation}</p>
+                                                <p class="small fw-normal mb-0">${risk.mitigation}</p>
                                                 <p class="small text-secondary mb-0">${risk.mitigationRole}</p>
                                             </div>
                                         </div>
@@ -885,27 +1156,27 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="d-flex align-items-center gap-2 mb-3">
-                        <i data-lucide="alert-triangle" style="width: 20px; height: 20px; color: #fd7e14;"></i>
-                        <h5 class="small fw-medium mb-0">Operational Risks</h5>
+                        <i data-lucide="alert-triangle" class="icon-md icon-orange"></i>
+                        <h3 class="small fw-medium mb-0">Operational Risks</h3>
                         <span class="badge border text-secondary small">${risks.operational.length}</span>
                     </div>
                     <div class="d-flex flex-column gap-3">
                         ${risks.operational.map(risk => {
             const config = riskLevelConfig[risk.level];
             return `
-                            <div class="card border rounded-3 ${config.border} ${config.bg} ${config.bgOpacity}">
+                            <div class="card border rounded-3 ${config.border} ${config.bg} ">
                                 <div class="card-body p-3">
                                     <div class="d-flex align-items-start justify-content-between mb-2">
-                                        <h5 class="small fw-medium mb-0 flex-grow-1">${risk.title}</h5>
-                                        <span class="badge ${config.bg} ${config.color} border ${config.border} small ms-2">${risk.level}</span>
+                                        <h4 class="small fw-medium mb-0 flex-grow-1">${risk.title}</h4>
+                                        <span class="badge fw-normal ${config.bg} ${config.color} border ${config.border} small ms-2">${risk.level}</span>
                                     </div>
                                     <p class="small text-secondary mb-3">${risk.description}</p>
                                     <div class="pt-3 border-top">
                                         <p class="small text-secondary mb-1">Mitigation Owner:</p>
                                         <div class="d-flex align-items-center gap-2">
-                                            <i data-lucide="user" style="width: 12px; height: 12px; color: #6c757d;"></i>
+                                            <i data-lucide="user" class="icon-xs icon-dark-gray"></i>
                                             <div>
-                                                <p class="small fw-medium mb-0">${risk.mitigation}</p>
+                                                <p class="small fw-normal mb-0">${risk.mitigation}</p>
                                                 <p class="small text-secondary mb-0">${risk.mitigationRole}</p>
                                             </div>
                                         </div>
@@ -917,61 +1188,61 @@
                     </div>
                 </div>
             </div>
-        `;
+        </div>`;
 
         // Render Teams
         const teamsContent = document.getElementById('teamsContent');
-        teamsContent.innerHTML = teams.map((team, index) => `
+        teamsContent.innerHTML = '<div class="px-4 pb-4">' + teams.map((team, index) => `
             <div class="card bg-light border rounded-3 mb-3">
                 <div class="card-body p-4">
                     <div class="d-flex align-items-start justify-content-between">
                         <div class="flex-grow-1">
-                            <h5 class="small fw-medium mb-1">${team.name}</h5>
+                            <h3 class="small fw-medium mb-1">${team.name}</h3>
                             <p class="small text-secondary mb-3">${team.purpose}</p>
                             <div class="row g-3 mb-3">
                                 <div class="col-md-6">
                                     <div class="d-flex align-items-center gap-2">
-                                        <div class="rounded-3 bg-primary bg-opacity-10 d-flex align-items-center justify-content-center" style="width: 28px; height: 28px;">
-                                            <i data-lucide="user" style="width: 12px; height: 12px; color: #0d6efd;"></i>
+                                        <div class="rounded-3 bg-primary bg-opacity-10 d-flex align-items-center justify-content-center icon-box-md">
+                                            <i data-lucide="user" class="icon-xs icon-primary"></i>
                                         </div>
                                         <div>
                                             <p class="small text-secondary mb-0">Team Lead</p>
-                                            <p class="small fw-medium mb-0">${team.lead}</p>
+                                            <p class="small fw-normal mb-0">${team.lead}</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="d-flex align-items-center gap-2">
-                                        <div class="rounded-3 bg-warning bg-opacity-10 d-flex align-items-center justify-content-center" style="width: 28px; height: 28px;">
-                                            <i data-lucide="user" style="width: 12px; height: 12px; color: #ffc107;"></i>
+                                        <div class="rounded-3  d-flex align-items-center justify-content-center icon-box-md" style="background-color: #F3E8FF">
+                                            <i data-lucide="user" class="icon-xs icon-purple"></i>
                                         </div>
                                         <div>
                                             <p class="small text-secondary mb-0">Coordinator</p>
-                                            <p class="small fw-medium mb-0">${team.coordinator}</p>
+                                            <p class="small fw-normal mb-0">${team.coordinator}</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <button class="btn btn-sm btn-ghost ms-3 team-toggle" data-team-index="${index}">
-                            <i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i>
+                            <i data-lucide="chevron-down" class="icon-sm"></i>
                         </button>
                     </div>
                     <div class="team-members-section" id="team-members-${index}" style="display: none;">
                         <div class="pt-3 border-top mt-3">
                             <div class="d-flex align-items-center gap-2 mb-3">
-                                <i data-lucide="users" style="width: 16px; height: 16px; color: #6c757d;"></i>
+                                <i data-lucide="users" class="icon-sm icon-dark-gray"></i>
                                 <p class="small text-secondary mb-0">Members (${team.members.length})</p>
                             </div>
                             <div class="row g-2">
                                 ${team.members.map(member => `
                                     <div class="col-md-6">
                                         <div class="d-flex align-items-center gap-2 p-2 bg-white rounded border">
-                                            <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center" style="width: 24px; height: 24px;">
-                                                <i data-lucide="user" style="width: 12px; height: 12px; color: white;"></i>
+                                            <div class="rounded-circle bg-secondary bg-opacity-10 d-flex align-items-center justify-content-center icon-box-xs">
+                                                <i data-lucide="user" class="icon-xs "></i>
                                             </div>
                                             <div class="flex-grow-1">
-                                                <p class="small fw-medium mb-0">${member.name}</p>
+                                                <p class=" fw-normal mb-0">${member.name}</p>
                                                 <p class="small text-secondary mb-0">${member.role}</p>
                                             </div>
                                         </div>
@@ -982,7 +1253,7 @@
                     </div>
                 </div>
             </div>
-        `).join('');
+        `).join('') + '</div>';
 
         // Collapsible sections functionality
         document.querySelectorAll('.collapsible-section').forEach(section => {

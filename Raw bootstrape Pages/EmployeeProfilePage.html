@@ -10,6 +10,61 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
 
     <style>
+        h1 {
+            font-size: 2.5rem !important;
+            line-height: 1.2 !important;
+        }
+
+        h2 {
+            font-size: 2rem !important;
+            line-height: 1.3 !important;
+        }
+
+        h3 {
+            font-size: 1.5rem !important;
+            font-weight: 500 !important;
+            line-height: 1.4 !important;
+        }
+
+        h4 {
+            font-size: 1.25rem !important;
+            font-weight: 500 !important;
+            line-height: 1.4 !important;
+        }
+
+        h5 {
+            font-size: 1.125rem !important;
+            font-weight: 400 !important;
+            line-height: 1.5 !important;
+        }
+
+        h6 {
+            font-size: 1rem !important;
+            font-weight: 400 !important;
+            line-height: 1.5 !important;
+        }
+
+        p {
+            font-size: 1rem !important;
+            line-height: 1.6 !important;
+        }
+
+        a {
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        button {
+            font-family: inherit !important;
+        }
+
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #908e81 #f1f1f1;
+            letter-spacing: 0.5px;
+            font-family: "Dubai", "Tajawal", sans-serif;
+        }
+
         :root {
             --faa-red: #ec2227;
             --faa-dark-red: #7b282d;
@@ -19,17 +74,11 @@
         body {
             background-color: #f8f9fa;
             min-height: 100vh;
-            font-family: 'Inter', system-ui, sans-serif;
         }
 
         .bg-pattern {
             background-image: url('data:image/svg+xml,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="1" fill="%23000000" opacity="0.05"/></svg>');
             background-repeat: repeat;
-        }
-
-        .header-border {
-            height: 2px;
-            background: linear-gradient(to right, var(--faa-dark-red), var(--faa-darker-red));
         }
 
         .profile-section {
@@ -44,10 +93,13 @@
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease;
+            opacity: 0;
         }
 
         .section-content.show {
             max-height: 2000px;
+            opacity: 1;
+            transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
         }
 
         .timeline-item::before {
@@ -120,22 +172,22 @@
     </style>
 </head>
 
-<body class="bg-pattern">
+<body class="bg-pattern" style="padding-top: 0;">
 
-    <!-- Header -->
-    <div class="bg-white border-bottom">
-        <div class="header-border"></div>
+    <!-- Top Header Section (White Background) -->
+    <div class="bg-white shadow-sm mb-5 pb-4 pt-4 sticky-top" style="z-index: 1020;">
 
-        <!-- Back Button -->
-        <div class="container-fluid px-4 pt-4 pb-3">
-            <button class="btn btn-sm btn-ghost text-secondary" onclick="window.history.back()">
-                <i data-lucide="arrow-left" style="width: 14px; height: 14px;"></i>
-                <span class="ms-2">Back to Directory</span>
-            </button>
-        </div>
+        <div class="container">
+            <!-- Back Button -->
+            <div class="mb-4">
+                <a href="EmployeeDirectoryPage.html" class="text-decoration-none text-secondary">
+                    <div class="d-flex align-items-center gap-2">
+                        <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i>
+                        <span class="small">Back to Directory</span>
+                    </div>
+                </a>
+            </div>
 
-        <!-- Profile Header -->
-        <div class="container-fluid px-4 pb-4">
             <div class="d-flex align-items-center gap-4">
                 <!-- Profile Image -->
                 <div class="rounded-3 overflow-hidden bg-light border" style="width: 64px; height: 64px;">
@@ -145,84 +197,100 @@
 
                 <!-- Profile Info -->
                 <div class="flex-grow-1">
-                    <div class="d-flex align-items-baseline gap-3 mb-2">
-                        <h1 class="h4 mb-0">Ahmed Al Mansouri</h1>
-                        <span class="badge text-white"
-                            style="background-color: var(--faa-dark-red); font-size: 11px;">FAA-2018-042</span>
+                    <div class="d-flex align-items-center gap-3 mb-1">
+                        <h1 class="h3 mb-0 fw-bold text-dark">Ahmed Al Mansouri</h1>
+                        <span class="badge text-white rounded-1"
+                            style="background-color: var(--faa-dark-red); font-size: 11px; padding: 6px 8px;">FAA-2018-042</span>
                     </div>
                     <div class="d-flex align-items-center gap-2 text-secondary small">
                         <span>Sector Director</span>
-                        <span>•</span>
+                        <span class="text-muted">•</span>
                         <span class="text-muted">Operation, Compliance and Performance Audit Sector</span>
                     </div>
                 </div>
 
+
                 <!-- Privacy Toggle -->
-                <div class="d-flex align-items-center gap-3 p-3 bg-light rounded-3 border">
+                <div class="d-flex align-items-center gap-3 p-2 bg-light rounded-3 border px-3">
                     <div class="text-end">
-                        <div class="small text-secondary mb-1" style="font-size: 11px;">Profile Visibility</div>
-                        <div class="d-flex align-items-center gap-2">
-                            <i data-lucide="eye" style="width: 12px; height: 12px; color: #22c55e;"></i>
-                            <span class="small text-success" style="font-size: 12px;">Visible</span>
+                        <div class="small text-secondary mb-0" style="font-size: 10px; line-height: 1;">Profile
+                            Visibility</div>
+                        <div class="d-flex align-items-center gap-1 justify-content-end">
+                            <i data-lucide="eye" style="width: 10px; height: 10px; color: #22c55e;"></i>
+                            <span class="small text-success fw-bold" style="font-size: 11px;">Visible</span>
                         </div>
                     </div>
-                    <label class="switch">
+                    <label class="switch" style="width: 36px; height: 20px;">
                         <input type="checkbox" checked id="profileVisibility">
                         <span class="slider"></span>
                     </label>
                 </div>
+                <style>
+                    /* Custom adjustment for smaller switch in header */
+                    .d-flex .switch .slider:before {
+                        height: 14px;
+                        width: 14px;
+                        left: 3px;
+                        bottom: 3px;
+                    }
+
+                    .d-flex .switch input:checked+.slider:before {
+                        transform: translateX(16px);
+                    }
+                </style>
             </div>
         </div>
     </div>
 
     <!-- Main Content -->
-    <div class="container-fluid px-4 py-4">
+    <div class="container pb-5">
 
         <!-- Contact Cards -->
-        <div class="row g-3 mb-4">
+        <div class="row g-4 mb-4">
             <div class="col-md-4">
-                <div class="card shadow-sm">
+                <div class="card shadow-sm border-0 rounded-4 h-100">
                     <div class="card-body p-4">
                         <div class="d-flex align-items-center gap-3">
-                            <div class="rounded-3 bg-primary bg-opacity-10 d-flex align-items-center justify-center"
-                                style="width: 40px; height: 40px;">
+                            <div class="rounded-3 bg-primary bg-opacity-10 d-flex align-items-center justify-content-center"
+                                style="width: 48px; height: 48px;">
                                 <i data-lucide="mail" style="width: 20px; height: 20px; color: #0d6efd;"></i>
                             </div>
                             <div>
-                                <p class="small text-secondary mb-1">Email</p>
-                                <p class="small mb-0">ahmed.almansouri@faa.gov.ae</p>
+                                <p class="small text-secondary mb-0">Email</p>
+                                <p class="fw-medium mb-0 text-dark" style="font-size: 0.95rem;">
+                                    ahmed.almansouri@faa.gov.ae</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card shadow-sm">
+                <div class="card shadow-sm border-0 rounded-4 h-100">
                     <div class="card-body p-4">
                         <div class="d-flex align-items-center gap-3">
-                            <div class="rounded-3 bg-success bg-opacity-10 d-flex align-items-center justify-center"
-                                style="width: 40px; height: 40px;">
+                            <div class="rounded-3 bg-success bg-opacity-10 d-flex align-items-center justify-content-center"
+                                style="width: 48px; height: 48px;">
                                 <i data-lucide="phone" style="width: 20px; height: 20px; color: #198754;"></i>
                             </div>
                             <div>
-                                <p class="small text-secondary mb-1">Phone</p>
-                                <p class="small mb-0">+971 4 XXX XXXX</p>
+                                <p class="small text-secondary mb-0">Phone</p>
+                                <p class="fw-medium mb-0 text-dark" style="font-size: 0.95rem;">+971 4 XXX XXXX</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card shadow-sm">
+                <div class="card shadow-sm border-0 rounded-4 h-100">
                     <div class="card-body p-4">
                         <div class="d-flex align-items-center gap-3">
-                            <div class="rounded-3 bg-warning bg-opacity-10 d-flex align-items-center justify-center"
-                                style="width: 40px; height: 40px;">
-                                <i data-lucide="map-pin" style="width: 20px; height: 20px; color: #ffc107;"></i>
+                            <div class="rounded-3 d-flex align-items-center justify-content-center"
+                                style="width: 48px; height: 48px; background-color: #FAF5FF;">
+                                <i data-lucide="map-pin" style="width: 20px; height: 20px; color: #9810FA;"></i>
                             </div>
                             <div>
-                                <p class="small text-secondary mb-1">Location</p>
-                                <p class="small mb-0">Dubai, UAE</p>
+                                <p class="small text-secondary mb-0">Location</p>
+                                <p class="fw-medium mb-0 text-dark" style="font-size: 0.95rem;">Dubai, UAE</p>
                             </div>
                         </div>
                     </div>
@@ -234,22 +302,25 @@
         <div class="d-flex flex-column gap-3">
 
             <!-- About Section -->
-            <div class="card shadow-sm">
+            <div class="card shadow-sm border-0 p-2 rounded-4">
                 <button
-                    class="btn text-start profile-section border-0 p-4 d-flex align-items-center justify-content-between"
+                    class="btn text-start profile-section border-0 p-4 d-flex align-items-center justify-content-between rounded-4"
                     data-section="about">
                     <div class="d-flex align-items-center gap-3">
-                        <div class="rounded-3 bg-danger bg-opacity-10 d-flex align-items-center justify-center"
+                        <div class="rounded-3 bg-danger bg-opacity-10 d-flex align-items-center justify-content-center"
                             style="width: 40px; height: 40px;">
                             <i data-lucide="users" style="width: 20px; height: 20px; color: var(--faa-red);"></i>
                         </div>
-                        <span class="small fw-medium">About & Social Profile</span>
+                        <span class="fw-medium text-dark">About & Social Profile</span>
                     </div>
                     <i data-lucide="chevron-down" class="section-icon"
                         style="width: 20px; height: 20px; color: #9ca3af;"></i>
                 </button>
-                <div class="section-content show px-4 pb-4 border-top">
-                    <div class="d-flex align-items-center justify-content-between p-3 bg-light rounded-3 border my-3">
+                <div class="section-content show px-4 border-top-0">
+                    <!-- Divider line manually to control width/padding if needed, or stick to border-top on container -->
+                    <hr class="text-secondary opacity-25 mt-0 mb-4">
+
+                    <div class="d-flex align-items-center justify-content-between p-3 bg-light rounded-3 border mb-4">
                         <div class="d-flex align-items-center gap-3">
                             <i data-lucide="eye" style="width: 16px; height: 16px; color: var(--faa-red);"></i>
                             <div>
@@ -257,51 +328,55 @@
                                 <p class="small text-secondary mb-0">Your profile info is visible to other employees</p>
                             </div>
                         </div>
-                        <label class="switch">
+                        <label class="switch" style="width: 36px; height: 20px;">
                             <input type="checkbox" checked>
                             <span class="slider"></span>
                         </label>
                     </div>
-                    <p class="small text-dark mb-3">Experienced audit professional with over 15 years of expertise in
+                    <p class="text-dark mb-3" style="font-size: 0.95rem;">Experienced audit professional with over
+                        15 years of expertise in
                         operational auditing and compliance. Led numerous high-profile audit projects across government
                         and private sector entities.</p>
                     <div class="d-flex gap-2">
-                        <span class="badge border small">
-                            <i data-lucide="globe" style="width: 12px; height: 12px;"></i>
-                            <span class="ms-1">linkedin.com/in/ahmedalmansouri</span>
+                        <span
+                            class="badge border text-dark bg-white fw-normal p-2 px-3 rounded-pill d-flex align-items-center gap-2">
+                            <i data-lucide="globe" style="width: 14px; height: 14px;"></i>
+                            <span>linkedin.com/in/ahmedalmansouri</span>
                         </span>
-                        <span class="badge border small">
-                            <i data-lucide="globe" style="width: 12px; height: 12px;"></i>
-                            <span class="ms-1">@ahmedalmansouri</span>
+                        <span
+                            class="badge border text-dark bg-white fw-normal p-2 px-3 rounded-pill d-flex align-items-center gap-2">
+                            <i data-lucide="globe" style="width: 14px; height: 14px;"></i>
+                            <span>@ahmedalmansouri</span>
                         </span>
                     </div>
                 </div>
             </div>
 
             <!-- Academic Information -->
-            <div class="card shadow-sm">
+            <div class="card shadow-sm border-0 rounded-4">
                 <button
-                    class="btn text-start profile-section border-0 p-4 d-flex align-items-center justify-content-between"
+                    class="btn text-start profile-section border-0 p-4 d-flex align-items-center justify-content-between rounded-4"
                     data-section="academic">
                     <div class="d-flex align-items-center gap-3">
-                        <div class="rounded-3 bg-primary bg-opacity-10 d-flex align-items-center justify-center"
+                        <div class="rounded-3 bg-primary bg-opacity-10 d-flex align-items-center justify-content-center"
                             style="width: 40px; height: 40px;">
                             <i data-lucide="graduation-cap" style="width: 20px; height: 20px; color: #0d6efd;"></i>
                         </div>
-                        <span class="small fw-medium">Academic Information</span>
+                        <span class="fw-medium text-dark">Academic Information</span>
                     </div>
                     <i data-lucide="chevron-down" class="section-icon"
                         style="width: 20px; height: 20px; color: #9ca3af;"></i>
                 </button>
-                <div class="section-content show px-4 pb-4 border-top pt-3">
+                <div class="section-content show px-4 border-top-0">
+                    <hr class="text-secondary opacity-25 mt-0 mb-4">
                     <div class="d-flex flex-column gap-4">
                         <div class="d-flex gap-3">
-                            <div class="rounded-3 bg-primary bg-opacity-25 d-flex align-items-center justify-center flex-shrink-0"
+                            <div class="rounded-3 bg-primary bg-opacity-25 d-flex align-items-center justify-content-center flex-shrink-0"
                                 style="width: 48px; height: 48px;">
                                 <i data-lucide="graduation-cap" style="width: 24px; height: 24px; color: #0d6efd;"></i>
                             </div>
                             <div>
-                                <p class="small fw-medium mb-1">Master of Business Administration</p>
+                                <p class="fw-medium mb-1">Master of Business Administration</p>
                                 <p class="small text-secondary mb-1">American University of Dubai</p>
                                 <div class="d-flex align-items-center gap-2 small text-muted">
                                     <span>2012</span>
@@ -311,12 +386,12 @@
                             </div>
                         </div>
                         <div class="d-flex gap-3">
-                            <div class="rounded-3 bg-primary bg-opacity-25 d-flex align-items-center justify-center flex-shrink-0"
+                            <div class="rounded-3 bg-primary bg-opacity-25 d-flex align-items-center justify-content-center flex-shrink-0"
                                 style="width: 48px; height: 48px;">
                                 <i data-lucide="graduation-cap" style="width: 24px; height: 24px; color: #0d6efd;"></i>
                             </div>
                             <div>
-                                <p class="small fw-medium mb-1">Bachelor of Accounting</p>
+                                <p class="fw-medium mb-1">Bachelor of Accounting</p>
                                 <p class="small text-secondary mb-1">United Arab Emirates University</p>
                                 <div class="d-flex align-items-center gap-2 small text-muted">
                                     <span>2008</span>
@@ -330,22 +405,23 @@
             </div>
 
             <!-- Professional Certifications -->
-            <div class="card shadow-sm">
+            <div class="card shadow-sm border-0 rounded-4">
                 <button
-                    class="btn text-start profile-section border-0 p-4 d-flex align-items-center justify-content-between"
+                    class="btn text-start profile-section border-0 p-4 d-flex align-items-center justify-content-between rounded-4"
                     data-section="certifications">
                     <div class="d-flex align-items-center gap-3">
-                        <div class="rounded-3 bg-warning bg-opacity-10 d-flex align-items-center justify-center"
-                            style="width: 40px; height: 40px;">
-                            <i data-lucide="award" style="width: 20px; height: 20px; color: #ffc107;"></i>
+                        <div class="rounded-3  d-flex align-items-center justify-content-center"
+                            style="width: 40px; height: 40px; background-color: #FAF5FF;">
+                            <i data-lucide="award" style="width: 20px; height: 20px; color: 9810FA;"></i>
                         </div>
-                        <span class="small fw-medium">Professional Certifications</span>
-                        <span class="badge bg-secondary small">4</span>
+                        <span class="fw-medium text-dark">Professional Certifications</span>
+                        <span class="badge bg-secondary bg-opacity-10 text-dark small rounded-pill">4</span>
                     </div>
                     <i data-lucide="chevron-down" class="section-icon"
                         style="width: 20px; height: 20px; color: #9ca3af;"></i>
                 </button>
-                <div class="section-content px-4 pb-4 border-top pt-3">
+                <div class="section-content px-4 border-top-0">
+                    <hr class="text-secondary opacity-25 mt-0 mb-4">
                     <div class="row g-3">
                         <div class="col-md-6">
                             <div class="p-3 border rounded-3">
@@ -375,25 +451,75 @@
                 </div>
             </div>
 
-            <!-- Work Experience at FAA -->
-            <div class="card shadow-sm">
+            <!-- Training & Other Certificates -->
+            <div class="card shadow-sm border-0 rounded-4">
                 <button
-                    class="btn text-start profile-section border-0 p-4 d-flex align-items-center justify-content-between"
-                    data-section="experience">
+                    class="btn text-start profile-section border-0 p-4 d-flex align-items-center justify-content-between rounded-4"
+                    data-section="training">
                     <div class="d-flex align-items-center gap-3">
-                        <div class="rounded-3 bg-danger bg-opacity-10 d-flex align-items-center justify-center"
+                        <div class="rounded-3 bg-info bg-opacity-10 d-flex align-items-center justify-content-center"
                             style="width: 40px; height: 40px;">
-                            <i data-lucide="building-2"
-                                style="width: 20px; height: 20px; color: var(--faa-dark-red);"></i>
+                            <i data-lucide="file-text" style="width: 20px; height: 20px; color: #0891b2;"></i>
                         </div>
-                        <span class="small fw-medium">Work Experience at FAA</span>
+                        <span class="fw-medium text-dark">Training & Other Certificates</span>
                     </div>
                     <i data-lucide="chevron-down" class="section-icon"
                         style="width: 20px; height: 20px; color: #9ca3af;"></i>
                 </button>
-                <div class="section-content show px-4 pb-4 border-top pt-3">
+                <div class="section-content show px-4 border-top-0">
+                    <hr class="text-secondary opacity-25 mt-0 mb-4">
+                    <div class="d-flex flex-column gap-3">
+                        <div class="d-flex align-items-start gap-3 p-3 bg-light rounded-3">
+                            <i data-lucide="file-text" class="flex-shrink-0 mt-1"
+                                style="width: 16px; height: 16px; color: #9ca3af;"></i>
+                            <div>
+                                <p class="small fw-medium mb-1 text-dark">Advanced Financial Reporting</p>
+                                <p class="small text-secondary mb-0" style="font-size: 0.75rem;">PwC Academy • 2023 • 3
+                                    Days</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start gap-3 p-3 bg-light rounded-3">
+                            <i data-lucide="file-text" class="flex-shrink-0 mt-1"
+                                style="width: 16px; height: 16px; color: #9ca3af;"></i>
+                            <div>
+                                <p class="small fw-medium mb-1 text-dark">Leadership Development Program</p>
+                                <p class="small text-secondary mb-0" style="font-size: 0.75rem;">Mohammed Bin Rashid
+                                    School of Government • 2022 • 2 Weeks</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start gap-3 p-3 bg-light rounded-3">
+                            <i data-lucide="file-text" class="flex-shrink-0 mt-1"
+                                style="width: 16px; height: 16px; color: #9ca3af;"></i>
+                            <div>
+                                <p class="small fw-medium mb-1 text-dark">Data Analytics for Auditors</p>
+                                <p class="small text-secondary mb-0" style="font-size: 0.75rem;">KPMG • 2021 • 5 Days
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Work Experience at FAA -->
+            <div class="card shadow-sm border-0 rounded-4">
+                <button
+                    class="btn text-start profile-section border-0 p-4 d-flex align-items-center justify-content-between rounded-4"
+                    data-section="experience">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="rounded-3 bg-danger bg-opacity-10 d-flex align-items-center justify-content-center"
+                            style="width: 40px; height: 40px;">
+                            <i data-lucide="building-2"
+                                style="width: 20px; height: 20px; color: var(--faa-dark-red);"></i>
+                        </div>
+                        <span class="fw-medium text-dark">Work Experience at FAA</span>
+                    </div>
+                    <i data-lucide="chevron-down" class="section-icon"
+                        style="width: 20px; height: 20px; color: #9ca3af;"></i>
+                </button>
+                <div class="section-content show px-4 border-top-0">
+                    <hr class="text-secondary opacity-25 mt-0 mb-4">
                     <div class="timeline-item">
-                        <p class="small fw-medium mb-1">Sector Director</p>
+                        <p class="fw-medium mb-1">Sector Director</p>
                         <p class="small text-secondary mb-1">Operation, Compliance and Performance Audit Sector</p>
                         <p class="small text-muted mb-2">2020 - Present</p>
                         <ul class="small text-dark ps-3">
@@ -404,7 +530,7 @@
                         </ul>
                     </div>
                     <div class="timeline-item">
-                        <p class="small fw-medium mb-1">Department Manager</p>
+                        <p class="fw-medium mb-1">Department Manager</p>
                         <p class="small text-secondary mb-1">Government Entities Audit Department</p>
                         <p class="small text-muted mb-2">2018 - 2020</p>
                         <ul class="small text-dark ps-3">
@@ -416,74 +542,167 @@
                 </div>
             </div>
 
-            <!-- Skills & Talents -->
-            <div class="card shadow-sm">
+            <!-- Previous Work Experience -->
+            <div class="card shadow-sm border-0 rounded-4">
                 <button
-                    class="btn text-start profile-section border-0 p-4 d-flex align-items-center justify-content-between"
-                    data-section="skills">
+                    class="btn text-start profile-section border-0 p-4 d-flex align-items-center justify-content-between rounded-4"
+                    data-section="previous">
                     <div class="d-flex align-items-center gap-3">
-                        <div class="rounded-3 bg-success bg-opacity-10 d-flex align-items-center justify-center"
-                            style="width: 40px; height: 40px;">
-                            <i data-lucide="target" style="width: 20px; height: 20px; color: #198754;"></i>
+                        <div class="rounded-3 bg-opacity-10 d-flex align-items-center justify-content-center"
+                            style="width: 40px; height: 40px; background-color: #fff7ed; color: #ea580c;">
+                            <i data-lucide="briefcase" style="width: 20px; height: 20px; color: #ea580c;"></i>
                         </div>
-                        <span class="small fw-medium">Skills & Talents</span>
+                        <span class="fw-medium text-dark">Previous Work Experience</span>
                     </div>
                     <i data-lucide="chevron-down" class="section-icon"
                         style="width: 20px; height: 20px; color: #9ca3af;"></i>
                 </button>
-                <div class="section-content px-4 pb-4 border-top pt-3">
+                <div class="section-content show px-4 border-top-0">
+                    <hr class="text-secondary opacity-25 mt-0 mb-4">
+                    <div class="d-flex flex-column gap-3">
+                        <div class="p-4 border rounded-3 bg-white">
+                            <p class="small fw-medium mb-1 text-dark">Internal Audit Manager</p>
+                            <p class="small text-secondary mb-1">Dubai Municipality</p>
+                            <p class="small text-muted mb-2" style="font-size: 0.75rem;">2015 - 2018</p>
+                            <p class="small text-secondary mb-0">Led internal audit engagements focusing on operational
+                                efficiency and regulatory compliance.</p>
+                        </div>
+                        <div class="p-4 border rounded-3 bg-white">
+                            <p class="small fw-medium mb-1 text-dark">Senior Auditor</p>
+                            <p class="small text-secondary mb-1">PwC Middle East</p>
+                            <p class="small text-muted mb-2" style="font-size: 0.75rem;">2012 - 2015</p>
+                            <p class="small text-secondary mb-0">Conducted financial statement audits for government and
+                                public sector clients.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Achievements -->
+            <div class="card shadow-sm border-0 rounded-4">
+                <button
+                    class="btn text-start profile-section border-0 p-4 d-flex align-items-center justify-content-between rounded-4"
+                    data-section="achievements">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="rounded-3 bg-warning bg-opacity-10 d-flex align-items-center justify-content-center"
+                            style="width: 40px; height: 40px;">
+                            <i data-lucide="star" style="width: 20px; height: 20px; color: #d97706;"></i>
+                        </div>
+                        <span class="fw-medium text-dark">Achievements</span>
+                    </div>
+                    <i data-lucide="chevron-down" class="section-icon"
+                        style="width: 20px; height: 20px; color: #9ca3af;"></i>
+                </button>
+                <div class="section-content show px-4 border-top-0">
+                    <hr class="text-secondary opacity-25 mt-0 mb-4">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-start gap-3 p-3 rounded-3 bg-warning bg-opacity-10">
+                                <i data-lucide="award" class="flex-shrink-0 mt-1"
+                                    style="width: 20px; height: 20px; color: #d97706;"></i>
+                                <div>
+                                    <p class="small fw-medium mb-1 text-dark">Outstanding Leadership Award</p>
+                                    <p class="small text-secondary mb-0" style="font-size: 0.75rem;">Financial Audit
+                                        Authority • 2022</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-start gap-3 p-3 rounded-3 bg-warning bg-opacity-10">
+                                <i data-lucide="award" class="flex-shrink-0 mt-1"
+                                    style="width: 20px; height: 20px; color: #d97706;"></i>
+                                <div>
+                                    <p class="small fw-medium mb-1 text-dark">Excellence in Innovation</p>
+                                    <p class="small text-secondary mb-0" style="font-size: 0.75rem;">Dubai Government
+                                        Excellence Program • 2021</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Skills & Talents -->
+            <div class="card shadow-sm border-0 rounded-4">
+                <button
+                    class="btn text-start profile-section border-0 p-4 d-flex align-items-center justify-content-between rounded-4"
+                    data-section="skills">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="rounded-3 bg-success bg-opacity-10 d-flex align-items-center justify-content-center"
+                            style="width: 40px; height: 40px;">
+                            <i data-lucide="target" style="width: 20px; height: 20px; color: #198754;"></i>
+                        </div>
+                        <span class="fw-medium text-dark">Skills & Talents</span>
+                    </div>
+                    <i data-lucide="chevron-down" class="section-icon"
+                        style="width: 20px; height: 20px; color: #9ca3af;"></i>
+                </button>
+                <div class="section-content px-4 border-top-0">
+                    <hr class="text-secondary opacity-25 mt-0 mb-4">
                     <div class="d-flex flex-wrap gap-2">
-                        <span class="badge bg-secondary small">Audit Management</span>
-                        <span class="badge bg-secondary small">Risk Assessment</span>
-                        <span class="badge bg-secondary small">Compliance</span>
-                        <span class="badge bg-secondary small">Financial Analysis</span>
-                        <span class="badge bg-secondary small">Team Leadership</span>
-                        <span class="badge bg-secondary small">Strategic Planning</span>
-                        <span class="badge bg-secondary small">Stakeholder Management</span>
-                        <span class="badge bg-secondary small">Project Management</span>
+                        <span class="badge bg-secondary bg-opacity-10 text-dark fw-normal p-2 px-3 rounded-pill">Audit
+                            Management</span>
+                        <span class="badge bg-secondary bg-opacity-10 text-dark fw-normal p-2 px-3 rounded-pill">Risk
+                            Assessment</span>
+                        <span
+                            class="badge bg-secondary bg-opacity-10 text-dark fw-normal p-2 px-3 rounded-pill">Compliance</span>
+                        <span
+                            class="badge bg-secondary bg-opacity-10 text-dark fw-normal p-2 px-3 rounded-pill">Financial
+                            Analysis</span>
+                        <span class="badge bg-secondary bg-opacity-10 text-dark fw-normal p-2 px-3 rounded-pill">Team
+                            Leadership</span>
+                        <span
+                            class="badge bg-secondary bg-opacity-10 text-dark fw-normal p-2 px-3 rounded-pill">Strategic
+                            Planning</span>
+                        <span
+                            class="badge bg-secondary bg-opacity-10 text-dark fw-normal p-2 px-3 rounded-pill">Stakeholder
+                            Management</span>
+                        <span class="badge bg-secondary bg-opacity-10 text-dark fw-normal p-2 px-3 rounded-pill">Project
+                            Management</span>
                     </div>
                 </div>
             </div>
 
             <!-- Languages -->
-            <div class="card shadow-sm">
+            <div class="card shadow-sm border-0 rounded-4">
                 <button
-                    class="btn text-start profile-section border-0 p-4 d-flex align-items-center justify-content-between"
+                    class="btn text-start profile-section border-0 p-4 d-flex align-items-center justify-content-between rounded-4"
                     data-section="languages">
                     <div class="d-flex align-items-center gap-3">
-                        <div class="rounded-3 bg-info bg-opacity-10 d-flex align-items-center justify-center"
+                        <div class="rounded-3 bg-info bg-opacity-10 d-flex align-items-center justify-content-center"
                             style="width: 40px; height: 40px;">
                             <i data-lucide="globe" style="width: 20px; height: 20px; color: #0dcaf0;"></i>
                         </div>
-                        <span class="small fw-medium">Languages</span>
+                        <span class="fw-medium text-dark">Languages</span>
                     </div>
                     <i data-lucide="chevron-down" class="section-icon"
                         style="width: 20px; height: 20px; color: #9ca3af;"></i>
                 </button>
-                <div class="section-content px-4 pb-4 border-top pt-3">
+                <div class="section-content px-4 border-top-0">
+                    <hr class="text-secondary opacity-25 mt-0 mb-4">
                     <div class="row g-3">
                         <div class="col-md-4">
-                            <div class="text-center p-3 border rounded-3">
+                            <div class="text-center p-3 border rounded-3 h-100">
                                 <i data-lucide="globe" style="width: 24px; height: 24px; color: #9ca3af;"
                                     class="mx-auto mb-2"></i>
                                 <p class="small fw-medium mb-1">Arabic</p>
-                                <span class="badge border small">Native</span>
+                                <span class="badge border bg-white text-dark fw-normal">Native</span>
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <div class="text-center p-3 border rounded-3">
+                            <div class="text-center p-3 border rounded-3 h-100">
                                 <i data-lucide="globe" style="width: 24px; height: 24px; color: #9ca3af;"
                                     class="mx-auto mb-2"></i>
                                 <p class="small fw-medium mb-1">English</p>
-                                <span class="badge border small">Fluent</span>
+                                <span class="badge border bg-white text-dark fw-normal">Fluent</span>
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <div class="text-center p-3 border rounded-3">
+                            <div class="text-center p-3 border rounded-3 h-100">
                                 <i data-lucide="globe" style="width: 24px; height: 24px; color: #9ca3af;"
                                     class="mx-auto mb-2"></i>
                                 <p class="small fw-medium mb-1">French</p>
-                                <span class="badge border small">Intermediate</span>
+                                <span class="badge border bg-white text-dark fw-normal">Intermediate</span>
                             </div>
                         </div>
                     </div>
@@ -522,17 +741,19 @@
 
         // Profile visibility toggle
         document.getElementById('profileVisibility').addEventListener('change', function () {
-            const visibilityText = this.closest('.d-flex').querySelector('.small.text-success, .small.text-muted');
-            const visibilityIcon = this.closest('.d-flex').querySelector('i[data-lucide]');
+            // Find container in the header specific context
+            const container = this.closest('.d-flex.align-items-center.gap-3');
+            const visibilityText = container.querySelector('.small.text-success, .small.text-muted');
+            const visibilityIcon = container.querySelector('i[data-lucide]');
 
             if (this.checked) {
                 visibilityText.textContent = 'Visible';
-                visibilityText.className = 'small text-success';
+                visibilityText.className = 'small text-success fw-bold';
                 visibilityIcon.setAttribute('data-lucide', 'eye');
                 visibilityIcon.style.color = '#22c55e';
             } else {
                 visibilityText.textContent = 'Hidden';
-                visibilityText.className = 'small text-muted';
+                visibilityText.className = 'small text-muted fw-bold';
                 visibilityIcon.setAttribute('data-lucide', 'eye-off');
                 visibilityIcon.style.color = '#6c757d';
             }

@@ -4,22 +4,70 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sector Detail - Financial Audit Authority</title>
+    <title>Department Detail - Financial Audit Authority</title>
 
-    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
 
     <style>
+        /* Dubai Font - Official Government Font */
+        @import url('https://fonts.cdnfonts.com/css/dubai');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #908e81 #f1f1f1;
+            font-family: "Dubai", "Tajawal", sans-serif;
+        }
+
+        .custom-container {
+            max-width: 95vw;
+            margin: auto;
+        }
+
+        .shadow-lg {
+            box-shadow:
+                0 10px 15px -3px rgba(0, 0, 0, 0.1),
+                0 4px 6px -4px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .border {
+            border: 1px solid #E5E5E5 !important;
+        }
+
         :root {
+            /* FAA Color Palette */
             --faa-red: #ec2227;
             --faa-dark-red: #7b282d;
             --faa-darker-red: #971b1e;
+            --faa-burgundy: #A94442;
+            --faa-burgundy-dark: #8B2C2E;
+
+            /* Neutral Grays */
+            --color-gray-50: #F9FAFB;
+            --color-gray-100: #F3F4F6;
+            --color-gray-200: #E5E7EB;
+            --color-gray-300: #D1D5DB;
+            --color-gray-500: #6b7280;
+            --color-gray-600: #4B5563;
+            --color-gray-700: #374151;
+            --color-gray-900: #111827;
+
+            /* Shadows */
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+
+            /* Border Radius */
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
         }
 
         body {
             background-color: #f8f9fa;
             min-height: 100vh;
-            font-family: 'Inter', system-ui, sans-serif;
+            font-family: 'Dubai', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         .bg-pattern {
@@ -55,6 +103,19 @@
             max-height: 5000px;
         }
 
+        .champion-badge {
+            position: absolute;
+            bottom: -4px;
+            right: -4px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
         .department-card {
             transition: all 0.3s ease;
             cursor: pointer;
@@ -69,40 +130,334 @@
             color: var(--faa-red) !important;
         }
 
-        .champion-badge {
-            position: absolute;
-            bottom: -4px;
-            right: -4px;
+        h1 {
+            font-size: 2.5rem !important;
+            font-weight: 500 !important;
+            line-height: 1.2 !important;
+        }
+
+        h2 {
+            font-size: 2rem !important;
+            font-weight: 500 !important;
+            line-height: 1.3 !important;
+        }
+
+        h3 {
+            font-size: 1.5rem !important;
+            font-weight: 500 !important;
+            line-height: 1.4 !important;
+        }
+
+        h4 {
+            font-size: 1.3rem !important;
+            font-weight: 500 !important;
+            line-height: 1.4 !important;
+        }
+
+        h5 {
+            font-size: 1.125rem !important;
+            font-weight: 400 !important;
+            line-height: 1.5 !important;
+        }
+
+        h6 {
+            font-size: 1rem !important;
+            font-weight: 400 !important;
+            line-height: 1.5 !important;
+        }
+
+        p {
+            font-size: 1.1rem !important;
+            line-height: 1.6 !important;
+        }
+
+        a {
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        button {
+            font-family: inherit !important;
+        }
+
+        /* Override Bootstrap font weights to match Dubai font */
+
+
+        /* Card styling */
+        .card {
+            box-shadow: var(--shadow-sm);
+        }
+
+        .shadow-md {
+            box-shadow: var(--shadow-md) !important;
+        }
+
+        .rounded-3 {
+            border-radius: var(--radius-lg) !important;
+        }
+
+        /* Text colors matching design tokens */
+        .text-dark {
+            color: var(--color-gray-700) !important;
+        }
+
+        .text-secondary {
+            color: var(--color-gray-500) !important;
+        }
+
+        /* Border colors */
+        .border-gray-200 {
+            border-color: var(--color-gray-200) !important;
+        }
+
+        .btn-custom-outline {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            height: 40px;
+            border-radius: 6px;
+            gap: 6px;
+            padding: 0 12px;
+            border: 1px solid oklch(.922 0 0);
+            background-color: color-mix(in oklab, oklch(.922 0 0) 30%, transparent);
+            outline: none;
+            color: oklch(.145 0 0) !important;
+        }
+
+        .btn-custom-outline:hover {
+            background-color: #EFEFF0;
+        }
+
+        .bg-purple {
+            background-color: #FAF5FF;
+        }
+
+        .text-purple {
+            color: #8d29f0;
+        }
+
+        /* Icons */
+        .icon-xs {
+            width: 12px;
+            height: 12px;
+        }
+
+        .icon-sm {
+            width: 16px;
+            height: 16px;
+        }
+
+        .icon-md {
+            width: 20px;
+            height: 20px;
+        }
+
+        .icon-lg {
             width: 24px;
             height: 24px;
-            border-radius: 50%;
-            border: 2px solid white;
+        }
+
+        .icon-box {
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .kpi-card {
-            transition: all 0.3s ease;
+        .icon-box-xxs {
+            width: 20px;
+            height: 20px;
         }
 
-        .kpi-card:hover {
-            transform: translateY(-2px);
+        .icon-box-xs {
+            width: 24px;
+            height: 24px;
         }
 
-        .risk-card {
-            transition: all 0.3s ease;
+        .icon-box-sm {
+            width: 28px;
+            height: 28px;
         }
 
-        .committee-card {
-            transition: all 0.3s ease;
+        .icon-box-md {
+            width: 32px;
+            height: 32px;
+        }
+
+        .icon-box-lg {
+            width: 36px;
+            height: 36px;
+        }
+
+        .icon-box-xl {
+            width: 40px;
+            height: 40px;
+        }
+
+        /* Icon Colors */
+        .icon-blue {
+            color: #155dfc;
+        }
+
+        .icon-red {
+            color: #ec2227;
+        }
+
+        .icon-purple {
+            color: #543671;
+        }
+
+        .icon-green {
+            color: #10b981;
+        }
+
+        .icon-info {
+            color: #0092b8;
+        }
+
+        .icon-primary {
+            color: #4f39f6;
+        }
+
+        .icon-warning {
+            color: #f54a00;
+        }
+
+        .icon-danger {
+            color: #e7000b;
+        }
+
+        .icon-success {
+            color: #198754;
+        }
+
+        .icon-gray {
+            color: #9ca3af;
+        }
+
+        .icon-dark-gray {
+            color: #6c757d;
+        }
+
+        .icon-violet {
+            color: #6f42c1;
+        }
+
+        .icon-orange {
+            color: #e17100;
+        }
+
+        .icon-white {
+            color: white;
+        }
+
+        /* Icon Box Backgrounds */
+        .bg-blue-subtle {
+            background-color: rgba(25, 73, 161, 0.08);
+        }
+
+        .bg-red-subtle {
+            background-color: rgba(236, 34, 39, 0.08);
+        }
+
+        .bg-purple-subtle {
+            background-color: rgba(84, 54, 113, 0.08);
+        }
+
+        .bg-green-subtle {
+            background-color: rgba(16, 185, 129, 0.08);
+        }
+
+        .bg-Dark-purple {
+            background-color: #AD46FF;
+        }
+
+        .bg-Dark-green {
+            background-color: #00C950;
+        }
+
+        .bg-success {
+            background-color: #DBFCE7 !important;
+        }
+
+        .bg-light-blue {
+            background-color: #EFF6FF;
+        }
+
+        .bg-light-green {
+            background-color: #F0FDF4;
+        }
+
+        .bg-light-yellow {
+            background-color: #FFFBEB;
+        }
+
+        .bg-light-red {
+            background-color: #FEF2F2;
+        }
+
+        .badge-glass {
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .activity-dot {
+            width: 8px;
+            height: 8px;
+            margin-top: 6px;
+        }
+
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .champion-avatar {
+            width: 80px;
+            height: 80px;
+            border-color: #e5e7eb !important;
+        }
+
+        .bg-faa-red {
+            background-color: var(--faa-red);
+        }
+
+        .border-light-blue {
+            border-color: #bedbff !important;
+        }
+
+        .border-light-yellow {
+            border-color: #fee685 !important;
+        }
+
+        .border-light-green {
+            border-color: #b9f8cf !important;
+        }
+
+        .border-dark-red {
+            border-color: #ffc9c9 !important;
+        }
+
+        .dark-yellow {
+            color: #d08700;
+
+        }
+
+        .btn-danger:hover {
+            background-color: #D41F24 !important;
+
         }
     </style>
 </head>
 
 <body class="bg-pattern">
 
-    <!-- Header -->
     <div class="bg-white border-bottom">
         <div style="height: 2px; background: linear-gradient(to right, var(--faa-dark-red), var(--faa-darker-red));">
         </div>
@@ -121,245 +476,193 @@
                 <!-- Sector Icon -->
                 <div class="rounded-3 bg-light border d-flex align-items-center justify-content-center"
                     style="width: 64px; height: 64px;">
-                    <i data-lucide="building-2" style="width: 32px; height: 32px; color: var(--faa-red);"></i>
+                    <img src="./assets/d60c2a04e94d709fa672d9027dbfa4be52e8ec79.png" alt="Ahmed Al Mansouri"
+                        class="w-full h-full object-cover" style="width: 56px; height: 56px;">
                 </div>
 
                 <!-- Sector Info -->
                 <div class="flex-grow-1">
                     <div class="d-flex align-items-center gap-3 mb-2">
                         <h1 class="h3 mb-0">Ahmed Al Mansouri</h1>
-                        <span class="badge text-white"
-                            style="background-color: var(--faa-dark-red); font-size: 11px;">Sector Leadership</span>
+                        <span class="fw-normal badge text-white p-2"
+                            style="background-color: var(--faa-dark-red); font-size: 13px;">Sector Leadership</span>
                     </div>
                     <div class="d-flex align-items-center gap-2 text-secondary">
-                        <span class="small">Sector Director</span>
+                        <span>Sector Director</span>
                         <span>•</span>
-                        <span class="small text-muted">Operation, Compliance and Performance Audit Sector</span>
+                        <span class="text-muted">Operation, Compliance and Performance Audit Sector</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Stats Cards -->
-    <div class="container-fluid px-5 mt-4">
-        <div class="row g-3">
-            <div class="col-md-3">
-                <div class="card stat-card shadow">
-                    <div class="card-body p-4">
-                        <div class="d-flex align-items-start gap-3">
-                            <div class="rounded-3 d-flex align-items-center justify-content-center"
-                                style="width: 40px; height: 40px; background-color: rgba(236, 34, 39, 0.08);">
-                                <i data-lucide="users" style="width: 20px; height: 20px; color: #EC2227;"></i>
-                            </div>
-                            <div>
-                                <p class="mb-0 fw-medium">142</p>
-                                <p class="small text-secondary mb-0">Total Employees</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card stat-card shadow">
-                    <div class="card-body p-4">
-                        <div class="d-flex align-items-start gap-3">
-                            <div class="rounded-3 d-flex align-items-center justify-content-center"
-                                style="width: 40px; height: 40px; background-color: rgba(25, 73, 161, 0.08);">
-                                <i data-lucide="building-2" style="width: 20px; height: 20px; color: #1949A1;"></i>
-                            </div>
-                            <div>
-                                <p class="mb-0 fw-medium">6</p>
-                                <p class="small text-secondary mb-0">Departments</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card stat-card shadow">
-                    <div class="card-body p-4">
-                        <div class="d-flex align-items-start gap-3">
-                            <div class="rounded-3 d-flex align-items-center justify-content-center"
-                                style="width: 40px; height: 40px; background-color: rgba(84, 54, 113, 0.08);">
-                                <i data-lucide="trending-up" style="width: 20px; height: 20px; color: #543671;"></i>
-                            </div>
-                            <div>
-                                <p class="mb-0 fw-medium">38</p>
-                                <p class="small text-secondary mb-0">Active Projects</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card stat-card shadow">
-                    <div class="card-body p-4">
-                        <div class="d-flex align-items-start gap-3">
-                            <div class="rounded-3 d-flex align-items-center justify-content-center"
-                                style="width: 40px; height: 40px; background-color: rgba(140, 212, 228, 0.08);">
-                                <i data-lucide="award" style="width: 20px; height: 20px; color: #8CD4E4;"></i>
-                            </div>
-                            <div>
-                                <p class="mb-0 fw-medium">256</p>
-                                <p class="small text-secondary mb-0">Audits Completed</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Main Content -->
-    <div class="container-fluid px-5 py-4">
+    <div class="custom-container px-4 py-4">
+        <!-- Stats Cards -->
+        <div class="container-fluid mt-2 mb-4">
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <div class="border card stat-card shadow-lg rounded-5">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-start gap-3">
+                                <div class="rounded-3 d-flex align-items-center justify-content-center"
+                                    style="width: 40px; height: 40px; background-color: rgba(236, 34, 39, 0.08);">
+                                    <i data-lucide="users" style="width: 20px; height: 20px; color: #EC2227;"></i>
+                                </div>
+                                <div>
+                                    <p class="mb-0 fw-normal">142</p>
+                                    <p class="small text-secondary mb-0">Total Employees</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="border card stat-card shadow-lg rounded-5">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-start gap-3">
+                                <div class="rounded-3 d-flex align-items-center justify-content-center"
+                                    style="width: 40px; height: 40px; background-color: rgba(25, 73, 161, 0.08);">
+                                    <i data-lucide="building-2" style="width: 20px; height: 20px; color: #1949A1;"></i>
+                                </div>
+                                <div>
+                                    <p class="mb-0 fw-normal">6</p>
+                                    <p class="small text-secondary mb-0">Departments</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="border card stat-card shadow-lg rounded-5">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-start gap-3">
+                                <div class="rounded-3 d-flex align-items-center justify-content-center"
+                                    style="width: 40px; height: 40px; background-color: rgba(84, 54, 113, 0.08);">
+                                    <i data-lucide="trending-up" style="width: 20px; height: 20px; color: #543671;"></i>
+                                </div>
+                                <div>
+                                    <p class="mb-0 fw-normal">38</p>
+                                    <p class="small text-secondary mb-0">Active Projects</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="border card stat-card shadow-lg rounded-5">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-start gap-3">
+                                <div class="rounded-3 d-flex align-items-center justify-content-center"
+                                    style="width: 40px; height: 40px; background-color: rgba(140, 212, 228, 0.08);">
+                                    <i data-lucide="award" style="width: 20px; height: 20px; color: #8CD4E4;"></i>
+                                </div>
+                                <div>
+                                    <p class="mb-0 fw-normal">256</p>
+                                    <p class="small text-secondary mb-0">Audits Completed</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Main Grid -->
         <div class="row g-4">
 
             <!-- Left Column -->
             <div class="col-lg-8">
 
-                <!-- About Sector -->
-                <div class="card shadow-sm mb-4">
+                <!-- About Department -->
+                <div class="card shadow-sm mb-4 rounded-4 border">
                     <div class="card-body p-4">
                         <div class="d-flex align-items-center gap-3 mb-3">
-                            <div class="rounded-3 bg-info bg-opacity-10 d-flex align-items-center justify-content-center"
-                                style="width: 40px; height: 40px;">
-                                <i data-lucide="info" style="width: 20px; height: 20px; color: #0dcaf0;"></i>
+                            <div
+                                class="rounded-3 bg-info bg-opacity-10 d-flex align-items-center justify-content-center icon-box-xl">
+                                <i data-lucide="info" class="icon-md icon-info"></i>
                             </div>
-                            <h4 class="small fw-medium mb-0">About This Sector</h4>
+                            <h4 class="small fw-medium mb-0 ">About This Department</h4>
                         </div>
-                        <p class="small text-dark mb-3">Leading operational excellence and compliance across all audit
-                            domains</p>
+                        <p class="small text-secondary mb-3">Specialized in conducting comprehensive audits for ports
+                            and
+                            free zone operations across Dubai</p>
 
                         <div class="row g-3 mb-3">
                             <div class="col-md-6">
-                                <div class="p-3 bg-primary bg-opacity-10 rounded-3">
+                                <div class="h-100 p-3 bg-light-blue bg-opacity-10 rounded-3">
                                     <div class="d-flex align-items-center gap-2 mb-2">
-                                        <i data-lucide="target" style="width: 16px; height: 16px; color: #0d6efd;"></i>
-                                        <p class="small text-primary fw-medium mb-0">Vision</p>
+                                        <i data-lucide="target" class="icon-sm icon-blue"></i>
+                                        <p class="small text-primary fw-normal mb-0">Vision</p>
                                     </div>
-                                    <p class="small text-dark mb-0">To be the benchmark for operational audit excellence
-                                        in the region</p>
+                                    <p class="small text-secondary mb-0">To be the premier audit authority for ports and
+                                        free
+                                        zones in the region</p>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="p-3 bg-warning bg-opacity-10 rounded-3">
+                                <div class="h-100 p-3 bg-purple bg-opacity-10 rounded-3">
                                     <div class="d-flex align-items-center gap-2 mb-2">
-                                        <i data-lucide="award" style="width: 16px; height: 16px; color: #ffc107;"></i>
-                                        <p class="small text-warning fw-medium mb-0">Mission</p>
+                                        <i data-lucide="award" class="text-purple icon-sm"></i>
+                                        <p class="small text-purple fw-normal mb-0">Mission</p>
                                     </div>
-                                    <p class="small text-dark mb-0">Ensuring the highest standards of compliance and
-                                        performance through systematic auditing</p>
+                                    <p class=" small text-secondary mb-0">Ensuring transparency, compliance, and
+                                        operational
+                                        excellence in ports and free zone entities</p>
                                 </div>
                             </div>
                         </div>
 
                         <div class="p-3 bg-light rounded-3 border">
                             <p class="small text-secondary mb-2">Leadership Message</p>
-                            <p class="small text-dark fst-italic mb-2">"Our sector is committed to maintaining the
-                                highest standards of operational excellence and compliance across all our audit
-                                functions."</p>
-                            <p class="small text-secondary mb-0">- Ahmed Al Mansouri</p>
+                            <p class="small text-secondary fst-italic mb-2">"Our department is dedicated to maintaining
+                                the
+                                highest standards of audit excellence for ports and free zones, ensuring compliance
+                                and
+                                driving operational improvements."</p>
+                            <p class="small text-secondary mb-0">- Sara Al Hashimi</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Core Responsibilities -->
-                <div class="card shadow-sm mb-4">
+                <div class="card shadow-sm mb-4 rounded-4 border">
                     <div class="card-body p-4">
                         <div class="d-flex align-items-center gap-3 mb-3">
-                            <div class="rounded-3 bg-warning bg-opacity-10 d-flex align-items-center justify-content-center"
-                                style="width: 40px; height: 40px;">
-                                <i data-lucide="list-checks" style="width: 20px; height: 20px; color: #ffc107;"></i>
+                            <div
+                                class="rounded-3 bg-warning bg-opacity-10 d-flex align-items-center justify-content-center icon-box-xl">
+                                <i data-lucide="list-checks" class="icon-md icon-warning"></i>
                             </div>
                             <h4 class="small fw-medium mb-0">Core Responsibilities</h4>
                         </div>
-                        <div class="row g-2">
-                            <div class="col-md-6">
-                                <div class="d-flex align-items-start gap-2">
-                                    <div class="rounded-circle bg-success bg-opacity-25 d-flex align-items-center justify-content-center flex-shrink-0"
-                                        style="width: 20px; height: 20px;">
-                                        <i data-lucide="chevron-right"
-                                            style="width: 12px; height: 12px; color: #198754;"></i>
-                                    </div>
-                                    <p class="small text-dark mb-0">Conduct comprehensive operational audits across all
-                                        entities</p>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="d-flex align-items-start gap-2">
-                                    <div class="rounded-circle bg-success bg-opacity-25 d-flex align-items-center justify-content-center flex-shrink-0"
-                                        style="width: 20px; height: 20px;">
-                                        <i data-lucide="chevron-right"
-                                            style="width: 12px; height: 12px; color: #198754;"></i>
-                                    </div>
-                                    <p class="small text-dark mb-0">Ensure compliance with regulatory frameworks and
-                                        standards</p>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="d-flex align-items-start gap-2">
-                                    <div class="rounded-circle bg-success bg-opacity-25 d-flex align-items-center justify-content-center flex-shrink-0"
-                                        style="width: 20px; height: 20px;">
-                                        <i data-lucide="chevron-right"
-                                            style="width: 12px; height: 12px; color: #198754;"></i>
-                                    </div>
-                                    <p class="small text-dark mb-0">Monitor and evaluate performance metrics and KPIs
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="d-flex align-items-start gap-2">
-                                    <div class="rounded-circle bg-success bg-opacity-25 d-flex align-items-center justify-content-center flex-shrink-0"
-                                        style="width: 20px; height: 20px;">
-                                        <i data-lucide="chevron-right"
-                                            style="width: 12px; height: 12px; color: #198754;"></i>
-                                    </div>
-                                    <p class="small text-dark mb-0">Provide strategic recommendations for process
-                                        improvements</p>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="d-flex align-items-start gap-2">
-                                    <div class="rounded-circle bg-success bg-opacity-25 d-flex align-items-center justify-content-center flex-shrink-0"
-                                        style="width: 20px; height: 20px;">
-                                        <i data-lucide="chevron-right"
-                                            style="width: 12px; height: 12px; color: #198754;"></i>
-                                    </div>
-                                    <p class="small text-dark mb-0">Coordinate with government and private sector
-                                        stakeholders</p>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="d-flex align-items-start gap-2">
-                                    <div class="rounded-circle bg-success bg-opacity-25 d-flex align-items-center justify-content-center flex-shrink-0"
-                                        style="width: 20px; height: 20px;">
-                                        <i data-lucide="chevron-right"
-                                            style="width: 12px; height: 12px; color: #198754;"></i>
-                                    </div>
-                                    <p class="small text-dark mb-0">Maintain quality assurance and best practices</p>
-                                </div>
-                            </div>
+                        <div class="row g-2" id="responsibilitiesList">
+                            <!-- Responsibilities will be inserted by JavaScript -->
                         </div>
                     </div>
                 </div>
 
+
+
                 <!-- Departments (Collapsible) -->
-                <div class="card shadow-sm mb-4">
+                <div class="card shadow-sm mt-4 rounded-4 border">
                     <div class="collapsible-section p-4 d-flex align-items-center justify-content-between"
                         data-section="departments">
                         <div class="d-flex align-items-center gap-3">
-                            <div class="rounded-3 bg-success bg-opacity-10 d-flex align-items-center justify-content-center"
-                                style="width: 40px; height: 40px;">
+                            <div
+                                class="rounded-3 bg-success bg-opacity-10 d-flex align-items-center justify-content-center">
                                 <i data-lucide="building" style="width: 20px; height: 20px; color: #198754;"></i>
                             </div>
                             <h4 class="small fw-medium mb-0">Departments</h4>
-                            <span class="badge border small">6 Total</span>
+                            <span class="badge border small text-dark">6 Total</span>
                         </div>
                         <i data-lucide="chevron-down" class="section-icon"
                             style="width: 20px; height: 20px; color: #9ca3af;"></i>
                     </div>
-                    <div class="section-content px-4 pb-4" id="departmentsContent">
+                    <div class="section-content" id="departmentsContent">
                         <!-- Departments will be inserted by JavaScript -->
                     </div>
                 </div>
@@ -370,60 +673,60 @@
             <div class="col-lg-4">
 
                 <!-- Quick Actions -->
-                <div class="card shadow-sm mb-4">
+                <div class="card shadow-sm mb-4 rounded-4 border">
                     <div class="card-body p-4">
                         <div class="d-flex align-items-center gap-3 mb-3">
-                            <div class="rounded-3 bg-warning bg-opacity-10 d-flex align-items-center justify-content-center"
-                                style="width: 40px; height: 40px;">
-                                <i data-lucide="zap" style="width: 20px; height: 20px; color: #ffc107;"></i>
+                            <div
+                                class="rounded-3 bg-warning bg-opacity-10 d-flex align-items-center justify-content-center icon-box-xl">
+                                <i data-lucide="zap" class="icon-md dark-yellow"></i>
                             </div>
                             <h4 class="small fw-medium mb-0">Quick Actions</h4>
                         </div>
                         <div class="d-flex flex-column gap-2">
-                            <button class="btn btn-danger w-100 d-flex align-items-center justify-content-between"
-                                style="background-color: var(--faa-red);">
-                                <span>View All Employees</span>
-                                <i data-lucide="users" style="width: 16px; height: 16px;"></i>
+                            <button
+                                class="btn btn-danger fs-6 fw-normal w-100 d-flex align-items-center justify-content-between bg-faa-red">
+                                <span>View Team Members</span>
+                                <i data-lucide="users" class="icon-sm"></i>
                             </button>
                             <button
-                                class="btn btn-outline-secondary w-100 d-flex align-items-center justify-content-between">
-                                <span>Sector Reports</span>
-                                <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i>
+                                class="btn fw-normal fs-6 btn-custom-outline w-100 d-flex align-items-center justify-content-between">
+                                <span>Department Reports</span>
+                                <i data-lucide="chevron-right" class="icon-sm"></i>
                             </button>
                             <button
-                                class="btn btn-outline-secondary w-100 d-flex align-items-center justify-content-between">
-                                <span>Contact Sector</span>
-                                <i data-lucide="mail" style="width: 16px; height: 16px;"></i>
+                                class="btn fw-normal fs-6 btn-custom-outline w-100 d-flex align-items-center justify-content-between">
+                                <span>Contact Department</span>
+                                <i data-lucide="mail" class="icon-sm"></i>
                             </button>
                         </div>
                     </div>
                 </div>
 
                 <!-- Contact Information -->
-                <div class="card shadow-sm mb-4">
+                <div class="card shadow-sm mb-4 rounded-    4 border">
                     <div class="card-body p-4">
                         <div class="d-flex align-items-center gap-3 mb-3">
-                            <div class="rounded-3 bg-success bg-opacity-10 d-flex align-items-center justify-content-center"
-                                style="width: 40px; height: 40px;">
-                                <i data-lucide="mail" style="width: 20px; height: 20px; color: #198754;"></i>
+                            <div
+                                class="rounded-3 bg-success bg-opacity-10 d-flex align-items-center justify-content-center icon-box-xl">
+                                <i data-lucide="mail" class="icon-md icon-success"></i>
                             </div>
                             <h4 class="small fw-medium mb-0">Contact Information</h4>
                         </div>
                         <div class="d-flex flex-column gap-3">
                             <div class="d-flex align-items-start gap-3">
-                                <div class="rounded-3 bg-primary bg-opacity-10 d-flex align-items-center justify-content-center flex-shrink-0"
-                                    style="width: 32px; height: 32px;">
-                                    <i data-lucide="mail" style="width: 16px; height: 16px; color: #0d6efd;"></i>
+                                <div
+                                    class="rounded-3 bg-primary bg-opacity-10 d-flex align-items-center justify-content-center flex-shrink-0 icon-box-md">
+                                    <i data-lucide="mail" class="icon-sm icon-primary"></i>
                                 </div>
                                 <div>
                                     <p class="small text-secondary mb-1">Email</p>
-                                    <p class="small text-dark mb-0">ahmed.almansouri@faa.gov.ae</p>
+                                    <p class="small text-dark mb-0">sara.alhashimi@faa.gov.ae</p>
                                 </div>
                             </div>
                             <div class="d-flex align-items-start gap-3">
-                                <div class="rounded-3 bg-success bg-opacity-10 d-flex align-items-center justify-content-center flex-shrink-0"
-                                    style="width: 32px; height: 32px;">
-                                    <i data-lucide="phone" style="width: 16px; height: 16px; color: #198754;"></i>
+                                <div
+                                    class="rounded-3 bg-success bg-opacity-10 d-flex align-items-center justify-content-center flex-shrink-0 icon-box-md">
+                                    <i data-lucide="phone" class="icon-sm icon-success"></i>
                                 </div>
                                 <div>
                                     <p class="small text-secondary mb-1">Phone</p>
@@ -431,13 +734,13 @@
                                 </div>
                             </div>
                             <div class="d-flex align-items-start gap-3">
-                                <div class="rounded-3 bg-warning bg-opacity-10 d-flex align-items-center justify-content-center flex-shrink-0"
-                                    style="width: 32px; height: 32px;">
-                                    <i data-lucide="building-2" style="width: 16px; height: 16px; color: #ffc107;"></i>
+                                <div class="rounded-3 d-flex align-items-center justify-content-center flex-shrink-0 icon-box-md"
+                                    style="background-color: #FAF5FF;">
+                                    <i data-lucide="building-2" class="icon-sm icon-violet"></i>
                                 </div>
                                 <div>
                                     <p class="small text-secondary mb-1">Location</p>
-                                    <p class="small text-dark mb-0">Floor 5, Building A</p>
+                                    <p class="small text-dark mb-0">Floor 3, Building B</p>
                                 </div>
                             </div>
                         </div>
@@ -445,37 +748,34 @@
                 </div>
 
                 <!-- Recent Activity -->
-                <div class="card shadow-sm">
+                <div class="card shadow-sm rounded-4 border">
                     <div class="card-body p-4">
                         <div class="d-flex align-items-center gap-3 mb-3">
-                            <div class="rounded-3 bg-primary bg-opacity-10 d-flex align-items-center justify-content-center"
-                                style="width: 40px; height: 40px;">
-                                <i data-lucide="clock" style="width: 20px; height: 20px; color: #0d6efd;"></i>
+                            <div
+                                class="rounded-3 bg-primary bg-opacity-10 d-flex align-items-center justify-content-center icon-box-xl">
+                                <i data-lucide="clock" class="icon-md icon-blue"></i>
                             </div>
                             <h4 class="small fw-medium mb-0">Recent Activity</h4>
                         </div>
                         <div class="d-flex flex-column gap-3">
                             <div class="d-flex gap-3">
-                                <div class="rounded-circle bg-success flex-shrink-0"
-                                    style="width: 8px; height: 8px; margin-top: 6px;"></div>
+                                <div class="rounded-circle bg-Dark-green flex-shrink-0 activity-dot"></div>
                                 <div>
-                                    <p class="small text-dark mb-1">Quarterly review completed</p>
-                                    <p class="small text-secondary mb-0">2 days ago</p>
+                                    <p class="small text-dark mb-1">Port audit completed</p>
+                                    <p class="small text-secondary mb-0">3 days ago</p>
                                 </div>
                             </div>
                             <div class="d-flex gap-3">
-                                <div class="rounded-circle bg-primary flex-shrink-0"
-                                    style="width: 8px; height: 8px; margin-top: 6px;"></div>
+                                <div class="rounded-circle bg-primary flex-shrink-0 activity-dot"></div>
                                 <div>
-                                    <p class="small text-dark mb-1">New audit initiated</p>
+                                    <p class="small text-dark mb-1">New project initiated</p>
                                     <p class="small text-secondary mb-0">1 week ago</p>
                                 </div>
                             </div>
                             <div class="d-flex gap-3">
-                                <div class="rounded-circle bg-warning flex-shrink-0"
-                                    style="width: 8px; height: 8px; margin-top: 6px;"></div>
+                                <div class="rounded-circle bg-Dark-purple flex-shrink-0 activity-dot"></div>
                                 <div>
-                                    <p class="small text-dark mb-1">Team meeting scheduled</p>
+                                    <p class="small text-dark mb-1">Team training session</p>
                                     <p class="small text-secondary mb-0">2 weeks ago</p>
                                 </div>
                             </div>
@@ -487,46 +787,91 @@
         </div>
 
         <!-- Department Champions (Collapsible) -->
-        <div class="card shadow-sm mt-4">
+        <div class="card shadow-sm mt-4 rounded-4 border">
             <div class="collapsible-section p-4 d-flex align-items-center justify-content-between"
                 data-section="champions">
                 <div class="d-flex align-items-center gap-3">
-                    <div class="rounded-3 bg-warning bg-opacity-10 d-flex align-items-center justify-content-center"
-                        style="width: 40px; height: 40px;">
-                        <i data-lucide="trophy" style="width: 20px; height: 20px; color: #ffc107;"></i>
+                    <div
+                        class="rounded-3 bg-warning bg-opacity-10 d-flex align-items-center justify-content-center icon-box-xl">
+                        <i data-lucide="trophy" class="icon-md icon-warning"></i>
                     </div>
                     <div>
                         <h4 class="small fw-medium mb-0">Department Champions</h4>
-                        <p class="small text-secondary mb-0">Key individuals driving excellence across different areas
+                        <p class="small text-secondary mb-0">Key individuals driving excellence across different
+                            areas
                         </p>
                     </div>
                 </div>
                 <i data-lucide="chevron-down" class="section-icon"
                     style="width: 20px; height: 20px; color: #9ca3af;"></i>
             </div>
-            <div class="section-content px-4 pb-4" id="championsContent">
+            <div class="section-content" id="championsContent">
                 <!-- Champions will be inserted by JavaScript -->
             </div>
         </div>
 
-        <!-- Departmental KPIs (Collapsible) -->
-        <div class="card shadow-sm mt-4">
+        <!-- Department KPIs (Collapsible) -->
+        <div class="card shadow-sm mt-4 rounded-4 border">
             <div class="collapsible-section p-4 d-flex align-items-center justify-content-between" data-section="kpis">
                 <div class="d-flex align-items-center gap-3">
-                    <div class="rounded-3 bg-primary bg-opacity-10 d-flex align-items-center justify-content-center"
-                        style="width: 40px; height: 40px;">
-                        <i data-lucide="activity" style="width: 20px; height: 20px; color: #0d6efd;"></i>
+                    <div
+                        class="rounded-3 bg-primary bg-opacity-10 d-flex align-items-center justify-content-center icon-box-xl">
+                        <i data-lucide="activity" class="icon-md icon-blue"></i>
                     </div>
                     <div>
-                        <h4 class="small fw-medium mb-0">Departmental Key Performance Indicators</h4>
-                        <p class="small text-secondary mb-0">Performance metrics and targets for this sector</p>
+                        <h4 class="small fw-medium mb-0">Department Key Performance Indicators</h4>
+                        <p class="small text-secondary mb-0">Performance metrics and targets for this department</p>
                     </div>
                 </div>
                 <i data-lucide="chevron-down" class="section-icon"
                     style="width: 20px; height: 20px; color: #9ca3af;"></i>
             </div>
-            <div class="section-content px-4 pb-4" id="kpisContent">
+            <div class="section-content" id="kpisContent">
                 <!-- KPIs will be inserted by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Department Risks (Collapsible) -->
+        <div class="card shadow-sm mt-4 rounded-4 border">
+            <div class="collapsible-section p-4 d-flex align-items-center justify-content-between" data-section="risks">
+                <div class="d-flex align-items-center gap-3">
+                    <div
+                        class="rounded-3 bg-danger bg-opacity-10 d-flex align-items-center justify-content-center icon-box-xl">
+                        <i data-lucide="alert-triangle" class="icon-md icon-danger"></i>
+                    </div>
+                    <div>
+                        <h4 class="small fw-medium mb-0">Department Risks</h4>
+                        <p class="small text-secondary mb-0">Strategic and operational risks with mitigation
+                            strategies
+                        </p>
+                    </div>
+                </div>
+                <i data-lucide="chevron-down" class="section-icon"
+                    style="width: 20px; height: 20px; color: #9ca3af;"></i>
+            </div>
+            <div class="section-content" id="risksContent">
+                <!-- Risks will be inserted by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Department Teams (Collapsible) -->
+        <div class="card shadow-sm mt-4 mb-4 rounded-4 border">
+            <div class="collapsible-section p-4 d-flex align-items-center justify-content-between" data-section="teams">
+                <div class="d-flex align-items-center gap-3">
+                    <div
+                        class="rounded-3 bg-primary bg-opacity-10 d-flex align-items-center justify-content-center icon-box-xl">
+                        <i data-lucide="users-2" class="icon-md icon-primary"></i>
+                    </div>
+                    <div>
+                        <h4 class="small fw-medium mb-0">Department Teams</h4>
+                        <p class="small text-secondary mb-0">Specialized teams and working groups</p>
+                    </div>
+                </div>
+                <i data-lucide="chevron-down" class="section-icon"
+                    style="width: 20px; height: 20px; color: #9ca3af;"></i>
+            </div>
+            <div class="section-content" id="teamsContent">
+                <!-- Teams will be inserted by JavaScript -->
             </div>
         </div>
 
@@ -543,6 +888,16 @@
         lucide.createIcons();
 
         // Data
+        const responsibilities = [
+            'Conduct operational audits of port facilities and operations',
+            'Audit free zone entities for compliance with regulations',
+            'Evaluate customs and logistics processes',
+            'Review security and safety protocols',
+            'Assess financial controls and reporting',
+            'Monitor environmental compliance measures'
+        ];
+
+        // Data
         const departments = [
             { id: 'ports', name: 'Ports & Free Zones Audit Department', description: 'Specialized auditing for ports and free zone operations', headCount: 24, manager: 'Sara Al Hashimi' },
             { id: 'real-estate', name: 'Real Estate, Hotels & Entertainment Audit Department', description: 'Comprehensive audits for real estate and hospitality sector', headCount: 28, manager: 'Mohammed Al Ketbi' },
@@ -556,97 +911,166 @@
             { name: 'Fatima Al Zaabi', role: 'Risk Champion', category: 'Risk', categoryColor: '#ef4444' },
             { name: 'Ahmed Al Hashimi', role: 'KPI Champion', category: 'KPI', categoryColor: '#3b82f6' },
             { name: 'Mariam Al Shamsi', role: 'InfoSec Champion', category: 'InfoSec', categoryColor: '#8b5cf6' },
-            { name: 'Mohammed Al Ketbi', role: 'Business Continuity Champion', category: 'Business Continuity', categoryColor: '#f59e0b' },
-            { name: 'Sara Al Nuaimi', role: 'Quality Champion', category: 'Specialty', categoryColor: '#10b981' },
-            { name: 'Ali Al Suwaidi', role: 'Innovation Champion', category: 'Others', categoryColor: '#6b7280' },
+            { name: 'Khalid Al Muhairi', role: 'Quality Champion', category: 'Quality', categoryColor: '#10b981' },
         ];
 
         const kpis = [
-            { title: 'Audit Completion Rate', description: 'Percentage of audits completed within scheduled timeframe', metric: '95%', target: '90%', status: 'exceeds', trend: 'up' },
-            { title: 'Compliance Score', description: 'Overall compliance rating across all audited entities', metric: '94%', target: '92%', status: 'exceeds', trend: 'up' },
-            { title: 'Average Audit Duration', description: 'Average number of days to complete an audit', metric: '42 days', target: '45 days', status: 'exceeds', trend: 'down' },
-            { title: 'Findings Resolution Rate', description: 'Percentage of audit findings resolved by entities', metric: '88%', target: '85%', status: 'exceeds', trend: 'up' },
-            { title: 'Stakeholder Satisfaction', description: 'Satisfaction rating from audited entities', metric: '4.6/5', target: '4.5/5', status: 'meets', trend: 'stable' },
-            { title: 'Team Utilization Rate', description: 'Percentage of available auditor hours utilized', metric: '82%', target: '85%', status: 'below', trend: 'down' },
+            { title: 'Audit Completion Rate', description: 'Percentage of audits completed within scheduled timeframe', metric: '96%', target: '90%', status: 'exceeds', trend: 'up' },
+            { title: 'Finding Resolution Rate', description: 'Percentage of audit findings addressed by entities', metric: '92%', target: '85%', status: 'exceeds', trend: 'up' },
+            { title: 'Average Audit Duration', description: 'Average number of days to complete an audit', metric: '38 days', target: '40 days', status: 'exceeds', trend: 'down' },
+            { title: 'Stakeholder Satisfaction', description: 'Satisfaction rating from audited entities', metric: '4.7/5', target: '4.5/5', status: 'exceeds', trend: 'up' },
+            { title: 'Team Utilization', description: 'Percentage of available team hours utilized', metric: '85%', target: '85%', status: 'meets', trend: 'stable' },
+            { title: 'Report Quality Score', description: 'Quality rating of audit reports', metric: '4.8/5', target: '4.5/5', status: 'exceeds', trend: 'up' },
         ];
 
-        // Render Departments
-        const deptContainer = document.getElementById('departmentsContent');
-        deptContainer.innerHTML = departments.map(dept => `
-            <div class="p-3 border rounded-3 department-card mb-3">
-                <div class="d-flex align-items-start justify-content-between mb-2">
-                    <div class="flex-grow-1">
-                        <h6 class="small fw-medium mb-1">${dept.name}</h6>
-                        <p class="small text-secondary mb-0">${dept.description}</p>
+        const risks = {
+            strategic: [
+                { title: 'Regulatory Changes', description: 'Changes in port and free zone regulations may require rapid adaptation of audit procedures', level: 'Medium', mitigation: 'Sara Al Hashimi', mitigationRole: 'Department Head' },
+                { title: 'Resource Allocation', description: 'Increased demand for audits may strain department resources', level: 'Medium', mitigation: 'Mohammed Al Ketbi', mitigationRole: 'Senior Auditor' }
+            ],
+            operational: [
+                { title: 'Data Access Delays', description: 'Delays in receiving data from audited entities may impact timelines', level: 'High', mitigation: 'Fatima Al Zaabi', mitigationRole: 'Audit Manager' },
+                { title: 'Complex Operations', description: 'Complexity of port operations requires specialized expertise', level: 'Medium', mitigation: 'Ali Al Suwaidi', mitigationRole: 'Technical Lead' },
+                { title: 'Technology Dependencies', description: 'Reliance on audit software and systems', level: 'Low', mitigation: 'Maryam Al Shamsi', mitigationRole: 'IT Coordinator' }
+            ]
+        };
+
+        const teams = [
+            {
+                name: 'Port Operations Audit Team',
+                purpose: 'Conduct audits of port operations and logistics',
+                lead: 'Mohammed Al Ketbi',
+                coordinator: 'Fatima Al Zaabi',
+                members: [
+                    { name: 'Ali Al Suwaidi', role: 'Senior Auditor' },
+                    { name: 'Maryam Al Shamsi', role: 'Auditor' },
+                    { name: 'Ahmed Al Hashimi', role: 'Auditor' },
+                    { name: 'Noura Al Falasi', role: 'Junior Auditor' }
+                ]
+            },
+            {
+                name: 'Free Zone Compliance Team',
+                purpose: 'Focus on free zone regulatory compliance and financial audits',
+                lead: 'Fatima Al Zaabi',
+                coordinator: 'Ali Al Suwaidi',
+                members: [
+                    { name: 'Khalid Al Muhairi', role: 'Compliance Expert' },
+                    { name: 'Sara Al Nuaimi', role: 'Financial Auditor' },
+                    { name: 'Hamdan Al Mazrouei', role: 'Auditor' }
+                ]
+            },
+            {
+                name: 'Quality Assurance Team',
+                purpose: 'Review audit reports and ensure quality standards',
+                lead: 'Sara Al Hashimi',
+                coordinator: 'Mohammed Al Ketbi',
+                members: [
+                    { name: 'Maryam Al Shamsi', role: 'Quality Reviewer' },
+                    { name: 'Ahmed Al Hashimi', role: 'Standards Advisor' }
+                ]
+            }
+        ];
+
+        // Render responsibilities
+        const responsibilitiesList = document.getElementById('responsibilitiesList');
+        responsibilitiesList.innerHTML = responsibilities.map(resp => `
+            <div class="col-md-6">
+                <div class="d-flex align-items-start gap-2">
+                    <div class="rounded-circle bg-success d-flex align-items-center justify-content-center flex-shrink-0 icon-box-xxs">
+                        <i data-lucide="chevron-right" class="icon-xs icon-success"></i>
                     </div>
-                    <i data-lucide="chevron-right" style="width: 20px; height: 20px; color: #d1d5db;" class="flex-shrink-0 ms-2"></i>
-                </div>
-                <div class="d-flex align-items-center gap-4 small text-secondary">
-                    <div class="d-flex align-items-center gap-1">
-                        <i data-lucide="users" style="width: 12px; height: 12px;"></i>
-                        <span>${dept.headCount} employees</span>
-                    </div>
-                    <div class="d-flex align-items-center gap-1">
-                        <i data-lucide="user" style="width: 12px; height: 12px;"></i>
-                        <span>${dept.manager}</span>
-                    </div>
+                    <p class="small text-secondary mb-0">${resp}</p>
                 </div>
             </div>
         `).join('');
 
-        // Render Champions
-        const championsContainer = document.getElementById('championsContent');
-        championsContainer.innerHTML = `
-            <div class="row g-3">
+        // Render Departments
+        const deptContainer = document.getElementById('departmentsContent');
+        deptContainer.innerHTML = ` 
+            <div class="px-4 pb-4">
+                <div class="row g-3">
+                    ${departments.map(dept => `
+                    <div class="p-3 border rounded-3 department-card ">
+                        <div class="d-flex align-items-start justify-content-between mb-2">
+                            <div class="flex-grow-1">
+                                <h6 class="small fw-normal mb-1">${dept.name}</h6>
+                                <p class="small text-secondary mb-0">${dept.description}</p>
+                            </div>
+                            <i data-lucide="chevron-right" style="width: 20px; height: 20px; color: #d1d5db;" class="flex-shrink-0 ms-2"></i>
+                        </div>
+                        <div class="d-flex align-items-center gap-4 small text-secondary">
+                            <div class="d-flex align-items-center gap-1">
+                                <i data-lucide="users" style="width: 12px; height: 12px;"></i>
+                                <span>${dept.headCount} employees</span>
+                            </div>
+                            <div class="d-flex align-items-center gap-1">
+                                <i data-lucide="user" style="width: 12px; height: 12px;"></i>
+                                <span>${dept.manager}</span>
+                            </div>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+        `;
+
+        // Render champions
+        const championsContent = document.getElementById('championsContent');
+        championsContent.innerHTML = `
+            <div class="px-4 pb-4">
+                <div class="row g-3">
                 ${champions.map(champion => `
-                    <div class="col-6 col-md-4 col-lg-2">
+                    <div class="col-6 col-md-3">
                         <div class="text-center">
                             <div class="position-relative d-inline-block mb-2">
-                                <div class="rounded-circle border border-2 overflow-hidden" style="width: 80px; height: 80px; border-color: #e5e7eb !important;">
+                                <div class="rounded-circle border border-2 overflow-hidden champion-avatar">
                                     <div class="w-100 h-100 bg-secondary d-flex align-items-center justify-content-center text-white fw-bold">
                                         ${champion.name.split(' ').map(n => n[0]).join('')}
                                     </div>
                                 </div>
                                 <div class="champion-badge" style="background-color: ${champion.categoryColor};">
-                                    <i data-lucide="trophy" style="width: 12px; height: 12px; color: white;"></i>
+                                    <i data-lucide="trophy" class="icon-xs icon-white"></i>
                                 </div>
                             </div>
-                            <p class="small fw-medium mb-1">${champion.name}</p>
+                            <p class="small fw-normal mb-1">${champion.name}</p>
                             <p class="small text-secondary mb-2">${champion.role}</p>
-                            <span class="badge border small" style="background-color: ${champion.categoryColor}15; color: ${champion.categoryColor}; border-color: ${champion.categoryColor} !important;">
+                            <span class="badge border fw-normal  small" style="background-color: ${champion.categoryColor}15; color: ${champion.categoryColor}; border-color: ${champion.categoryColor} !important;">
                                 ${champion.category}
                             </span>
                         </div>
                     </div>
                 `).join('')}
+                </div>
             </div>
         `;
 
         // Render KPIs
-        const kpisContainer = document.getElementById('kpisContent');
-        const statusConfig = {
-            exceeds: { color: 'text-success', bg: 'bg-success', bgOpacity: 'bg-opacity-10', border: 'border-success', label: 'Exceeds Target' },
-            meets: { color: 'text-primary', bg: 'bg-primary', bgOpacity: 'bg-opacity-10', border: 'border-primary', label: 'Meets Target' },
-            below: { color: 'text-warning', bg: 'bg-warning', bgOpacity: 'bg-opacity-10', border: 'border-warning', label: 'Below Target' }
+        const kpisContent = document.getElementById('kpisContent');
+        const kpiStatusConfig = {
+
+            exceeds: { color: 'text-success', bg: 'bg-light-green', border: 'border-light-green', label: 'Exceeds Target' },
+            meets: { color: 'text-primary', bg: 'bg-light-blue', border: 'border-light-blue', label: 'Meets Target' },
+            below: { color: 'dark-yellow', bg: 'bg-light-yellow', border: 'border-light-yellow', label: 'Below Target' }
         };
 
-        kpisContainer.innerHTML = `
-            <div class="row g-3">
+        kpisContent.innerHTML = `
+            <div class="px-4 pb-4">
+                <div class="row g-3">
                 ${kpis.map(kpi => {
-            const config = statusConfig[kpi.status];
+            const config = kpiStatusConfig[kpi.status];
             const trendIcon = kpi.trend === 'up' ? 'trending-up' : kpi.trend === 'down' ? 'trending-down' : 'minus';
             return `
                         <div class="col-md-6 col-lg-4">
-                            <div class="card kpi-card border-2 ${config.border} ${config.bg} ${config.bgOpacity}">
+                            <div class="card border-2 rounded-3 ${config.border} ${config.bg} ">
                                 <div class="card-body p-3">
                                     <div class="d-flex align-items-start justify-content-between mb-3">
-                                        <div class="rounded-3 ${config.bg} ${config.bgOpacity} border ${config.border} d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;">
-                                            <i data-lucide="activity" style="width: 16px; height: 16px;" class="${config.color}"></i>
+                                        <div class="rounded-3 ${config.bg}  border ${config.border} d-flex align-items-center justify-content-center icon-box-lg">
+                                            <i data-lucide="activity" class="icon-sm ${config.color}"></i>
                                         </div>
-                                        <i data-lucide="${trendIcon}" style="width: 16px; height: 16px;" class="${config.color}"></i>
+                                        <i data-lucide="${trendIcon}" class="icon-sm ${config.color}"></i>
                                     </div>
-                                    <h5 class="small fw-medium mb-1">${kpi.title}</h5>
-                                    <p class="small text-secondary mb-3" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${kpi.description}</p>
+                                    <h3 class="small fw-medium mb-1">${kpi.title}</h3>
+                                    <p class="small text-secondary mb-3 line-clamp-2">${kpi.description}</p>
                                     <div class="d-flex justify-content-between small mb-2">
                                         <span class="text-secondary">Target:</span>
                                         <span class="text-dark">${kpi.target}</span>
@@ -655,14 +1079,159 @@
                                         <span class="small text-secondary">Current:</span>
                                         <span class="small fw-medium ${config.color}">${kpi.metric}</span>
                                     </div>
-                                    <span class="badge w-100 ${config.bg} ${config.color} border ${config.border} small">${config.label}</span>
+                                    <span class="fw-normal badge w-100 ${config.bg} ${config.color} border ${config.border} small">${config.label}</span>
                                 </div>
                             </div>
                         </div>
                     `;
         }).join('')}
             </div>
-        `;
+        </div>`;
+
+        // Render Risks
+        const risksContent = document.getElementById('risksContent');
+        const riskLevelConfig = {
+            High: { color: 'text-danger', bg: 'bg-light-red', border: 'border-dark-red' },
+            Medium: { color: 'dark-yellow', bg: 'bg-light-yellow', border: 'border-light-yellow' },
+            Low: { color: 'text-success', bg: 'bg-light-green', border: 'border-light-green' }
+        };
+
+        risksContent.innerHTML = `
+            <div class="px-4 pb-4">
+                <div class="row g-4">
+                <div class="col-lg-6">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <i data-lucide="target" class="icon-md icon-violet"></i>
+                        <h3 class="small fw-medium mb-0">Strategic Risks</h3>
+                        <span class="badge border text-secondary small">${risks.strategic.length}</span>
+                    </div>
+                    <div class="d-flex flex-column gap-3">
+                        ${risks.strategic.map(risk => {
+            const config = riskLevelConfig[risk.level];
+            return `
+                            <div class="card border rounded-3 ${config.border} ${config.bg}">
+                                <div class="card-body p-3">
+                                    <div class="d-flex align-items-start justify-content-between mb-2">
+                                        <h4 class="small  fw-medium mb-0 flex-grow-1">${risk.title}</h4>
+                                        <span class="badge fw-normal ${config.bg} ${config.color} border ${config.border} small ms-2">${risk.level}</span>
+                                    </div>
+                                    <p class="small text-secondary mb-3">${risk.description}</p>
+                                    <div class="pt-3 border-top">
+                                        <p class="small text-secondary mb-1">Mitigation Owner:</p>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <i data-lucide="user" class="icon-xs icon-dark-gray"></i>
+                                            <div>
+                                                <p class="small fw-normal mb-0">${risk.mitigation}</p>
+                                                <p class="small text-secondary mb-0">${risk.mitigationRole}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+        }).join('')}
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <i data-lucide="alert-triangle" class="icon-md icon-orange"></i>
+                        <h3 class="small fw-medium mb-0">Operational Risks</h3>
+                        <span class="badge border text-secondary small">${risks.operational.length}</span>
+                    </div>
+                    <div class="d-flex flex-column gap-3">
+                        ${risks.operational.map(risk => {
+            const config = riskLevelConfig[risk.level];
+            return `
+                            <div class="card border rounded-3 ${config.border} ${config.bg} ">
+                                <div class="card-body p-3">
+                                    <div class="d-flex align-items-start justify-content-between mb-2">
+                                        <h4 class="small fw-medium mb-0 flex-grow-1">${risk.title}</h4>
+                                        <span class="badge fw-normal ${config.bg} ${config.color} border ${config.border} small ms-2">${risk.level}</span>
+                                    </div>
+                                    <p class="small text-secondary mb-3">${risk.description}</p>
+                                    <div class="pt-3 border-top">
+                                        <p class="small text-secondary mb-1">Mitigation Owner:</p>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <i data-lucide="user" class="icon-xs icon-dark-gray"></i>
+                                            <div>
+                                                <p class="small fw-normal mb-0">${risk.mitigation}</p>
+                                                <p class="small text-secondary mb-0">${risk.mitigationRole}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+        }).join('')}
+                    </div>
+                </div>
+            </div>
+        </div>`;
+
+        // Render Teams
+        const teamsContent = document.getElementById('teamsContent');
+        teamsContent.innerHTML = '<div class="px-4 pb-4">' + teams.map((team, index) => `
+            <div class="card bg-light border rounded-3 mb-3">
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-start justify-content-between">
+                        <div class="flex-grow-1">
+                            <h3 class="small fw-medium mb-1">${team.name}</h3>
+                            <p class="small text-secondary mb-3">${team.purpose}</p>
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="rounded-3 bg-primary bg-opacity-10 d-flex align-items-center justify-content-center icon-box-md">
+                                            <i data-lucide="user" class="icon-xs icon-primary"></i>
+                                        </div>
+                                        <div>
+                                            <p class="small text-secondary mb-0">Team Lead</p>
+                                            <p class="small fw-normal mb-0">${team.lead}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="rounded-3  d-flex align-items-center justify-content-center icon-box-md" style="background-color: #F3E8FF">
+                                            <i data-lucide="user" class="icon-xs icon-purple"></i>
+                                        </div>
+                                        <div>
+                                            <p class="small text-secondary mb-0">Coordinator</p>
+                                            <p class="small fw-normal mb-0">${team.coordinator}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-sm btn-ghost ms-3 team-toggle" data-team-index="${index}">
+                            <i data-lucide="chevron-down" class="icon-sm"></i>
+                        </button>
+                    </div>
+                    <div class="team-members-section" id="team-members-${index}" style="display: none;">
+                        <div class="pt-3 border-top mt-3">
+                            <div class="d-flex align-items-center gap-2 mb-3">
+                                <i data-lucide="users" class="icon-sm icon-dark-gray"></i>
+                                <p class="small text-secondary mb-0">Members (${team.members.length})</p>
+                            </div>
+                            <div class="row g-2">
+                                ${team.members.map(member => `
+                                    <div class="col-md-6">
+                                        <div class="d-flex align-items-center gap-2 p-2 bg-white rounded border">
+                                            <div class="rounded-circle bg-secondary bg-opacity-10 d-flex align-items-center justify-content-center icon-box-xs">
+                                                <i data-lucide="user" class="icon-xs "></i>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <p class=" fw-normal mb-0">${member.name}</p>
+                                                <p class="small text-secondary mb-0">${member.role}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `).join('') + '</div>';
 
         // Collapsible sections functionality
         document.querySelectorAll('.collapsible-section').forEach(section => {
@@ -681,6 +1250,26 @@
 
                 // Reinitialize icons after content is shown
                 setTimeout(() => lucide.createIcons(), 100);
+            });
+        });
+
+        // Team member toggle functionality
+        document.querySelectorAll('.team-toggle').forEach(button => {
+            button.addEventListener('click', function (e) {
+                e.stopPropagation();
+                const teamIndex = this.getAttribute('data-team-index');
+                const membersSection = document.getElementById(`team-members-${teamIndex}`);
+                const icon = this.querySelector('i');
+
+                if (membersSection.style.display === 'none') {
+                    membersSection.style.display = 'block';
+                    icon.setAttribute('data-lucide', 'chevron-up');
+                } else {
+                    membersSection.style.display = 'none';
+                    icon.setAttribute('data-lucide', 'chevron-down');
+                }
+
+                lucide.createIcons();
             });
         });
 
