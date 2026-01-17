@@ -12,6 +12,118 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
+        h1 {
+            font-size: 2.5rem !important;
+
+            line-height: 1.2 !important;
+        }
+
+        h2 {
+            font-size: 2rem !important;
+
+            line-height: 1.3 !important;
+        }
+
+        h3 {
+            font-size: 1.5rem !important;
+            font-weight: 500 !important;
+            line-height: 1.4 !important;
+        }
+
+        h4 {
+            font-size: 1.25rem !important;
+            font-weight: 500 !important;
+            line-height: 1.4 !important;
+        }
+
+        h5 {
+            font-size: 1.125rem !important;
+            font-weight: 400 !important;
+            line-height: 1.5 !important;
+        }
+
+        h6 {
+            font-size: 1rem !important;
+            font-weight: 400 !important;
+            line-height: 1.5 !important;
+        }
+
+        p {
+            font-size: 1rem !important;
+            line-height: 1.6 !important;
+        }
+
+        a {
+            font-size: 0.75rem !important;
+            text-decoration: none;
+            color: #7b282d;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+
+        button {
+            font-family: inherit !important;
+        }
+
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #908e81 #f1f1f1;
+            letter-spacing: 0.5px;
+            font-family: "Dubai", "Tajawal", sans-serif;
+        }
+
+        .custom-container {
+            max-width: 95vw;
+            margin: auto;
+        }
+
+        .shadow-lg {
+            box-shadow:
+                0 10px 15px -3px rgba(0, 0, 0, 0.1),
+                0 4px 6px -4px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .border {
+            border: 1px solid #E5E5E5 !important;
+        }
+
+        .hero-banner {
+            background-image: url('./assets/3ca851fd732fadea7ed700a83455499648bbdce7.avif');
+            background-size: 100%;
+            border-radius: 16px;
+            color: white;
+            padding: 60px 48px;
+            position: relative;
+            overflow: hidden;
+            height: 280px;
+        }
+
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: min(957px, calc(100% - 424px));
+            background-color: rgba(81, 58, 64, 0.72);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
         :root {
             --faa-red: #ec2227;
             --faa-dark-red: #7b282d;
@@ -31,27 +143,6 @@
         .bg-pattern {
             background-image: url('data:image/svg+xml,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="1" fill="%23000000" opacity="0.05"/></svg>');
             background-repeat: repeat;
-        }
-
-        .hero-banner {
-            background: linear-gradient(135deg, var(--faa-red) 0%, var(--faa-dark-red) 100%);
-            border-radius: 16px;
-            color: white;
-            padding: 40px 48px;
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 2rem;
-        }
-
-        .hero-banner::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -10%;
-            width: 500px;
-            height: 500px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
         }
 
         .card {
@@ -112,18 +203,26 @@
         .nav-pills .nav-link {
             color: #6b7280;
             font-size: 0.75rem;
-            padding: 0.5rem 1rem;
+            padding: 0.2rem 1rem;
             border-radius: 6px;
         }
 
         .nav-pills .nav-link.active {
-            background-color: white;
+            background-color: #EFEFF1;
             color: black;
             box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            border: 1px solid #e5e5e7;
         }
 
         .nav-fill-custom .nav-item {
             flex: 1;
+        }
+
+        .sub-nav-pills .nav-link.active {
+            background-color: #F3F4F4;
+            color: black;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            border: 1px solid #e5e5e7;
         }
 
         /* Lists */
@@ -138,6 +237,18 @@
         .update-item:hover {
             border-color: rgba(123, 40, 45, 0.3);
             box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        .update-item:hover h6 {
+            color: #7B282D;
+        }
+
+        .event-card:hover .remaining-time {
+
+            background-color: #F8F4F4;
+            border: 1px solid rgba(123, 40, 45, 0.3);
+            padding: 0.25rem;
+            transition: all 0.3s;
         }
 
         /* Media Gallery */
@@ -265,7 +376,6 @@
             background-color: #f8f9fa;
             border: 1px solid #f3f4f6;
             border-radius: 8px;
-            padding: 1.25rem 0;
             height: 100%;
         }
 
@@ -275,7 +385,7 @@
             border-radius: 8px;
             padding: 1rem;
             text-align: center;
-            margin: 0 1.25rem;
+
         }
 
         .user-avatar-lg {
@@ -304,19 +414,6 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
-        /* Scrollbar */
-        .faa-scroll::-webkit-scrollbar {
-            width: 4px;
-        }
-
-        .faa-scroll::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-
-        .faa-scroll::-webkit-scrollbar-thumb {
-            background: #d1d5db;
-            border-radius: 4px;
-        }
 
         /* Lightbox Modal Styles */
         .lightbox-container {
@@ -436,29 +533,104 @@
             object-fit: cover;
         }
 
-        .download-btn {
-            background-color: var(--faa-dark-red);
-            font-size: 13px;
-            transition: all 0.2s;
-        }
-
         .download-btn:hover {
             background-color: #971B1E;
             color: white;
         }
+
+        /* Animations */
+        .anim-fade-out-left {
+            animation: fadeOutLeft 0.3s forwards;
+        }
+
+        .anim-fade-in-right {
+            animation: fadeInRight 0.3s forwards;
+        }
+
+        .anim-fade-out-right {
+            animation: fadeOutRight 0.3s forwards;
+        }
+
+        .anim-fade-in-left {
+            animation: fadeInLeft 0.3s forwards;
+        }
+
+        @keyframes fadeOutLeft {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+
+            to {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeOutRight {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+
+            to {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .nav-pills {
+            background-color: #F3F4F6;
+        }
+
+        .btn-white {
+            background-color: white;
+        }
+
+        .btn-white:hover {
+            background-color: #fafafa;
+        }
     </style>
 </head>
 
-<body class="bg-pattern">
+<body class="bg-pattern custom-container">
 
     <!-- Hero Banner -->
-    <div class="container-fluid px-5 pt-4">
+    <div class="container-fluid px-5 py-4">
         <div class="hero-banner">
-            <div class="position-relative">
-                <h1 class="display-5 fw-bold mb-3">Welcome Back!</h1>
-                <p class="lead mb-0 fs-6">Your central hub for all FAA resources, updates, and collaboration</p>
+            <div class="hero-content">
+                <h2 class="mb-3" style="font-size: 24px; font-weight: 500; line-height: 28px;">Financial Audit Authority
+                    Intranet Welcomes You</h2>
+                <p class="mb-0" style="font-size: 18px; font-weight: 400; line-height: 25.6px;">Welcome to the Financial
+                    Audit Authority Intranet, your central hub for resources, updates, and tools to support our mission
+                    of ensuring financial integrity and accountability.</p>
             </div>
         </div>
+
     </div>
 
     <!-- Quick Links -->
@@ -470,12 +642,13 @@
                         <i data-lucide="external-link"
                             style="width: 16px; height: 16px; color: var(--faa-dark-red);"></i>
                     </div>
-                    <h3 class="section-title">Quick Links</h3>
+                    <h3 class="fw-medium section-title">Quick Links</h3>
                 </div>
-                <a href="#" class="text-decoration-none small text-danger">View All</a>
+                <a href="#" class="small">View All</a>
             </div>
 
-            <div class="row row-cols-2 row-cols-md-5 row-cols-xl-5 g-3">
+            <div class="row  g-3">
+
                 <!-- 1 -->
                 <div class="col">
                     <div class="quick-link-btn" role="button">
@@ -586,63 +759,63 @@
                         </div>
 
                         <!-- Tabs -->
-                        <ul class="nav nav-pills bg-light rounded p-1 mb-3 nav-fill-custom" role="tablist">
+                        <ul class="nav nav-pills rounded p-1 mb-3 nav-fill-custom" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link active" data-bs-toggle="tab"
+                                <button class="nav-link w-100 active" data-bs-toggle="tab"
                                     data-bs-target="#announcements">Announcements</button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#news">Media &
+                                <button class="nav-link w-100" data-bs-toggle="tab" data-bs-target="#news">Media &
                                     News</button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#policy">Policy
+                                <button class="nav-link w-100" data-bs-toggle="tab" data-bs-target="#policy">Policy
                                     Updates</button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#laws">Laws &
+                                <button class="nav-link w-100" data-bs-toggle="tab" data-bs-target="#laws">Laws &
                                     Legislation</button>
                             </li>
                         </ul>
 
-                        <div class="tab-content flex-grow-1 overflow-auto faa-scroll" style="max-height: 400px;">
+                        <div class="tab-content flex-grow-1 overflow-auto" style="max-height: 400px;">
                             <!-- Announcements -->
                             <div class="tab-pane fade show active" id="announcements">
                                 <div class="d-flex flex-column gap-3">
                                     <div class="update-item">
                                         <div class="d-flex align-items-center gap-2 mb-2">
-                                            <span class="badge bg-danger small"
+                                            <span class="badge fw-normal bg-danger small"
                                                 style="background-color: #ec2227;">Policy</span>
                                             <span class="small text-muted">2025-11-26</span>
                                         </div>
-                                        <h6 class="small fw-bold mb-1">New Audit Standards Released</h6>
+                                        <h6 class="fs-5 fw-medium mb-1">New Audit Standards Released</h6>
                                         <p class="small text-muted mb-0">Updated international audit standards have been
                                             published and are now available in the knowledge hub.</p>
                                     </div>
                                     <div class="update-item">
                                         <div class="d-flex align-items-center gap-2 mb-2">
-                                            <span class="badge bg-danger small"
+                                            <span class="badge fw-normal bg-danger small"
                                                 style="background-color: #ec2227;">HR</span>
                                             <span class="small text-muted">2025-11-25</span>
                                         </div>
-                                        <h6 class="small fw-bold mb-1">Remote Work Policy Update</h6>
+                                        <h6 class="fs-5 fw-medium mb-1">Remote Work Policy Update</h6>
                                         <p class="small text-muted mb-0">The updated remote work policy is now
                                             effective. Please review the new guidelines.</p>
                                     </div>
                                     <div class="update-item">
                                         <div class="d-flex align-items-center gap-2 mb-2">
-                                            <span class="badge bg-danger small"
+                                            <span class="badge fw-normal bg-danger small"
                                                 style="background-color: #ec2227;">Technology</span>
                                             <span class="small text-muted">2025-11-24</span>
                                         </div>
-                                        <h6 class="small fw-bold mb-1">Digital Transformation Initiative Launch</h6>
+                                        <h6 class="fs-5 fw-medium mb-1">Digital Transformation Initiative Launch</h6>
                                         <p class="small text-muted mb-0">We are excited to announce the launch of our
                                             digital transformation program.</p>
                                     </div>
                                 </div>
                             </div>
                             <!-- News -->
-                            <div class="tab-pane fade" id="news">
+                            <div class="tab-pane fade px-2" id="news">
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <div class="update-item h-100">
@@ -651,7 +824,7 @@
                                                     style="background-color: #ec2227;">Innovation</span>
                                                 <span class="small text-muted">2025-11-26</span>
                                             </div>
-                                            <h6 class="small fw-bold mb-1">Innovation Workshop</h6>
+                                            <h6 class="fs-5 fw-medium mb-1">Innovation Workshop</h6>
                                             <p class="small text-muted mb-0">Behind the scenes at our Innovation
                                                 Workshop! Our teams are working on...</p>
                                         </div>
@@ -663,14 +836,25 @@
                                                     style="background-color: #8cd4e4;">Technology</span>
                                                 <span class="small text-muted">2025-11-25</span>
                                             </div>
-                                            <h6 class="small fw-bold mb-1">FAA Launches New Digital Audit Platform</h6>
+                                            <h6 class="fs-5 fw-medium mb-1">FAA Launches New Digital Audit Platform</h6>
+                                            <p class="small text-muted mb-0">The Financial Audit Authority has
+                                                officially launched its new digital audit platform...</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="update-item h-100">
+                                            <div class="d-flex align-items-center gap-2 mb-2">
+                                                <span class="badge small"
+                                                    style="background-color: #8cd4e4;">Technology</span>
+                                                <span class="small text-muted">2025-11-25</span>
+                                            </div>
+                                            <h6 class="fs-5 fw-medium mb-1">FAA Launches New Digital Audit Platform</h6>
                                             <p class="small text-muted mb-0">The Financial Audit Authority has
                                                 officially launched its new digital audit platform...</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- Other tabs... (simplified for brevity) -->
                             <div class="tab-pane fade" id="policy">
                                 <div class="d-flex flex-column gap-3">
                                     <div class="update-item">
@@ -679,22 +863,55 @@
                                                 style="background-color: #ec2227;">Policy</span>
                                             <span class="small text-muted">2025-11-26</span>
                                         </div>
-                                        <h6 class="small fw-bold mb-1">Remote Work Guidelines v2.1</h6>
+                                        <h6 class="fs-5 fw-medium mb-1">Remote Work Guidelines v2.1</h6>
                                         <p class="small text-muted mb-0">Updated guidelines for hybrid work arrangements
                                             and remote collaboration best practices.</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="laws">
-                                <div class="update-item">
-                                    <div class="d-flex align-items-center gap-2 mb-2">
-                                        <span class="badge small text-white"
-                                            style="background-color: #7b282d;">New</span>
-                                        <span class="small text-muted">2025-11-25</span>
+                                <!-- Nested Tabs -->
+                                <ul class="nav nav-pills sub-nav-pills rounded p-1 mb-3 nav-fill-custom" role="tablist"
+                                    style="background-color: #F9FAFB;">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link w-100 active" data-bs-toggle="tab"
+                                            data-bs-target="#laws-sub-laws">Laws</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link w-100" data-bs-toggle="tab"
+                                            data-bs-target="#laws-sub-journals">Official Journals</button>
+                                    </li>
+                                </ul>
+
+                                <div class="tab-content">
+                                    <div class="tab-pane fade show active" id="laws-sub-laws">
+                                        <div class="d-flex flex-column gap-3">
+                                            <div class="update-item">
+                                                <div class="d-flex align-items-center gap-2 mb-2">
+                                                    <span class="badge small text-white"
+                                                        style="background-color: #7b282d;">New</span>
+                                                    <span class="small text-muted">2025-11-25</span>
+                                                </div>
+                                                <h6 class="fs-5 fw-medium mb-1">Federal Law No. 15 of 2025</h6>
+                                                <p class="small text-muted mb-0">Anti-Money Laundering regulations and
+                                                    compliance requirements for government entities.</p>
+                                            </div>
+                                            <div class="update-item">
+                                                <div class="d-flex align-items-center gap-2 mb-2">
+                                                    <span class="badge small text-white"
+                                                        style="background-color: #7b282d;">Law</span>
+                                                    <span class="small text-muted">2025-11-20</span>
+                                                </div>
+                                                <h6 class="fs-5 fw-medium mb-1">Federal Decree-Law No. 12 of 2025</h6>
+                                                <p class="small text-muted mb-0">Public sector governance and
+                                                    accountability framework updates.</p>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <h6 class="small fw-bold mb-1">Federal Law No. 15 of 2025</h6>
-                                    <p class="small text-muted mb-0">Anti-Money Laundering regulations and compliance
-                                        requirements.</p>
+                                    <div class="tab-pane fade" id="laws-sub-journals">
+                                        <p class="text-muted small text-center my-3">No official journals available at
+                                            the moment.</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -714,7 +931,7 @@
                                 </div>
                                 <h3 class="section-title">Media Gallery</h3>
                             </div>
-                            <a href="#" class="text-decoration-none small text-danger">See More</a>
+                            <a href="#" class=" small ">See More</a>
                         </div>
 
                         <div class="flex-grow-1">
@@ -805,7 +1022,7 @@
                             </div>
 
                             <!-- Events List -->
-                            <div class="flex-grow-1 overflow-auto faa-scroll pe-2" style="max-height: 400px;">
+                            <div class="flex-grow-1 overflow-auto pe-2" style="max-height: 400px;">
                                 <div class="d-flex flex-column gap-3 pt-1   ">
                                     <!-- Event 1 -->
                                     <div class="event-card d-flex gap-3">
@@ -817,18 +1034,27 @@
                                         <div class="flex-grow-1">
                                             <div class="d-flex justify-content-between align-items-start mb-1">
                                                 <h6 class="small fw-bold mb-0">Annual Audit Planning Meeting</h6>
-                                                <span class="badge"
+                                                <span class="badge px-2 py-1 fw-normal"
                                                     style="background-color: #ec2227; font-size: 9px;">INTERNAL</span>
                                             </div>
                                             <p class="small text-muted mb-2 text-truncate">Join us for the annual audit
                                                 planning meeting...</p>
-                                            <div class="d-flex align-items-center gap-3">
-                                                <div class="d-flex align-items-center gap-1 small text-muted">
-                                                    <i data-lucide="clock" style="width: 12px;"></i> 10:00 am - 12:00 pm
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <div class="d-flex align-items-center gap-3">
+                                                    <div class="d-flex align-items-center gap-1 small text-muted">
+                                                        <i data-lucide="clock" style="width: 12px;"></i> 10:00 am -
+                                                        12:00
+                                                        pm
+                                                    </div>
+                                                    <div class="d-flex align-items-center gap-1 small text-muted">
+                                                        <i data-lucide="map-pin" style="width: 12px;"></i> Main
+                                                        Conference
+                                                        Room
+                                                    </div>
                                                 </div>
-                                                <div class="d-flex align-items-center gap-1 small text-muted">
-                                                    <i data-lucide="map-pin" style="width: 12px;"></i> Main Conference
-                                                    Room
+                                                <div class=" remaining-time  rounded px-2 py-1 "
+                                                    style="font-size: 11px;">
+                                                    10d 09h
                                                 </div>
                                             </div>
                                         </div>
@@ -842,18 +1068,27 @@
                                         <div class="flex-grow-1">
                                             <div class="d-flex justify-content-between align-items-start mb-1">
                                                 <h6 class="small fw-bold mb-0">Annual Audit Planning Meeting</h6>
-                                                <span class="badge"
+                                                <span class="badge px-2 py-1 fw-normal"
                                                     style="background-color: #ec2227; font-size: 9px;">INTERNAL</span>
                                             </div>
                                             <p class="small text-muted mb-2 text-truncate">Join us for the annual audit
                                                 planning meeting...</p>
-                                            <div class="d-flex align-items-center gap-3">
-                                                <div class="d-flex align-items-center gap-1 small text-muted">
-                                                    <i data-lucide="clock" style="width: 12px;"></i> 10:00 am - 12:00 pm
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <div class="d-flex align-items-center gap-3">
+                                                    <div class="d-flex align-items-center gap-1 small text-muted">
+                                                        <i data-lucide="clock" style="width: 12px;"></i> 10:00 am -
+                                                        12:00
+                                                        pm
+                                                    </div>
+                                                    <div class="d-flex align-items-center gap-1 small text-muted">
+                                                        <i data-lucide="map-pin" style="width: 12px;"></i> Main
+                                                        Conference
+                                                        Room
+                                                    </div>
                                                 </div>
-                                                <div class="d-flex align-items-center gap-1 small text-muted">
-                                                    <i data-lucide="map-pin" style="width: 12px;"></i> Main Conference
-                                                    Room
+                                                <div class=" remaining-time  rounded px-2 py-1 "
+                                                    style="font-size: 11px;">
+                                                    08d 14h
                                                 </div>
                                             </div>
                                         </div>
@@ -868,17 +1103,26 @@
                                         <div class="flex-grow-1">
                                             <div class="d-flex justify-content-between align-items-start mb-1">
                                                 <h6 class="small fw-bold mb-0">Risk Management Workshop</h6>
-                                                <span class="badge"
+                                                <span class="badge px-2 py-1 fw-normal"
                                                     style="background-color: #8cd4e4; font-size: 9px;">TRAINING</span>
                                             </div>
                                             <p class="small text-muted mb-2 text-truncate">Enhance your skills in
                                                 identifying...</p>
-                                            <div class="d-flex align-items-center gap-3">
-                                                <div class="d-flex align-items-center gap-1 small text-muted">
-                                                    <i data-lucide="clock" style="width: 12px;"></i> 02:00 pm - 05:00 pm
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <div class="d-flex align-items-center gap-3">
+                                                    <div class="d-flex align-items-center gap-1 small text-muted">
+                                                        <i data-lucide="clock" style="width: 12px;"></i> 02:00 pm -
+                                                        05:00
+                                                        pm
+                                                    </div>
+                                                    <div class="d-flex align-items-center gap-1 small text-muted">
+                                                        <i data-lucide="map-pin" style="width: 12px;"></i> Training
+                                                        Center
+                                                    </div>
                                                 </div>
-                                                <div class="d-flex align-items-center gap-1 small text-muted">
-                                                    <i data-lucide="map-pin" style="width: 12px;"></i> Training Center
+                                                <div class=" remaining-time  rounded px-2 py-1 "
+                                                    style="font-size: 11px;">
+                                                    05d 08h
                                                 </div>
                                             </div>
                                         </div>
@@ -893,18 +1137,26 @@
                                         <div class="flex-grow-1">
                                             <div class="d-flex justify-content-between align-items-start mb-1">
                                                 <h6 class="small fw-bold mb-0">National Day Celebration</h6>
-                                                <span class="badge"
+                                                <span class="badge px-2 py-1 fw-normal"
                                                     style="background-color: #413f30; font-size: 9px;">CULTURAL</span>
                                             </div>
                                             <p class="small text-muted mb-2 text-truncate">Celebrate our nation's
                                                 heritage...</p>
-                                            <div class="d-flex align-items-center gap-3">
-                                                <div class="d-flex align-items-center gap-1 small text-muted">
-                                                    <i data-lucide="clock" style="width: 12px;"></i> 06:00 pm - 09:00 pm
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <div class="d-flex align-items-center gap-3">
+                                                    <div class="d-flex align-items-center gap-1 small text-muted">
+                                                        <i data-lucide="clock" style="width: 12px;"></i> 06:00 pm -
+                                                        09:00
+                                                        pm
+                                                    </div>
+                                                    <div class="d-flex align-items-center gap-1 small text-muted">
+                                                        <i data-lucide="map-pin" style="width: 12px;"></i> FAA Main
+                                                        Auditorium
+                                                    </div>
                                                 </div>
-                                                <div class="d-flex align-items-center gap-1 small text-muted">
-                                                    <i data-lucide="map-pin" style="width: 12px;"></i> FAA Main
-                                                    Auditorium
+                                                <div class=" remaining-time  rounded px-2 py-1 "
+                                                    style="font-size: 11px;">
+                                                    02d 12h
                                                 </div>
                                             </div>
                                         </div>
@@ -928,38 +1180,38 @@
                             <h3 class="section-title">Offers</h3>
                         </div>
 
-                        <ul class="nav nav-pills bg-light rounded p-1 mb-3 nav-fill-custom" role="tablist">
+                        <ul class="nav nav-pills rounded p-1 mb-3 nav-fill-custom" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link active" data-bs-toggle="tab"
+                                <button class="nav-link active w-100" data-bs-toggle="tab"
                                     data-bs-target="#esaad">Esaad</button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#other-offers">Other
+                                <button class="nav-link w-100" data-bs-toggle="tab" data-bs-target="#other-offers">Other
                                     Offers</button>
                             </li>
                         </ul>
 
-                        <div class="tab-content flex-grow-1 overflow-auto faa-scroll">
+                        <div class="tab-content flex-grow-1 overflow-auto">
                             <div class="tab-pane fade show active" id="esaad">
                                 <div class="d-flex flex-column">
                                     <div class="offer-card">
                                         <div class="d-flex justify-content-between align-items-center mb-1">
                                             <h5 class="h6 mb-0">Dubai Mall</h5>
-                                            <span class="badge bg-danger">20% Off</span>
+                                            <span class="badge fs-6 bg-danger">20% Off</span>
                                         </div>
                                         <p class="text-muted small mb-0">Shopping</p>
                                     </div>
                                     <div class="offer-card">
                                         <div class="d-flex justify-content-between align-items-center mb-1">
                                             <h5 class="h6 mb-0">Emirates Airlines</h5>
-                                            <span class="badge bg-danger">25% Off</span>
+                                            <span class="badge fs-6 bg-danger">25% Off</span>
                                         </div>
                                         <p class="text-muted small mb-0">Travel</p>
                                     </div>
                                     <div class="offer-card">
                                         <div class="d-flex justify-content-between align-items-center mb-1">
                                             <h5 class="h6 mb-0">Fitness First</h5>
-                                            <span class="badge bg-danger">30% Off</span>
+                                            <span class="badge fs-6 bg-danger">30% Off</span>
                                         </div>
                                         <p class="text-muted small mb-0">Health</p>
                                     </div>
@@ -999,8 +1251,8 @@
                     <!-- Col 1: New Faces -->
                     <div class="col-md-4">
                         <div class="spotlight-col d-flex flex-column">
-                            <div class="d-flex align-items-center justify-content-between px-3 mb-3">
-                                <div class="d-flex align-items-center gap-2">
+                            <div class="d-flex align-items-center justify-content-between px-3 ">
+                                <div class="d-flex align-items-center gap-2 my-3">
                                     <div class="section-icon-bg" style="background-color: rgba(1, 148, 154, 0.1);">
                                         <i data-lucide="smile" style="width: 14px; height: 14px; color: #01949a;"></i>
                                     </div>
@@ -1008,11 +1260,11 @@
                                 </div>
                                 <div class="d-flex gap-1">
                                     <button
-                                        class="btn btn-sm btn-light border p-0 d-flex align-items-center justify-content-center"
+                                        class="btn btn-sm btn-white border p-0 d-flex align-items-center justify-content-center rounded-pill"
                                         style="width: 24px; height: 24px;" onclick="prevNewFace()"><i
                                             data-lucide="chevron-left" style="width: 12px;"></i></button>
                                     <button
-                                        class="btn btn-sm btn-light border p-0 d-flex align-items-center justify-content-center"
+                                        class="btn btn-sm  btn-white border p-0 d-flex align-items-center justify-content-center rounded-pill"
                                         style="width: 24px; height: 24px;" onclick="nextNewFace()"><i
                                             data-lucide="chevron-right" style="width: 12px;"></i></button>
                                 </div>
@@ -1027,20 +1279,30 @@
                     <div class="col-md-4">
                         <div class="spotlight-col d-flex flex-column"
                             style="background-color: #fffbf0; border-color: #f3f4f6;">
-                            <div class="d-flex align-items-center gap-2 px-3 mb-3">
+                            <div class="d-flex align-items-center gap-2 px-3 my-3">
                                 <div class="section-icon-bg" style="background-color: rgba(212, 175, 55, 0.15);">
                                     <i data-lucide="award" style="width: 14px; height: 14px; color: #d4af37;"></i>
                                 </div>
                                 <h5 class="h6 mb-0">Employee of the Month</h5>
                             </div>
                             <div class="spotlight-card">
+                                <!-- Award/Medal Icon -->
                                 <span
-                                    class="badge rounded-pill bg-light text-warning mb-2 small text-uppercase border border-warning-subtle"
-                                    style="color: #d4af37 !important;">Star Performer</span>
+                                    class="badge fw-normal p-2 rounded-pill bg-warning bg-opacity-10  border-0 mb-2 small text-uppercase"
+                                    style="color: #d4af37 !important; font-size: 10px;"> <svg class="mr-1"
+                                        xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24"
+                                        fill="none" class="mb-2">
+                                        <path
+                                            d="M12 15C15.866 15 19 11.866 19 8C19 4.13401 15.866 1 12 1C8.13401 1 5 4.13401 5 8C5 11.866 8.13401 15 12 15Z"
+                                            stroke="#D4AF37" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                        <path d="M8.21 13.89L7 23L12 20L17 23L15.79 13.88" stroke="#D4AF37"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg> <span class="ml-1">Star Performer</span></span>
                                 <div class="user-avatar-lg" style="background-color: #fbedd1; color: #d4af37;">FA</div>
                                 <h5 class="h6 mb-1">Fatima Al Zaabi</h5>
                                 <p class="small text-muted mb-0">Lead Auditor</p>
-                                <p class="small text-muted text-opacity-75">Outstanding Performance</p>
+                                <p class="small text-secondary mb-0">Outstanding Performance</p>
                             </div>
                         </div>
                     </div>
@@ -1049,8 +1311,8 @@
                     <div class="col-md-4">
                         <div class="spotlight-col d-flex flex-column"
                             style="background-color: #f5f3ff; border-color: #f3f4f6;">
-                            <div class="d-flex align-items-center justify-content-between px-3 mb-3">
-                                <div class="d-flex align-items-center gap-2">
+                            <div class="d-flex align-items-center justify-content-between px-3">
+                                <div class="d-flex align-items-center gap-2 my-3">
                                     <div class="section-icon-bg" style="background-color: rgba(139, 92, 246, 0.1);">
                                         <i data-lucide="party-popper"
                                             style="width: 14px; height: 14px; color: #8b5cf6;"></i>
@@ -1059,11 +1321,11 @@
                                 </div>
                                 <div class="d-flex gap-1">
                                     <button
-                                        class="btn btn-sm btn-light border p-0 d-flex align-items-center justify-content-center"
+                                        class="btn btn-sm btn-white border p-0 d-flex align-items-center justify-content-center rounded-pill"
                                         style="width: 24px; height: 24px;" onclick="prevCelebration()"><i
                                             data-lucide="chevron-left" style="width: 12px;"></i></button>
                                     <button
-                                        class="btn btn-sm btn-light border p-0 d-flex align-items-center justify-content-center"
+                                        class="btn btn-sm btn-white border p-0 d-flex align-items-center justify-content-center rounded-pill"
                                         style="width: 24px; height: 24px;" onclick="nextCelebration()"><i
                                             data-lucide="chevron-right" style="width: 12px;"></i></button>
                                 </div>
@@ -1092,7 +1354,7 @@
                                 </div>
                                 <h3 class="section-title">Internal Job Postings</h3>
                             </div>
-                            <a href="#" class="text-decoration-none small text-danger">View All Postings</a>
+                            <a href="#" class="small ">View All Postings</a>
                         </div>
 
                         <div class="row row-cols-1 row-cols-md-3 g-3">
@@ -1100,7 +1362,7 @@
                                 <div class="job-card">
                                     <div class="d-flex justify-content-between mb-2">
                                         <h6 class="small fw-bold mb-0">Senior Financial Auditor</h6>
-                                        <span class="badge bg-danger">Senior</span>
+                                        <span class="badge bg-danger d-flex align-items-center gap-1">Senior</span>
                                     </div>
                                     <div class="d-flex flex-column gap-1 small text-muted">
                                         <div class="d-flex align-items-center gap-2"><i data-lucide="building"
@@ -1116,7 +1378,7 @@
                                 <div class="job-card">
                                     <div class="d-flex justify-content-between mb-2">
                                         <h6 class="small fw-bold mb-0">Risk Assessment Specialist</h6>
-                                        <span class="badge bg-warning text-dark">Mid-Level</span>
+                                        <span class="badge  bg-danger  d-flex align-items-center gap-1">Mid-Level</span>
                                     </div>
                                     <div class="d-flex flex-column gap-1 small text-muted">
                                         <div class="d-flex align-items-center gap-2"><i data-lucide="building"
@@ -1132,7 +1394,7 @@
                                 <div class="job-card">
                                     <div class="d-flex justify-content-between mb-2">
                                         <h6 class="small fw-bold mb-0">IT Audit Manager</h6>
-                                        <span class="badge bg-info text-dark">Manager</span>
+                                        <span class="badge bg-danger d-flex align-items-center gap-1">Manager</span>
                                     </div>
                                     <div class="d-flex flex-column gap-1 small text-muted">
                                         <div class="d-flex align-items-center gap-2"><i data-lucide="building"
@@ -1162,11 +1424,11 @@
                             </div>
                             <div class="d-flex gap-1">
                                 <button
-                                    class="btn btn-sm btn-light border p-0 d-flex align-items-center justify-content-center"
+                                    class="btn btn-sm btn-white rounded-pill border p-0 d-flex align-items-center justify-content-center"
                                     style="width: 24px; height: 24px;" onclick="prevCondolence()"><i
                                         data-lucide="chevron-left" style="width: 12px;"></i></button>
                                 <button
-                                    class="btn btn-sm btn-light border p-0 d-flex align-items-center justify-content-center"
+                                    class="btn btn-sm btn-white rounded-pill border p-0 d-flex align-items-center justify-content-center"
                                     style="width: 24px; height: 24px;" onclick="nextCondolence()"><i
                                         data-lucide="chevron-right" style="width: 12px;"></i></button>
                             </div>
@@ -1267,19 +1529,20 @@
         let newFacesIndex = 0;
         let celebrationsIndex = 0;
         let condolencesIndex = 0;
+        let isCondolenceAnimating = false;
 
         // --- Spotlight & Condolences Functions ---
         function renderNewFaces() {
             const data = newFacesData[newFacesIndex];
             const container = document.getElementById('newFacesContent');
             container.innerHTML = `
-                <span class="badge rounded-pill bg-light text-info mb-2 small text-uppercase" style="color: #01949a !important;">${data.badge}</span>
+                <span class="fw-normal  bg-success bg-opacity-10 border-0 badge rounded-pill text-info mb-2 small text-uppercase" style="color: #01949a !important;">${data.badge}</span>
                 <div class="user-avatar-lg" style="background: linear-gradient(135deg, ${data.bg1}, ${data.bg2}); color: ${data.color};">
                     ${data.initials}
                 </div>
                 <h5 class="h6 mb-1">${data.name}</h5>
                 <p class="small text-muted mb-0">${data.role}</p>
-                <p class="small text-muted text-opacity-75">${data.dept}</p>
+                <p class="small text-secondary mb-0">${data.dept}</p>
              `;
         }
 
@@ -1299,19 +1562,24 @@
 
             let avatarContent = '';
             if (data.label) {
-                avatarContent = `<div class="d-flex flex-column lh-1"><span class="fs-5">${data.val}</span><span style="font-size: 9px;">${data.label}</span></div>`;
+                avatarContent = `<div class="d-flex flex-column lh-1"><span class="fs-5">${data.val}</span><span class="mt-2" style="font-size: 9px;">${data.label}</span></div>`;
             } else {
                 avatarContent = `<span class="fs-4">${data.val}</span>`;
             }
 
             container.innerHTML = `
-                <span class="badge rounded-pill bg-light mb-2 small text-uppercase border" style="color: ${data.color} !important; border-color: ${data.color} !important; background-color: ${data.bg} !important;">${data.type}</span>
+                <span class="badge border-0 rounded-pill bg-light mb-2 small text-uppercase" style="color: ${data.color} !important; background-color: ${data.bg} !important;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" class="mb-1 mr-1">
+                        <path d="M12 15C15.866 15 19 11.866 19 8C19 4.13401 15.866 1 12 1C8.13401 1 5 4.13401 5 8C5 11.866 8.13401 15 12 15Z" stroke="${data.color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M8.21 13.89L7 23L12 20L17 23L15.79 13.88" stroke="${data.color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg> <span class="ml-1 fw-normal">${data.type}</span>
+                </span>
                 <div class="user-avatar-lg" style="background-color: ${data.bg}; color: ${data.color};">
                     ${avatarContent}
                 </div>
                 <h5 class="h6 mb-1">${data.name}</h5>
                 <p class="small text-muted mb-0">${data.desc}</p>
-                <p class="small text-muted text-opacity-75">${data.dept}</p>
+                <p class="small text-secondary mb-0">${data.dept}</p>
             `;
         }
 
@@ -1351,13 +1619,43 @@
         }
 
         function prevCondolence() {
-            condolencesIndex = (condolencesIndex === 0) ? condolencesData.length - 1 : condolencesIndex - 1;
-            renderCondolences();
+            if (isCondolenceAnimating) return;
+
+            const container = document.getElementById('condolencesContent');
+            container.classList.add('anim-fade-out-right'); // Slide out to right
+            isCondolenceAnimating = true;
+
+            setTimeout(() => {
+                condolencesIndex = (condolencesIndex === 0) ? condolencesData.length - 1 : condolencesIndex - 1;
+                renderCondolences();
+                container.classList.remove('anim-fade-out-right');
+                container.classList.add('anim-fade-in-left'); // Slide in from left
+
+                setTimeout(() => {
+                    container.classList.remove('anim-fade-in-left');
+                    isCondolenceAnimating = false;
+                }, 300);
+            }, 300);
         }
 
         function nextCondolence() {
-            condolencesIndex = (condolencesIndex === condolencesData.length - 1) ? 0 : condolencesIndex + 1;
-            renderCondolences();
+            if (isCondolenceAnimating) return;
+
+            const container = document.getElementById('condolencesContent');
+            container.classList.add('anim-fade-out-left'); // Slide out to left
+            isCondolenceAnimating = true;
+
+            setTimeout(() => {
+                condolencesIndex = (condolencesIndex === condolencesData.length - 1) ? 0 : condolencesIndex + 1;
+                renderCondolences();
+                container.classList.remove('anim-fade-out-left');
+                container.classList.add('anim-fade-in-right'); // Slide in from right
+
+                setTimeout(() => {
+                    container.classList.remove('anim-fade-in-right');
+                    isCondolenceAnimating = false;
+                }, 300);
+            }, 300);
         }
 
         // Initialize dynamic sections
