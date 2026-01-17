@@ -8,6 +8,8 @@
 
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -16,12 +18,14 @@
             --faa-darker-red: #971b1e;
             --faa-cyan: #8cd4e4;
             --faa-brown: #413f30;
+            --faa-bg: #f8f9fa;
         }
 
         body {
-            background-color: #f8f9fa;
+            background-color: var(--faa-bg);
             min-height: 100vh;
             font-family: 'Inter', system-ui, sans-serif;
+            padding-bottom: 2rem;
         }
 
         .bg-pattern {
@@ -33,9 +37,10 @@
             background: linear-gradient(135deg, var(--faa-red) 0%, var(--faa-dark-red) 100%);
             border-radius: 16px;
             color: white;
-            padding: 60px 48px;
+            padding: 40px 48px;
             position: relative;
             overflow: hidden;
+            margin-bottom: 2rem;
         }
 
         .hero-banner::before {
@@ -49,100 +54,397 @@
             border-radius: 50%;
         }
 
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+
+        .section-icon-bg {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background-color: rgba(123, 40, 45, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .section-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: black;
+            margin-bottom: 0;
+        }
+
+        /* Quick Links */
         .quick-link-btn {
-            transition: all 0.3s ease;
+            border: 1px solid #e5e7eb;
+            background-color: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .quick-link-btn:hover {
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
-            border-color: rgba(123, 40, 45, 0.3) !important;
-            background-color: #f8f9fa !important;
+            border-color: rgba(123, 40, 45, 0.3);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            background-color: #f9fafb;
         }
 
-        .quick-link-btn:hover .link-icon-box {
-            transform: scale(1.1);
-        }
-
-        .link-icon-box {
-            transition: transform 0.2s ease;
-        }
-
-        .faa-nav-link {
-            border-bottom: 2px solid transparent;
-            transition: all 0.2s ease;
-        }
-
-        .faa-nav-link.active {
-            background-color: white !important;
-            border-bottom-color: var(--faa-dark-red);
-        }
-
-        .announcement-card {
-            transition: all 0.2s ease;
-        }
-
-        .announcement-card:hover {
-            border-color: rgba(123, 40, 45, 0.3) !important;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
-        }
-
-        .announcement-card:hover h6 {
-            color: var(--faa-dark-red) !important;
-        }
-
-        .calendar-day {
+        .quick-link-icon-box {
             width: 40px;
             height: 40px;
-            border-radius: 7px;
-            transition: all 0.2s ease;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.25rem;
         }
 
-        .calendar-day:hover {
-            background-color: #e5e7eb !important;
+        /* Tabs */
+        .nav-pills .nav-link {
+            color: #6b7280;
+            font-size: 0.75rem;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
         }
 
-        .calendar-day.has-events {
-            background-color: #dbface !important;
+        .nav-pills .nav-link.active {
+            background-color: white;
+            color: black;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
         }
 
-        .calendar-day.selected {
-            background-color: var(--faa-dark-red) !important;
-            color: white !important;
+        .nav-fill-custom .nav-item {
+            flex: 1;
         }
 
-        .event-card {
-            transition: all 0.3s ease;
+        /* Lists */
+        .update-item {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 0.75rem;
+            transition: all 0.2s;
+            cursor: pointer;
         }
 
-        .event-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1) !important;
-            border-color: var(--faa-dark-red) !important;
+        .update-item:hover {
+            border-color: rgba(123, 40, 45, 0.3);
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
         }
 
-        .people-card {
-            transition: all 0.3s ease;
+        /* Media Gallery */
+        .gallery-main {
+            height: 300px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 10px;
+            cursor: pointer;
         }
 
-        .people-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1) !important;
+        .gallery-main img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
         }
 
-        .gallery-img {
-            transition: transform 0.3s ease;
-        }
-
-        .gallery-item:hover .gallery-img {
+        .gallery-main:hover img {
             transform: scale(1.05);
         }
 
+        .gallery-thumbs {
+            display: flex;
+            gap: 10px;
+            height: 117px;
+        }
+
+        .gallery-thumb {
+            flex: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .gallery-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .gallery-thumb:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Calendar */
+        .calendar-wrapper {
+            background-image: linear-gradient(130.575deg, rgba(204, 234, 242, 0.2) 0%, rgb(255, 255, 255) 100%);
+            border-radius: 10px;
+            padding: 12px;
+            border: 1px solid #e5e7eb;
+            width: 290px;
+            flex-shrink: 0;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+
+        .calendar-day-header {
+            text-align: center;
+            font-size: 12px;
+            color: #6a7282;
+            margin-bottom: 4px;
+        }
+
+        .calendar-day-btn {
+            height: 40px;
+            border-radius: 6.8px;
+            border: none;
+            background: transparent;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #364153;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .calendar-day-btn:hover {
+            background-color: #f3f4f6;
+        }
+
+        .calendar-day-btn.selected {
+            background-color: var(--faa-dark-red);
+            color: white;
+        }
+
+        .calendar-day-btn.has-events:not(.selected) {
+            background-color: #dbeafe;
+            color: #1c398e;
+        }
+
+        .event-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 12px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .event-card:hover {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border-color: var(--faa-dark-red);
+            transform: translateY(-2px);
+        }
+
+        /* Offers */
+        .offer-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 0.625rem;
+            background-color: white;
+        }
+
+        /* People Spotlight */
+        .spotlight-col {
+            background-color: #f8f9fa;
+            border: 1px solid #f3f4f6;
+            border-radius: 8px;
+            padding: 1.25rem 0;
+            height: 100%;
+        }
+
+        .spotlight-card {
+            background: white;
+            border: 1px solid #f3f4f6;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            margin: 0 1.25rem;
+        }
+
+        .user-avatar-lg {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            margin: 0 auto 0.5rem auto;
+        }
+
+        /* Job Postings */
         .job-card {
-            transition: all 0.2s ease;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 1rem;
+            transition: all 0.2s;
+            cursor: pointer;
+            height: 100%;
         }
 
         .job-card:hover {
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+            border-color: rgba(123, 40, 45, 0.3);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Scrollbar */
+        .faa-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .faa-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .faa-scroll::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 4px;
+        }
+
+        /* Lightbox Modal Styles */
+        .lightbox-container {
+            background: white;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .lightbox-main-view {
+            position: relative;
+            background: black;
+            aspect-ratio: 16/9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-main-img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--faa-dark-red);
+            cursor: pointer;
+            transition: background 0.2s;
+            z-index: 10;
+        }
+
+        .nav-btn:hover {
+            background: white;
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .nav-prev {
+            left: 1rem;
+        }
+
+        .nav-next {
+            right: 1rem;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--faa-dark-red);
+            z-index: 20;
+            cursor: pointer;
+        }
+
+        .counter-badge {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+        }
+
+        .thumbnail-strip {
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+            padding: 0.25rem;
+        }
+
+        .thumb-btn {
+            width: 5rem;
+            height: 5rem;
+            flex-shrink: 0;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            border: 2px solid #e5e7eb;
+            padding: 0;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .thumb-btn.active {
+            border-color: var(--faa-dark-red);
+            transform: scale(1.05);
+        }
+
+        .thumb-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .download-btn {
+            background-color: var(--faa-dark-red);
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+
+        .download-btn:hover {
+            background-color: #971B1E;
+            color: white;
         }
     </style>
 </head>
@@ -151,277 +453,248 @@
 
     <!-- Hero Banner -->
     <div class="container-fluid px-5 pt-4">
-        <div class="hero-banner mb-4">
+        <div class="hero-banner">
             <div class="position-relative">
-                <h1 class="display-4 fw-bold mb-3">Welcome Back!</h1>
-                <p class="lead mb-0">Your central hub for all FAA resources, updates, and collaboration</p>
+                <h1 class="display-5 fw-bold mb-3">Welcome Back!</h1>
+                <p class="lead mb-0 fs-6">Your central hub for all FAA resources, updates, and collaboration</p>
             </div>
         </div>
     </div>
 
     <!-- Quick Links -->
-    <div class="container-fluid px-5">
-        <div class="card shadow-sm mb-4">
-            <div class="card-body p-4">
-                <div class="d-flex align-items-center justify-content-between mb-4">
-                    <div class="d-flex align-items-center gap-2">
-                        <div class="rounded-3 p-2" style="background-color: rgba(123, 40, 45, 0.1);">
-                            <i data-lucide="external-link"
-                                style="width: 16px; height: 16px; color: var(--faa-dark-red);"></i>
-                        </div>
-                        <h3 class="h5 mb-0">Quick Links</h3>
+    <div class="container-fluid px-5 mb-4">
+        <div class="card p-4">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <div class="d-flex align-items-center gap-2">
+                    <div class="section-icon-bg">
+                        <i data-lucide="external-link"
+                            style="width: 16px; height: 16px; color: var(--faa-dark-red);"></i>
                     </div>
-                    <a href="#" class="text-decoration-none small" style="color: var(--faa-dark-red);">View All</a>
+                    <h3 class="section-title">Quick Links</h3>
                 </div>
+                <a href="#" class="text-decoration-none small text-danger">View All</a>
+            </div>
 
-                <div class="row g-3">
-                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-1-5">
-                        <button
-                            class="btn quick-link-btn w-100 p-3 border bg-white d-flex flex-column align-items-center gap-2">
-                            <div class="link-icon-box rounded-3 p-2" style="background-color: #f8e8e9;">
-                                <i data-lucide="external-link" style="width: 20px; height: 20px; color: #971b1e;"></i>
-                            </div>
-                            <span class="small">FAA Website</span>
-                        </button>
+            <div class="row row-cols-2 row-cols-md-5 row-cols-xl-5 g-3">
+                <!-- 1 -->
+                <div class="col">
+                    <div class="quick-link-btn" role="button">
+                        <div class="quick-link-icon-box" style="background-color: #f8e8e9;">
+                            <i data-lucide="external-link" style="color: #971b1e; width: 20px;"></i>
+                        </div>
+                        <span class="small text-center">FAA Website</span>
                     </div>
-                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-1-5">
-                        <button
-                            class="btn quick-link-btn w-100 p-3 border bg-white d-flex flex-column align-items-center gap-2">
-                            <div class="link-icon-box rounded-3 p-2" style="background-color: #e8f1f5;">
-                                <i data-lucide="users" style="width: 20px; height: 20px; color: #4a7c9d;"></i>
-                            </div>
-                            <span class="small">TeamMate</span>
-                        </button>
+                </div>
+                <!-- 2 -->
+                <div class="col">
+                    <div class="quick-link-btn" role="button">
+                        <div class="quick-link-icon-box" style="background-color: #e8f1f5;">
+                            <i data-lucide="users" style="color: #4a7c9d; width: 20px;"></i>
+                        </div>
+                        <span class="small text-center">TeamMate</span>
                     </div>
-                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-1-5">
-                        <button
-                            class="btn quick-link-btn w-100 p-3 border bg-white d-flex flex-column align-items-center gap-2">
-                            <div class="link-icon-box rounded-3 p-2" style="background-color: #e0f5f5;">
-                                <i data-lucide="mail" style="width: 20px; height: 20px; color: #01949a;"></i>
-                            </div>
-                            <span class="small">Email on Web</span>
-                        </button>
+                </div>
+                <!-- 3 -->
+                <div class="col">
+                    <div class="quick-link-btn" role="button">
+                        <div class="quick-link-icon-box" style="background-color: #e0f5f5;">
+                            <i data-lucide="mail" style="color: #01949a; width: 20px;"></i>
+                        </div>
+                        <span class="small text-center">Email on Web</span>
                     </div>
-                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-1-5">
-                        <button
-                            class="btn quick-link-btn w-100 p-3 border bg-white d-flex flex-column align-items-center gap-2">
-                            <div class="link-icon-box rounded-3 p-2" style="background-color: #f0f0ee;">
-                                <i data-lucide="phone" style="width: 20px; height: 20px; color: #6b6b5f;"></i>
-                            </div>
-                            <span class="small">IT Helpdesk</span>
-                        </button>
+                </div>
+                <!-- 4 -->
+                <div class="col">
+                    <div class="quick-link-btn" role="button">
+                        <div class="quick-link-icon-box" style="background-color: #f0f0ee;">
+                            <i data-lucide="phone" style="color: #6b6b5f; width: 20px;"></i>
+                        </div>
+                        <span class="small text-center">IT Helpdesk</span>
                     </div>
-                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-1-5">
-                        <button
-                            class="btn quick-link-btn w-100 p-3 border bg-white d-flex flex-column align-items-center gap-2">
-                            <div class="link-icon-box rounded-3 p-2" style="background-color: #fef5e8;">
-                                <i data-lucide="file-text" style="width: 20px; height: 20px; color: #d4a056;"></i>
-                            </div>
-                            <span class="small">Tarasul</span>
-                        </button>
+                </div>
+                <!-- 5 -->
+                <div class="col">
+                    <div class="quick-link-btn" role="button">
+                        <div class="quick-link-icon-box" style="background-color: #fef5e8;">
+                            <i data-lucide="file-text" style="color: #d4a056; width: 20px;"></i>
+                        </div>
+                        <span class="small text-center">Tarasul</span>
                     </div>
-                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-1-5">
-                        <button
-                            class="btn quick-link-btn w-100 p-3 border bg-white d-flex flex-column align-items-center gap-2">
-                            <div class="link-icon-box rounded-3 p-2" style="background-color: #e0f2f7;">
-                                <i data-lucide="trending-up" style="width: 20px; height: 20px; color: #0277bd;"></i>
-                            </div>
-                            <span class="small">Dashboard</span>
-                        </button>
+                </div>
+                <!-- 6 -->
+                <div class="col">
+                    <div class="quick-link-btn" role="button">
+                        <div class="quick-link-icon-box" style="background-color: #e0f2f7;">
+                            <i data-lucide="trending-up" style="color: #0277bd; width: 20px;"></i>
+                        </div>
+                        <span class="small text-center">Dashboard</span>
                     </div>
-                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-1-5">
-                        <button
-                            class="btn quick-link-btn w-100 p-3 border bg-white d-flex flex-column align-items-center gap-2">
-                            <div class="link-icon-box rounded-3 p-2" style="background-color: #f3e8f0;">
-                                <i data-lucide="clipboard-list" style="width: 20px; height: 20px; color: #8e4585;"></i>
-                            </div>
-                            <span class="small">Survey System</span>
-                        </button>
+                </div>
+                <!-- 7 -->
+                <div class="col">
+                    <div class="quick-link-btn" role="button">
+                        <div class="quick-link-icon-box" style="background-color: #f3e8f0;">
+                            <i data-lucide="clipboard-list" style="color: #8e4585; width: 20px;"></i>
+                        </div>
+                        <span class="small text-center">Survey System</span>
                     </div>
-                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-1-5">
-                        <button
-                            class="btn quick-link-btn w-100 p-3 border bg-white d-flex flex-column align-items-center gap-2">
-                            <div class="link-icon-box rounded-3 p-2" style="background-color: #e8f5e9;">
-                                <i data-lucide="target" style="width: 20px; height: 20px; color: #43a047;"></i>
-                            </div>
-                            <span class="small">QRP</span>
-                        </button>
+                </div>
+                <!-- 8 -->
+                <div class="col">
+                    <div class="quick-link-btn" role="button">
+                        <div class="quick-link-icon-box" style="background-color: #e8f5e9;">
+                            <i data-lucide="target" style="color: #43a047; width: 20px;"></i>
+                        </div>
+                        <span class="small text-center">GRP</span>
                     </div>
-                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-1-5">
-                        <button
-                            class="btn quick-link-btn w-100 p-3 border bg-white d-flex flex-column align-items-center gap-2">
-                            <div class="link-icon-box rounded-3 p-2" style="background-color: #fff8e1;">
-                                <i data-lucide="star" style="width: 20px; height: 20px; color: #f9a825;"></i>
-                            </div>
-                            <span class="small">AI System</span>
-                        </button>
+                </div>
+                <!-- 9 -->
+                <div class="col">
+                    <div class="quick-link-btn" role="button">
+                        <div class="quick-link-icon-box" style="background-color: #fff8e1;">
+                            <i data-lucide="star" style="color: #f9a825; width: 20px;"></i>
+                        </div>
+                        <span class="small text-center">AI System</span>
                     </div>
-                    <div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-1-5">
-                        <button
-                            class="btn quick-link-btn w-100 p-3 border bg-white d-flex flex-column align-items-center gap-2">
-                            <div class="link-icon-box rounded-3 p-2" style="background-color: #ede7f6;">
-                                <i data-lucide="user-circle" style="width: 20px; height: 20px; color: #5e35b1;"></i>
-                            </div>
-                            <span class="small">Waee</span>
-                        </button>
+                </div>
+                <!-- 10 -->
+                <div class="col">
+                    <div class="quick-link-btn" role="button">
+                        <div class="quick-link-icon-box" style="background-color: #ede7f6;">
+                            <i data-lucide="user-circle" style="color: #5e35b1; width: 20px;"></i>
+                        </div>
+                        <span class="small text-center">Waee</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Main Content Row: Corporate Updates + Calendar -->
-    <div class="container-fluid px-5">
-        <div class="row g-4 mb-4">
-
-            <!-- Left: Corporate Updates (Tabs) -->
+    <!-- Main Content Row 1: Corporate Updates (8) + Media Gallery (4) -->
+    <div class="container-fluid px-5 mb-4">
+        <div class="row g-4">
+            <!-- Corporate Updates -->
             <div class="col-lg-8">
-                <div class="card shadow-sm" style="height: 557px;">
-                    <div class="card-body p-4 d-flex flex-column">
+                <div class="card h-100">
+                    <div class="card-body d-flex flex-column p-4">
                         <div class="d-flex align-items-center gap-2 mb-3">
-                            <div class="rounded-3 p-2" style="background-color: rgba(123, 40, 45, 0.1);">
+                            <div class="section-icon-bg">
                                 <i data-lucide="megaphone"
                                     style="width: 16px; height: 16px; color: var(--faa-dark-red);"></i>
                             </div>
-                            <h3 class="h5 mb-0">Corporate Updates</h3>
+                            <h3 class="section-title">Corporate Updates</h3>
                         </div>
 
                         <!-- Tabs -->
-                        <ul class="nav nav-pills bg-light rounded p-1 mb-3" id="updatesTabs" role="tablist">
-                            <li class="nav-item flex-fill" role="presentation">
-                                <button class="nav-link faa-nav-link active small w-100" id="announcements-tab"
-                                    data-bs-toggle="tab" data-bs-target="#announcements"
-                                    type="button">Announcements</button>
+                        <ul class="nav nav-pills bg-light rounded p-1 mb-3 nav-fill-custom" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" data-bs-toggle="tab"
+                                    data-bs-target="#announcements">Announcements</button>
                             </li>
-                            <li class="nav-item flex-fill" role="presentation">
-                                <button class="nav-link faa-nav-link small w-100" id="news-tab" data-bs-toggle="tab"
-                                    data-bs-target="#news" type="button">Media & News</button>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#news">Media &
+                                    News</button>
                             </li>
-                            <li class="nav-item flex-fill" role="presentation">
-                                <button class="nav-link faa-nav-link small w-100" id="policy-tab" data-bs-toggle="tab"
-                                    data-bs-target="#policy" type="button">Policy Updates</button>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#policy">Policy
+                                    Updates</button>
                             </li>
-                            <li class="nav-item flex-fill" role="presentation">
-                                <button class="nav-link faa-nav-link small w-100" id="laws-tab" data-bs-toggle="tab"
-                                    data-bs-target="#laws" type="button">Laws</button>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#laws">Laws &
+                                    Legislation</button>
                             </li>
                         </ul>
 
-                        <!-- Tab Content -->
-                        <div class="tab-content flex-fill overflow-auto">
-                            <!-- Announcements Tab -->
+                        <div class="tab-content flex-grow-1 overflow-auto faa-scroll" style="max-height: 400px;">
+                            <!-- Announcements -->
                             <div class="tab-pane fade show active" id="announcements">
                                 <div class="d-flex flex-column gap-3">
-                                    <div class="announcement-card card border">
-                                        <div class="card-body p-3">
-                                            <div class="d-flex align-items-center gap-2 mb-2">
-                                                <span class="badge bg-danger small">Policy</span>
-                                                <span class="small text-muted">2025-11-26</span>
-                                            </div>
-                                            <h6 class="small fw-semibold mb-1">New Audit Standards Released</h6>
-                                            <p class="small text-muted mb-0">Updated international audit standards have
-                                                been published and are now available in the knowledge hub.</p>
+                                    <div class="update-item">
+                                        <div class="d-flex align-items-center gap-2 mb-2">
+                                            <span class="badge bg-danger small"
+                                                style="background-color: #ec2227;">Policy</span>
+                                            <span class="small text-muted">2025-11-26</span>
                                         </div>
+                                        <h6 class="small fw-bold mb-1">New Audit Standards Released</h6>
+                                        <p class="small text-muted mb-0">Updated international audit standards have been
+                                            published and are now available in the knowledge hub.</p>
                                     </div>
-
-                                    <div class="announcement-card card border">
-                                        <div class="card-body p-3">
-                                            <div class="d-flex align-items-center gap-2 mb-2">
-                                                <span class="badge bg-danger small">HR</span>
-                                                <span class="small text-muted">2025-11-25</span>
-                                            </div>
-                                            <h6 class="small fw-semibold mb-1">Remote Work Policy Update</h6>
-                                            <p class="small text-muted mb-0">The updated remote work policy is now
-                                                effective. Please review the new guidelines.</p>
+                                    <div class="update-item">
+                                        <div class="d-flex align-items-center gap-2 mb-2">
+                                            <span class="badge bg-danger small"
+                                                style="background-color: #ec2227;">HR</span>
+                                            <span class="small text-muted">2025-11-25</span>
                                         </div>
+                                        <h6 class="small fw-bold mb-1">Remote Work Policy Update</h6>
+                                        <p class="small text-muted mb-0">The updated remote work policy is now
+                                            effective. Please review the new guidelines.</p>
                                     </div>
-
-                                    <div class="announcement-card card border">
-                                        <div class="card-body p-3">
-                                            <div class="d-flex align-items-center gap-2 mb-2">
-                                                <span class="badge bg-danger small">Technology</span>
-                                                <span class="small text-muted">2025-11-24</span>
-                                            </div>
-                                            <h6 class="small fw-semibold mb-1">Digital Transformation Initiative Launch
-                                            </h6>
-                                            <p class="small text-muted mb-0">We are excited to announce the launch of
-                                                our digital transformation program.</p>
+                                    <div class="update-item">
+                                        <div class="d-flex align-items-center gap-2 mb-2">
+                                            <span class="badge bg-danger small"
+                                                style="background-color: #ec2227;">Technology</span>
+                                            <span class="small text-muted">2025-11-24</span>
                                         </div>
+                                        <h6 class="small fw-bold mb-1">Digital Transformation Initiative Launch</h6>
+                                        <p class="small text-muted mb-0">We are excited to announce the launch of our
+                                            digital transformation program.</p>
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- Media & News Tab -->
+                            <!-- News -->
                             <div class="tab-pane fade" id="news">
                                 <div class="row g-3">
-                                    <div class="col-6">
-                                        <div class="announcement-card card border">
-                                            <div class="card-body p-3">
-                                                <div class="d-flex align-items-center gap-2 mb-2">
-                                                    <span class="badge small"
-                                                        style="background-color: #ec2227;">Innovation</span>
-                                                    <span class="small text-muted">2025-11-26</span>
-                                                </div>
-                                                <h6 class="small fw-semibold mb-1">Innovation Workshop: Building
-                                                    Tomorrow's Audit Solutions</h6>
-                                                <p class="small text-muted mb-0"
-                                                    style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
-                                                    Behind the scenes at our Innovation Workshop! Our teams are working
-                                                    on cutting-edge solutions...</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="announcement-card card border">
-                                            <div class="card-body p-3">
-                                                <div class="d-flex align-items-center gap-2 mb-2">
-                                                    <span class="badge small"
-                                                        style="background-color: #8cd4e4;">Technology</span>
-                                                    <span class="small text-muted">2025-11-25</span>
-                                                </div>
-                                                <h6 class="small fw-semibold mb-1">FAA Launches New Digital Audit
-                                                    Platform</h6>
-                                                <p class="small text-muted mb-0"
-                                                    style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
-                                                    The Financial Audit Authority has officially launched its new
-                                                    digital audit platform...</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Policy Updates Tab -->
-                            <div class="tab-pane fade" id="policy">
-                                <div class="d-flex flex-column gap-3">
-                                    <div class="announcement-card card border">
-                                        <div class="card-body p-3">
+                                    <div class="col-md-6">
+                                        <div class="update-item h-100">
                                             <div class="d-flex align-items-center gap-2 mb-2">
-                                                <span class="badge bg-danger small">Policy</span>
+                                                <span class="badge small"
+                                                    style="background-color: #ec2227;">Innovation</span>
                                                 <span class="small text-muted">2025-11-26</span>
                                             </div>
-                                            <h6 class="small fw-semibold mb-1">Remote Work Guidelines v2.1</h6>
-                                            <p class="small text-muted mb-0">Updated guidelines for hybrid work
-                                                arrangements and remote collaboration best practices.</p>
+                                            <h6 class="small fw-bold mb-1">Innovation Workshop</h6>
+                                            <p class="small text-muted mb-0">Behind the scenes at our Innovation
+                                                Workshop! Our teams are working on...</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="update-item h-100">
+                                            <div class="d-flex align-items-center gap-2 mb-2">
+                                                <span class="badge small"
+                                                    style="background-color: #8cd4e4;">Technology</span>
+                                                <span class="small text-muted">2025-11-25</span>
+                                            </div>
+                                            <h6 class="small fw-bold mb-1">FAA Launches New Digital Audit Platform</h6>
+                                            <p class="small text-muted mb-0">The Financial Audit Authority has
+                                                officially launched its new digital audit platform...</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- Laws Tab -->
-                            <div class="tab-pane fade" id="laws">
+                            <!-- Other tabs... (simplified for brevity) -->
+                            <div class="tab-pane fade" id="policy">
                                 <div class="d-flex flex-column gap-3">
-                                    <div class="announcement-card card border">
-                                        <div class="card-body p-3">
-                                            <div class="d-flex align-items-center gap-2 mb-2">
-                                                <span class="badge bg-secondary small">Law</span>
-                                                <span class="small text-muted">2025-11-20</span>
-                                            </div>
-                                            <h6 class="small fw-semibold mb-1">Federal Law No. 8 of 2011</h6>
-                                            <p class="small text-muted mb-0">Updated regulations for financial audit
-                                                authority operations.</p>
+                                    <div class="update-item">
+                                        <div class="d-flex align-items-center gap-2 mb-2">
+                                            <span class="badge small text-white"
+                                                style="background-color: #ec2227;">Policy</span>
+                                            <span class="small text-muted">2025-11-26</span>
                                         </div>
+                                        <h6 class="small fw-bold mb-1">Remote Work Guidelines v2.1</h6>
+                                        <p class="small text-muted mb-0">Updated guidelines for hybrid work arrangements
+                                            and remote collaboration best practices.</p>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="laws">
+                                <div class="update-item">
+                                    <div class="d-flex align-items-center gap-2 mb-2">
+                                        <span class="badge small text-white"
+                                            style="background-color: #7b282d;">New</span>
+                                        <span class="small text-muted">2025-11-25</span>
+                                    </div>
+                                    <h6 class="small fw-bold mb-1">Federal Law No. 15 of 2025</h6>
+                                    <p class="small text-muted mb-0">Anti-Money Laundering regulations and compliance
+                                        requirements.</p>
                                 </div>
                             </div>
                         </div>
@@ -429,80 +702,210 @@
                 </div>
             </div>
 
-            <!-- Right: Calendar with Events -->
+            <!-- Media Gallery -->
             <div class="col-lg-4">
-                <div class="card shadow-sm">
-                    <div class="card-body p-4">
-                        <div class="d-flex align-items-center gap-2 mb-3">
-                            <div class="rounded-3 p-2" style="background-color: rgba(140, 212, 228, 0.1);">
-                                <i data-lucide="calendar"
-                                    style="width: 16px; height: 16px; color: var(--faa-cyan);"></i>
-                            </div>
-                            <h3 class="h5 mb-0">Calendar</h3>
-                        </div>
-
-                        <!-- Calendar Header -->
+                <div class="card h-100">
+                    <div class="card-body d-flex flex-column p-4">
                         <div class="d-flex align-items-center justify-content-between mb-3">
-                            <button class="btn btn-sm btn-light" id="prevMonth"><i data-lucide="chevron-left"
-                                    style="width: 16px; height: 16px;"></i></button>
-                            <span class="fw-semibold" id="currentMonthYear">NOVEMBER 2025</span>
-                            <button class="btn btn-sm btn-light" id="nextMonth"><i data-lucide="chevron-right"
-                                    style="width: 16px; height: 16px;"></i></button>
-                        </div>
-
-                        <!-- Calendar Grid -->
-                        <div class="mb-3">
-                            <div class="d-grid gap-1" style="grid-template-columns: repeat(7, 1fr);">
-                                <div class="text-center small text-muted fw-semibold">Sun</div>
-                                <div class="text-center small text-muted fw-semibold">Mon</div>
-                                <div class="text-center small text-muted fw-semibold">Tue</div>
-                                <div class="text-center small text-muted fw-semibold">Wed</div>
-                                <div class="text-center small text-muted fw-semibold">Thu</div>
-                                <div class="text-center small text-muted fw-semibold">Fri</div>
-                                <div class="text-center small text-muted fw-semibold">Sat</div>
-                            </div>
-                            <div class="d-grid gap-1 mt-2" style="grid-template-columns: repeat(7, 1fr);"
-                                id="calendarDays">
-                                <!-- Calendar days will be inserted by JavaScript -->
-                            </div>
-                        </div>
-
-                        <!-- Legend -->
-                        <div class="d-flex justify-content-center gap-3 mb-3 pb-3 border-bottom">
                             <div class="d-flex align-items-center gap-2">
-                                <span class="rounded"
-                                    style="width: 12px; height: 12px; background-color: #8cd4e4;"></span>
-                                <span class="small">Today</span>
+                                <div class="section-icon-bg">
+                                    <i data-lucide="image"
+                                        style="width: 16px; height: 16px; color: var(--faa-dark-red);"></i>
+                                </div>
+                                <h3 class="section-title">Media Gallery</h3>
                             </div>
-                            <div class="d-flex align-items-center gap-2">
-                                <span class="rounded border"
-                                    style="width: 12px; height: 12px; background-color: #dbeafe;"></span>
-                                <span class="small">Has Events</span>
-                            </div>
+                            <a href="#" class="text-decoration-none small text-danger">See More</a>
                         </div>
 
-                        <!-- Upcoming Events -->
-                        <div>
-                            <h6 class="small fw-semibold mb-2">Upcoming Events</h6>
-                            <div class="d-flex flex-column gap-2" style="max-height: 250px; overflow-y: auto;">
-                                <div class="event-card card border p-2">
-                                    <div class="d-flex gap-2">
-                                        <div class="rounded overflow-hidden flex-shrink-0"
-                                            style="width: 60px; height: 60px; background-color: #e5e7eb;">
+                        <div class="flex-grow-1">
+                            <div class="gallery-main" onclick="openLightbox(0)">
+                                <img src="assets/gallery1.png"
+                                    onerror="this.src='https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=2070&auto=format&fit=crop'"
+                                    alt="Executive Leadership Meeting">
+                            </div>
+                            <div class="gallery-thumbs">
+                                <div class="gallery-thumb" onclick="openLightbox(1)">
+                                    <img src="assets/gallery2.png"
+                                        onerror="this.src='https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2074&auto=format&fit=crop'"
+                                        alt="Strategic Plan">
+                                </div>
+                                <div class="gallery-thumb" onclick="openLightbox(2)">
+                                    <img src="assets/gallery3.png"
+                                        onerror="this.src='https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=2070&auto=format&fit=crop'"
+                                        alt="Team Recognition">
+                                </div>
+                                <div class="gallery-thumb" onclick="openLightbox(3)">
+                                    <img src="assets/gallery4.png"
+                                        onerror="this.src='https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=2070&auto=format&fit=crop'"
+                                        alt="Sports & Wellness">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Row 2: Calendar (8) + Offers (4) -->
+    <div class="container-fluid px-5 mb-4">
+        <div class="row g-4">
+            <!-- Calendar & Events -->
+            <div class="col-lg-8">
+                <div class="card h-100">
+                    <div class="card-body d-flex flex-column p-4">
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <div class="section-icon-bg">
+                                <i data-lucide="calendar"
+                                    style="width: 16px; height: 16px; color: var(--faa-dark-red);"></i>
+                            </div>
+                            <h3 class="section-title">Calendar</h3>
+                        </div>
+
+                        <div class="d-flex gap-4 flex-grow-1">
+                            <!-- Wrapper for Calendar Widget -->
+                            <div class="calendar-wrapper d-flex flex-column">
+                                <div class="d-flex align-items-center justify-content-between mb-3">
+                                    <span class="fw-normal" id="currentMonthLabel">NOVEMBER 2025</span>
+                                    <div class="d-flex gap-1">
+                                        <button class="btn btn-sm btn-light border" id="prevMonth"><i
+                                                data-lucide="chevron-left" style="width: 14px;"></i></button>
+                                        <button class="btn btn-sm btn-light border" id="nextMonth"><i
+                                                data-lucide="chevron-right" style="width: 14px;"></i></button>
+                                    </div>
+                                </div>
+
+                                <div class="bg-white rounded p-2 border flex-grow-1 d-flex flex-column">
+                                    <div class="calendar-grid mb-1">
+                                        <div class="calendar-day-header">S</div>
+                                        <div class="calendar-day-header">M</div>
+                                        <div class="calendar-day-header">T</div>
+                                        <div class="calendar-day-header">W</div>
+                                        <div class="calendar-day-header">T</div>
+                                        <div class="calendar-day-header">F</div>
+                                        <div class="calendar-day-header">S</div>
+                                    </div>
+                                    <div class="calendar-grid flex-grow-1" id="calendarDays">
+                                        <!-- JS will populate -->
+                                    </div>
+                                </div>
+
+                                <div class="d-flex justify-content-center gap-3 mt-3 pt-2 border-top">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <span
+                                            style="width: 12px; height: 12px; border-radius: 4px; background-color: #8cd4e4;"></span>
+                                        <span class="small text-muted">Today</span>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <span
+                                            style="width: 12px; height: 12px; border-radius: 4px; background-color: #dbeafe; border: 1px solid #bedbff;"></span>
+                                        <span class="small text-muted">Has Events</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Events List -->
+                            <div class="flex-grow-1 overflow-auto faa-scroll pe-2" style="max-height: 400px;">
+                                <div class="d-flex flex-column gap-3 pt-1   ">
+                                    <!-- Event 1 -->
+                                    <div class="event-card d-flex gap-3">
+                                        <div
+                                            style="width: 80px; height: 80px; border-radius: 8px; overflow: hidden; background: #e5e7eb; flex-shrink: 0;">
                                             <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=200"
                                                 class="w-100 h-100 object-fit-cover" alt="Event">
                                         </div>
-                                        <div class="flex-fill">
-                                            <div class="d-flex align-items-center gap-2 mb-1">
-                                                <span class="badge small"
-                                                    style="background-color: #ec2227; font-size: 0.65rem;">Internal</span>
+                                        <div class="flex-grow-1">
+                                            <div class="d-flex justify-content-between align-items-start mb-1">
+                                                <h6 class="small fw-bold mb-0">Annual Audit Planning Meeting</h6>
+                                                <span class="badge"
+                                                    style="background-color: #ec2227; font-size: 9px;">INTERNAL</span>
                                             </div>
-                                            <h6 class="small fw-semibold mb-1" style="font-size: 0.8rem;">Annual Audit
-                                                Planning Meeting</h6>
-                                            <div class="d-flex align-items-center gap-2 text-muted"
-                                                style="font-size: 0.7rem;">
-                                                <i data-lucide="map-pin" style="width: 10px; height: 10px;"></i>
-                                                <span>Main Conference Room</span>
+                                            <p class="small text-muted mb-2 text-truncate">Join us for the annual audit
+                                                planning meeting...</p>
+                                            <div class="d-flex align-items-center gap-3">
+                                                <div class="d-flex align-items-center gap-1 small text-muted">
+                                                    <i data-lucide="clock" style="width: 12px;"></i> 10:00 am - 12:00 pm
+                                                </div>
+                                                <div class="d-flex align-items-center gap-1 small text-muted">
+                                                    <i data-lucide="map-pin" style="width: 12px;"></i> Main Conference
+                                                    Room
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="event-card d-flex gap-3">
+                                        <div
+                                            style="width: 80px; height: 80px; border-radius: 8px; overflow: hidden; background: #e5e7eb; flex-shrink: 0;">
+                                            <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=200"
+                                                class="w-100 h-100 object-fit-cover" alt="Event">
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <div class="d-flex justify-content-between align-items-start mb-1">
+                                                <h6 class="small fw-bold mb-0">Annual Audit Planning Meeting</h6>
+                                                <span class="badge"
+                                                    style="background-color: #ec2227; font-size: 9px;">INTERNAL</span>
+                                            </div>
+                                            <p class="small text-muted mb-2 text-truncate">Join us for the annual audit
+                                                planning meeting...</p>
+                                            <div class="d-flex align-items-center gap-3">
+                                                <div class="d-flex align-items-center gap-1 small text-muted">
+                                                    <i data-lucide="clock" style="width: 12px;"></i> 10:00 am - 12:00 pm
+                                                </div>
+                                                <div class="d-flex align-items-center gap-1 small text-muted">
+                                                    <i data-lucide="map-pin" style="width: 12px;"></i> Main Conference
+                                                    Room
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Event 2 -->
+                                    <div class="event-card d-flex gap-3">
+                                        <div
+                                            style="width: 80px; height: 80px; border-radius: 8px; overflow: hidden; background: #e5e7eb; flex-shrink: 0;">
+                                            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=200"
+                                                class="w-100 h-100 object-fit-cover" alt="Event">
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <div class="d-flex justify-content-between align-items-start mb-1">
+                                                <h6 class="small fw-bold mb-0">Risk Management Workshop</h6>
+                                                <span class="badge"
+                                                    style="background-color: #8cd4e4; font-size: 9px;">TRAINING</span>
+                                            </div>
+                                            <p class="small text-muted mb-2 text-truncate">Enhance your skills in
+                                                identifying...</p>
+                                            <div class="d-flex align-items-center gap-3">
+                                                <div class="d-flex align-items-center gap-1 small text-muted">
+                                                    <i data-lucide="clock" style="width: 12px;"></i> 02:00 pm - 05:00 pm
+                                                </div>
+                                                <div class="d-flex align-items-center gap-1 small text-muted">
+                                                    <i data-lucide="map-pin" style="width: 12px;"></i> Training Center
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Event 3 -->
+                                    <div class="event-card d-flex gap-3">
+                                        <div
+                                            style="width: 80px; height: 80px; border-radius: 8px; overflow: hidden; background: #e5e7eb; flex-shrink: 0;">
+                                            <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=200"
+                                                class="w-100 h-100 object-fit-cover" alt="Event">
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <div class="d-flex justify-content-between align-items-start mb-1">
+                                                <h6 class="small fw-bold mb-0">National Day Celebration</h6>
+                                                <span class="badge"
+                                                    style="background-color: #413f30; font-size: 9px;">CULTURAL</span>
+                                            </div>
+                                            <p class="small text-muted mb-2 text-truncate">Celebrate our nation's
+                                                heritage...</p>
+                                            <div class="d-flex align-items-center gap-3">
+                                                <div class="d-flex align-items-center gap-1 small text-muted">
+                                                    <i data-lucide="clock" style="width: 12px;"></i> 06:00 pm - 09:00 pm
+                                                </div>
+                                                <div class="d-flex align-items-center gap-1 small text-muted">
+                                                    <i data-lucide="map-pin" style="width: 12px;"></i> FAA Main
+                                                    Auditorium
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -512,133 +915,65 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <!-- People Spotlight & Job Postings Row -->
-    <div class="container-fluid px-5 mb-4">
-        <div class="row g-4">
-
-            <!-- People Spotlight -->
-            <div class="col-lg-8">
-                <div class="card shadow-sm">
-                    <div class="card-body p-4">
-                        <div class="d-flex align-items-center gap-2 mb-3">
-                            <div class="rounded-3 p-2" style="background-color: rgba(236, 34, 39, 0.1);">
-                                <i data-lucide="users" style="width: 16px; height: 16px; color: var(--faa-red);"></i>
-                            </div>
-                            <h3 class="h5 mb-0">People Spotlight</h3>
-                        </div>
-
-                        <div class="row g-3">
-                            <div class="col-md-6 col-lg-4">
-                                <div class="people-card card border shadow-sm h-100">
-                                    <div class="card-body p-3">
-                                        <div class="d-flex align-items-center gap-3 mb-3">
-                                            <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center text-white fw-bold"
-                                                style="width: 48px; height: 48px;">MA</div>
-                                            <div class="flex-fill">
-                                                <h6 class="small fw-semibold mb-0">Mohammed Ahmed</h6>
-                                                <p class="small text-muted mb-0">Junior Auditor</p>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            <span class="badge bg-primary small">NEW</span>
-                                            <span class="small text-muted">Joined Nov 15</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6 col-lg-4">
-                                <div class="people-card card border shadow-sm h-100">
-                                    <div class="card-body p-3">
-                                        <div class="d-flex align-items-center gap-3 mb-3">
-                                            <div class="rounded-circle bg-danger d-flex align-items-center justify-content-center text-white fw-bold"
-                                                style="width: 48px; height: 48px;">KM</div>
-                                            <div class="flex-fill">
-                                                <h6 class="small fw-semibold mb-0">Khalid Al Mansoori</h6>
-                                                <p class="small text-muted mb-0">Senior Director</p>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            <span class="badge bg-warning text-dark small">15 Years</span>
-                                            <span class="small text-muted">Anniversary</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6 col-lg-4">
-                                <div class="people-card card border shadow-sm h-100">
-                                    <div class="card-body p-3">
-                                        <div class="d-flex align-items-center gap-3 mb-3">
-                                            <div class="rounded-circle bg-success d-flex align-items-center justify-content-center text-white fw-bold"
-                                                style="width: 48px; height: 48px;">SA</div>
-                                            <div class="flex-fill">
-                                                <h6 class="small fw-semibold mb-0">Sara Abdullah</h6>
-                                                <p class="small text-muted mb-0">Risk Analyst</p>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            <span class="badge bg-primary small">NEW</span>
-                                            <span class="small text-muted">Joined Nov 18</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Job Postings -->
+            <!-- Offers -->
             <div class="col-lg-4">
-                <div class="card shadow-sm">
-                    <div class="card-body p-4">
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                            <div class="d-flex align-items-center gap-2">
-                                <div class="rounded-3 p-2" style="background-color: rgba(65, 63, 48, 0.1);">
-                                    <i data-lucide="briefcase"
-                                        style="width: 16px; height: 16px; color: var(--faa-brown);"></i>
-                                </div>
-                                <h3 class="h5 mb-0">Job Openings</h3>
+                <div class="card h-100">
+                    <div class="card-body p-4 d-flex flex-column">
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <div class="section-icon-bg">
+                                <i data-lucide="gift"
+                                    style="width: 16px; height: 16px; color: var(--faa-dark-red);"></i>
                             </div>
-                            <a href="#" class="text-decoration-none small" style="color: var(--faa-dark-red);">View
-                                All</a>
+                            <h3 class="section-title">Offers</h3>
                         </div>
 
-                        <div class="d-flex flex-column gap-2">
-                            <div class="job-card card border">
-                                <div class="card-body p-3">
-                                    <div class="d-flex align-items-start justify-content-between mb-2">
-                                        <h6 class="small fw-semibold mb-1">Senior Financial Auditor</h6>
-                                        <span class="badge bg-danger small">Senior</span>
+                        <ul class="nav nav-pills bg-light rounded p-1 mb-3 nav-fill-custom" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" data-bs-toggle="tab"
+                                    data-bs-target="#esaad">Esaad</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#other-offers">Other
+                                    Offers</button>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content flex-grow-1 overflow-auto faa-scroll">
+                            <div class="tab-pane fade show active" id="esaad">
+                                <div class="d-flex flex-column">
+                                    <div class="offer-card">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <h5 class="h6 mb-0">Dubai Mall</h5>
+                                            <span class="badge bg-danger">20% Off</span>
+                                        </div>
+                                        <p class="text-muted small mb-0">Shopping</p>
                                     </div>
-                                    <div class="d-flex align-items-center gap-2 mb-2 small text-muted">
-                                        <i data-lucide="building" style="width: 12px; height: 12px;"></i>
-                                        <span>Financial Audit</span>
+                                    <div class="offer-card">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <h5 class="h6 mb-0">Emirates Airlines</h5>
+                                            <span class="badge bg-danger">25% Off</span>
+                                        </div>
+                                        <p class="text-muted small mb-0">Travel</p>
                                     </div>
-                                    <div class="d-flex align-items-center gap-2 small text-muted">
-                                        <i data-lucide="map-pin" style="width: 12px; height: 12px;"></i>
-                                        <span>Abu Dhabi</span>
+                                    <div class="offer-card">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <h5 class="h6 mb-0">Fitness First</h5>
+                                            <span class="badge bg-danger">30% Off</span>
+                                        </div>
+                                        <p class="text-muted small mb-0">Health</p>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="job-card card border">
-                                <div class="card-body p-3">
-                                    <div class="d-flex align-items-start justify-content-between mb-2">
-                                        <h6 class="small fw-semibold mb-1">Risk Assessment Specialist</h6>
-                                        <span class="badge bg-warning text-dark small">Mid-level</span>
-                                    </div>
-                                    <div class="d-flex align-items-center gap-2 mb-2 small text-muted">
-                                        <i data-lucide="building" style="width: 12px; height: 12px;"></i>
-                                        <span>Risk Management</span>
-                                    </div>
-                                    <div class="d-flex align-items-center gap-2 small text-muted">
-                                        <i data-lucide="map-pin" style="width: 12px; height: 12px;"></i>
-                                        <span>Dubai</span>
+                            <!-- Other Offers Tab Content (Similar structure) -->
+                            <div class="tab-pane fade" id="other-offers">
+                                <div class="d-flex flex-column">
+                                    <div class="offer-card">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <h5 class="h6 mb-0">FitLife Gym</h5>
+                                            <span class="badge bg-danger">30% Off</span>
+                                        </div>
+                                        <p class="text-muted small mb-0">Gym Membership</p>
                                     </div>
                                 </div>
                             </div>
@@ -649,73 +984,92 @@
         </div>
     </div>
 
-    <!-- Media Gallery -->
+    <!-- People Spotlight -->
     <div class="container-fluid px-5 mb-4">
-        <div class="card shadow-sm">
+        <div class="card mb-4">
             <div class="card-body p-4">
-                <div class="d-flex align-items-center justify-content-between mb-3">
-                    <div class="d-flex align-items-center gap-2">
-                        <div class="rounded-3 p-2" style="background-color: rgba(140, 212, 228, 0.1);">
-                            <i data-lucide="image" style="width: 16px; height: 16px; color: var(--faa-cyan);"></i>
-                        </div>
-                        <h3 class="h5 mb-0">Media Gallery</h3>
+                <div class="d-flex align-items-center gap-2 mb-4">
+                    <div class="section-icon-bg">
+                        <i data-lucide="users" style="width: 16px; height: 16px; color: var(--faa-dark-red);"></i>
                     </div>
-                    <a href="#" class="text-decoration-none small" style="color: var(--faa-dark-red);">View All
-                        Gallery</a>
+                    <h3 class="section-title">People Spotlight</h3>
                 </div>
 
-                <div class="row g-3">
-                    <div class="col-md-4 col-lg-2">
-                        <div class="gallery-item rounded overflow-hidden position-relative" style="height: 150px;">
-                            <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=400"
-                                class="gallery-img w-100 h-100 object-fit-cover" alt="Gallery">
-                            <div class="position-absolute bottom-0 start-0 end-0 p-2 bg-dark bg-opacity-50">
-                                <small class="text-white">Executive Meeting</small>
+                <div class="row g-4">
+                    <!-- Col 1: New Faces -->
+                    <div class="col-md-4">
+                        <div class="spotlight-col d-flex flex-column">
+                            <div class="d-flex align-items-center justify-content-between px-3 mb-3">
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="section-icon-bg" style="background-color: rgba(1, 148, 154, 0.1);">
+                                        <i data-lucide="smile" style="width: 14px; height: 14px; color: #01949a;"></i>
+                                    </div>
+                                    <h5 class="h6 mb-0">New Faces</h5>
+                                </div>
+                                <div class="d-flex gap-1">
+                                    <button
+                                        class="btn btn-sm btn-light border p-0 d-flex align-items-center justify-content-center"
+                                        style="width: 24px; height: 24px;" onclick="prevNewFace()"><i
+                                            data-lucide="chevron-left" style="width: 12px;"></i></button>
+                                    <button
+                                        class="btn btn-sm btn-light border p-0 d-flex align-items-center justify-content-center"
+                                        style="width: 24px; height: 24px;" onclick="nextNewFace()"><i
+                                            data-lucide="chevron-right" style="width: 12px;"></i></button>
+                                </div>
+                            </div>
+                            <div class="spotlight-card" id="newFacesContent">
+                                <!-- Content injected by JS -->
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 col-lg-2">
-                        <div class="gallery-item rounded overflow-hidden position-relative" style="height: 150px;">
-                            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400"
-                                class="gallery-img w-100 h-100 object-fit-cover" alt="Gallery">
-                            <div class="position-absolute bottom-0 start-0 end-0 p-2 bg-dark bg-opacity-50">
-                                <small class="text-white">Team Workshop</small>
+
+                    <!-- Col 2: Employee of Month -->
+                    <div class="col-md-4">
+                        <div class="spotlight-col d-flex flex-column"
+                            style="background-color: #fffbf0; border-color: #f3f4f6;">
+                            <div class="d-flex align-items-center gap-2 px-3 mb-3">
+                                <div class="section-icon-bg" style="background-color: rgba(212, 175, 55, 0.15);">
+                                    <i data-lucide="award" style="width: 14px; height: 14px; color: #d4af37;"></i>
+                                </div>
+                                <h5 class="h6 mb-0">Employee of the Month</h5>
+                            </div>
+                            <div class="spotlight-card">
+                                <span
+                                    class="badge rounded-pill bg-light text-warning mb-2 small text-uppercase border border-warning-subtle"
+                                    style="color: #d4af37 !important;">Star Performer</span>
+                                <div class="user-avatar-lg" style="background-color: #fbedd1; color: #d4af37;">FA</div>
+                                <h5 class="h6 mb-1">Fatima Al Zaabi</h5>
+                                <p class="small text-muted mb-0">Lead Auditor</p>
+                                <p class="small text-muted text-opacity-75">Outstanding Performance</p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 col-lg-2">
-                        <div class="gallery-item rounded overflow-hidden position-relative" style="height: 150px;">
-                            <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=400"
-                                class="gallery-img w-100 h-100 object-fit-cover" alt="Gallery">
-                            <div class="position-absolute bottom-0 start-0 end-0 p-2 bg-dark bg-opacity-50">
-                                <small class="text-white">Recognition Ceremony</small>
+
+                    <!-- Col 3: Celebrations -->
+                    <div class="col-md-4">
+                        <div class="spotlight-col d-flex flex-column"
+                            style="background-color: #f5f3ff; border-color: #f3f4f6;">
+                            <div class="d-flex align-items-center justify-content-between px-3 mb-3">
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="section-icon-bg" style="background-color: rgba(139, 92, 246, 0.1);">
+                                        <i data-lucide="party-popper"
+                                            style="width: 14px; height: 14px; color: #8b5cf6;"></i>
+                                    </div>
+                                    <h5 class="h6 mb-0">Celebrations</h5>
+                                </div>
+                                <div class="d-flex gap-1">
+                                    <button
+                                        class="btn btn-sm btn-light border p-0 d-flex align-items-center justify-content-center"
+                                        style="width: 24px; height: 24px;" onclick="prevCelebration()"><i
+                                            data-lucide="chevron-left" style="width: 12px;"></i></button>
+                                    <button
+                                        class="btn btn-sm btn-light border p-0 d-flex align-items-center justify-content-center"
+                                        style="width: 24px; height: 24px;" onclick="nextCelebration()"><i
+                                            data-lucide="chevron-right" style="width: 12px;"></i></button>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-lg-2">
-                        <div class="gallery-item rounded overflow-hidden position-relative" style="height: 150px;">
-                            <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=400"
-                                class="gallery-img w-100 h-100 object-fit-cover" alt="Gallery">
-                            <div class="position-absolute bottom-0 start-0 end-0 p-2 bg-dark bg-opacity-50">
-                                <small class="text-white">Sports Event</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-lg-2">
-                        <div class="gallery-item rounded overflow-hidden position-relative" style="height: 150px;">
-                            <img src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=400"
-                                class="gallery-img w-100 h-100 object-fit-cover" alt="Gallery">
-                            <div class="position-absolute bottom-0 start-0 end-0 p-2 bg-dark bg-opacity-50">
-                                <small class="text-white">Community Service</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-lg-2">
-                        <div class="gallery-item rounded overflow-hidden position-relative" style="height: 150px;">
-                            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=400"
-                                class="gallery-img w-100 h-100 object-fit-cover" alt="Gallery">
-                            <div class="position-absolute bottom-0 start-0 end-0 p-2 bg-dark bg-opacity-50">
-                                <small class="text-white">Innovation Workshop</small>
+                            <div class="spotlight-card" id="celebrationsContent">
+                                <!-- Content injected by JS -->
                             </div>
                         </div>
                     </div>
@@ -724,7 +1078,159 @@
         </div>
     </div>
 
-    <!-- Bootstrap Bundle with Popper -->
+    <!-- Job Postings (8) + Condolences (4) -->
+    <div class="container-fluid px-5">
+        <div class="row g-4">
+            <div class="col-lg-8">
+                <div class="card h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="section-icon-bg">
+                                    <i data-lucide="briefcase"
+                                        style="width: 16px; height: 16px; color: var(--faa-dark-red);"></i>
+                                </div>
+                                <h3 class="section-title">Internal Job Postings</h3>
+                            </div>
+                            <a href="#" class="text-decoration-none small text-danger">View All Postings</a>
+                        </div>
+
+                        <div class="row row-cols-1 row-cols-md-3 g-3">
+                            <div class="col">
+                                <div class="job-card">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <h6 class="small fw-bold mb-0">Senior Financial Auditor</h6>
+                                        <span class="badge bg-danger">Senior</span>
+                                    </div>
+                                    <div class="d-flex flex-column gap-1 small text-muted">
+                                        <div class="d-flex align-items-center gap-2"><i data-lucide="building"
+                                                style="width: 12px;"></i> Financial Audit</div>
+                                        <div class="d-flex align-items-center gap-2"><i data-lucide="map-pin"
+                                                style="width: 12px;"></i> Abu Dhabi</div>
+                                        <div class="d-flex align-items-center gap-2"><i data-lucide="clock"
+                                                style="width: 12px;"></i> Deadline: 2025-12-15</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="job-card">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <h6 class="small fw-bold mb-0">Risk Assessment Specialist</h6>
+                                        <span class="badge bg-warning text-dark">Mid-Level</span>
+                                    </div>
+                                    <div class="d-flex flex-column gap-1 small text-muted">
+                                        <div class="d-flex align-items-center gap-2"><i data-lucide="building"
+                                                style="width: 12px;"></i> Risk Management</div>
+                                        <div class="d-flex align-items-center gap-2"><i data-lucide="map-pin"
+                                                style="width: 12px;"></i> Dubai</div>
+                                        <div class="d-flex align-items-center gap-2"><i data-lucide="clock"
+                                                style="width: 12px;"></i> Deadline: 2025-12-20</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="job-card">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <h6 class="small fw-bold mb-0">IT Audit Manager</h6>
+                                        <span class="badge bg-info text-dark">Manager</span>
+                                    </div>
+                                    <div class="d-flex flex-column gap-1 small text-muted">
+                                        <div class="d-flex align-items-center gap-2"><i data-lucide="building"
+                                                style="width: 12px;"></i> IT Audit</div>
+                                        <div class="d-flex align-items-center gap-2"><i data-lucide="map-pin"
+                                                style="width: 12px;"></i> Abu Dhabi</div>
+                                        <div class="d-flex align-items-center gap-2"><i data-lucide="clock"
+                                                style="width: 12px;"></i> Deadline: 2025-12-25</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body p-4 d-flex flex-column">
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="section-icon-bg">
+                                    <i data-lucide="heart-handshake"
+                                        style="width: 16px; height: 16px; color: var(--faa-dark-red);"></i>
+                                </div>
+                                <h3 class="section-title">Condolences</h3>
+                            </div>
+                            <div class="d-flex gap-1">
+                                <button
+                                    class="btn btn-sm btn-light border p-0 d-flex align-items-center justify-content-center"
+                                    style="width: 24px; height: 24px;" onclick="prevCondolence()"><i
+                                        data-lucide="chevron-left" style="width: 12px;"></i></button>
+                                <button
+                                    class="btn btn-sm btn-light border p-0 d-flex align-items-center justify-content-center"
+                                    style="width: 24px; height: 24px;" onclick="nextCondolence()"><i
+                                        data-lucide="chevron-right" style="width: 12px;"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="flex-grow-1 d-flex flex-column justify-content-between" id="condolencesContent">
+                            <!-- Content injected by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div class="modal fade" id="lightboxModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 900px;">
+            <div class="modal-content border-0 bg-transparent">
+                <div class="lightbox-container shadow-lg">
+
+                    <!-- Main Image View -->
+                    <div class="lightbox-main-view">
+                        <img src="" alt="" class="lightbox-main-img" id="lightboxImg">
+
+                        <button class="nav-btn nav-prev" id="lbPrevBtn" onclick="prevImage()">
+                            <i data-lucide="chevron-left"></i>
+                        </button>
+                        <button class="nav-btn nav-next" id="lbNextBtn" onclick="nextImage()">
+                            <i data-lucide="chevron-right"></i>
+                        </button>
+
+                        <button class="close-btn" data-bs-dismiss="modal">
+                            <i data-lucide="x" style="width: 20px;"></i>
+                        </button>
+
+                        <div class="counter-badge" id="lbCounter">1 / 1</div>
+                    </div>
+
+                    <!-- Info Section -->
+                    <div class="p-4 bg-white">
+                        <div class="d-flex justify-content-between align-items-start gap-4 mb-2">
+                            <h4 class="h6 mb-0 text-dark" id="lbTitle">Title</h4>
+                            <button
+                                class="download-btn px-3 py-1 rounded-3 outline-0 border-0 p-1 btn-sm text-white d-flex align-items-center gap-2"
+                                onclick="downloadImage()">
+                                <i data-lucide="download" style="width: 16px;"></i> Download
+                            </button>
+                        </div>
+                        <p class="small text-muted mb-0" id="lbDesc">Description</p>
+                    </div>
+
+                    <!-- Thumbnail Strip -->
+                    <div class="bg-white px-4 pb-4">
+                        <div class="thumbnail-strip" id="lbThumbnails">
+                            <!-- Thumbnails injected by JS -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Lucide Icons -->
@@ -732,53 +1238,269 @@
     <script>
         lucide.createIcons();
 
-        // Simple calendar implementation
+        // Calendar Implementation
         const calendarDays = document.getElementById('calendarDays');
-        const currentDate = new Date(2025, 10, 1); // November 2025
+        const currentDate = new Date(2025, 10, 1); // Nov 2025
         const daysInMonth = new Date(2025, 11, 0).getDate();
         const firstDay = new Date(2025, 10, 1).getDay();
-
-        // Days with events
         const eventDays = [29, 17, 18, 19, 25];
         let selectedDay = 29;
 
-        // Empty cells for days before month starts
-        for (let i = 0; i < firstDay; i++) {
-            const emptyDiv = document.createElement('div');
-            calendarDays.appendChild(emptyDiv);
+        // --- Spotlight & Condolences Data ---
+        const newFacesData = [
+            { name: 'Mohammed Ahmed', role: 'Junior Auditor', dept: 'Financial Audit', initials: 'MA', badge: 'New', color: '#064368', bg1: 'rgba(1,148,154,0.2)', bg2: 'rgba(6,67,104,0.2)' },
+            { name: 'Sarah Al Ali', role: 'HR Specialist', dept: 'Human Resources', initials: 'SA', badge: 'New', color: '#7b282d', bg1: 'rgba(236,34,39,0.2)', bg2: 'rgba(123,40,45,0.2)' },
+            { name: 'John Doe', role: 'IT Support', dept: 'IT Department', initials: 'JD', badge: 'New', color: '#4a7c9d', bg1: 'rgba(74,124,157,0.2)', bg2: 'rgba(30,58,138,0.2)' }
+        ];
+
+        const celebrationsData = [
+            { name: 'Khalid Al Mansoori', desc: '15 Years of Service', dept: 'Finance Department', type: 'Anniversary', val: '15', label: 'Years', color: '#8b5cf6', bg: 'rgba(139,92,246,0.1)' },
+            { name: 'Amnah Al Suwaidi', desc: 'Got Married', dept: 'Legal Affairs', type: 'Wedding', val: '❤️', label: '', color: '#ec2227', bg: 'rgba(236,34,39,0.1)' },
+            { name: 'Omar Al Kaabi', desc: 'New Baby Born', dept: 'Strategy', type: 'New Baby', val: '👶', label: '', color: '#01949a', bg: 'rgba(1,148,154,0.1)' }
+        ];
+
+        const condolencesData = [
+            { name: 'Ahmed Al Mansouri', reason: 'Loss of his father' },
+            { name: 'Fatima Al Qubaisi', reason: 'Loss of her mother' }
+        ];
+
+        let newFacesIndex = 0;
+        let celebrationsIndex = 0;
+        let condolencesIndex = 0;
+
+        // --- Spotlight & Condolences Functions ---
+        function renderNewFaces() {
+            const data = newFacesData[newFacesIndex];
+            const container = document.getElementById('newFacesContent');
+            container.innerHTML = `
+                <span class="badge rounded-pill bg-light text-info mb-2 small text-uppercase" style="color: #01949a !important;">${data.badge}</span>
+                <div class="user-avatar-lg" style="background: linear-gradient(135deg, ${data.bg1}, ${data.bg2}); color: ${data.color};">
+                    ${data.initials}
+                </div>
+                <h5 class="h6 mb-1">${data.name}</h5>
+                <p class="small text-muted mb-0">${data.role}</p>
+                <p class="small text-muted text-opacity-75">${data.dept}</p>
+             `;
         }
 
-        // Create day buttons
-        for (let day = 1; day <= daysInMonth; day++) {
-            const dayBtn = document.createElement('button');
-            dayBtn.className = 'btn calendar-day text-center p-0 small';
-            dayBtn.textContent = day;
+        function prevNewFace() {
+            newFacesIndex = (newFacesIndex === 0) ? newFacesData.length - 1 : newFacesIndex - 1;
+            renderNewFaces();
+        }
 
-            if (day === selectedDay) {
-                dayBtn.classList.add('selected');
-            } else if (eventDays.includes(day)) {
-                dayBtn.classList.add('has-events');
+        function nextNewFace() {
+            newFacesIndex = (newFacesIndex === newFacesData.length - 1) ? 0 : newFacesIndex + 1;
+            renderNewFaces();
+        }
+
+        function renderCelebrations() {
+            const data = celebrationsData[celebrationsIndex];
+            const container = document.getElementById('celebrationsContent');
+
+            let avatarContent = '';
+            if (data.label) {
+                avatarContent = `<div class="d-flex flex-column lh-1"><span class="fs-5">${data.val}</span><span style="font-size: 9px;">${data.label}</span></div>`;
+            } else {
+                avatarContent = `<span class="fs-4">${data.val}</span>`;
             }
 
-            dayBtn.onclick = () => {
-                document.querySelectorAll('.calendar-day').forEach(btn => {
-                    btn.classList.remove('selected');
-                    if (eventDays.includes(parseInt(btn.textContent))) {
-                        btn.classList.add('has-events');
+            container.innerHTML = `
+                <span class="badge rounded-pill bg-light mb-2 small text-uppercase border" style="color: ${data.color} !important; border-color: ${data.color} !important; background-color: ${data.bg} !important;">${data.type}</span>
+                <div class="user-avatar-lg" style="background-color: ${data.bg}; color: ${data.color};">
+                    ${avatarContent}
+                </div>
+                <h5 class="h6 mb-1">${data.name}</h5>
+                <p class="small text-muted mb-0">${data.desc}</p>
+                <p class="small text-muted text-opacity-75">${data.dept}</p>
+            `;
+        }
+
+        function prevCelebration() {
+            celebrationsIndex = (celebrationsIndex === 0) ? celebrationsData.length - 1 : celebrationsIndex - 1;
+            renderCelebrations();
+        }
+
+        function nextCelebration() {
+            celebrationsIndex = (celebrationsIndex === celebrationsData.length - 1) ? 0 : celebrationsIndex + 1;
+            renderCelebrations();
+        }
+
+        function renderCondolences() {
+            const data = condolencesData[condolencesIndex];
+            const container = document.getElementById('condolencesContent');
+
+            // Generate dots
+            let dotsHtml = '';
+            condolencesData.forEach((_, idx) => {
+                const color = idx === condolencesIndex ? 'var(--faa-dark-red)' : '#d1d5db';
+                dotsHtml += `<span style="width: 6px; height: 6px; background-color: ${color}; border-radius: 50%;"></span>`;
+            });
+
+            container.innerHTML = `
+                <div class="mb-3">
+                    <p class="mb-0 fw-medium">${data.name}</p>
+                    <p class="text-muted small">${data.reason}</p>
+                </div>
+                <div class="border-top pt-3 text-center">
+                    <p class="fst-italic text-muted small mb-0">Our thoughts and prayers are with our colleagues during this difficult time</p>
+                </div>
+                <div class="d-flex justify-content-center gap-2 mt-3">
+                    ${dotsHtml}
+                </div>
+            `;
+        }
+
+        function prevCondolence() {
+            condolencesIndex = (condolencesIndex === 0) ? condolencesData.length - 1 : condolencesIndex - 1;
+            renderCondolences();
+        }
+
+        function nextCondolence() {
+            condolencesIndex = (condolencesIndex === condolencesData.length - 1) ? 0 : condolencesIndex + 1;
+            renderCondolences();
+        }
+
+        // Initialize dynamic sections
+        renderNewFaces();
+        renderCelebrations();
+        renderCondolences();
+
+        // Gallery Data for Lightbox
+        const galleryImages = [
+            { id: 1, src: 'assets/gallery1.png', fallback: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=2070&auto=format&fit=crop', title: 'Executive Leadership Meeting', description: 'Annual strategic planning session with senior leadership team' },
+            { id: 2, src: 'assets/gallery2.png', fallback: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2074&auto=format&fit=crop', title: 'Strategic Plan 2025-2028', description: 'Launch of the new strategic plan for 2025-2028' },
+            { id: 3, src: 'assets/gallery3.png', fallback: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=2070&auto=format&fit=crop', title: 'Team Recognition Ceremony', description: 'Celebrating outstanding team performance and achievements' },
+            { id: 4, src: 'assets/gallery4.png', fallback: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=2070&auto=format&fit=crop', title: 'Sports & Wellness Initiative', description: 'Employee wellness program launch and sports activities' },
+            // Adding a couple more for the lightbox slider specifically, even if not visible on main page
+            { id: 5, src: 'assets/gallery5.png', fallback: 'https://images.unsplash.com/photo-1559027615-cd4628902d4a?q=80&w=2074&auto=format&fit=crop', title: 'Community Outreach Program', description: 'FAA community service and outreach initiatives' },
+            { id: 6, src: 'assets/gallery6.png', fallback: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=2070&auto=format&fit=crop', title: 'Innovation Workshop', description: 'Digital transformation and innovation workshop series' }
+        ];
+
+        // Lightbox State
+        let lightboxIndex = 0;
+        const lightboxModal = new bootstrap.Modal(document.getElementById('lightboxModal'));
+
+        // Lightbox Functions
+        function openLightbox(index) {
+            lightboxIndex = index;
+            renderLightboxContent();
+            lightboxModal.show();
+        }
+
+        function renderLightboxContent() {
+            const current = galleryImages[lightboxIndex];
+
+            // Set Main Image (use fallback if src fails - simulated here by logic or simple handling)
+            // For simplicity in this script, we'll assign src but error handling is on the img tag usually.
+            // Here we'll just check if it's a valid local path or use fallback logic if we were checking existence.
+            // For now, let's assume assets exist or use fallback in the HTML gen.
+            const imgEl = document.getElementById('lightboxImg');
+            imgEl.src = current.src;
+            imgEl.onerror = function () { this.src = current.fallback; };
+
+            document.getElementById('lbTitle').innerText = current.title;
+            document.getElementById('lbDesc').innerText = current.description;
+            document.getElementById('lbCounter').innerText = `${lightboxIndex + 1} / ${galleryImages.length}`;
+
+            // Buttons State
+            document.getElementById('lbPrevBtn').disabled = lightboxIndex === 0;
+            document.getElementById('lbNextBtn').disabled = lightboxIndex === galleryImages.length - 1;
+
+            // Thumbnails
+            const thumbContainer = document.getElementById('lbThumbnails');
+            thumbContainer.innerHTML = galleryImages.map((item, idx) => `
+                <button 
+                    class="thumb-btn ${idx === lightboxIndex ? 'active' : ''}" 
+                    onclick="openLightbox(${idx})"
+                >
+                    <img src="${item.src}" onerror="this.src='${item.fallback}'" class="thumb-img">
+                </button>
+            `).join('');
+
+            // Re-init icons inside modal if needed (mostly static here so okay)
+            lucide.createIcons();
+        }
+
+        function prevImage() {
+            if (lightboxIndex > 0) {
+                lightboxIndex--;
+                renderLightboxContent();
+            }
+        }
+
+        function nextImage() {
+            if (lightboxIndex < galleryImages.length - 1) {
+                lightboxIndex++;
+                renderLightboxContent();
+            }
+        }
+
+        function downloadImage() {
+            const current = galleryImages[lightboxIndex];
+            const link = document.createElement('a');
+            // Try to download the current src (which might be the fallback if local failed, but difficult to track 
+            // without more logic. We'll default to the defined src)
+            const imgEl = document.getElementById('lightboxImg');
+            link.href = imgEl.src;
+            link.download = `${current.title}.jpg`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Empty cells
+        for (let i = 0; i < firstDay; i++) {
+            const div = document.createElement('div');
+            calendarDays.appendChild(div);
+        }
+
+        // Days
+        for (let day = 1; day <= daysInMonth; day++) {
+            const btn = document.createElement('button');
+            btn.className = 'calendar-day-btn';
+
+            const span = document.createElement('span');
+            span.textContent = day;
+            btn.appendChild(span);
+
+            if (eventDays.includes(day)) {
+                if (day !== selectedDay) {
+                    btn.classList.add('has-events');
+                    const dot = document.createElement('span');
+                    dot.style.cssText = 'width: 4px; height: 4px; background-color: #7b282d; border-radius: 50%; margin-top: 2px;';
+                    btn.appendChild(dot);
+                }
+            }
+            if (day === selectedDay) {
+                btn.classList.add('selected');
+            }
+
+            btn.onclick = () => {
+                document.querySelectorAll('.calendar-day-btn').forEach(b => {
+                    b.classList.remove('selected');
+                    // Reset dots for previous selected if it had events
+                    const dayNum = parseInt(b.textContent);
+                    if (eventDays.includes(dayNum)) {
+                        b.classList.add('has-events');
+                        if (b.children.length < 2) {
+                            const dot = document.createElement('span');
+                            dot.style.cssText = 'width: 4px; height: 4px; background-color: #7b282d; border-radius: 50%; margin-top: 2px;';
+                            b.appendChild(dot);
+                        }
                     }
                 });
-                dayBtn.classList.add('selected');
-                dayBtn.classList.remove('has-events');
+
+                btn.classList.add('selected');
+                btn.classList.remove('has-events');
+                if (btn.children.length > 1) {
+                    btn.removeChild(btn.lastChild); // Remove dot when selected
+                }
                 selectedDay = day;
             };
 
-            calendarDays.appendChild(dayBtn);
+            calendarDays.appendChild(btn);
         }
-
-        // Reinitialize icons after dynamic content
-        lucide.createIcons();
     </script>
-
 </body>
 
 </html>
