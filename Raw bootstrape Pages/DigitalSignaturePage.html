@@ -97,6 +97,7 @@
             background-color: #f8f9fa;
             min-height: 100vh;
             font-family: 'Inter', system-ui, sans-serif;
+            overflow-x: hidden;
         }
 
         body[dir="rtl"] {
@@ -110,14 +111,17 @@
 
         .hero-banner {
             background-image: url('./assets/3ca851fd732fadea7ed700a83455499648bbdce7.avif');
-            background-size: 100%;
-
+            background-size: cover;
+            background-position: center;
             border-radius: 16px;
             color: white;
-            padding: 60px 48px;
+            padding: 40px;
             position: relative;
             overflow: hidden;
-            height: 280px;
+            min-height: 280px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .hero-banner::before {
@@ -133,14 +137,13 @@
         }
 
         .hero-content {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            width: min(957px, calc(100% - 424px));
+            position: relative;
+            width: 100%;
+            max-width: 800px;
             background-color: rgba(81, 58, 64, 0.72);
-            padding: 20px;
+            padding: 30px;
             border-radius: 10px;
+            z-index: 2;
         }
 
         body[dir="rtl"] .hero-content {
@@ -319,13 +322,50 @@
         .card-btn:hover {
             background-color: #F2F2F2;
         }
+
+        @media (max-width: 768px) {
+            .hero-banner {
+                padding: 24px;
+                min-height: auto;
+            }
+
+            .hero-content {
+                padding: 20px;
+            }
+
+            .hero-content h2 {
+                font-size: 1.5rem !important;
+                line-height: 1.3 !important;
+            }
+
+            .hero-content p {
+                font-size: 1rem !important;
+                line-height: 1.5 !important;
+            }
+
+            h1 {
+                font-size: 2rem !important;
+            }
+
+            h2 {
+                font-size: 1.75rem !important;
+            }
+
+            h3 {
+                font-size: 1.35rem !important;
+            }
+
+            .stats-cards {
+                margin-top: -30px;
+            }
+        }
     </style>
 </head>
 
 <body class="bg-pattern" dir="ltr">
 
     <!-- Main Container -->
-    <div class="custom-container px-5">
+    <div class="custom-container px-3 px-md-5 w-100">
 
         <!-- Hero Banner -->
         <div class="pt-4 mb-4 position-relative">
@@ -343,8 +383,8 @@
             </div>
 
             <!-- Stats Cards - Overlapping Banner -->
-            <div class="stats-cards px-5 mx-5">
-                <div class="row g-4 mx-auto">
+            <div class="stats-cards px-3 px-md-5">
+                <div class="row g-3 g-md-4">
                     <div class="col-md-4">
                         <div class="card stat-card shadow-lg rounded-4">
                             <div class="card-body p-4">
@@ -407,8 +447,8 @@
         <div class="pb-5">
             <!-- Tab Navigation -->
             <div class="card shadow-lg mb-4 rounded-4 border">
-                <div class="card-body p-0">
-                    <div class="tab-navigation d-flex gap-1">
+                <div class="card-body p-1">
+                    <div class="tab-navigation d-flex flex-wrap gap-1">
                         <button class="tab-btn active" data-tab="pending">
                             <div class="d-flex align-items-center justify-content-center gap-2">
                                 <i data-lucide="pen-tool" style="width: 20px; height: 20px;"></i>
@@ -440,9 +480,9 @@
                     </div>
                     <div class="d-flex align-items-center gap-3">
                         <span class="badge bg-light text-black fw-normal border fs-6 p-3">
-                            <span id="document-count">8</span>
+                            <span id="document-count" class="me-1">8</span>
                             <span class="en-text">Documents</span>
-
+                            <span class="ar-text" style="display: none;">وثائق</span>
                         </span>
                         <button class="btn btn-maroon" data-bs-toggle="modal" data-bs-target="#addDocumentModal">
                             <i data-lucide="plus" style="width: 16px; height: 16px;"></i>
@@ -870,16 +910,16 @@
                                     <span class="badge bg-white fw-normal text-dark border mt-2">${doc.type[currentLanguage]}</span>
                                 </div>
                             </div>
-                            <div class="d-flex gap-2 flex-shrink-0 flex-wrap">
-                                <button class=" card-btn border rounded-3 btn btn-outline-secondary btn-sm" onclick="previewDocument(${doc.id}, 'pending')">
+                            <div class="d-flex gap-2 flex-nowrap mt-3 mt-md-0 align-items-center">
+                                <button class="card-btn border rounded-3 btn btn-outline-secondary btn-sm d-flex align-items-center justify-content-center text-nowrap" onclick="previewDocument(${doc.id}, 'pending')">
                                     <i data-lucide="file-text" class="text-black fw-bold" style="width: 16px; height: 16px;"></i>
                                     <span class="ms-2 fs-small text-dark">Preview</span>
                                 </button>
-                                <button class="card-btn border rounded-3 btn btn-outline-secondary btn-sm">
+                                <button class="card-btn border rounded-3 btn btn-outline-secondary btn-sm d-flex align-items-center justify-content-center text-nowrap">
                                     <i data-lucide="download" class="text-black fw-bold" style="width: 16px; height: 16px;"></i>
                                     <span class="ms-2 fs-small text-dark">Download</span>
                                 </button>
-                                <button class="btn btn-maroon">
+                                <button class="btn btn-maroon btn-sm d-flex align-items-center justify-content-center text-nowrap">
                                     <span class=" fs-small text-white">Sign with UAE Pass</span>
                                     <i data-lucide="external-link" style="width: 16px; height: 16px;" class="ms-2"></i>
                                 </button>

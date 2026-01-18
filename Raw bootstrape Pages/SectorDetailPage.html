@@ -451,7 +451,25 @@
 
         .btn-danger:hover {
             background-color: #D41F24 !important;
+        }
 
+        /* Responsive Improvements */
+        @media (max-width: 768px) {
+            .sector-header-flex {
+                flex-direction: column;
+                align-items: flex-start !important;
+            }
+
+            .sector-info-flex {
+                flex-direction: column;
+                align-items: flex-start !important;
+                gap: 0.5rem !important;
+            }
+
+            /* Stats cards padding fix  */
+            .stat-card .card-body {
+                padding: 1rem !important;
+            }
         }
     </style>
 </head>
@@ -472,9 +490,9 @@
 
         <!-- Sector Header -->
         <div class="container-fluid px-5 pb-4">
-            <div class="d-flex align-items-center gap-4">
+            <div class="d-flex align-items-center gap-4 sector-header-flex">
                 <!-- Sector Icon -->
-                <div class="rounded-3 bg-light border d-flex align-items-center justify-content-center"
+                <div class="rounded-3 bg-light border d-flex align-items-center justify-content-center flex-shrink-0"
                     style="width: 64px; height: 64px;">
                     <img src="./assets/d60c2a04e94d709fa672d9027dbfa4be52e8ec79.png" alt="Ahmed Al Mansouri"
                         class="w-full h-full object-cover" style="width: 56px; height: 56px;">
@@ -482,15 +500,15 @@
 
                 <!-- Sector Info -->
                 <div class="flex-grow-1">
-                    <div class="d-flex align-items-center gap-3 mb-2">
-                        <h1 class="h3 mb-0">Ahmed Al Mansouri</h1>
+                    <div class="d-flex align-items-center gap-3 mb-2 flex-wrap">
+                        <h1 class="h3 mb-0 text-wrap">Ahmed Al Mansouri</h1>
                         <span class="fw-normal badge text-white p-2"
                             style="background-color: var(--faa-dark-red); font-size: 13px;">Sector Leadership</span>
                     </div>
-                    <div class="d-flex align-items-center gap-2 text-secondary">
+                    <div class="d-flex align-items-center gap-2 text-secondary flex-wrap sector-info-flex">
                         <span>Sector Director</span>
-                        <span>•</span>
-                        <span class="text-muted">Operation, Compliance and Performance Audit Sector</span>
+                        <span class="d-none d-md-inline">•</span>
+                        <span class="text-muted text-wrap">Operation, Compliance and Performance Audit Sector</span>
                     </div>
                 </div>
             </div>

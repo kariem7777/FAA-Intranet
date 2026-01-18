@@ -614,13 +614,39 @@
         .btn-white:hover {
             background-color: #fafafa;
         }
+
+        /* Responsive Adjustments */
+        @media (max-width: 991.98px) {
+            .hero-banner {
+                height: auto;
+                min-height: auto;
+                padding: 24px;
+                display: flex;
+                align-items: center;
+                background-size: cover;
+            }
+
+            .hero-content {
+                position: relative;
+                top: auto;
+                left: auto;
+                transform: none;
+                width: 100%;
+                max-width: 100%;
+                margin: 0;
+            }
+
+            .calendar-wrapper {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 
 <body class="bg-pattern custom-container">
 
     <!-- Hero Banner -->
-    <div class="container-fluid px-5 py-4">
+    <div class="container-fluid px-3 px-md-5">
         <div class="hero-banner">
             <div class="hero-content">
                 <h2 class="mb-3" style="font-size: 24px; font-weight: 500; line-height: 28px;">Financial Audit Authority
@@ -634,7 +660,7 @@
     </div>
 
     <!-- Quick Links -->
-    <div class="container-fluid px-5 mb-4">
+    <div class="container-fluid px-3 px-md-5 mb-4">
         <div class="card p-4">
             <div class="d-flex align-items-center justify-content-between mb-4">
                 <div class="d-flex align-items-center gap-2">
@@ -744,7 +770,7 @@
     </div>
 
     <!-- Main Content Row 1: Corporate Updates (8) + Media Gallery (4) -->
-    <div class="container-fluid px-5 mb-4">
+    <div class="container-fluid px-3 px-md-5 mb-4">
         <div class="row g-4">
             <!-- Corporate Updates -->
             <div class="col-lg-8">
@@ -965,7 +991,7 @@
     </div>
 
     <!-- Main Content Row 2: Calendar (8) + Offers (4) -->
-    <div class="container-fluid px-5 mb-4">
+    <div class="container-fluid px-3 px-md-5 mb-4">
         <div class="row g-4">
             <!-- Calendar & Events -->
             <div class="col-lg-8">
@@ -979,7 +1005,7 @@
                             <h3 class="section-title">Calendar</h3>
                         </div>
 
-                        <div class="d-flex gap-4 flex-grow-1">
+                        <div class="d-flex flex-column flex-lg-row gap-4 flex-grow-1">
                             <!-- Wrapper for Calendar Widget -->
                             <div class="calendar-wrapper d-flex flex-column">
                                 <div class="d-flex align-items-center justify-content-between mb-3">
@@ -1031,28 +1057,34 @@
                                             <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=200"
                                                 class="w-100 h-100 object-fit-cover" alt="Event">
                                         </div>
-                                        <div class="flex-grow-1">
-                                            <div class="d-flex justify-content-between align-items-start mb-1">
-                                                <h6 class="small fw-bold mb-0">Annual Audit Planning Meeting</h6>
-                                                <span class="badge px-2 py-1 fw-normal"
+                                        <div class="flex-grow-1" style="min-width: 0;">
+                                            <div class="d-flex justify-content-between align-items-start mb-1 gap-2">
+                                                <h6 class="small fw-bold mb-0 text-truncate">Annual Audit Planning
+                                                    Meeting</h6>
+                                                <span class="badge px-2 py-1 fw-normal flex-shrink-0"
                                                     style="background-color: #ec2227; font-size: 9px;">INTERNAL</span>
                                             </div>
                                             <p class="small text-muted mb-2 text-truncate">Join us for the annual audit
                                                 planning meeting...</p>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <div class="d-flex align-items-center gap-3">
-                                                    <div class="d-flex align-items-center gap-1 small text-muted">
-                                                        <i data-lucide="clock" style="width: 12px;"></i> 10:00 am -
+                                            <div
+                                                class="d-flex flex-wrap align-items-center justify-content-between gap-2">
+                                                <div class="d-flex flex-wrap align-items-center gap-3">
+                                                    <div
+                                                        class="d-flex align-items-center gap-1 small text-muted text-nowrap">
+                                                        <i data-lucide="clock" style="width: 12px; flex-shrink: 0;"></i>
+                                                        10:00 am -
                                                         12:00
                                                         pm
                                                     </div>
-                                                    <div class="d-flex align-items-center gap-1 small text-muted">
-                                                        <i data-lucide="map-pin" style="width: 12px;"></i> Main
+                                                    <div
+                                                        class="d-flex align-items-center gap-1 small text-muted text-nowrap">
+                                                        <i data-lucide="map-pin"
+                                                            style="width: 12px; flex-shrink: 0;"></i> Main
                                                         Conference
                                                         Room
                                                     </div>
                                                 </div>
-                                                <div class=" remaining-time  rounded px-2 py-1 "
+                                                <div class=" remaining-time  rounded px-2 py-1 text-nowrap"
                                                     style="font-size: 11px;">
                                                     10d 09h
                                                 </div>
@@ -1065,28 +1097,34 @@
                                             <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=200"
                                                 class="w-100 h-100 object-fit-cover" alt="Event">
                                         </div>
-                                        <div class="flex-grow-1">
-                                            <div class="d-flex justify-content-between align-items-start mb-1">
-                                                <h6 class="small fw-bold mb-0">Annual Audit Planning Meeting</h6>
-                                                <span class="badge px-2 py-1 fw-normal"
+                                        <div class="flex-grow-1" style="min-width: 0;">
+                                            <div class="d-flex justify-content-between align-items-start mb-1 gap-2">
+                                                <h6 class="small fw-bold mb-0 text-truncate">Annual Audit Planning
+                                                    Meeting</h6>
+                                                <span class="badge px-2 py-1 fw-normal flex-shrink-0"
                                                     style="background-color: #ec2227; font-size: 9px;">INTERNAL</span>
                                             </div>
                                             <p class="small text-muted mb-2 text-truncate">Join us for the annual audit
                                                 planning meeting...</p>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <div class="d-flex align-items-center gap-3">
-                                                    <div class="d-flex align-items-center gap-1 small text-muted">
-                                                        <i data-lucide="clock" style="width: 12px;"></i> 10:00 am -
+                                            <div
+                                                class="d-flex flex-wrap align-items-center justify-content-between gap-2">
+                                                <div class="d-flex flex-wrap align-items-center gap-3">
+                                                    <div
+                                                        class="d-flex align-items-center gap-1 small text-muted text-nowrap">
+                                                        <i data-lucide="clock" style="width: 12px; flex-shrink: 0;"></i>
+                                                        10:00 am -
                                                         12:00
                                                         pm
                                                     </div>
-                                                    <div class="d-flex align-items-center gap-1 small text-muted">
-                                                        <i data-lucide="map-pin" style="width: 12px;"></i> Main
+                                                    <div
+                                                        class="d-flex align-items-center gap-1 small text-muted text-nowrap">
+                                                        <i data-lucide="map-pin"
+                                                            style="width: 12px; flex-shrink: 0;"></i> Main
                                                         Conference
                                                         Room
                                                     </div>
                                                 </div>
-                                                <div class=" remaining-time  rounded px-2 py-1 "
+                                                <div class=" remaining-time  rounded px-2 py-1 text-nowrap"
                                                     style="font-size: 11px;">
                                                     08d 14h
                                                 </div>
@@ -1100,27 +1138,33 @@
                                             <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=200"
                                                 class="w-100 h-100 object-fit-cover" alt="Event">
                                         </div>
-                                        <div class="flex-grow-1">
-                                            <div class="d-flex justify-content-between align-items-start mb-1">
-                                                <h6 class="small fw-bold mb-0">Risk Management Workshop</h6>
-                                                <span class="badge px-2 py-1 fw-normal"
+                                        <div class="flex-grow-1" style="min-width: 0;">
+                                            <div class="d-flex justify-content-between align-items-start mb-1 gap-2">
+                                                <h6 class="small fw-bold mb-0 text-truncate">Risk Management Workshop
+                                                </h6>
+                                                <span class="badge px-2 py-1 fw-normal flex-shrink-0"
                                                     style="background-color: #8cd4e4; font-size: 9px;">TRAINING</span>
                                             </div>
                                             <p class="small text-muted mb-2 text-truncate">Enhance your skills in
                                                 identifying...</p>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <div class="d-flex align-items-center gap-3">
-                                                    <div class="d-flex align-items-center gap-1 small text-muted">
-                                                        <i data-lucide="clock" style="width: 12px;"></i> 02:00 pm -
+                                            <div
+                                                class="d-flex flex-wrap align-items-center justify-content-between gap-2">
+                                                <div class="d-flex flex-wrap align-items-center gap-3">
+                                                    <div
+                                                        class="d-flex align-items-center gap-1 small text-muted text-nowrap">
+                                                        <i data-lucide="clock" style="width: 12px; flex-shrink: 0;"></i>
+                                                        02:00 pm -
                                                         05:00
                                                         pm
                                                     </div>
-                                                    <div class="d-flex align-items-center gap-1 small text-muted">
-                                                        <i data-lucide="map-pin" style="width: 12px;"></i> Training
+                                                    <div
+                                                        class="d-flex align-items-center gap-1 small text-muted text-nowrap">
+                                                        <i data-lucide="map-pin"
+                                                            style="width: 12px; flex-shrink: 0;"></i> Training
                                                         Center
                                                     </div>
                                                 </div>
-                                                <div class=" remaining-time  rounded px-2 py-1 "
+                                                <div class=" remaining-time  rounded px-2 py-1 text-nowrap"
                                                     style="font-size: 11px;">
                                                     05d 08h
                                                 </div>
@@ -1134,27 +1178,33 @@
                                             <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=200"
                                                 class="w-100 h-100 object-fit-cover" alt="Event">
                                         </div>
-                                        <div class="flex-grow-1">
-                                            <div class="d-flex justify-content-between align-items-start mb-1">
-                                                <h6 class="small fw-bold mb-0">National Day Celebration</h6>
-                                                <span class="badge px-2 py-1 fw-normal"
+                                        <div class="flex-grow-1" style="min-width: 0;">
+                                            <div class="d-flex justify-content-between align-items-start mb-1 gap-2">
+                                                <h6 class="small fw-bold mb-0 text-truncate">National Day Celebration
+                                                </h6>
+                                                <span class="badge px-2 py-1 fw-normal flex-shrink-0"
                                                     style="background-color: #413f30; font-size: 9px;">CULTURAL</span>
                                             </div>
                                             <p class="small text-muted mb-2 text-truncate">Celebrate our nation's
                                                 heritage...</p>
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <div class="d-flex align-items-center gap-3">
-                                                    <div class="d-flex align-items-center gap-1 small text-muted">
-                                                        <i data-lucide="clock" style="width: 12px;"></i> 06:00 pm -
+                                            <div
+                                                class="d-flex flex-wrap align-items-center justify-content-between gap-2">
+                                                <div class="d-flex flex-wrap align-items-center gap-3">
+                                                    <div
+                                                        class="d-flex align-items-center gap-1 small text-muted text-nowrap">
+                                                        <i data-lucide="clock" style="width: 12px; flex-shrink: 0;"></i>
+                                                        06:00 pm -
                                                         09:00
                                                         pm
                                                     </div>
-                                                    <div class="d-flex align-items-center gap-1 small text-muted">
-                                                        <i data-lucide="map-pin" style="width: 12px;"></i> FAA Main
+                                                    <div
+                                                        class="d-flex align-items-center gap-1 small text-muted text-nowrap">
+                                                        <i data-lucide="map-pin"
+                                                            style="width: 12px; flex-shrink: 0;"></i> FAA Main
                                                         Auditorium
                                                     </div>
                                                 </div>
-                                                <div class=" remaining-time  rounded px-2 py-1 "
+                                                <div class=" remaining-time  rounded px-2 py-1 text-nowrap"
                                                     style="font-size: 11px;">
                                                     02d 12h
                                                 </div>
@@ -1237,7 +1287,7 @@
     </div>
 
     <!-- People Spotlight -->
-    <div class="container-fluid px-5 mb-4">
+    <div class="container-fluid px-3 px-md-5 mb-4">
         <div class="card mb-4">
             <div class="card-body p-4">
                 <div class="d-flex align-items-center gap-2 mb-4">
@@ -1341,7 +1391,7 @@
     </div>
 
     <!-- Job Postings (8) + Condolences (4) -->
-    <div class="container-fluid px-5">
+    <div class="container-fluid px-3 px-md-5">
         <div class="row g-4">
             <div class="col-lg-8">
                 <div class="card h-100">

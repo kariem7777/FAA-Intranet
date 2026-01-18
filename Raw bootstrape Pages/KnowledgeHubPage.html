@@ -407,13 +407,52 @@
             border-top: 2px solid var(--faa-red) !important;
             border: 1px solid var(--faa-red) !important;
         }
+
+        /* START RESPONSIVE ADDITIONS */
+        @media (max-width: 991.98px) {
+            .hero-banner {
+                height: auto;
+                min-height: auto;
+                padding: 30px 20px;
+                background-size: cover;
+                display: flex;
+                align-items: center;
+            }
+
+            .hero-content {
+                position: relative;
+                width: 100%;
+                left: auto;
+                top: auto;
+                transform: none;
+                margin-top: 0;
+            }
+
+            .stats-cards {
+                margin-top: -20px;
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+                margin-left: 0 !important;
+                /* Remove mx-5 override */
+                margin-right: 0 !important;
+            }
+
+            .stats-cards .row {
+                width: 100%;
+                margin: 0;
+            }
+
+            .grid-tabs-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
     </style>
 </head>
 
 <body class="bg-pattern">
 
     <!-- Main Container -->
-    <div class="custom-container px-5">
+    <div class="custom-container px-3 px-md-5">
 
         <!-- Hero Banner -->
         <div class="pt-4 mb-4 position-relative">
@@ -426,8 +465,8 @@
             </div>
 
             <!-- Stats Cards - Overlapping Banner -->
-            <div class="stats-cards px-5 mx-5">
-                <div class="row g-4  mx-auto">
+            <div class="stats-cards px-0 px-md-5 mx-0 mx-md-5">
+                <div class="row g-4 mx-auto">
                     <div class="col-md-4">
                         <div class="card stat-card shadow-lg border-0 h-100 rounded-4">
                             <div class="card-body p-4">

@@ -379,6 +379,43 @@
         .text-indigo-700 {
             color: #4f46e5 !important;
         }
+
+        /* Responsive Split View */
+        @media (max-width: 991.98px) {
+            body {
+                height: auto;
+                overflow: auto;
+            }
+
+            .split-container {
+                flex-direction: column;
+                height: auto;
+            }
+
+            .tree-sidebar {
+                width: 100%;
+                min-width: 0;
+                height: 450px;
+                /* Fixed height scrollable area for tree on mobile */
+                border-right: none;
+                border-bottom: 4px solid var(--color-gray-200);
+            }
+
+            .details-panel {
+                height: auto;
+                overflow: visible;
+            }
+
+            .details-content {
+                padding: 1rem;
+                padding-bottom: 2rem;
+            }
+
+            .profile-header-img {
+                width: 72px;
+                height: 72px;
+            }
+        }
     </style>
 </head>
 

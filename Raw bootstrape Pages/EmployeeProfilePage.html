@@ -74,6 +74,7 @@
         body {
             background-color: #f8f9fa;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
         .bg-pattern {
@@ -188,24 +189,29 @@
                 </a>
             </div>
 
-            <div class="d-flex align-items-center gap-4">
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 gap-md-4">
                 <!-- Profile Image -->
-                <div class="rounded-3 overflow-hidden bg-light border" style="width: 64px; height: 64px;">
-                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400" alt="Ahmed Al Mansouri"
-                        class="w-100 h-100 object-fit-cover">
-                </div>
-
-                <!-- Profile Info -->
-                <div class="flex-grow-1">
-                    <div class="d-flex align-items-center gap-3 mb-1">
-                        <h1 class="h3 mb-0 fw-bold text-dark">Ahmed Al Mansouri</h1>
-                        <span class="badge text-white rounded-1"
-                            style="background-color: var(--faa-dark-red); font-size: 11px; padding: 6px 8px;">FAA-2018-042</span>
+                <div class="d-flex align-items-center gap-3 flex-grow-1">
+                    <div class="rounded-3 overflow-hidden bg-light border flex-shrink-0"
+                        style="width: 64px; height: 64px;">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400"
+                            alt="Ahmed Al Mansouri" class="w-100 h-100 object-fit-cover">
                     </div>
-                    <div class="d-flex align-items-center gap-2 text-secondary small">
-                        <span>Sector Director</span>
-                        <span class="text-muted">•</span>
-                        <span class="text-muted">Operation, Compliance and Performance Audit Sector</span>
+
+                    <!-- Profile Info -->
+                    <div>
+                        <div class="d-flex flex-wrap align-items-center gap-2 mb-1">
+                            <h1 class="h3 mb-0 fw-bold text-dark">Ahmed Al Mansouri</h1>
+                            <span class="badge text-white rounded-1"
+                                style="background-color: var(--faa-dark-red); font-size: 11px; padding: 6px 8px;">FAA-2018-042</span>
+                        </div>
+                        <div class="d-flex flex-wrap align-items-center gap-2 text-secondary small">
+                            <span>Sector Director</span>
+                            <span class="text-muted d-none d-sm-inline">•</span>
+                            <span class="text-muted w-100 d-sm-none"></span>
+                            <!-- Force break on very small screens if needed, or rely on wrap -->
+                            <span class="text-muted">Operation, Compliance and Performance Audit Sector</span>
+                        </div>
                     </div>
                 </div>
 

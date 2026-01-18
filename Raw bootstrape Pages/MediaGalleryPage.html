@@ -447,6 +447,69 @@
             background-color: #971B1E;
             color: white;
         }
+
+        /* Responsive Styles */
+        @media (max-width: 991.98px) {
+            .hero-banner {
+                height: auto;
+                min-height: auto;
+                padding: 2rem 1.5rem;
+                background-size: cover;
+                display: flex;
+                align-items: center;
+            }
+
+            .hero-content {
+                position: relative;
+                width: 100%;
+                left: auto;
+                top: auto;
+                transform: none;
+                margin-top: 0;
+                background-color: rgba(81, 58, 64, 0.85);
+            }
+
+            .filter-bar {
+                padding: 1rem 1.5rem;
+            }
+
+            /* Stack main filter container */
+            .filter-bar>.d-flex {
+                flex-direction: column;
+                align-items: flex-start !important;
+                gap: 1.5rem !important;
+            }
+
+            /* Allow category tabs to wrap */
+            #categoryTabs {
+                flex-wrap: wrap !important;
+                overflow-x: visible;
+                padding-bottom: 0;
+                width: 100%;
+            }
+
+            .category-btn {
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+
+            /* Adjust dropdown container */
+            .filter-bar .d-flex.align-items-center.gap-3 {
+                width: 100%;
+                flex-wrap: wrap;
+                gap: 1rem !important;
+            }
+
+            .gallery-container {
+                padding: 1.5rem 1rem;
+            }
+
+            .custom-container {
+                max-width: 100vw;
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+        }
     </style>
 </head>
 
