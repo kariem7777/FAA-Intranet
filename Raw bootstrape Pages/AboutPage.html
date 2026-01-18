@@ -46,13 +46,17 @@
 
     .hero-banner {
       background-image: url('./assets/3ca851fd732fadea7ed700a83455499648bbdce7.avif');
-      background-size: 100%;
+      background-size: cover;
+      background-position: center;
       border-radius: 16px;
       color: white;
-      padding: 60px 48px;
+      padding: 40px;
       position: relative;
       overflow: hidden;
-      height: 280px;
+      min-height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .hero-banner::before {
@@ -67,14 +71,13 @@
     }
 
     .hero-content {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      width: min(957px, calc(100% - 424px));
+      position: relative;
+      width: 100%;
+      max-width: 800px;
       background-color: rgba(81, 58, 64, 0.72);
-      padding: 20px;
+      padding: 30px;
       border-radius: 10px;
+      z-index: 2;
     }
 
 
@@ -175,9 +178,31 @@
       margin: auto;
     }
 
-    @media (max-width: 576px) {
+    @media (max-width: 768px) {
+      .hero-banner {
+        padding: 24px;
+        min-height: auto;
+      }
+
       .hero-content {
-        min-width: 360px;
+        padding: 20px;
+      }
+
+      .hero-content h2 {
+        font-size: 1.5rem;
+      }
+
+      .hero-content p {
+        font-size: 1rem !important;
+        line-height: 1.5 !important;
+      }
+
+      .custom-container {
+        max-width: 100vw;
+      }
+
+      .h2 {
+        font-size: 1.75rem;
       }
     }
   </style>
@@ -186,7 +211,7 @@
 <body class="bg-pattern">
 
   <!-- Main Container -->
-  <div class="custom-container px-5 pt-4">
+  <div class="custom-container px-3 px-md-5 pt-4">
 
     <!-- Hero Banner -->
     <div class="pt-4 mb-4 position-relative">
@@ -201,7 +226,7 @@
     </div>
 
     <!-- Stats Cards - Overlapping Banner -->
-    <div class="stats-cards px-5 mb-5 ">
+    <div class="stats-cards px-3 px-md-5 mb-5 ">
       <div class="row g-4">
         <div class="col-md-4">
           <div class="card stat-card shadow-lg rounded-4">

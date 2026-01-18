@@ -12,13 +12,11 @@
     <style>
         h1 {
             font-size: 2.5rem !important;
-
             line-height: 1.2 !important;
         }
 
         h2 {
             font-size: 2rem !important;
-
             line-height: 1.3 !important;
         }
 
@@ -44,6 +42,24 @@
             font-size: 1rem !important;
             font-weight: 400 !important;
             line-height: 1.5 !important;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.75rem !important;
+            }
+
+            h2 {
+                font-size: 1.5rem !important;
+            }
+
+            h3 {
+                font-size: 1.25rem !important;
+            }
+
+            h4 {
+                font-size: 1.125rem !important;
+            }
         }
 
         p {
@@ -104,7 +120,8 @@
 
         .hero-banner {
             background-image: url('./assets/3ca851fd732fadea7ed700a83455499648bbdce7.avif');
-            background-size: 100%;
+            background-size: cover;
+            background-position: center;
             border-radius: 16px;
             color: white;
             padding: 60px 48px;
@@ -129,10 +146,33 @@
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
-            width: min(957px, calc(100% - 424px));
+            width: min(957px, calc(100% - 96px));
             background-color: rgba(81, 58, 64, 0.72);
             padding: 20px;
             border-radius: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-banner {
+                height: 200px;
+                padding: 30px 20px;
+                border-radius: 12px;
+            }
+
+            .hero-content {
+                width: calc(100% - 40px);
+                padding: 15px;
+            }
+
+            .hero-content h2 {
+                font-size: 18px !important;
+                line-height: 24px !important;
+            }
+
+            .hero-content p {
+                font-size: 14px !important;
+                line-height: 20px !important;
+            }
         }
 
         .stats-cards {
@@ -148,6 +188,16 @@
         .stat-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+        }
+
+        @media (max-width: 768px) {
+            .stats-cards {
+                margin-top: -60px;
+            }
+
+            .stat-card .display-6 {
+                font-size: 1.5rem !important;
+            }
         }
 
         .gradient-line {
@@ -170,10 +220,27 @@
 
         .quick-feedback-btn {
             transition: all 0.3s ease;
+            min-width: 100px;
         }
 
         .quick-feedback-btn:hover {
             transform: translateY(-2px);
+        }
+
+        @media (max-width: 576px) {
+            .quick-feedback-btn {
+                min-width: 80px;
+                padding: 0.5rem !important;
+            }
+
+            .quick-feedback-btn i {
+                width: 24px !important;
+                height: 24px !important;
+            }
+
+            .quick-feedback-btn .small {
+                font-size: 0.75rem !important;
+            }
         }
 
         .topic-card {
@@ -241,13 +308,35 @@
             background-color: #DBFCE7;
             color: #008236;
         }
+
+        /* Mobile Responsive Utilities */
+        @media (max-width: 768px) {
+            .custom-container {
+                max-width: 100%;
+            }
+
+            .mobile-px-3 {
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+            }
+
+            .mobile-mx-0 {
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+
+            .mobile-px-0 {
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
+        }
     </style>
 </head>
 
 <body class="bg-pattern">
 
     <!-- Main Container -->
-    <div class="custom-container px-5">
+    <div class="custom-container px-3 px-md-5">
 
         <!-- Hero Banner -->
         <div class="pt-4 mb-4 position-relative">
@@ -261,11 +350,11 @@
             </div>
 
             <!-- Stats Cards - Overlapping Banner -->
-            <div class="stats-cards px-5">
-                <div class="row g-4 mx-5">
-                    <div class="col-md-4 mx-auto">
+            <div class="stats-cards px-2 px-md-5">
+                <div class="row g-3 g-md-4 mx-0 mx-md-5">
+                    <div class="col-12 col-md-4">
                         <div class="card stat-card shadow-lg rounded-4">
-                            <div class="card-body p-4">
+                            <div class="card-body p-3 p-md-4">
                                 <div class="d-flex align-items-start gap-3">
                                     <div class="p-3 rounded-3 bg-light text-danger">
                                         <i data-lucide="message-square" style="width: 24px; height: 24px;"></i>
@@ -279,9 +368,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-12 col-md-4">
                         <div class="card stat-card shadow-lg rounded-4">
-                            <div class="card-body p-4">
+                            <div class="card-body p-3 p-md-4">
                                 <div class="d-flex align-items-start gap-3">
                                     <div class="p-3 rounded-3 bg-light" style="color: var(--faa-dark-red);">
                                         <i data-lucide="star" style="width: 24px; height: 24px;"></i>
@@ -295,9 +384,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-12 col-md-4">
                         <div class="card stat-card shadow-lg rounded-4">
-                            <div class="card-body p-4">
+                            <div class="card-body p-3 p-md-4">
                                 <div class="d-flex align-items-start gap-3">
                                     <div class="p-3 rounded-3 bg-light" style="color: var(--faa-darker-red);">
                                         <i data-lucide="thumbs-up" style="width: 24px; height: 24px;"></i>
@@ -321,9 +410,9 @@
             <div class="row g-4 mb-5">
 
                 <!-- Feedback Form -->
-                <div class="col-lg-6">
+                <div class="col-12 col-lg-6">
                     <div class="card shadow-lg border rounded-4">
-                        <div class="card-body p-4">
+                        <div class="card-body p-3 p-md-4">
                             <div class="d-flex align-items-start gap-3 mb-4">
                                 <div class="p-2 rounded-3" style="background-color: rgba(236, 34, 39, 0.1);">
                                     <i data-lucide="message-square"
@@ -414,9 +503,9 @@
                 </div>
 
                 <!-- Quick Feedback -->
-                <div class="col-lg-6">
-                    <div class="card shadow-lg border rounded-4">
-                        <div class="card-body p-4">
+                <div class="col-12 col-lg-6">
+                    <div class="card shadow-lg border rounded-4 h-100">
+                        <div class="card-body p-3 p-md-4">
                             <div class="d-flex align-items-start gap-3 mb-4">
                                 <div class="p-2 rounded-3" style="background-color: rgba(123, 40, 45, 0.1);">
                                     <i data-lucide="thumbs-up"
@@ -433,22 +522,19 @@
                             <p class="text-secondary mb-4">How useful did you find the intranet today?</p>
 
                             <!-- Quick Feedback Buttons -->
-                            <div class="d-flex gap-3 justify-content-center mb-5">
+                            <div class="d-flex gap-2 gap-md-3 justify-content-center mb-4 mb-md-5 flex-wrap">
                                 <button
-                                    class="quick-feedback-btn btn d-flex flex-column align-items-center gap-2 p-3 border border-2 border-secondary rounded-3"
-                                    style="min-width: 100px;">
+                                    class="quick-feedback-btn btn d-flex flex-column align-items-center gap-2 p-3 border border-2 border-secondary rounded-3">
                                     <i data-lucide="thumbs-up" style="width: 32px; height: 32px; color: #22c55e;"></i>
                                     <span class="small">Very Useful</span>
                                 </button>
                                 <button
-                                    class="quick-feedback-btn btn d-flex flex-column align-items-center gap-2 p-3 border border-2 border-secondary rounded-3"
-                                    style="min-width: 100px;">
+                                    class="quick-feedback-btn btn d-flex flex-column align-items-center gap-2 p-3 border border-2 border-secondary rounded-3">
                                     <i data-lucide="frown" style="width: 32px; height: 32px; color: #cdcf46;"></i>
                                     <span class="small">Okay</span>
                                 </button>
                                 <button
-                                    class="quick-feedback-btn btn d-flex flex-column align-items-center gap-2 p-3 border border-2 border-secondary rounded-3"
-                                    style="min-width: 100px;">
+                                    class="quick-feedback-btn btn d-flex flex-column align-items-center gap-2 p-3 border border-2 border-secondary rounded-3">
                                     <i data-lucide="thumbs-down" style="width: 32px; height: 32px; color: #ef4444;"></i>
                                     <span class="small">Not Useful</span>
                                 </button>
@@ -457,7 +543,7 @@
                             <!-- Common Feedback Topics -->
                             <div class="mt-4 pt-4 border-top">
                                 <h5 class="h6 mb-3">Common Feedback Topics</h5>
-                                <div class="row g-3">
+                                <div class="row g-2 g-md-3">
                                     <div class="col-6">
                                         <div class="topic-card p-3 bg-light rounded-3">
                                             <h5 class="h6 mb-1" style="color: var(--faa-dark-red);">45</h5>
@@ -512,7 +598,7 @@
                 <div class="col-12">
                     <div class="card feedback-card shadow-lg border rounded-4
                     ">
-                        <div class="card-body p-4">
+                        <div class="card-body p-3 p-md-4">
                             <div class="d-flex align-items-start justify-content-between mb-3">
                                 <div class="d-flex align-items-center gap-3">
                                     <div class="p-2 rounded-3 bg-light">
@@ -549,7 +635,7 @@
                 <!-- Feedback Item 2 -->
                 <div class="col-12">
                     <div class="card feedback-card shadow-lg border rounded-4">
-                        <div class="card-body p-4">
+                        <div class="card-body p-3 p-md-4">
                             <div class="d-flex align-items-start justify-content-between mb-3">
                                 <div class="d-flex align-items-center gap-3">
                                     <div class="p-2 rounded-3 bg-light">
@@ -586,7 +672,7 @@
                 <!-- Feedback Item 3 -->
                 <div class="col-12">
                     <div class="card feedback-card shadow-lg border rounded-4">
-                        <div class="card-body p-4">
+                        <div class="card-body p-3 p-md-4">
                             <div class="d-flex align-items-start justify-content-between mb-3">
                                 <div class="d-flex align-items-center gap-3">
                                     <div class="p-2 rounded-3 bg-light">
