@@ -141,6 +141,42 @@
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
+
+        @media (max-width: 768px) {
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            h1.h3 {
+                font-size: 1.5rem !important;
+            }
+
+            .component-section {
+                padding: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1.25rem;
+            }
+
+            .component-demo {
+                padding: 1rem;
+            }
+
+            /* Stack sticky header content on mobile */
+            .bg-white.shadow-sm .d-flex.align-items-center.gap-4 {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 1rem !important;
+            }
+
+            /* Adjust profile image size on mobile */
+            .rounded-3.overflow-hidden.bg-light.border {
+                width: 48px !important;
+                height: 48px !important;
+            }
+        }
     </style>
 </head>
 

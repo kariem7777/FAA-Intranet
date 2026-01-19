@@ -218,6 +218,64 @@
             background-color: #EFEFF0;
         }
 
+        @media (max-width: 768px) {
+            .hero-banner {
+                height: auto;
+                min-height: 250px;
+                padding: 20px;
+            }
+
+            .profile-image {
+                width: 96px;
+                height: 96px;
+            }
+
+            h1 {
+                font-size: 2rem !important;
+            }
+
+            h2 {
+                font-size: 1.75rem !important;
+            }
+
+            h3 {
+                font-size: 1.35rem !important;
+            }
+
+            h4 {
+                font-size: 1.15rem !important;
+            }
+
+            .component-section {
+                padding: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1.25rem;
+            }
+
+            .component-demo {
+                padding: 1rem;
+            }
+
+            /* Stack hero banner content vertically on mobile */
+            .hero-banner .d-flex.align-items-start.gap-4 {
+                flex-direction: column !important;
+                gap: 1rem !important;
+            }
+
+            /* Stack contact info items vertically */
+            .hero-banner .d-flex.align-items-center.gap-4 {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 0.5rem !important;
+            }
+
+            .hero-banner .display-6 {
+                font-size: 1.5rem !important;
+            }
+        }
+
         /* Component Menu Specific Styles */
         .component-section {
             margin-bottom: 3rem;
@@ -269,7 +327,7 @@
 
 <body class="bg-pattern">
 
-    <div class="container-fluid px-4 py-4">
+    <div class="container-fluid px-3 px-md-4 py-4">
 
         <!-- Page Header -->
         <div class="mb-5">

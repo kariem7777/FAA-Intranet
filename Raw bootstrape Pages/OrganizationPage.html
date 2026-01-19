@@ -13,123 +13,271 @@
         :root {
             --faa-red: #EC2227;
             --faa-orange: #F97316;
-            --faa-gray: #6B7280;
-            --faa-pink: #EC4899;
+            --faa-gray: #4B5563;
+            --faa-pink: #d78b8a;
             --faa-blue: #3B82F6;
+            --faa-light-blue: #6aaae7;
             --faa-red-light: #EF4444;
+            --line-color: #E5E7EB;
         }
 
         body {
-            background-color: #f8f9fa;
+            background-color: #fcfcfc;
             min-height: 100vh;
-        }
-
-        .bg-pattern {
+            font-family: "Dubai", "Tajawal", sans-serif;
             background-image: url('data:image/svg+xml,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="1" fill="%23000000" opacity="0.05"/></svg>');
             background-repeat: repeat;
+            overflow-x: auto;
+            /* Allow scrolling for large tree */
         }
 
-        .org-card {
-            display: inline-block;
-            padding: 12px 24px;
-            background: white;
-            border-radius: 8px;
-            border: 1px solid #e5e7eb;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            transition: all 0.2s ease;
-            cursor: pointer;
-        }
-
-        .org-card:hover {
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            transform: translateY(-2px);
-        }
-
-        .org-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            display: inline-flex;
-            align-items: center;
+        /* Tree Logic */
+        .tree {
+            display: flex;
             justify-content: center;
-            color: white;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .org-connector {
-            width: 2px;
-            height: 48px;
-            background-color: #d1d5db;
+            padding-top: 20px;
+            width: max-content;
+            /* Ensure tree doesn't wrap */
             margin: 0 auto;
         }
 
-        .org-connector-h {
-            height: 2px;
-            background-color: #d1d5db;
-        }
-
-        .dept-item {
+        .tree ul {
+            padding-top: 20px;
+            position: relative;
+            transition: all 0.5s;
             display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 12px;
-            background-color: #f9fafb;
-            border-radius: 6px;
-            font-size: 12px;
-            color: #374151;
-            cursor: pointer;
-            transition: all 0.2s ease;
+            justify-content: center;
+            padding-left: 0;
         }
 
-        .dept-item:hover {
-            background-color: #f3f4f6;
+        .tree li {
+            float: left;
+            text-align: center;
+            list-style-type: none;
+            position: relative;
+            padding: 20px 20px 0 20px;
+            transition: all 0.5s;
         }
 
-        .dept-icon-box {
-            width: 20px;
+        /* Measuring vertical lines */
+        .tree li::before,
+        .tree li::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 50%;
+            border-top: 1px solid var(--line-color);
+            width: 50%;
             height: 20px;
-            border-radius: 4px;
+        }
+
+        .tree li::after {
+            right: auto;
+            left: 50%;
+            border-left: 1px solid var(--line-color);
+        }
+
+        /* Remove connectors for single children */
+        .tree li:only-child::after,
+        .tree li:only-child::before {
+            display: none;
+        }
+
+        .tree li:only-child {
+            padding-top: 0;
+        }
+
+        /* Remove left/right connectors for first/last children */
+        .tree li:first-child::before,
+        .tree li:last-child::after {
+            border: 0 none;
+        }
+
+        /* Add back vertical line for first/last children */
+        .tree li:last-child::before {
+            border-right: 1px solid var(--line-color);
+            border-radius: 0 5px 0 0;
+        }
+
+        .tree li:first-child::after {
+            border-radius: 5px 0 0 0;
+        }
+
+        /* Vertical line for child lists */
+        .tree ul ul::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            border-left: 1px solid var(--line-color);
+            width: 0;
+            height: 20px;
+        }
+
+        /* Card Styles */
+        .node-card {
             background: white;
-            border: 1px solid #e5e7eb;
+            border: 1px solid #f3f4f6;
+            border-radius: 12px;
+            padding: 12px 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 200px;
+            max-width: 280px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .node-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+            transition: all 0.2s;
+        }
+
+        .icon-box {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-shrink: 0;
+            color: white;
         }
 
-        .sector-card {
-            padding: 12px 16px;
-            background: white;
-            border-radius: 8px;
+        .icon-box i {
+            width: 16px;
+            height: 16px;
+        }
+
+        .node-text {
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            text-align: left;
+            line-height: 1.4;
+        }
+
+        /* Sector Card Special Styling */
+        .sector-node {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            width: 220px;
+        }
+
+        .sector-node .node-text {
+            text-align: center;
+            margin-top: 8px;
+            font-size: 13px;
+        }
+
+        .sector-badge {
+            font-size: 10px;
             border: 1px solid #e5e7eb;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            transition: all 0.2s ease;
+            padding: 2px 8px;
+            border-radius: 12px;
+            color: #6b7280;
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .sector-card:hover {
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        .dept-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
 
         .dept-card {
-            padding: 12px 16px;
             background: white;
+            border: 1px solid #f3f4f6;
             border-radius: 8px;
-            border: 1px solid #e5e7eb;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            transition: all 0.2s ease;
+            padding: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+            width: 240px;
+            text-align: left;
         }
 
-        .dept-card:hover {
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        .small-label {
-            font-size: 11px;
+        .dept-card .dept-label {
+            font-size: 10px;
             color: #9ca3af;
             display: block;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
+        }
+
+        .dept-card .dept-title {
+            font-size: 13px;
+            color: #374151;
+            font-weight: 500;
+        }
+
+        .sub-dept-card {
+            background: white;
+            border: 1px solid #f3f4f6;
+            border-radius: 6px;
+            padding: 10px;
+            width: 100%;
+            text-align: left;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sub-dept-icon {
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--faa-red-light);
+        }
+
+        .arrow-toggle {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #9ca3af;
+            cursor: pointer;
+        }
+
+        /* Level Specific Colors */
+        .bg-red {
+            background-color: var(--faa-red);
+        }
+
+        .bg-orange {
+            background-color: var(--faa-orange);
+        }
+
+        .bg-gray {
+            background-color: var(--faa-gray);
+        }
+
+        .bg-pink {
+            background-color: var(--faa-pink);
+        }
+
+        .bg-blue {
+            background-color: var(--faa-light-blue);
+        }
+
+        .bg-blue-dark {
+            background-color: var(--faa-blue);
+        }
+
+        .vertical-connector {
+            width: 1px;
+            height: 20px;
+            background: var(--line-color);
+            margin: 0 auto;
         }
     </style>
 </head>
@@ -137,280 +285,194 @@
 <body class="bg-pattern">
 
     <!-- Header -->
-    <div class="bg-white shadow-sm">
+    <div class="bg-white shadow-sm position-sticky top-0 z-3">
         <div class="container-fluid px-4 py-3">
             <div class="d-flex align-items-center justify-content-between">
-                <!-- Left: Back Button and Title -->
                 <div class="d-flex align-items-center gap-3">
                     <button class="btn btn-link text-secondary text-decoration-none p-0 d-flex align-items-center gap-2"
                         onclick="window.history.back()">
                         <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i>
-                        <span>Back to home page</span>
+                        <span>Back</span>
                     </button>
                     <div class="vr"></div>
                     <h1 class="h6 mb-0 fw-semibold">Organization Structure</h1>
                 </div>
-                <!-- Right: Change View Button -->
-                <button class="btn btn-sm btn-outline-secondary" onclick="alert('View mode feature')">
-                    <i data-lucide="layout-grid" style="width: 16px; height: 16px;"></i>
-                    <span class="ms-2">Change View</span>
-                </button>
+                <div class="zoom-controls">
+                    <!-- Zoom placeholders if needed -->
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Organization Chart -->
-    <div class="container-fluid px-5 py-5">
-        <div class="d-flex flex-column align-items-center">
-
-            <!-- Level 1: Ruler of Dubai -->
-            <div class="mb-3">
-                <div class="org-card">
-                    <div class="d-flex align-items-center gap-3">
-                        <div class="org-icon" style="background-color: var(--faa-red);">R</div>
-                        <span class="fw-medium">Ruler of Dubai</span>
-                    </div>
+    <!-- Tree Container -->
+    <div class="tree">
+        <ul>
+            <!-- Level 1 -->
+            <li>
+                <div class="node-card">
+                    <div class="icon-box bg-red"><i data-lucide="crown"></i></div>
+                    <div class="node-text">Ruler of Dubai</div>
                 </div>
-            </div>
-            <div class="org-connector"></div>
 
-            <!-- Level 2: Chairman -->
-            <div class="mb-3">
-                <div class="org-card">
-                    <div class="d-flex align-items-center gap-3">
-                        <div class="org-icon" style="background-color: var(--faa-orange);">C</div>
-                        <span class="fw-medium">Chairman</span>
-                    </div>
-                </div>
-            </div>
-            <div class="org-connector"></div>
-
-            <!-- Level 3: Director General -->
-            <div class="mb-3">
-                <div class="org-card">
-                    <div class="d-flex align-items-center gap-3">
-                        <div class="org-icon" style="background-color: var(--faa-gray);">D</div>
-                        <span class="fw-medium">Director General</span>
-                    </div>
-                </div>
-            </div>
-            <div class="org-connector"></div>
-
-            <!-- T-Junction and Branch -->
-            <div class="position-relative" style="width: 800px;">
-                <div class="org-connector-h position-absolute start-0 end-0" style="top: 0;"></div>
-
-                <!-- Level 4: Branch -->
-                <div class="d-flex justify-content-between pt-5">
-                    <!-- Left: Deputy DG -->
-                    <div class="d-flex flex-column align-items-center">
-                        <div class="org-connector" style="margin-top: -48px;"></div>
-                        <div class="org-card">
-                            <div class="d-flex align-items-center gap-3">
-                                <div class="org-icon" style="background-color: var(--faa-pink);">D</div>
-                                <span class="fw-medium">Deputy Director General</span>
-                            </div>
+                <ul>
+                    <!-- Level 2 -->
+                    <li>
+                        <div class="node-card">
+                            <div class="icon-box bg-orange"><i data-lucide="user"></i></div>
+                            <div class="node-text">Chairman</div>
                         </div>
-                    </div>
 
-                    <!-- Right: DG Office -->
-                    <div class="d-flex flex-column align-items-center">
-                        <div class="org-connector" style="margin-top: -48px;"></div>
-                        <div class="org-card">
-                            <div class="d-flex align-items-center gap-3">
-                                <div class="org-icon" style="background-color: var(--faa-blue);">D</div>
-                                <span class="fw-medium">Director General Office</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Level 5: Departments and Sectors -->
-            <div class="mt-5" style="max-width: 1400px; width: 100%;">
-                <div class="d-flex justify-content-start" style="margin-left: 12.5%;">
-                    <div class="org-connector"></div>
-                </div>
-
-                <div class="row g-5 mt-1">
-                    <!-- Left Column: 3 Departments -->
-                    <div class="col-md-3">
-                        <div class="d-flex flex-column gap-4">
-                            <!-- Strategy Department -->
-                            <div class="dept-card">
-                                <div class="d-flex align-items-start gap-3">
-                                    <div class="org-icon"
-                                        style="width: 28px; height: 28px; background-color: var(--faa-blue); font-size: 12px;">
-                                        D</div>
-                                    <div>
-                                        <span class="small-label">Department</span>
-                                        <div class="small fw-medium">Strategy Department</div>
-                                    </div>
+                        <ul>
+                            <!-- Level 3 -->
+                            <li>
+                                <div class="node-card">
+                                    <div class="icon-box bg-gray"><i data-lucide="briefcase"></i></div>
+                                    <div class="node-text">Director General</div>
                                 </div>
-                            </div>
 
-                            <!-- Professional Practice & Quality Assurance Department -->
-                            <div class="dept-card">
-                                <div class="d-flex align-items-start gap-3">
-                                    <div class="org-icon"
-                                        style="width: 28px; height: 28px; background-color: var(--faa-blue); font-size: 12px;">
-                                        D</div>
-                                    <div>
-                                        <span class="small-label">Department</span>
-                                        <div class="small fw-medium">Professional Practice & Quality Assurance
-                                            Department</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Consultancy & Business Excellence Department -->
-                            <div class="dept-card">
-                                <div class="d-flex align-items-start gap-3">
-                                    <div class="org-icon"
-                                        style="width: 28px; height: 28px; background-color: var(--faa-blue); font-size: 12px;">
-                                        D</div>
-                                    <div>
-                                        <span class="small-label">Department</span>
-                                        <div class="small fw-medium">Consultancy & Business Excellence Department</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Right Column: 3 Sectors with Departments -->
-                    <div class="col-md-9">
-                        <div class="d-flex flex-column gap-4">
-
-                            <!-- Sector 1: Operation, Compliance and Performance Audit -->
-                            <div>
-                                <div class="sector-card mb-3">
-                                    <div class="d-flex align-items-start gap-3">
-                                        <div class="org-icon"
-                                            style="width: 28px; height: 28px; background-color: var(--faa-red-light); font-size: 12px;">
-                                            D</div>
-                                        <div>
-                                            <span class="small-label">Sector</span>
-                                            <div class="small fw-medium">Operation, Compliance and Performance Audit
-                                                Sector</div>
+                                <ul>
+                                    <!-- Level 4 - Left Side (Deputy DG + Children) -->
+                                    <li>
+                                        <div class="node-card">
+                                            <div class="icon-box bg-pink"><i data-lucide="user-plus"></i></div>
+                                            <div class="node-text">Deputy Director<br>General</div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="ms-5 d-flex flex-column gap-2">
-                                    <div class="dept-item">
-                                        <div class="dept-icon-box"><i data-lucide="landmark"
-                                                style="width: 12px; height: 12px; color: #6b7280;"></i></div>
-                                        <span>Ports & Free Zones Audit Department</span>
-                                    </div>
-                                    <div class="dept-item">
-                                        <div class="dept-icon-box"><i data-lucide="building"
-                                                style="width: 12px; height: 12px; color: #6b7280;"></i></div>
-                                        <span>Real Estate, Hotels & Entertainment Audit Department</span>
-                                    </div>
-                                    <div class="dept-item">
-                                        <div class="dept-icon-box"><i data-lucide="layers"
-                                                style="width: 12px; height: 12px; color: #6b7280;"></i></div>
-                                        <span>Energy & Industry Audit Department</span>
-                                    </div>
-                                    <div class="dept-item">
-                                        <div class="dept-icon-box"><i data-lucide="globe"
-                                                style="width: 12px; height: 12px; color: #6b7280;"></i></div>
-                                        <span>Government & Nonprofit Entities Audit Department</span>
-                                    </div>
-                                    <div class="dept-item">
-                                        <div class="dept-icon-box"><i data-lucide="plane"
-                                                style="width: 12px; height: 12px; color: #6b7280;"></i></div>
-                                        <span>Aviation & Transportation Audit Department</span>
-                                    </div>
-                                    <div class="dept-item">
-                                        <div class="dept-icon-box"><i data-lucide="briefcase"
-                                                style="width: 12px; height: 12px; color: #6b7280;"></i></div>
-                                        <span>Banks & Investment Companies Audit Department</span>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <!-- Sector 2: Financial Statement Audit and Specialized Audit -->
-                            <div>
-                                <div class="sector-card mb-3">
-                                    <div class="d-flex align-items-start gap-3">
-                                        <div class="org-icon"
-                                            style="width: 28px; height: 28px; background-color: var(--faa-red-light); font-size: 12px;">
-                                            D</div>
-                                        <div>
-                                            <span class="small-label">Sector</span>
-                                            <div class="small fw-medium">Financial Statement Audit and Specialized Audit
-                                                Sector</div>
+                                        <!-- Level 5 - The Split -->
+                                        <ul>
+                                            <!-- Column 1: Departments -->
+                                            <li style="vertical-align: top;">
+                                                <div class="dept-stack">
+                                                    <div class="dept-card">
+                                                        <div class="d-flex align-items-center gap-3">
+                                                            <div class="icon-box bg-blue-dark"
+                                                                style="width: 24px; height: 24px; font-size: 10px;"><i
+                                                                    data-lucide="file" style="width: 12px;"></i></div>
+                                                            <div>
+                                                                <span class="dept-label">Department</span>
+                                                                <div class="dept-title">Strategy Department</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dept-card">
+                                                        <div class="d-flex align-items-center gap-3">
+                                                            <div class="icon-box bg-blue-dark"
+                                                                style="width: 24px; height: 24px; font-size: 10px;"><i
+                                                                    data-lucide="shield-check" style="width: 12px;"></i>
+                                                            </div>
+                                                            <div>
+                                                                <span class="dept-label">Department</span>
+                                                                <div class="dept-title">Professional Practice & Quality
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dept-card">
+                                                        <div class="d-flex align-items-center gap-3">
+                                                            <div class="icon-box bg-blue-dark"
+                                                                style="width: 24px; height: 24px; font-size: 10px;"><i
+                                                                    data-lucide="trending-up" style="width: 12px;"></i>
+                                                            </div>
+                                                            <div>
+                                                                <span class="dept-label">Department</span>
+                                                                <div class="dept-title">Consultancy & Business
+                                                                    Excellence</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                            <!-- Column 2: Sector 1 -->
+                                            <li style="vertical-align: top;">
+                                                <div class="node-card sector-node">
+                                                    <div class="icon-box bg-pink" style="background-color: #d78b8a;"><i
+                                                            data-lucide="file-text"></i></div>
+                                                    <span class="sector-badge">Sector</span>
+                                                    <div class="node-text">Operation, Compliance<br>and Performance
+                                                        Audit<br>Sector</div>
+                                                    <i data-lucide="chevron-down" class="arrow-toggle"
+                                                        style="width: 14px;"></i>
+                                                </div>
+                                            </li>
+
+                                            <!-- Column 3: Sector 2 -->
+                                            <li style="vertical-align: top;">
+                                                <div class="node-card sector-node">
+                                                    <div class="icon-box bg-pink" style="background-color: #d78b8a;"><i
+                                                            data-lucide="file-text"></i></div>
+                                                    <span class="sector-badge">Sector</span>
+                                                    <div class="node-text">Financial Statement<br>Audit and
+                                                        Specialized<br>Audit Sector</div>
+                                                    <i data-lucide="chevron-up" class="arrow-toggle"
+                                                        style="width: 14px;"></i>
+                                                </div>
+                                                <!-- Children of Sector 2 -->
+                                                <div class="mt-3" style="width: 220px; margin: 0 auto;">
+                                                    <div class="sub-dept-card">
+                                                        <div class="sub-dept-icon"><i data-lucide="file"
+                                                                style="width: 12px; height: 12px; color: #d78b8a;"></i>
+                                                        </div>
+                                                        <span class="dept-title" style="font-size: 12px;">Financial
+                                                            Statement<br>Audit Department</span>
+                                                    </div>
+                                                    <div class="vertical-connector"></div>
+                                                    <div class="sub-dept-card" style="margin-top: 0;">
+                                                        <div class="sub-dept-icon"><i data-lucide="shield-alert"
+                                                                style="width: 12px; height: 12px; color: #d78b8a;"></i>
+                                                        </div>
+                                                        <span class="dept-title" style="font-size: 12px;">Financial
+                                                            &<br>Administrative Violations</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                            <!-- Column 4: Sector 3 -->
+                                            <li style="vertical-align: top;">
+                                                <div class="node-card sector-node">
+                                                    <div class="icon-box bg-pink" style="background-color: #d78b8a;"><i
+                                                            data-lucide="users"></i></div>
+                                                    <span class="sector-badge">Sector</span>
+                                                    <div class="node-text">Corporate Support<br>Sector</div>
+                                                    <i data-lucide="chevron-up" class="arrow-toggle"
+                                                        style="width: 14px;"></i>
+                                                </div>
+                                                <!-- Children of Sector 3 -->
+                                                <div class="mt-3" style="width: 220px; margin: 0 auto;">
+                                                    <div class="sub-dept-card">
+                                                        <div class="sub-dept-icon"><i data-lucide="user-check"
+                                                                style="width: 12px; height: 12px; color: #d78b8a;"></i>
+                                                        </div>
+                                                        <span class="dept-title" style="font-size: 12px;">Human
+                                                            Resources<br>Department</span>
+                                                    </div>
+                                                    <div class="vertical-connector"></div>
+                                                    <div class="sub-dept-card" style="margin-top: 0;">
+                                                        <div class="sub-dept-icon"><i data-lucide="dollar-sign"
+                                                                style="width: 12px; height: 12px; color: #d78b8a;"></i>
+                                                        </div>
+                                                        <span class="dept-title" style="font-size: 12px;">Finance
+                                                            and<br>Procurement<br>Department</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <!-- Level 4 - Right Side (DG Office) -->
+                                    <li>
+                                        <div class="node-card">
+                                            <div class="icon-box bg-blue"><i data-lucide="building"></i></div>
+                                            <div class="node-text">Director General<br>Office</div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="ms-5 d-flex flex-column gap-2">
-                                    <div class="dept-item">
-                                        <div class="dept-icon-box"><i data-lucide="file-check"
-                                                style="width: 12px; height: 12px; color: #6b7280;"></i></div>
-                                        <span>Financial Statement Audit Department</span>
-                                    </div>
-                                    <div class="dept-item">
-                                        <div class="dept-icon-box"><i data-lucide="shield-check"
-                                                style="width: 12px; height: 12px; color: #6b7280;"></i></div>
-                                        <span>Financial & Administrative Violation Department</span>
-                                    </div>
-                                    <div class="dept-item">
-                                        <div class="dept-icon-box"><i data-lucide="building"
-                                                style="width: 12px; height: 12px; color: #6b7280;"></i></div>
-                                        <span>Construction & Infrastructure Audit Department</span>
-                                    </div>
-                                    <div class="dept-item">
-                                        <div class="dept-icon-box"><i data-lucide="layers"
-                                                style="width: 12px; height: 12px; color: #6b7280;"></i></div>
-                                        <span>Information Systems Audit Department</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Sector 3: Corporate Support -->
-                            <div>
-                                <div class="sector-card mb-3">
-                                    <div class="d-flex align-items-start gap-3">
-                                        <div class="org-icon"
-                                            style="width: 28px; height: 28px; background-color: var(--faa-red-light); font-size: 12px;">
-                                            D</div>
-                                        <div>
-                                            <span class="small-label">Sector</span>
-                                            <div class="small fw-medium">Corporate Support Sector</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="ms-5 d-flex flex-column gap-2">
-                                    <div class="dept-item">
-                                        <div class="dept-icon-box"><i data-lucide="users"
-                                                style="width: 12px; height: 12px; color: #6b7280;"></i></div>
-                                        <span>Human Resources Department</span>
-                                    </div>
-                                    <div class="dept-item">
-                                        <div class="dept-icon-box"><i data-lucide="dollar-sign"
-                                                style="width: 12px; height: 12px; color: #6b7280;"></i></div>
-                                        <span>Finance and Procurement Department</span>
-                                    </div>
-                                    <div class="dept-item">
-                                        <div class="dept-icon-box"><i data-lucide="scale"
-                                                style="width: 12px; height: 12px; color: #6b7280;"></i></div>
-                                        <span>Legal Affairs Department</span>
-                                    </div>
-                                    <div class="dept-item">
-                                        <div class="dept-icon-box"><i data-lucide="layers"
-                                                style="width: 12px; height: 12px; color: #6b7280;"></i></div>
-                                        <span>Information Technology Department</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
     </div>
 
     <!-- Bootstrap Bundle with Popper -->
@@ -421,7 +483,6 @@
     <script>
         lucide.createIcons();
     </script>
-
 </body>
 
 </html>

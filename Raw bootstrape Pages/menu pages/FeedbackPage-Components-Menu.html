@@ -54,13 +54,17 @@
 
         .hero-banner {
             background-image: url('../assets/3ca851fd732fadea7ed700a83455499648bbdce7.avif');
-            background-size: 100%;
+            background-size: cover;
+            background-position: center;
             border-radius: 16px;
             color: white;
-            padding: 60px 48px;
+            padding: 40px;
             position: relative;
             overflow: hidden;
-            height: 280px;
+            min-height: 280px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .hero-banner::before {
@@ -75,14 +79,13 @@
         }
 
         .hero-content {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            width: min(957px, calc(100% - 424px));
+            position: relative;
+            width: 100%;
+            max-width: 800px;
             background-color: rgba(81, 58, 64, 0.72);
-            padding: 20px;
+            padding: 30px;
             border-radius: 10px;
+            z-index: 2;
         }
 
         .stats-cards {
@@ -222,12 +225,53 @@
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
+
+        @media (max-width: 768px) {
+            .hero-banner {
+                padding: 24px;
+                min-height: auto;
+            }
+
+            .hero-content {
+                padding: 20px;
+            }
+
+            .hero-content h2 {
+                font-size: 1.5rem !important;
+                line-height: 1.3 !important;
+            }
+
+            .hero-content p {
+                font-size: 1rem !important;
+                line-height: 1.5 !important;
+            }
+
+            .stats-cards {
+                margin-top: -30px;
+            }
+
+            .component-section {
+                padding: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1.25rem;
+            }
+
+            .component-demo {
+                padding: 1rem;
+            }
+
+            .d-flex.gap-3 {
+                flex-wrap: wrap;
+            }
+        }
     </style>
 </head>
 
 <body class="bg-pattern">
 
-    <div class="custom-container px-5 py-4">
+    <div class="custom-container px-3 px-md-5 py-4">
 
         <!-- Page Header -->
         <div class="mb-5">

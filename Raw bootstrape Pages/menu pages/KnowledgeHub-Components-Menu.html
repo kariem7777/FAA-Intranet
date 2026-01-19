@@ -413,13 +413,56 @@
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
+
+        /* Responsive Styles */
+        @media (max-width: 991.98px) {
+            .hero-banner {
+                height: auto;
+                min-height: auto;
+                padding: 30px 20px;
+                background-size: cover;
+                display: flex;
+                align-items: center;
+            }
+
+            .hero-content {
+                position: relative;
+                width: 100%;
+                left: auto;
+                top: auto;
+                transform: none;
+                margin-top: 0;
+            }
+
+            .stats-cards {
+                margin-top: -30px;
+            }
+
+            .grid-tabs-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .component-section {
+                padding: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1.25rem;
+            }
+
+            .d-flex.gap-3 {
+                flex-wrap: wrap;
+            }
+        }
     </style>
 </head>
 
 <body class="bg-pattern">
 
     <!-- Main Container -->
-    <div class="custom-container px-5 py-4">
+    <div class="custom-container px-3 px-md-5 py-4">
 
         <!-- Page Header -->
         <div class="mb-5">
