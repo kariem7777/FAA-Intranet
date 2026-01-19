@@ -15,16 +15,89 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
+        h1 {
+            font-size: 2.5rem !important;
+
+            line-height: 1.2 !important;
+        }
+
+        h2 {
+            font-size: 2rem !important;
+
+            line-height: 1.3 !important;
+        }
+
+        h3 {
+            font-size: 1.5rem !important;
+            font-weight: 500 !important;
+            line-height: 1.4 !important;
+        }
+
+        h4 {
+            font-size: 1.25rem !important;
+            font-weight: 500 !important;
+            line-height: 1.4 !important;
+        }
+
+        h5 {
+            font-size: 1.125rem !important;
+            font-weight: 400 !important;
+            line-height: 1.5 !important;
+        }
+
+        h6 {
+            font-size: 1rem !important;
+            font-weight: 400 !important;
+            line-height: 1.5 !important;
+        }
+
+        p {
+            font-size: 1rem !important;
+            line-height: 1.6 !important;
+        }
+
+        a {
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        button {
+            font-family: inherit !important;
+        }
+
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #908e81 #f1f1f1;
+            font-family: "Dubai", "Tajawal", sans-serif;
+        }
+
+        .custom-container {
+            max-width: 95vw;
+            margin: auto;
+        }
+
+        .shadow-lg {
+            box-shadow:
+                0 10px 15px -3px rgba(0, 0, 0, 0.1),
+                0 4px 6px -4px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .border {
+            border: 1px solid #E5E5E5 !important;
+        }
+
         :root {
             --faa-red: #ec2227;
             --faa-dark-red: #7B282D;
             --font-sans: 'Dubai', 'Tajawal', 'Inter', system-ui, -apple-system, sans-serif;
-            --color-gray-50: #f9fafb;
+            --color-gray-50: #f8f9fa;
             --color-gray-100: #f3f4f6;
             --color-gray-200: #e5e7eb;
             --color-gray-300: #d1d5db;
+            --color-gray-400: #9ca3af;
             --color-gray-500: #6b7280;
             --color-gray-600: #4b5563;
+            --color-gray-700: #374151;
             --color-gray-900: #111827;
         }
 
@@ -83,11 +156,12 @@
             top: 0;
             background: white;
             z-index: 10;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
         }
 
         .tree-content {
             padding: 1.5rem;
-            padding-bottom: 3rem;
+            padding-bottom: 2rem;
         }
 
         /* Node Cards */
@@ -101,18 +175,18 @@
             display: flex;
             align-items: center;
             gap: 0.75rem;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
         }
 
         .node-card:hover {
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             border-color: var(--color-gray-300);
         }
 
         .node-card.active {
             border-color: #3b82f6;
             background-color: #eff6ff;
-            /* blue-50 */
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
 
         .icon-box {
@@ -145,16 +219,14 @@
         /* Details Content */
         .details-content {
             padding: 2rem;
-            max-width: 1000px;
             margin: 0 auto;
-            padding-bottom: 4rem;
+            padding-bottom: 3rem;
         }
 
         .details-card {
             background: white;
             border: 1px solid var(--color-gray-200);
             border-radius: 0.75rem;
-            /* xl */
             padding: 1.5rem;
             margin-bottom: 1.5rem;
             box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -168,21 +240,21 @@
             justify-content: space-between;
             background: none;
             border: none;
-            padding: 0;
+            padding: 1rem;
             font-size: 1rem;
             font-weight: 500;
-            /* Medium */
             color: var(--color-gray-900);
             cursor: pointer;
+            transition: background 0.2s;
         }
 
         .section-header-btn:hover {
-            opacity: 0.8;
+            background-color: var(--color-gray-50);
         }
 
         .section-content {
-            margin-top: 1rem;
-            padding-top: 1rem;
+            padding: 1.5rem;
+            padding-top: 0;
             border-top: 1px solid var(--color-gray-100);
             animation: slideDown 0.2s ease-out;
         }
@@ -201,9 +273,10 @@
 
         .badge-custom {
             padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
+            border-radius: 0.375rem;
             font-weight: 500;
             font-size: 0.75rem;
+            border: 1px solid transparent;
         }
 
         /* Scrollbars */
@@ -241,9 +314,9 @@
         .tree-group-label {
             font-size: 0.75rem;
             color: var(--color-gray-500);
-            padding: 0 0.5rem;
+            padding: 0 0.75rem;
             margin-bottom: 0.5rem;
-            margin-top: 0.5rem;
+            margin-top: 0;
         }
 
         .btn-link-custom {
@@ -273,6 +346,7 @@
             flex-direction: column;
             gap: 0.375rem;
             margin-top: 0.5rem;
+            padding-bottom: 0.5rem;
         }
 
         .chevron-btn {
@@ -284,6 +358,7 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
+            transition: background 0.2s;
         }
 
         .chevron-btn:hover {
@@ -296,6 +371,7 @@
             height: 96px;
             object-fit: cover;
             border: 4px solid var(--color-gray-100);
+            border-radius: 50%;
         }
 
         /* Custom Colors matching Tailwind */
@@ -310,6 +386,10 @@
 
         .border-blue-200 {
             border-color: #bfdbfe !important;
+        }
+
+        .border-blue-500 {
+            border-color: #3b82f6 !important;
         }
 
         .bg-purple-50 {
@@ -380,6 +460,42 @@
             color: #4f46e5 !important;
         }
 
+        .bg-pink-100 {
+            background-color: #fce7f3 !important;
+        }
+
+        .text-pink-700 {
+            color: #be185d !important;
+        }
+
+        .bg-teal-100 {
+            background-color: #ccfbf1 !important;
+        }
+
+        .text-teal-700 {
+            color: #0f766e !important;
+        }
+
+        .bg-cyan-100 {
+            background-color: #cffafe !important;
+        }
+
+        .text-cyan-700 {
+            color: #0e7490 !important;
+        }
+
+        .bg-purple-100 {
+            background-color: #f3e8ff !important;
+        }
+
+        .bg-green-100 {
+            background-color: #dcfce7 !important;
+        }
+
+        .bg-orange-100 {
+            background-color: #ffedd5 !important;
+        }
+
         /* Responsive Split View */
         @media (max-width: 991.98px) {
             body {
@@ -396,7 +512,6 @@
                 width: 100%;
                 min-width: 0;
                 height: 450px;
-                /* Fixed height scrollable area for tree on mobile */
                 border-right: none;
                 border-bottom: 4px solid var(--color-gray-200);
             }
@@ -415,6 +530,19 @@
                 width: 72px;
                 height: 72px;
             }
+        }
+
+        .leader-card-message {
+            background-color: #EFF6FF;
+            color: #374151;
+            font-size: 1rem;
+            border-color: #3b82f6 !important;
+            border-radius: 0px 12px 12px 0px;
+        }
+
+        .champion-card:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.2s ease-in-out;
         }
     </style>
 </head>
@@ -498,7 +626,7 @@
                     { id: 'e2', name: 'Mohammed Hassan', role: 'Chief of Staff', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400', since: '2017', email: 'mohammed.h@faa.gov.ae', phone: '+971-4-XXX-XXXX' },
                 ],
                 committees: [
-                    { id: 'c1', name: 'Executive Committee', purpose: 'Strategic decision making', chairperson: 'Ahmed Al Mansouri', coordinator: 'Mohammed Hassan', members: [{ name: 'All Sector Heads', role: 'Members' }] }
+                    { id: 'c1', name: 'Executive Committee', purpose: 'Strategic decision making', chairperson: 'Ahmed Al Mansouri', coordinator: 'Mohammed Hassan', members: [{ name: 'Tariq Al Zarooni', role: 'IT' }, { name: 'Reem Al Mansouri', role: 'HR' }] }
                 ]
             },
             {
@@ -521,7 +649,9 @@
                     operational: [{ id: 'or1', title: 'Resource Constraints', description: 'Peak audit season staffing', level: 'Medium', mitigation: 'Outsourcing', mitigationRole: 'Resource Manager' }]
                 },
                 champions: [
-                    { id: 'ch1', name: 'Hassan Al Blooshi', role: 'Audit Quality Champion', category: 'Quality', image: 'https://images.unsplash.com/photo-1556157382-97eda2d62296?w=400', categoryColor: '#7c3aed' }
+                    { id: 'ch1', name: 'Hassan Al Blooshi', role: 'Audit Quality Champion', category: 'Quality', image: 'https://images.unsplash.com/photo-1556157382-97eda2d62296?w=400', categoryColor: '#7c3aed' },
+                    { id: 'ch2', name: 'Hassan Al Blooshi', role: 'Audit Quality Champion', category: 'Quality', image: 'https://images.unsplash.com/photo-1556157382-97eda2d62296?w=400', categoryColor: '#7c3aed' },
+                    { id: 'ch3', name: 'Hassan Al Blooshi', role: 'Audit Quality Champion', category: 'Quality', image: 'https://images.unsplash.com/photo-1556157382-97eda2d62296?w=400', categoryColor: '#7c3aed' },
                 ]
             },
             { id: 'ports', title: 'Ports & Free Zones Audit', icon: 'landmark', color: '#5b9bd5', type: 'department', parentId: 'operation-sector', overview: { description: 'Specialized audits of port authorities.', focusAreas: ['Port Operations'] } },
@@ -686,7 +816,7 @@
                     <div class="icon-box" style="background-color: ${node.color}15;">
                         <i data-lucide="${node.icon}" style="color: ${node.color}; width: ${isSmall ? '14px' : '16px'}; height: ${isSmall ? '14px' : '16px'};"></i>
                     </div>
-                    <div class="text-truncate-2" style="font-size: ${isSmall ? '0.75rem' : '0.875rem'}; font-weight: 500;">
+                    <div class="text-truncate-2 fs-6">
                         ${node.title}
                     </div>
                 </div>
@@ -702,7 +832,7 @@
                     <div class="icon-box" style="background-color: ${node.color}15;">
                         <i data-lucide="${node.icon}" style="color: ${node.color}; width: 16px; height: 16px;"></i>
                     </div>
-                    <div class="flex-grow-1 text-truncate-2" style="font-size: 0.875rem; font-weight: 500; margin-left: 0.5rem;">
+                    <div class="flex-grow-1 text-truncate-2 fs-6">
                         ${node.title}
                     </div>
                     <button class="chevron-btn" onclick="toggleSector(event, '${node.id}')">
@@ -739,41 +869,51 @@
 
                 panel.innerHTML = `
                     <div class="details-content">
-                        <div class="d-flex justify-content-between mb-4">
-                             <button class="btn btn-outline-secondary btn-sm d-flex align-items-center gap-2" onclick="closeProfile()">
-                                <i data-lucide="arrow-left" style="width: 14px;"></i> Back to ${node.title}
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                             <button class="btn btn-white border shadow-sm btn-sm d-flex align-items-center gap-2 rounded-3 text-muted" onclick="closeProfile()">
+                                <i data-lucide="arrow-left" style="width: 14px;"></i> Back to Team
                             </button>
                         </div>
                        
-                        <div class="details-card p-4">
-                            <div class="d-flex flex-column flex-md-row gap-4 align-items-start">
-                                <img src="${p.image}" class="rounded-circle profile-header-img">
-                                <div class="flex-grow-1">
-                                    <h2 class="h3 fw-bold mb-1">${p.name}</h2>
-                                    <p class="text-muted mb-3">${p.role}</p>
-                                    <div class="d-flex flex-wrap gap-3 small text-muted mb-4">
-                                        <div class="d-flex align-items-center gap-1"><i data-lucide="calendar" style="width: 14px;"></i> Since ${p.since}</div>
-                                        <div class="d-flex align-items-center gap-1"><i data-lucide="map-pin" style="width: 14px;"></i> Dubai, UAE</div>
+                        <div class="details-card p-4 rounded-4 shadow-sm bg-white mb-3">
+                            <div class="d-flex flex-column flex-md-row gap-4 align-items-center align-items-md-start">
+                                <img src="${p.image}" class="rounded-circle profile-header-img" style="width: 80px; height: 80px; object-fit: cover;">
+                                <div class="flex-grow-1 text-center text-md-start">
+                                    <h2 class="h4 fw-bold mb-1 text-dark">${p.name}</h2>
+                                    <p class="text-muted mb-3 small">${p.role}</p>
+                                    
+                                    <div class="d-flex flex-wrap gap-3 small text-muted mb-4 justify-content-center justify-content-md-start">
+                                        <div class="d-flex align-items-center gap-1">
+                                            <i data-lucide="calendar" style="width: 14px;"></i> Since ${p.since}
+                                        </div>
+                                        <div class="d-flex align-items-center gap-1">
+                                            <i data-lucide="map-pin" style="width: 14px;"></i> Dubai, UAE
+                                        </div>
                                     </div>
-                                    <div class="d-flex gap-2">
-                                        <button class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-2"><i data-lucide="mail" style="width: 14px;"></i> ${p.email}</button>
-                                        <button class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-2"><i data-lucide="phone" style="width: 14px;"></i> ${p.phone}</button>
+                                    
+                                    <div class="d-flex gap-2 justify-content-center justify-content-md-start">
+                                        <button class="btn btn-sm btn-light border d-flex align-items-center gap-2 text-dark bg-white">
+                                            <i data-lucide="mail" style="width: 14px; opacity: 0.6;"></i> ${p.email}
+                                        </button>
+                                        <button class="btn btn-sm btn-light border d-flex align-items-center gap-2 text-dark bg-white">
+                                            <i data-lucide="phone" style="width: 14px; opacity: 0.6;"></i> ${p.phone}
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- 1. About -->
-                        <div class="details-card p-0">
-                            <button class="section-header-btn p-3" onclick="toggleSection('about')">
+                        <div class="details-card p-0 rounded-4 shadow-sm bg-white mb-3">
+                            <button class="section-header-btn p-3 w-100 text-start border-0 bg-transparent d-flex justify-content-between align-items-center" onclick="toggleSection('about')">
                                 <div class="d-flex align-items-center gap-3">
-                                    <i data-lucide="user" class="text-secondary" style="width: 20px;"></i>
-                                    <span>About & Social Profile</span>
+                                    <i data-lucide="user" class="text-secondary" style="width: 18px;"></i>
+                                    <span class="fw-normal text-dark">About & Social Profile</span>
                                 </div>
-                                <i data-lucide="${state.expandedSections.about ? 'chevron-up' : 'chevron-down'}" style="width: 20px;" class="text-secondary"></i>
+                                <i data-lucide="${state.expandedSections.about ? 'chevron-up' : 'chevron-down'}" style="width: 16px;" class="text-secondary"></i>
                             </button>
                             ${state.expandedSections.about ? `
-                            <div class="section-content p-3 pt-0 border-0 mt-0">
+                            <div class="p-4 pt-0 border-top-0">
                                 <p class="small text-secondary mb-3">${d.about.bio}</p>
                                 <div class="d-flex gap-2">
                                     <button class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-2"><i data-lucide="linkedin" style="width: 14px;"></i> LinkedIn</button>
@@ -783,98 +923,128 @@
                         </div>
 
                         <!-- 2. Academic -->
-                        <div class="details-card p-0">
-                            <button class="section-header-btn p-3" onclick="toggleSection('academic')">
+                        <div class="details-card p-0 rounded-4 shadow-sm bg-white mb-3">
+                            <button class="section-header-btn p-3 w-100 text-start border-0 bg-transparent d-flex justify-content-between align-items-center" onclick="toggleSection('academic')">
                                 <div class="d-flex align-items-center gap-3">
-                                    <i data-lucide="graduation-cap" class="text-secondary" style="width: 20px;"></i>
-                                    <span>Academic Information</span>
+                                    <i data-lucide="graduation-cap" class="text-secondary" style="width: 18px;"></i>
+                                    <span class="fw-normal text-dark">Academic Information</span>
                                 </div>
-                                <i data-lucide="${state.expandedSections.academic ? 'chevron-up' : 'chevron-down'}" style="width: 20px;" class="text-secondary"></i>
+                                <i data-lucide="${state.expandedSections.academic ? 'chevron-up' : 'chevron-down'}" style="width: 16px;" class="text-secondary"></i>
                             </button>
                             ${state.expandedSections.academic ? `
-                            <div class="section-content p-3 pt-0 border-0 mt-0">
-                                ${d.academic.map(item => `
-                                    <div class="mb-2 pb-2 border-bottom last:border-0 last:pb-0 last:mb-0">
-                                        <div class="small fw-semibold text-dark">${item.degree}</div>
-                                        <div class="x-small text-muted">${item.institution} • ${item.year}</div>
-                                    </div>
-                                `).join('')}
+                            <div class="p-4 pt-0 border-top-0">
+                                <div class="d-flex flex-column gap-3">
+                                    ${d.academic.map((item, index) => `
+                                        <div class="${index !== d.academic.length - 1 ? 'border-bottom pb-3' : ''}">
+                                            <div class="fw-medium text-dark mb-1" style="font-size: 0.95rem;">${item.degree}</div>
+                                            <div class="small text-muted">${item.institution} • ${item.year}</div>
+                                        </div>
+                                    `).join('')}
+                                </div>
                             </div>` : ''}
                         </div>
 
                         <!-- 3. Certifications -->
-                        <div class="details-card p-0">
-                            <button class="section-header-btn p-3" onclick="toggleSection('certifications')">
+                        <div class="details-card p-0 rounded-4 shadow-sm bg-white mb-3">
+                            <button class="section-header-btn p-3 w-100 text-start border-0 bg-transparent d-flex justify-content-between align-items-center" onclick="toggleSection('certifications')">
                                 <div class="d-flex align-items-center gap-3">
-                                    <i data-lucide="award" class="text-secondary" style="width: 20px;"></i>
-                                    <span>Professional Certifications</span>
+                                    <i data-lucide="award" class="text-secondary" style="width: 18px;"></i>
+                                    <span class="fw-normal text-dark">Professional Certifications</span>
                                 </div>
-                                <i data-lucide="${state.expandedSections.certifications ? 'chevron-up' : 'chevron-down'}" style="width: 20px;" class="text-secondary"></i>
+                                <i data-lucide="${state.expandedSections.certifications ? 'chevron-up' : 'chevron-down'}" style="width: 16px;" class="text-secondary"></i>
                             </button>
                             ${state.expandedSections.certifications ? `
-                            <div class="section-content p-3 pt-0 border-0 mt-0">
-                                ${d.certifications.map(item => `
-                                    <div class="mb-2 pb-2 border-bottom last:border-0 last:pb-0 last:mb-0">
-                                        <div class="small fw-semibold text-dark">${item.name}</div>
-                                        <div class="x-small text-muted">${item.issuer} • ${item.year}</div>
-                                    </div>
-                                `).join('')}
+                            <div class="p-4 pt-0 border-top-0">
+                                <div class="d-flex flex-column gap-3">
+                                    ${d.certifications.map((item, index) => `
+                                        <div class="${index !== d.certifications.length - 1 ? 'border-bottom pb-3' : ''}">
+                                            <div class="fw-medium text-dark mb-1" style="font-size: 0.95rem;">${item.name}</div>
+                                            <div class="small text-muted">${item.issuer} • ${item.year}</div>
+                                        </div>
+                                    `).join('')}
+                                </div>
                             </div>` : ''}
                         </div>
 
                          <!-- 4. FAA Experience -->
-                        <div class="details-card p-0">
-                             <button class="section-header-btn p-3" onclick="toggleSection('faaExperience')">
+                        <div class="details-card p-0 rounded-4 shadow-sm bg-white mb-3">
+                             <button class="section-header-btn p-3 w-100 text-start border-0 bg-transparent d-flex justify-content-between align-items-center" onclick="toggleSection('faaExperience')">
                                 <div class="d-flex align-items-center gap-3">
-                                    <i data-lucide="briefcase" class="text-secondary" style="width: 20px;"></i>
-                                    <span>FAA Experience</span>
+                                    <i data-lucide="briefcase" class="text-secondary" style="width: 18px;"></i>
+                                    <span class="fw-normal text-dark">FAA Experience</span>
                                 </div>
-                                <i data-lucide="${state.expandedSections.faaExperience ? 'chevron-up' : 'chevron-down'}" style="width: 20px;" class="text-secondary"></i>
+                                <i data-lucide="${state.expandedSections.faaExperience ? 'chevron-up' : 'chevron-down'}" style="width: 16px;" class="text-secondary"></i>
                             </button>
                             ${state.expandedSections.faaExperience ? `
-                            <div class="section-content p-3 pt-0 border-0 mt-0">
-                                ${d.faaExperience.map(item => `
-                                    <div class="mb-2 pb-2 border-bottom last:border-0 last:pb-0 last:mb-0">
-                                        <div class="small fw-semibold text-dark">${item.position}</div>
-                                        <div class="x-small text-muted">${item.department} • ${item.period}</div>
-                                    </div>
-                                `).join('')}
+                            <div class="p-4 pt-0 border-top-0">
+                                <div class="d-flex flex-column gap-3">
+                                    ${d.faaExperience.map((item, index) => `
+                                        <div class="${index !== d.faaExperience.length - 1 ? 'border-bottom pb-3' : ''}">
+                                            <div class="fw-medium text-dark mb-1" style="font-size: 0.95rem;">${item.position}</div>
+                                            <div class="small text-muted">${item.department} • ${item.period}</div>
+                                        </div>
+                                    `).join('')}
+                                </div>
                             </div>` : ''}
                         </div>
 
                          <!-- 5. Achievements -->
-                        <div class="details-card p-0">
-                             <button class="section-header-btn p-3" onclick="toggleSection('achievements')">
+                        <div class="details-card p-0 rounded-4 shadow-sm bg-white mb-3">
+                             <button class="section-header-btn p-3 w-100 text-start border-0 bg-transparent d-flex justify-content-between align-items-center" onclick="toggleSection('achievements')">
                                 <div class="d-flex align-items-center gap-3">
-                                    <i data-lucide="trophy" class="text-secondary" style="width: 20px;"></i>
-                                    <span>Achievements & Awards</span>
+                                    <i data-lucide="trophy" class="text-secondary" style="width: 18px;"></i>
+                                    <span class="fw-normal text-dark">Achievements & Awards</span>
                                 </div>
-                                <i data-lucide="${state.expandedSections.achievements ? 'chevron-up' : 'chevron-down'}" style="width: 20px;" class="text-secondary"></i>
+                                <i data-lucide="${state.expandedSections.achievements ? 'chevron-up' : 'chevron-down'}" style="width: 16px;" class="text-secondary"></i>
                             </button>
                             ${state.expandedSections.achievements ? `
-                            <div class="section-content p-3 pt-0 border-0 mt-0">
-                                ${d.achievements.map(item => `
-                                    <div class="mb-2 pb-2 border-bottom last:border-0 last:pb-0 last:mb-0">
-                                        <div class="small fw-semibold text-dark">${item.title}</div>
-                                        <div class="x-small text-muted">${item.description}</div>
-                                    </div>
-                                `).join('')}
+                            <div class="p-4 pt-0 border-top-0">
+                                <div class="d-flex flex-column gap-3">
+                                    ${d.achievements.map((item, index) => `
+                                        <div class="${index !== d.achievements.length - 1 ? 'border-bottom pb-3' : ''}">
+                                            <div class="fw-medium text-dark mb-1" style="font-size: 0.95rem;">${item.title}</div>
+                                            <div class="small text-muted">${item.description}</div>
+                                        </div>
+                                    `).join('')}
+                                </div>
                             </div>` : ''}
                         </div>
 
                         <!-- 6. Skills -->
-                         <div class="details-card p-0">
-                             <button class="section-header-btn p-3" onclick="toggleSection('skills')">
+                         <div class="details-card p-0 rounded-4 shadow-sm bg-white mb-3">
+                             <button class="section-header-btn p-3 w-100 text-start border-0 bg-transparent d-flex justify-content-between align-items-center" onclick="toggleSection('skills')">
                                 <div class="d-flex align-items-center gap-3">
-                                    <i data-lucide="star" class="text-secondary" style="width: 20px;"></i>
-                                    <span>Skills & Competencies</span>
+                                    <i data-lucide="star" class="text-secondary" style="width: 18px;"></i>
+                                    <span class="fw-normal text-dark">Skills & Competencies</span>
                                 </div>
-                                <i data-lucide="${state.expandedSections.skills ? 'chevron-up' : 'chevron-down'}" style="width: 20px;" class="text-secondary"></i>
+                                <i data-lucide="${state.expandedSections.skills ? 'chevron-up' : 'chevron-down'}" style="width: 16px;" class="text-secondary"></i>
                             </button>
                             ${state.expandedSections.skills ? `
-                            <div class="section-content p-3 pt-0 border-0 mt-0">
-                                <div class="d-flex flex-wrap gap-2">
-                                     ${d.skills.map(skill => `<span class="badge bg-light text-dark border fw-normal py-2 px-3">${skill}</span>`).join('')}
+                            <div class="p-4 pt-0 border-top-0">
+                                <div class="d-flex flex-wrap gap-4">
+                                     ${d.skills.map(skill => `<span class="small text-dark fw-medium">${skill}</span>`).join('')}
+                                </div>
+                            </div>` : ''}
+                        </div>
+
+                        <!-- 7. Languages -->
+                        <div class="details-card p-0 rounded-4 shadow-sm bg-white mb-3">
+                             <button class="section-header-btn p-3 w-100 text-start border-0 bg-transparent d-flex justify-content-between align-items-center" onclick="toggleSection('languages')">
+                                <div class="d-flex align-items-center gap-3">
+                                    <i data-lucide="languages" class="text-secondary" style="width: 18px;"></i>
+                                    <span class="fw-normal text-dark">Languages</span>
+                                </div>
+                                <i data-lucide="${state.expandedSections.languages ? 'chevron-up' : 'chevron-down'}" style="width: 16px;" class="text-secondary"></i>
+                            </button>
+                            ${state.expandedSections.languages ? `
+                            <div class="p-4 pt-0 border-top-0">
+                                <div class="d-flex flex-column gap-3">
+                                     ${d.languages.map((item, index) => `
+                                        <div class="d-flex justify-content-between align-items-center ${index !== d.languages.length - 1 ? 'border-bottom pb-3' : ''}">
+                                            <div class="fw-medium text-dark" style="font-size: 0.95rem;">${item.language}</div>
+                                            <span class="badge border text-dark fw-normal bg-white rounded-pill px-3">${item.level}</span>
+                                        </div>
+                                    `).join('')}
                                 </div>
                             </div>` : ''}
                         </div>
@@ -888,58 +1058,52 @@
             // NORMAL NODE VIEW
             let html = `<div class="details-content">`;
 
-            // Node Header
-            html += `
-                <div class="d-flex align-items-center gap-3 mb-4">
-                    <div class="icon-box" style="background-color: ${node.color}15; width: 48px; height: 48px;">
-                        <i data-lucide="${node.icon}" style="color: ${node.color}; width: 24px; height: 24px;"></i>
-                    </div>
-                    <div>
-                        <h2 class="h3 fw-bold mb-1">${node.title}</h2>
-                        ${node.description ? `<p class="text-muted mb-0">${node.description}</p>` : ''}
-                    </div>
-                </div>
-            `;
+
 
             // Leader Card
             if (node.leader) {
                 html += `
-                    <div class="details-card bg-white position-relative overflow-hidden mb-4 p-4">
-                        <div class="d-flex flex-column flex-md-row gap-4 align-items-start">
-                             <img src="${node.leader.image}" class="rounded-3" style="width: 100px; height: 100px; object-fit: cover;">
-                             <div>
-                                <h4 class="mb-1">${node.leader.name}</h4>
-                                <p class="text-primary small fw-semibold mb-3">${node.leader.title}</p>
-                                <div class="bg-blue-50 p-3 rounded-3 fst-italic text-secondary small border-start border-4 border-blue-200 mb-3">
-                                    "${node.leader.message}"
+                    <div class="details-card bg-white position-relative overflow-hidden mb-4 p-4 rounded-4 shadow-sm">
+                        <div class="d-flex gap-4 align-items-start">
+                             <img src="${node.leader.image}" class="rounded-circle" style="width: 96px; height: 96px; object-fit: cover; flex-shrink: 0;">
+                             <div class="flex-grow-1">
+                                <h3 class="mb-1 fw-semibold" style="font-size: 1.5rem;">${node.leader.name}</h3>
+                                <p class="text-muted mb-4" style="font-size: 0.875rem;">${node.leader.title}</p>
+                                <div class="p-3 fst-italic mb-4 border-start border-4 border-primary leader-card-message">
+                                    ${node.leader.message}
                                 </div>
                                 <div class="bg-light p-3 rounded-3">
-                                     <p class="x-small text-muted text-uppercase mb-1 fw-bold" style="font-size: 0.7rem;">MISSION STATEMENT</p>
-                                     <p class="small text-dark mb-0">${node.leader.mission}</p>
+                                     <p class="text-muted text-uppercase mb-2 fw-normal" style="font-size: 0.75rem; letter-spacing: 0.05em;">MISSION STATEMENT</p>
+                                     <p class="text-dark mb-0" style="font-size: 0.875rem;">${node.leader.mission}</p>
                                 </div>
                              </div>
                         </div>
                     </div>
                 `;
             }
-
+            const colors = [
+                'bg-primary text-blue-700 bg-opacity-10',
+                'bg-purple-100 text-purple-700',
+                'bg-green-100 text-green-700',
+                'bg-orange-100 text-orange-700',
+            ];
             // Overview Section
             if (node.overview) {
                 html += `
-                    <div class="details-card p-4">
-                        <div class="d-flex align-items-center gap-3 mb-3">
-                            <div class="icon-box bg-blue-50 text-blue-600 rounded-3">
-                                <i data-lucide="book-open" style="width: 20px;"></i>
+                    <div class="details-card p-4 rounded-4 shadow-sm">
+                        <div class="d-flex align-items-center gap-3 mb-4">
+                            <div class="d-flex align-items-center justify-content-center rounded-3 bg-blue-50" style="width: 40px; height: 40px; flex-shrink: 0;">
+                                <i data-lucide="book-open" class="text-blue-600" style="width: 20px; height: 20px;"></i>
                             </div>
-                            <h5 class="fw-bold mb-0">Overview & Responsibilities</h5>
+                            <h4 class=" mb-0 fw-semibold">Overview & Responsibilities</h4>
                         </div>
-                        <p class="text-muted mb-4 small">${node.overview.description}</p>
+                        <p class="mb-4">${node.overview.description}</p>
                         
-                        <h6 class="x-small text-uppercase text-muted fw-bold mb-2" style="font-size: 0.7rem;">Key Focus Areas</h6>
+                        <p class="text-uppercase text-muted fw-medium mb-3" style="font-size: 0.75rem; letter-spacing: 0.05em;">KEY FOCUS AREAS</p>
                         <div class="d-flex flex-wrap gap-2">
                              ${node.overview.focusAreas.map((area, idx) => {
-                    const colors = ['bg-blue-50 text-blue-700', 'bg-purple-50 text-purple-700', 'bg-green-50 text-green-700', 'bg-orange-50 text-orange-700'];
-                    return `<span class="badge ${colors[idx % colors.length]} border-0 fw-normal py-2 px-3">${area}</span>`
+
+                    return `<span class="badge ${colors[idx % colors.length]} rounded-pill px-3 py-2 border-0 fw-normal">${area}</span>`
                 }).join('')}
                         </div>
                     </div>
@@ -949,23 +1113,23 @@
             // Employees Section
             if (node.employees && node.employees.length > 0) {
                 html += `
-                    <div class="details-card p-4">
-                        <div class="d-flex align-items-center gap-3 mb-3">
-                            <div class="icon-box bg-indigo-50 text-indigo-600 rounded-3">
-                                <i data-lucide="users" style="width: 20px;"></i>
+                    <div class="details-card p-4 rounded-4 shadow-sm">
+                        <div class="d-flex align-items-center gap-3 mb-4">
+                            <div class="d-flex align-items-center justify-content-center rounded-3 bg-indigo-50" style="width: 40px; height: 40px; flex-shrink: 0;">
+                                <i data-lucide="users" class="text-indigo-600" style="width: 20px; height: 20px;"></i>
                             </div>
-                            <h5 class="fw-bold mb-0">Team Members</h5>
+                            <h4 class="mb-0 fw-semibold" style="font-size: 1.125rem;">Team Members</h4>
                         </div>
                         <div class="row g-3">
                             ${node.employees.map(emp => `
                                 <div class="col-md-6">
-                                    <div class="p-2 bg-light border rounded-3 d-flex align-items-center gap-3 cursor-pointer hover-shadow" onclick="viewProfile('${emp.id}')">
-                                        <img src="${emp.image}" class="rounded-circle" style="width: 48px; height: 48px; object-fit: cover;">
+                                    <div class="p-3 bg-gray-50 border rounded-3 d-flex align-items-center gap-3 cursor-pointer transition-all" onclick="viewProfile('${emp.id}')" style="background-color: #f9fafb; transition: all 0.2s;" onmouseover="this.style.backgroundColor='#f3f4f6'; this.style.boxShadow='0 1px 3px 0 rgba(0, 0, 0, 0.1)'" onmouseout="this.style.backgroundColor='#f9fafb'; this.style.boxShadow='none'">
+                                        <img src="${emp.image}" class="rounded-circle" style="width: 48px; height: 48px; object-fit: cover; flex-shrink: 0;">
                                         <div class="flex-grow-1">
-                                            <div class="fw-semibold text-dark small">${emp.name}</div>
-                                            <div class="text-muted x-small" style="font-size: 0.75rem;">${emp.role}</div>
+                                            <div class="fw-medium text-dark" style="font-size: 0.875rem;">${emp.name}</div>
+                                            <div class="text-muted" style="font-size: 0.75rem;">${emp.role}</div>
                                         </div>
-                                        <i data-lucide="chevron-right" class="text-muted" style="width: 16px;"></i>
+                                        <i data-lucide="chevron-right" class="text-muted" style="width: 16px; height: 16px; flex-shrink: 0;"></i>
                                     </div>
                                 </div>
                             `).join('')}
@@ -977,33 +1141,33 @@
             // Champions (NEW)
             if (node.champions && node.champions.length > 0) {
                 html += `
-                    <div class="details-card p-0">
-                        <button class="section-header-btn p-3" onclick="toggleSection('champions')">
+                    <div class="details-card p-0 rounded-4 shadow-sm">
+                        <button class="section-header-btn w-100" onclick="toggleSection('champions')">
                              <div class="d-flex align-items-center gap-3">
-                                <div class="icon-box bg-purple-50 text-purple-600 rounded-3">
-                                    <i data-lucide="trophy" style="width: 20px;"></i>
+                                <div class="d-flex align-items-center justify-content-center rounded-3 bg-purple-50" style="width: 40px; height: 40px; flex-shrink: 0;">
+                                    <i data-lucide="trophy" class="text-purple-600" style="width: 20px; height: 20px;"></i>
                                 </div>
                                 <div class="text-start">
-                                    <div class="fw-bold">Department Champions</div>
-                                    <div class="x-small text-muted fw-normal" style="font-size: 0.75rem;">Specialized role champions</div>
+                                    <h4 class="mb-0 fw-semibold">Department Champions</h4>
+                                    <p class="mb-0 text-muted">Specialized role champions across functions</p>
                                 </div>
                             </div>
-                            <i data-lucide="${state.expandedSections.champions ? 'chevron-up' : 'chevron-down'}" style="width: 20px;"></i>
+                            <i data-lucide="${state.expandedSections.champions ? 'chevron-up' : 'chevron-down'}" class="text-muted" style="width: 20px; height: 20px; flex-shrink: 0;"></i>
                         </button>
                         ${state.expandedSections.champions ? `
-                        <div class="section-content p-3 pt-0 border-0 mt-0">
+                        <div class="p-4 pt-0">
                             <div class="row g-3">
                                 ${node.champions.map(champ => `
-                                    <div class="col-md-6 col-lg-4">
-                                        <div class="p-3 bg-light rounded-3 border">
-                                            <div class="d-flex align-items-center gap-3 mb-2">
-                                                <img src="${champ.image}" class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover;">
-                                                <div>
-                                                    <div class="small fw-bold text-dark">${champ.name}</div>
-                                                    <span class="badge border bg-white text-dark small py-1 px-2" style="border-color: ${champ.categoryColor}!important; color: ${champ.categoryColor}!important; background-color: ${champ.categoryColor}15!important;">${champ.category}</span>
-                                                </div>
+                                    <div class="col-md-6 col-lg-4 ">
+                                        <div class="p-4 bg-light rounded-3 border champion-card">
+                                            <div class="d-flex align-items-start gap-3 mb-3">
+                                                <img src="${champ.image}" class="rounded-circle" style="width: 48px; height: 48px; object-fit: cover; flex-shrink: 0;">
+                                                <div class="flex-grow-1">
+                                                    <div class="fw-normal text-black">${champ.name}</div>
+                                                    <span class="badge rounded-pill px-3 py-1" style="background-color: ${champ.categoryColor}15; color: ${champ.categoryColor}; border: none; font-size: 0.75rem; font-weight: 500;">${champ.category}</span>
+                                                    <p class="mb-0 mt-1 ">${champ.role}</p>
+                                                    </div>
                                             </div>
-                                             <div class="x-small text-muted">${champ.role}</div>
                                         </div>
                                     </div>
                                 `).join('')}
@@ -1016,41 +1180,45 @@
             // KPIs Section
             if (node.kpis && node.kpis.length > 0) {
                 html += `
-                    <div class="details-card p-0">
-                        <button class="section-header-btn p-3" onclick="toggleSection('kpis')">
+                    <div class="details-card p-0 rounded-4 shadow-sm">
+                        <button class="section-header-btn w-100" onclick="toggleSection('kpis')">
                              <div class="d-flex align-items-center gap-3">
-                                <div class="icon-box bg-blue-50 text-blue-600 rounded-3">
-                                    <i data-lucide="activity" style="width: 20px;"></i>
+                                <div class="d-flex align-items-center justify-content-center rounded-3 bg-blue-50" style="width: 40px; height: 40px; flex-shrink: 0;">
+                                    <i data-lucide="activity" class="text-blue-600" style="width: 20px; height: 20px;"></i>
                                 </div>
                                 <div class="text-start">
-                                    <div class="fw-bold">Key Performance Indicators</div>
-                                    <div class="x-small text-muted fw-normal" style="font-size: 0.75rem;">Track performance metrics</div>
+                                    <h4 class="mb-0 fw-semibold">Departmental Key Performance Indicators</h4>
+                                    <p class="mb-0 fw-normal">Track performance metrics and achievement status</p>
                                 </div>
                             </div>
-                            <i data-lucide="${state.expandedSections.kpis ? 'chevron-up' : 'chevron-down'}" style="width: 20px;"></i>
+                            <i data-lucide="${state.expandedSections.kpis ? 'chevron-up' : 'chevron-down'}" class="text-muted" style="width: 20px; height: 20px; flex-shrink: 0;"></i>
                         </button>
                         ${state.expandedSections.kpis ? `
-                        <div class="section-content p-3 pt-0 border-0 mt-0">
+                        <div class="p-4 pt-0">
                             <div class="d-flex flex-column gap-3">
                                 ${node.kpis.map(kpi => `
-                                    <div class="p-3 bg-light rounded-3 border">
-                                        <div class="d-flex justify-content-between mb-2">
-                                            <div class="d-flex align-items-center gap-2">
-                                                <span class="fw-medium text-dark">${kpi.title}</span>
-                                                ${kpi.trend === 'up' ? '<i data-lucide="trending-up" class="text-success" style="width: 16px;"></i>' : ''}
+                                    <div class="p-4 bg-light rounded-3 border">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div class="d-flex align-items-center gap-2 flex-grow-1">
+                                                <h5 class="mb-0 fw-normal text-black">${kpi.title}</h5>
+                                                ${kpi.trend === 'up' ? '<i data-lucide="trending-up" class="text-success" style="width: 16px; height: 16px; flex-shrink: 0;"></i>' : ''}
+                                                ${kpi.trend === 'down' ? '<i data-lucide="trending-down" class="text-danger" style="width: 16px; height: 16px; flex-shrink: 0;"></i>' : ''}
+                                                ${kpi.trend === 'stable' ? '<i data-lucide="minus" class="text-muted" style="width: 16px; height: 16px; flex-shrink: 0;"></i>' : ''}
                                             </div>
-                                            <span class="badge bg-green-50 text-green-700 border border-green-200">Exceeds Target</span>
+                                            <span class="badge fw-normal ${kpi.status === 'exceeds' ? 'bg-green-50 text-green-600 border-green-200' : kpi.status === 'meets' ? 'bg-blue-50 text-blue-600 border-blue-200' : 'bg-orange-50 text-orange-600 border-orange-200'} border px-3 py-1" style="font-size: 0.75rem; font-weight: 500; white-space: nowrap;">
+                                                ${kpi.status === 'exceeds' ? 'Exceeds Target' : kpi.status === 'meets' ? 'Meets Target' : 'Below Target'}
+                                            </span>
                                         </div>
-                                        <p class="x-small text-muted mb-3">${kpi.description}</p>
+                                        <p class="text-muted">${kpi.description}</p>
                                         <div class="d-flex gap-4">
-                                            <div>
-                                                 <div class="x-small text-muted text-uppercase fw-bold" style="font-size: 0.65rem;">CURRENT</div>
-                                                 <div class="fw-bold text-dark">${kpi.metric}</div>
+                                            <div class="flex-grow-1">
+                                                 <p class="text-uppercase fw-normal text-muted mb-1" style="font-size: 0.75rem; letter-spacing: 0.05em;">CURRENT PERFORMANCE</p>
+                                                 <p class="fw-normal text-black mb-0" style="font-size: 1.125rem;">${kpi.metric}</p>
                                             </div>
-                                            <div style="width: 1px; background: #e5e7eb;"></div>
-                                            <div>
-                                                 <div class="x-small text-muted text-uppercase fw-bold" style="font-size: 0.65rem;">TARGET</div>
-                                                 <div class="fw-bold text-dark">${kpi.target}</div>
+                                            <div style="width: 1px; background: #e5e7eb; align-self: stretch;"></div>
+                                            <div class="flex-grow-1">
+                                                 <p class="text-muted text-uppercase fw-normal mb-1" style="font-size: 0.75rem; letter-spacing: 0.05em;">TARGET</p>
+                                                 <p class="fw-normal text-black mb-0" style="font-size: 1.125rem;">${kpi.target}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -1064,65 +1232,65 @@
             // Risks (NEW)
             if (node.risks && (node.risks.strategic || node.risks.operational)) {
                 html += `
-                    <div class="details-card p-0">
-                         <button class="section-header-btn p-3" onclick="toggleSection('risks')">
+                    <div class="details-card p-0 rounded-4 shadow-sm">
+                         <button class="section-header-btn w-100" onclick="toggleSection('risks')">
                              <div class="d-flex align-items-center gap-3">
-                                <div class="icon-box bg-red-50 text-red-600 rounded-3">
-                                    <i data-lucide="alert-triangle" style="width: 20px;"></i>
+                                <div class="d-flex align-items-center justify-content-center rounded-3 bg-red-50" style="width: 40px; height: 40px; flex-shrink: 0;">
+                                    <i data-lucide="alert-triangle" class="text-red-600" style="width: 20px; height: 20px;"></i>
                                 </div>
                                 <div class="text-start">
-                                    <div class="fw-bold">Departmental Risks</div>
-                                    <div class="x-small text-muted fw-normal" style="font-size: 0.75rem;">Strategic and operational assessment</div>
+                                    <h4 class="mb-0 fw-semibold">Departmental Risks</h4>
+                                    <p class="mb-0 text-muted">Strategic and operational risk assessment</p>
                                 </div>
                             </div>
-                            <i data-lucide="${state.expandedSections.risks ? 'chevron-up' : 'chevron-down'}" style="width: 20px;"></i>
+                            <i data-lucide="${state.expandedSections.risks ? 'chevron-up' : 'chevron-down'}" class="text-muted" style="width: 20px; height: 20px; flex-shrink: 0;"></i>
                         </button>
                         ${state.expandedSections.risks ? `
-                        <div class="section-content p-3 pt-0 border-0 mt-0">
-                            <!-- Strategic -->
+                        <div class="p-4 pt-0">
                             ${node.risks.strategic ? `
                                 <div class="mb-3">
-                                    <div class="d-flex align-items-center gap-2 mb-2">
-                                        <div class="icon-box bg-purple-50 text-purple-600" style="width: 24px; height: 24px;">
-                                            <i data-lucide="target" style="width: 14px;"></i>
+                                    <div class="d-flex align-items-center gap-2 mb-3">
+                                        <div class="d-flex align-items-center justify-content-center rounded-circle bg-purple-50" style="width: 32px; height: 32px; flex-shrink: 0;">
+                                            <i data-lucide="target" class="text-purple-600" style="width: 16px; height: 16px;"></i>
                                         </div>
-                                        <span class="fw-bold small">Strategic Risks</span>
+                                        <span class="fw-normal fs-5">Strategic Risks</span>
                                     </div>
                                     ${node.risks.strategic.map(r => `
-                                        <div class="p-3 bg-light rounded-3 border mb-2">
-                                            <div class="d-flex justify-content-between align-items-start mb-1">
-                                                <span class="fw-medium text-dark small">${r.title}</span>
-                                                <span class="badge bg-red-50 text-red-700 border border-red-200">${r.level} Risk</span>
+                                        <div class="p-3 bg-light rounded-3 border mb-3" style="border-color: #e5e7eb !important;">
+                                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                                <span class="fw-normal text-dark">${r.title}</span>
+                                                <span class="badge fw-normal px-3 py-1" style="background-color: #FEF2F2; color: #c10007; border: 1px solid #ffc9c9;">${r.level} Risk</span>
                                             </div>
-                                            <p class="x-small text-muted mb-2">${r.description}</p>
-                                            <div class="bg-white p-2 rounded border">
-                                                <div class="x-small text-muted text-uppercase fw-bold mb-1" style="font-size: 0.65rem;">MITIGATION</div>
-                                                <div class="x-small text-dark">${r.mitigation}</div>
+                                            <p class="text-muted mb-3">${r.description}</p>
+                                            <div class="bg-white border p-3 rounded-3">
+                                                <div class="text-muted text-uppercase fw-normal fs-6">MITIGATION STRATEGY</div>
+                                                <div class="fw-normal text-dark fs-6">${r.mitigationRole || r.mitigation}</div>
+                                                ${r.mitigationRole ? `<div class="text-muted fs-6">${r.mitigation}</div>` : ''}
                                             </div>
                                         </div>
                                     `).join('')}
                                 </div>
                             ` : ''}
 
-                             <!-- Operational -->
                             ${node.risks.operational ? `
-                                <div class="mb-3">
-                                    <div class="d-flex align-items-center gap-2 mb-2">
-                                        <div class="icon-box bg-blue-50 text-blue-600" style="width: 24px; height: 24px;">
-                                            <i data-lucide="settings" style="width: 14px;"></i>
+                                <div class="mb-0">
+                                    <div class="d-flex align-items-center gap-2 mb-3">
+                                        <div class="d-flex align-items-center justify-content-center rounded-circle bg-blue-50" style="width: 32px; height: 32px; flex-shrink: 0;">
+                                            <i data-lucide="settings" class="text-blue-600" style="width: 16px; height: 16px;"></i>
                                         </div>
-                                        <span class="fw-bold small">Operational Risks</span>
+                                        <span class="fw-semibold">Operational Risks</span>
                                     </div>
                                     ${node.risks.operational.map(r => `
-                                        <div class="p-3 bg-light rounded-3 border mb-2">
-                                            <div class="d-flex justify-content-between align-items-start mb-1">
-                                                <span class="fw-medium text-dark small">${r.title}</span>
-                                                <span class="badge bg-orange-50 text-orange-700 border border-orange-200">${r.level} Risk</span>
+                                        <div class="p-3 bg-light rounded-3 border mb-3" style="border-color: #e5e7eb !important;">
+                                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                                <span class="fw-semibold text-dark">${r.title}</span>
+                                                <span class="badge fw-normal px-3 py-1" style="background-color: #FFF7ED; color: #ca3500; border: 1px solid #ffd7a8;">${r.level} Risk</span>
                                             </div>
-                                            <p class="x-small text-muted mb-2">${r.description}</p>
-                                            <div class="bg-white p-2 rounded border">
-                                                <div class="x-small text-muted text-uppercase fw-bold mb-1" style="font-size: 0.65rem;">MITIGATION</div>
-                                                <div class="x-small text-dark">${r.mitigation}</div>
+                                            <p class="text-muted mb-3">${r.description}</p>
+                                            <div class="bg-white border p-3 rounded-3">
+                                                <div class="text-muted text-uppercase fw-normal fs-6">MITIGATION STRATEGY</div>
+                                                <div class="fw-normal text-dark fs-6">${r.mitigationRole || r.mitigation}</div>
+                                                ${r.mitigationRole ? `<div class="text-muted fs-6">${r.mitigation}</div>` : ''}
                                             </div>
                                         </div>
                                     `).join('')}
@@ -1136,54 +1304,73 @@
             // Committees (NEW)
             if (node.committees && node.committees.length > 0) {
                 html += `
-                    <div class="details-card p-0">
-                         <button class="section-header-btn p-3" onclick="toggleSection('committees')">
+                    <div class="details-card p-0 rounded-4 shadow-sm">
+                         <button class="section-header-btn w-100" onclick="toggleSection('committees')">
                              <div class="d-flex align-items-center gap-3">
-                                <div class="icon-box bg-green-50 text-green-600 rounded-3">
-                                    <i data-lucide="users-2" style="width: 20px;"></i>
+                                <div class="d-flex align-items-center justify-content-center rounded-3 bg-green-50" style="width: 40px; height: 40px; flex-shrink: 0;">
+                                    <i data-lucide="users-2" class="text-green-600" style="width: 20px; height: 20px;"></i>
                                 </div>
                                 <div class="text-start">
-                                    <div class="fw-bold">Committees and Teams</div>
-                                    <div class="x-small text-muted fw-normal" style="font-size: 0.75rem;">Cross-functional groups</div>
+                                    <h4 class="mb-0 fw-semibold">Committees and Teams</h4>
+                                    <p class="mb-0 text-muted">Cross-functional committees and working groups</p>
                                 </div>
                             </div>
-                            <i data-lucide="${state.expandedSections.committees ? 'chevron-up' : 'chevron-down'}" style="width: 20px;"></i>
+                            <i data-lucide="${state.expandedSections.committees ? 'chevron-up' : 'chevron-down'}" class="text-muted" style="width: 20px; height: 20px; flex-shrink: 0;"></i>
                         </button>
                         ${state.expandedSections.committees ? `
-                        <div class="section-content p-3 pt-0 border-0 mt-0">
-                            ${node.committees.map(c => `
-                                <div class="p-3 bg-light rounded-3 border mb-3 last:mb-0">
-                                    <div class="fw-bold text-dark mb-1">${c.name}</div>
-                                    <div class="small text-muted mb-2">${c.purpose}</div>
-                                    <div class="d-flex flex-column gap-1 mb-2">
-                                        <div class="d-flex gap-2 align-items-center x-small">
-                                            <i data-lucide="crown" class="text-purple-600" style="width: 14px;"></i>
-                                            <span class="text-muted">Chairperson:</span>
-                                            <span class="text-dark fw-medium">${c.chairperson}</span>
-                                        </div>
-                                         <div class="d-flex gap-2 align-items-center x-small">
-                                            <i data-lucide="user-cog" class="text-blue-600" style="width: 14px;"></i>
-                                            <span class="text-muted">Coordinator:</span>
-                                            <span class="text-dark fw-medium">${c.coordinator}</span>
-                                        </div>
-                                    </div>
-                                    ${c.members ? `
-                                        <div class="border-top pt-2 mt-2">
-                                            <div class="x-small text-muted text-uppercase fw-bold mb-1" style="font-size: 0.65rem;">MEMBERS</div>
-                                            <div class="row g-2">
-                                                ${c.members.map(m => `
-                                                    <div class="col-md-6 d-flex gap-1 x-small">
-                                                        <i data-lucide="user" class="text-secondary" style="width: 12px;"></i>
-                                                        <span class="text-dark">${m.name}</span>
-                                                        <span class="text-muted">- ${m.role}</span>
-                                                    </div>
-                                                `).join('')}
+                        <div class="p-4 pt-0">
+                            <div class="d-flex flex-column gap-3">
+                                ${node.committees.map(c => `
+                                    <div class="p-4 bg-light rounded-3 border">
+                                        <h5 class="fw-semibold text-dark mb-2">${c.name}</h5>
+                                        <p class="text-muted mb-3">${c.purpose}</p>
+                                        <div class="d-flex flex-column gap-2 mb-3">
+                                            <div class="d-flex gap-2 align-items-center">
+                                                <i data-lucide="crown" class="text-purple-600" style="width: 14px; height: 14px; flex-shrink: 0;"></i>
+                                                <span class="text-muted">Chairperson:</span>
+                                                <span class="text-dark fw-medium">${c.chairperson}</span>
+                                            </div>
+                                            <div class="d-flex gap-2 align-items-center">
+                                                <i data-lucide="user-cog" class="text-blue-600" style="width: 14px; height: 14px; flex-shrink: 0;"></i>
+                                                <span class="text-muted">Coordinator:</span>
+                                                <span class="text-dark fw-medium">${c.coordinator}</span>
                                             </div>
                                         </div>
-                                    `: ''}
-                                </div>
-                            `).join('')}
+                                        ${c.members && c.members.length > 0 ? `
+                                            <div class="border-top pt-3">
+                                                <p class="text-muted text-uppercase fw-medium mb-2" style="font-size: 0.75rem; letter-spacing: 0.05em;">COMMITTEE MEMBERS</p>
+                                                <div class="row g-2">
+                                                    ${c.members.map(m => `
+                                                        <div class="col-md-6 d-flex gap-2 align-items-center" style="font-size: 0.75rem;">
+                                                            <i data-lucide="user" class="text-muted" style="width: 12px; height: 12px; flex-shrink: 0;"></i>
+                                                            <span class="text-dark fw-medium">${m.name}</span>
+                                                            <span class="text-muted">- ${m.role}</span>
+                                                        </div>
+                                                    `).join('')}
+                                                </div>
+                                            </div>
+                                        `: ''}
+                                    </div>
+                                `).join('')}
+                            </div>
                         </div>` : ''}
+                    </div>
+                `;
+            }
+
+            // Empty state for nodes without data
+            if (!node.leader && !node.overview && (!node.employees || node.employees.length === 0)) {
+                html += `
+                    <div class="details-card p-5 text-center rounded-4 shadow-sm">
+                        <div class="d-flex justify-content-center mb-4">
+                            <div class="bg-light rounded-circle d-flex align-items-center justify-content-center" style="width: 64px; height: 64px;">
+                                <i data-lucide="building-2" class="text-secondary" style="width: 32px; height: 32px;"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-dark mb-2">${node.title}</h3>
+                        <p class="text-muted small mx-auto" style="max-width: 500px;">
+                            Detailed information for this organizational unit will be available soon.
+                        </p>
                     </div>
                 `;
             }
