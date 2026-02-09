@@ -1,6 +1,6 @@
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import { ReduxProvider, ToastProvider, DialogPortalProvider } from './providers'
+import { ReduxProvider, ToastProvider, DialogPortalProvider, MsalAuthProvider } from './providers'
 import './i18n';
 import AppRouter from './AppRouter';
 
@@ -9,11 +9,13 @@ if ('scrollRestoration' in window.history) {
 }
 
 createRoot(document.getElementById('root')).render(
-  <ReduxProvider>
+  <MsalAuthProvider>
+    <ReduxProvider>
       <DialogPortalProvider>
         <ToastProvider>
           <AppRouter />
         </ToastProvider>
       </DialogPortalProvider>
-  </ReduxProvider>,
+    </ReduxProvider>
+  </MsalAuthProvider>,
 )

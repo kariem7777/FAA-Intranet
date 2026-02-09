@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useSelector, useDispatch } from 'react-redux';
 import { type RootState } from '@/store';
 import { increaseFontSize, decreaseFontSize, setLanguage } from '@/store/slices/globalSlice';
+import { AzureLoginButton } from '@/features/authentication';
 
 interface LegislationHeaderProps {
   currentPage: 'home' | 'legislations' | 'dashboard' | 'documents' | 'search' | 'approved-opinions';
@@ -283,6 +284,9 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
                 </div>
               )}
             </div>
+
+            {/* Azure AD Login */}
+            <AzureLoginButton showUserInfo={false} />
           </div>
         </div>
 
@@ -365,6 +369,11 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
                       <span className="text-sm opacity-80">{userRole === 'admin' ? t.adminRole : t.userRole}</span>
                     </div>
                   </button>
+
+                  {/* Azure AD Login for Mobile */}
+                  <div className="pt-2">
+                    <AzureLoginButton showUserInfo={true} className="w-full justify-center" />
+                  </div>
 
                 </div>
               </div>
