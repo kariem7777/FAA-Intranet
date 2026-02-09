@@ -1,6 +1,6 @@
 import { Eye, Edit, Trash2, FileText, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import type { DocumentDto } from '../../services/DocumentsService';
+import type { DocumentDto } from '../services/DocumentsService';
 import { Button } from '@/shared/components/ui/button';
 import { Shimmer } from '@/shared/components/Shimmer/Shimmer';
 

@@ -1,72 +1,81 @@
-import { useState, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import toast from 'react-hot-toast';
 import { Dialog } from '@/shared/components/Dialog/Dialog';
 import { Button } from '@/shared/components/ui/button';
 import { Input } from '@/shared/components/ui/input';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { updateDocument } from '../../slices/documentsManagementSlice';
-import { type DocumentDto } from '../../services/DocumentsService';
+import { Upload, X, FileText } from 'lucide-react';
+import { addDocument } from '../slices/documentsManagementSlice';
 
-interface EditDocumentDialogProps {
+interface AddDocumentDialogProps {
     isOpen: boolean;
     onClose: () => void;
-    document: DocumentDto;
 }
 
-export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDialogProps) {
+export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
     const { t, i18n } = useTranslation();
     const dispatch = useAppDispatch();
     const { loading, error } = useAppSelector((state) => state.documentsManagement);
 
-
-
     const isArabic = i18n.language === 'ar';
     const fontFamily = isArabic ? 'Dubai, Arial, sans-serif' : 'Inter, system-ui, sans-serif';
 
-    const [title, setTitle] = useState(document.title);
-    const [entity, setEntity] = useState(document.entity);
-    const [legislation, setLegislation] = useState(document.legislation);
-    const [category, setCategory] = useState(document.category);
-    const [classification, setClassification] = useState(document.classification);
-
-    useEffect(() => {
-        if (document) {
-            setTitle(document.title);
-            setEntity(document.entity);
-            setLegislation(document.legislation);
-            setCategory(document.category);
-            setClassification(document.classification);
-        }
-    }, [document]);
+    const [title, setTitle] = useState('');
+    const [entity, setEntity] = useState('');
+    const [legislation, setLegislation] = useState('');
+    const [category, setCategory] = useState('');
+    const [classification, setClassification] = useState<'public' | 'secret'>('public');
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!title || !entity || !legislation || !category) return;
+        if (!title || !entity || !legislation || !category || !selectedFile) return; // Simple validation
 
-        const resultAction = await dispatch(updateDocument({
-            ...document,
+        const resultAction = await dispatch(addDocument({
             title,
             entity,
             legislation,
             category,
             classification,
+            uploadedBy: 'Current User', // TODO: Get from auth context
+            pdfUrl: '', // Will be set by the server after file upload
+
         }));
 
-        if (updateDocument.fulfilled.match(resultAction)) {
-            toast.success(t('legislation.documentsManagement.toasts.updateSuccess'));
+        if (addDocument.fulfilled.match(resultAction)) {
+            toast.success(t('legislation.documentsManagement.toasts.addSuccess'));
             onClose();
+            resetForm();
         } else {
-            toast.error(t('legislation.documentsManagement.toasts.updateError'));
+            toast.error(t('legislation.documentsManagement.toasts.addError'));
         }
     };
+
+    const resetForm = () => {
+        setTitle('');
+        setEntity('');
+        setLegislation('');
+        setCategory('');
+        setClassification('public');
+        setSelectedFile(null);
+    };
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files[0]) {
+            setSelectedFile(e.target.files[0]);
+        }
+    };
+
+
 
     if (!isOpen) return null;
 
     return (
         <Dialog
             onClose={onClose}
-            title={t('legislation.documentsManagement.dialogs.edit.title')}
+            title={t('legislation.documentsManagement.dialogs.add.title')}
             size="medium"
             className={isArabic ? 'rtl' : 'ltr'}
         >
@@ -103,6 +112,7 @@ export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDi
                                 <option value="Federal Government">{t('options.entities.federalGovernment')}</option>
                                 <option value="Cabinet">{t('options.entities.cabinet')}</option>
                                 <option value="Abu Dhabi Government">{t('options.entities.abuDhabiGovernment')}</option>
+                                {/* Add more options as needed or fetch dynamically */}
                             </select>
                         </div>
 
@@ -121,6 +131,7 @@ export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDi
                                 <option value="">{t('legislation.documentsManagement.form.legislationPlaceholder')}</option>
                                 <option value="federalLegislation">{t('options.legislationTypes.federalLegislation')}</option>
                                 <option value="localLegislation">{t('options.legislationTypes.localLegislation')}</option>
+                                {/* Add more options */}
                             </select>
                         </div>
                     </div>
@@ -141,6 +152,7 @@ export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDi
                                 <option value="">{t('legislation.documentsManagement.form.categoryPlaceholder')}</option>
                                 <option value="laws">{t('options.docCategories.laws')}</option>
                                 <option value="resolutions">{t('options.docCategories.resolutions')}</option>
+                                {/* Add more options */}
                             </select>
                         </div>
 
@@ -161,9 +173,50 @@ export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDi
                         </div>
                     </div>
 
-                    {error.update && (
+                    {/* File Upload */}
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium text-gray-700">
+                            {t('legislation.documentsManagement.form.fileLabel')}
+                        </label>
+                        <div
+                            className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:bg-gray-50 transition-colors"
+                            onClick={() => fileInputRef.current?.click()}
+                        >
+                            <input
+                                type="file"
+                                ref={fileInputRef}
+                                className="hidden"
+                                accept=".pdf,.docx,.doc"
+                                onChange={handleFileChange}
+                            />
+                            {selectedFile ? (
+                                <div className="flex items-center justify-center gap-2 text-[#2F4F6F]">
+                                    <FileText className="h-6 w-6" />
+                                    <span className="font-medium">{selectedFile.name}</span>
+                                    <button
+                                        type="button"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            setSelectedFile(null);
+                                        }}
+                                        className="p-1 hover:bg-red-50 rounded-full text-red-500"
+                                    >
+                                        <X className="h-4 w-4" />
+                                    </button>
+                                </div>
+                            ) : (
+                                <div className="flex flex-col items-center gap-2 text-gray-500">
+                                    <Upload className="h-8 w-8 text-[#C9A24D]" />
+                                    <p>{t('legislation.documentsManagement.form.uploadText')}</p>
+                                    <p className="text-xs text-gray-400">{t('legislation.documentsManagement.form.fileSupport')}</p>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+
+                    {error.add && (
                         <div className="p-3 bg-red-50 text-red-700 text-sm rounded-md">
-                            {error.update}
+                            {error.add}
                         </div>
                     )}
 
@@ -174,15 +227,15 @@ export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDi
                             onClick={onClose}
                             style={{ fontFamily }}
                         >
-                            {t('legislation.documentsManagement.dialogs.edit.cancel')}
+                            {t('legislation.documentsManagement.dialogs.add.cancel')}
                         </Button>
                         <Button
                             type="submit"
                             className="bg-[#2F4F6F] hover:bg-[#1e3a53] text-white"
-                            disabled={loading.update}
+                            disabled={loading.add}
                             style={{ fontFamily }}
                         >
-                            {loading.update ? t('common.loading') : t('legislation.documentsManagement.dialogs.edit.submit')}
+                            {loading.add ? t('common.loading') : t('legislation.documentsManagement.dialogs.add.submit')}
                         </Button>
                     </div>
                 </form>

@@ -4,8 +4,8 @@ import toast from 'react-hot-toast';
 import { Dialog } from '@/shared/components/Dialog/Dialog';
 import { Button } from '@/shared/components/ui/button';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { deleteDocument } from '../../slices/documentsManagementSlice';
-import { type DocumentDto } from '../../services/DocumentsService';
+import { deleteDocument } from '../slices/documentsManagementSlice';
+import { type DocumentDto } from '../services/DocumentsService';
 
 interface DeleteConfirmationDialogProps {
   isOpen: boolean;

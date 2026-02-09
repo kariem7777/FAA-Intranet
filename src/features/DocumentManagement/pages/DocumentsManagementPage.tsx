@@ -2,25 +2,17 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Search, ChevronDown } from 'lucide-react';
 import { Input } from '@/shared/components/ui/input';
-import { DeleteConfirmationDialog } from '../components/DocumentsManagement/DeleteConfirmationDialog';
-import { AddDocumentDialog } from '../components/DocumentsManagement/AddDocumentDialog';
-import { EditDocumentDialog } from '../components/DocumentsManagement/EditDocumentDialog';
-import { DocumentsTable } from '../components/DocumentsManagement/DocumentsTable';
-import { LegislationDocumentViewer } from './LegislationDocumentViewer';
+import { DeleteConfirmationDialog } from '../../DocumentManagement/components/DeleteConfirmationDialog';
+import { AddDocumentDialog } from '../../DocumentManagement/components/AddDocumentDialog';
+import { EditDocumentDialog } from '../../DocumentManagement/components/EditDocumentDialog';
+import { DocumentsTable } from '../../DocumentManagement/components/DocumentsTable';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import {
-  fetchDocuments,
-  fetchDocumentsEntities,
-  fetchDocumentsCategories,
-  setSearchQuery,
-  setSelectedLegislation,
-  setSelectedCategory,
-  setSelectedEntity,
-  setPageNumber
-} from '../slices/documentsManagementSlice';
-import { clearDocument } from '../slices/legislationDocumentSlice';
+import { LegislationHero } from '@/features/Legislation/components';
+import { LegislationDocumentViewer } from '@/features/Legislation/pages/LegislationDocumentViewer';
+import { clearDocument } from '@/features/Legislation/slices/legislationDocumentSlice';
 import type { DocumentDto } from '../services/DocumentsService';
-import { LegislationHero } from '../components/LegislationHero';
+import { fetchDocuments, fetchDocumentsEntities, fetchDocumentsCategories, setPageNumber, setSearchQuery, setSelectedLegislation, setSelectedEntity, setSelectedCategory } from '../slices/documentsManagementSlice';
+
 
 interface DocumentsManagementPageProps {
   onAddDocument: () => void;

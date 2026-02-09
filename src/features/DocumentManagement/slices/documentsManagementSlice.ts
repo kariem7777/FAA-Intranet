@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit';
-import { documentsService, type DocumentDto } from '../services/DocumentsService';
-import { legislationService } from '../services/legislationService';
-import { type LegislationCategoryGroup, type LegislationEntity } from '../types';
+import { documentsService, type DocumentDto } from '../../DocumentManagement/services/DocumentsService';
+import type { LegislationEntity, LegislationCategoryGroup } from '@/features/Legislation/types';
+import { legislationService } from '@/features/Legislation/services/legislationService';
 
 interface DocumentsManagementState {
   items: DocumentDto[];

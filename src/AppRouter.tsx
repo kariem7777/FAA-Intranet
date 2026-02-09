@@ -7,7 +7,7 @@ import { LegislationLayout } from "./features/Legislation/layout/LegislationLayo
 
 const LegislationHome = lazy(() => import("@/features/Legislation/pages/LegislationHome"));
 const LegislationDashboardPage = lazy(() => import("@/features/Legislation/pages/LegislationDashboardPage"));
-const DocumentsManagementPage = lazy(() => import("@/features/Legislation/pages/DocumentsManagementPage").then(module => ({ default: module.DocumentsManagementPage })));
+const DocumentsManagementPage = lazy(() => import("@/features/DocumentManagement/pages/DocumentsManagementPage").then(module => ({ default: module.DocumentsManagementPage })));
 const ApprovedLegalOpinionsPage = lazy(() => import("@/features/Legislation/pages/ApprovedLegalOpinionsPage"));
 const ApprovedOpinionDetailPage = lazy(() => import("@/features/Legislation/pages/ApprovedOpinionDetailPage"));
 

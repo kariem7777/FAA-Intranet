@@ -1,6 +1,6 @@
 import { BaseApiService } from '@/shared/api/BaseApiService';
 import type { ApiResponse, PaginatedResponse } from '@/shared/api/types';
-import { MOCK_DOCUMENTS } from './mockData';
+import { MOCK_DOCUMENTS } from '../../Legislation/services/mockData';
 
 export interface DocumentDto {
   id: number;
