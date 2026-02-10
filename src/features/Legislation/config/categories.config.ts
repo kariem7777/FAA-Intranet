@@ -4,63 +4,68 @@ import abuDhabiEmblem from '@/assets/da83a1f9595c96aa1d1df07d9f37929756542560.pn
 import faaLogo from '@/assets/4812dbedd5625a00002351e6181ae7dad0c3037e.png';
 import entityScalesIcon from '@/assets/b72751a84f5670c85d2329e369f98785e55073a8.png';
 import faaLegalOpinionsIcon from '@/assets/eadd8ca5997068aec53c80e00b8b2662b44b6552.png';
+import type { LawCategory } from '../types';
 
-export interface LegislationCategory {
-  id: number;
-  titleKey: string;
-  subtitleKey: string;
-  customImage: string;
-  iconBgColor: string;
-  stripColor: string;
-}
 
-export const LEGISLATION_CATEGORIES: LegislationCategory[] = [
+export const LEGISLATION_CATEGORIES: LawCategory[] = [
   {
     id: 1,
-    titleKey: 'legislation.categories.entityLegislation.title',
-    subtitleKey: 'legislation.categories.entityLegislation.subtitle',
-    customImage: entityScalesIcon,
-    iconBgColor: '#2C3E5B',
-    stripColor: '#2C3E5B',
+    lawCategoryEn: 'Entity Legislation',
+    lawCategoryAr: 'تشريعات الجهة',
+    descriptionEn: 'Laws and regulations specific to the entity',
+    descriptionAr: 'القوانين واللوائح الخاصة بالجهة',
+    color: '#2C3E5B',
+    imagePath: entityScalesIcon,
+    isActive: true,
   },
   {
     id: 2,
-    titleKey: 'legislation.categories.federalLegislation.title',
-    subtitleKey: 'legislation.categories.federalLegislation.subtitle',
-    customImage: uaeEmblem,
-    iconBgColor: '#C9A049',
-    stripColor: '#C9A049',
+    lawCategoryEn: 'Federal Legislation',
+    lawCategoryAr: 'التشريعات الاتحادية',
+    descriptionEn: 'Federal laws and regulations of the UAE',
+    descriptionAr: 'القوانين واللوائح الاتحادية لدولة الإمارات',
+    color: '#C9A049',
+    imagePath: uaeEmblem,
+    isActive: true,
   },
   {
     id: 3,
-    titleKey: 'legislation.categories.localLegislation.title',
-    subtitleKey: 'legislation.categories.localLegislation.subtitle',
-    customImage: abuDhabiEmblem,
-    iconBgColor: '#0A7544',
-    stripColor: '#0A7544',
+    lawCategoryEn: 'Local Legislation',
+    lawCategoryAr: 'التشريعات المحلية',
+    descriptionEn: 'Local laws and regulations of Abu Dhabi',
+    descriptionAr: 'القوانين واللوائح المحلية لإمارة أبوظبي',
+    color: '#0A7544',
+    imagePath: abuDhabiEmblem,
+    isActive: true,
   },
   {
     id: 4,
-    titleKey: 'legislation.categories.supremeCommittee.title',
-    subtitleKey: 'legislation.categories.supremeCommittee.subtitle',
-    customImage: supremeCommitteeLogo,
-    iconBgColor: '#C9253B',
-    stripColor: '#C9253B',
+    lawCategoryEn: 'Supreme Committee',
+    lawCategoryAr: 'اللجنة العليا',
+    descriptionEn: 'Decisions and regulations from the Supreme Committee',
+    descriptionAr: 'قرارات ولوائح اللجنة العليا',
+    color: '#C9253B',
+    imagePath: supremeCommitteeLogo,
+    isActive: true,
   },
   {
     id: 5,
-    titleKey: 'legislation.categories.faaLegalOpinions.title',
-    subtitleKey: 'legislation.categories.faaLegalOpinions.subtitle',
-    customImage: faaLegalOpinionsIcon,
-    iconBgColor: '#1F3A8A',
-    stripColor: '#1F3A8A',
+    lawCategoryEn: 'FAA Legal Opinions',
+    lawCategoryAr: 'الآراء القانونية للهيئة',
+    descriptionEn: 'Legal opinions issued by the Financial Audit Authority',
+    descriptionAr: 'الآراء القانونية الصادرة عن هيئة التدقيق المالي',
+    color: '#1F3A8A',
+    imagePath: faaLegalOpinionsIcon,
+    isActive: true,
   },
   {
     id: 6,
-    titleKey: 'legislation.categories.faaLegislation.title',
-    subtitleKey: 'legislation.categories.faaLegislation.subtitle',
-    customImage: faaLogo,
-    iconBgColor: '#8B2C2E',
-    stripColor: '#8B2C2E',
+    lawCategoryEn: 'FAA Legislation',
+    lawCategoryAr: 'تشريعات الهيئة',
+    descriptionEn: 'Laws and regulations of the Financial Audit Authority',
+    descriptionAr: 'قوانين ولوائح هيئة التدقيق المالي',
+    color: '#8B2C2E',
+    imagePath: faaLogo,
+    isActive: true,
   },
 ];

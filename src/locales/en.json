@@ -145,8 +145,8 @@
       }
     },
     "hero": {
-      "legislationTitle": "Legislation Platform",
-      "legislationDescription": "Your central hub for all legal documents, decrees, and regulations across various government entities. Access, search, and manage legal content efficiently.",
+      "legislationTitle": "FAA Legislative Platform",
+      "legislationDescription": "An official collection of laws, regulations, and legal documents, organized and regularly updated to ensure accuracy and transparency.",
       "documentsTitle": "Documents Management",
       "documentsDescription": "Manage, upload, and organize legal documents with advanced control and tracking capabilities.",
       "approvedOpinionsTitle": "Approved Legal Opinions",
@@ -235,6 +235,21 @@
       "laws": "Laws",
       "resolutions": "Resolutions"
     }
+  },
+  "legislationHeader": {
+    "home": "Home",
+    "legislations": "Legislations",
+    "dashboard": "Dashboard",
+    "documents": "Documents Management",
+    "search": "Search",
+    "approvedOpinions": "Approved Legal Opinions",
+    "adminRole": "Admin Role",
+    "userRole": "User Role",
+    "switchRole": "Switch Role",
+    "fontSize": "Font Size",
+    "language": "Language",
+    "decreaseFontSize": "Decrease font size",
+    "increaseFontSize": "Increase font size"
   },
   "legalOpinions": {
     "pageTitle": "Approved Legal Opinions",

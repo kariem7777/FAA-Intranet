@@ -41,8 +41,8 @@ export const ImportantNoticeModal = ({ onClose }: ImportantNoticeModalProps) => 
                             <span
                                 className="shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-[14px]"
                                 style={{
-                                    backgroundColor: '#D1D5DB',
-                                    color: '#4B5563',
+                                    backgroundColor: 'var(--color-bg-light)',
+                                    color: 'var(--color-text-light)',
                                     fontFamily: isRTL ? 'Dubai, Arial, sans-serif' : 'Arial, sans-serif',
                                     fontWeight: 600,
                                 }}
@@ -50,9 +50,10 @@ export const ImportantNoticeModal = ({ onClose }: ImportantNoticeModalProps) => 
                                 {index + 1}
                             </span>
                             <p
-                                className="text-slate-700 text-[15px] leading-relaxed flex-1"
+                                className="text-[15px] leading-relaxed flex-1"
                                 style={{
                                     fontFamily: isRTL ? 'Dubai, Arial, sans-serif' : 'Arial, sans-serif',
+                                    color: 'var(--color-text-light)',
                                 }}
                             >
                                 {text}

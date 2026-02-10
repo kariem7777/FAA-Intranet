@@ -236,6 +236,21 @@
       "resolutions": "قرارات"
     }
   },
+  "legislationHeader": {
+    "home": "الرئيسية",
+    "legislations": "التشريعات",
+    "dashboard": "لوحة التحكم",
+    "documents": "إدارة المستندات",
+    "search": "بحث",
+    "approvedOpinions": "الآراء القانونية المعتمدة",
+    "adminRole": "صلاحية المشرف",
+    "userRole": "صلاحية المستخدم",
+    "switchRole": "تبديل الصلاحية",
+    "fontSize": "حجم الخط",
+    "language": "اللغة",
+    "decreaseFontSize": "تصغير حجم الخط",
+    "increaseFontSize": "تكبير حجم الخط"
+  },
   "legalOpinions": {
     "pageTitle": "الآراء القانونية المعتمدة",
     "detailPageTitle": "تفاصيل الرأي",

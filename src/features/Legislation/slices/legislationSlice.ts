@@ -1,221 +1,169 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit';
-import { type LegislationDocument, type LegislationCategoryGroup, type LegislationEntity, type LegislationFiltersState } from '../types';
+import type { LawCategory, LawSubCategory } from '../types';
 import { legislationService } from '../services/legislationService';
 
-interface LegislationState {
-  documents: {
-    items: LegislationDocument[];
-    loading: boolean;
-    error: string | null;
-    pagination: {
-      pageNumber: number;
-      pageSize: number;
-      totalCount: number;
-      totalPages: number;
-    }
-  };
-  categories: {
-    data: LegislationCategoryGroup | null;
-    loading: boolean;
-    error: string | null;
-  };
-  entities: {
-    items: LegislationEntity[];
-    loading: boolean;
-    error: string | null;
-  };
-  filters: LegislationFiltersState;
+interface SearchResult {
+  categoryId: number;
+  count: number;
 }
 
-const initialState: LegislationState = {
-  documents: {
-    items: [],
-    loading: false,
-    error: null,
-    pagination: {
-      pageNumber: 1,
-      pageSize: 10,
-      totalCount: 0,
-      totalPages: 0,
-    }
-  },
+
+interface GlobalCategoriesState {
+  globalSearchQuery: string;
+  selectedEntity: string;
+  isEntityDropdownOpen: boolean;
+  entitySearchQuery: string;
+  showSearchTooltip: boolean;
+  searchResults: SearchResult[];
+  totalResults: number;
+  subCategories: LawSubCategory[];
   categories: {
-    data: null,
-    loading: false,
-    error: null,
-  },
-  entities: {
+    items: LawCategory[];
+    loading: boolean;
+    error: string | null;
+  };
+}
+
+const initialState: GlobalCategoriesState = {
+  globalSearchQuery: '',
+  selectedEntity: '',
+  isEntityDropdownOpen: false,
+  entitySearchQuery: '',
+  showSearchTooltip: false,
+  searchResults: [],
+  totalResults: 0,
+  subCategories: [],
+  categories: {
     items: [],
     loading: false,
     error: null,
   },
-  filters: {
-    searchQuery: '',
-    selectedEntity: '',
-    selectedCategory: 1, // Default to first sub-category
-    entitySearchQuery: '',
-  }
 };
 
-export const fetchDocuments = createAsyncThunk(
-  'legislation/fetchDocuments',
-  async (_, { getState, rejectWithValue }) => {
-    const state = getState() as any; // Typed in store, but here using any for quick access or use RootState selector
-    const { filters, documents } = state.legislation as LegislationState;
-    
-    // Ensure we have a category selected
-    if (!filters.selectedCategory) return rejectWithValue('No category selected');
-
+// Async Thunks
+export const fetchSubCategories = createAsyncThunk(
+  'globalCategories/fetchSubCategories',
+  async (_, { rejectWithValue }) => {
     try {
-      const response = await legislationService.getDocuments({
-        pageNumber: documents.pagination.pageNumber,
-        pageSize: documents.pagination.pageSize,
-        categoryId: filters.selectedCategory,
-        entityId: filters.selectedEntity || undefined,
-        search: filters.searchQuery || undefined,
+      const response = await legislationService.getLawSubCategories({
+        pageNumber: 1,
+        pageSize: 1000,
       });
-
-      if (response.data) {
-        return response.data;
-      }
-      return rejectWithValue(response.message || 'Failed to fetch documents');
+      return response;
     } catch (error: any) {
-      return rejectWithValue(error.message || 'Failed to fetch documents');
+      return rejectWithValue(error.message || 'Failed to fetch subcategories');
     }
   }
 );
 
 export const fetchCategories = createAsyncThunk(
-  'legislation/fetchCategories',
-  async (groupId: number, { rejectWithValue }) => {
+  'globalCategories/fetchCategories',
+  async (_, { rejectWithValue }) => {
     try {
-      const response = await legislationService.getCategories(groupId);
-      if (response.data) {
-        return response.data;
-      }
-      return rejectWithValue(response.message || 'Failed to fetch categories');
+      const response = await legislationService.getLawCategories();
+      return response;
     } catch (error: any) {
-        return rejectWithValue(error.message || 'Failed to fetch categories');
+      return rejectWithValue(error.message || 'Failed to fetch categories');
     }
   }
 );
 
-export const fetchEntities = createAsyncThunk(
-  'legislation/fetchEntities',
-  async (_, { rejectWithValue }) => {
+export const performGlobalSearch = createAsyncThunk(
+  'globalCategories/performGlobalSearch',
+  async (_, { getState, rejectWithValue }) => {
+    const state = getState() as any;
+    const { globalSearchQuery } = state.legislationSlice as GlobalCategoriesState;
+    
+    if (!globalSearchQuery.trim()) {
+      return { results: [], total: 0 };
+    }
+
     try {
-      const response = await legislationService.getEntities();
-      if (response.data) {
-        return response.data;
-      }
-      return rejectWithValue(response.message || 'Failed to fetch entities');
+      const response = await legislationService.searchGlobal({
+        query: globalSearchQuery,
+      });
+
+      // Response is already the data object
+      return response;
     } catch (error: any) {
-        return rejectWithValue(error.message || 'Failed to fetch entities');
+      return rejectWithValue(error.message || 'Failed to perform search');
     }
   }
 );
 
 const legislationSlice = createSlice({
-  name: 'legislation',
+  name: 'globalCategories',
   initialState,
   reducers: {
-    setSearchQuery: (state, action: PayloadAction<string>) => {
-      state.filters.searchQuery = action.payload;
-      state.documents.pagination.pageNumber = 1; // Reset to page 1 on filter change
+    setGlobalSearchQuery: (state, action: PayloadAction<string>) => {
+      state.globalSearchQuery = action.payload;
     },
     setSelectedEntity: (state, action: PayloadAction<string>) => {
-      state.filters.selectedEntity = action.payload;
-      state.documents.pagination.pageNumber = 1;
+      state.selectedEntity = action.payload;
+      state.globalSearchQuery = ''; 
+      state.searchResults = [];
+      state.totalResults = 0;
     },
-    setSelectedCategory: (state, action: PayloadAction<number>) => {
-      state.filters.selectedCategory = action.payload;
-      state.documents.pagination.pageNumber = 1;
-      state.filters.searchQuery = ''; // Clear search on category change usually
-      state.filters.selectedEntity = '';
+    setIsEntityDropdownOpen: (state, action: PayloadAction<boolean>) => {
+      state.isEntityDropdownOpen = action.payload;
     },
     setEntitySearchQuery: (state, action: PayloadAction<string>) => {
-        state.filters.entitySearchQuery = action.payload;
+      state.entitySearchQuery = action.payload;
     },
-    setPageNumber: (state, action: PayloadAction<number>) => {
-      state.documents.pagination.pageNumber = action.payload;
+    setShowSearchTooltip: (state, action: PayloadAction<boolean>) => {
+      state.showSearchTooltip = action.payload;
     },
-    resetFilters: (state) => {
-        state.filters.searchQuery = '';
-        state.filters.selectedEntity = '';
-        state.documents.pagination.pageNumber = 1;
+    clearSearch: (state) => {
+      state.globalSearchQuery = '';
+      state.searchResults = [];
+      state.totalResults = 0;
     },
-    resetCategories: (state) => {
-        state.categories = {
-            data: null,
-            loading: false,
-            error: null,
-        };
-    }
+    resetGlobalCategories: (state) => {
+      state.globalSearchQuery = '';
+      state.selectedEntity = '';
+      state.isEntityDropdownOpen = false;
+      state.entitySearchQuery = '';
+      state.showSearchTooltip = false;
+      state.searchResults = [];
+      state.totalResults = 0;
+    },
   },
   extraReducers: (builder) => {
-    // Documents
-    builder.addCase(fetchDocuments.pending, (state) => {
-      state.documents.loading = true;
-      state.documents.error = null;
-    });
-    builder.addCase(fetchDocuments.fulfilled, (state, action) => {
-      state.documents.loading = false;
-      state.documents.items = action.payload.items;
-      state.documents.pagination = {
-          ...state.documents.pagination,
-          totalCount: action.payload.totalCount,
-          totalPages: action.payload.totalPages,
-          // pageNumber is already managed by state and response confirms it
-      };
-    });
-    builder.addCase(fetchDocuments.rejected, (state, action) => {
-      state.documents.loading = false;
-      state.documents.error = action.payload as string;
+    // SubCategories
+    builder.addCase(fetchSubCategories.fulfilled, (state, action) => {
+      state.subCategories = action.payload.items || [];
     });
 
-    // Categories
+    // Entities
     builder.addCase(fetchCategories.pending, (state) => {
       state.categories.loading = true;
       state.categories.error = null;
     });
     builder.addCase(fetchCategories.fulfilled, (state, action) => {
       state.categories.loading = false;
-      state.categories.data = action.payload;
-      // Optionally select first category if none selected or invalid?
-      // Logic might belong in component or thunk
-      if (action.payload.categories.length > 0 && !state.filters.selectedCategory) {
-          state.filters.selectedCategory = action.payload.categories[0].id;
-      }
+      state.categories.items = action.payload.items || [];
     });
     builder.addCase(fetchCategories.rejected, (state, action) => {
       state.categories.loading = false;
       state.categories.error = action.payload as string;
     });
 
-    // Entities
-    builder.addCase(fetchEntities.pending, (state) => {
-      state.entities.loading = true;
-      state.entities.error = null;
+    // Global Search
+    builder.addCase(performGlobalSearch.fulfilled, (state, action) => {
+      state.searchResults = action.payload.results;
+      state.totalResults = action.payload.total;
     });
-    builder.addCase(fetchEntities.fulfilled, (state, action) => {
-      state.entities.loading = false;
-      state.entities.items = action.payload;
-    });
-    builder.addCase(fetchEntities.rejected, (state, action) => {
-      state.entities.loading = false;
-      state.entities.error = action.payload as string;
-    });
-  }
+  },
 });
 
 export const {
-  setSearchQuery,
+  setGlobalSearchQuery,
   setSelectedEntity,
-  setSelectedCategory,
+  setIsEntityDropdownOpen,
   setEntitySearchQuery,
-  setPageNumber,
-  resetFilters,
-  resetCategories
+  setShowSearchTooltip,
+  clearSearch,
+  resetGlobalCategories,
 } = legislationSlice.actions;
 
 export default legislationSlice.reducer;

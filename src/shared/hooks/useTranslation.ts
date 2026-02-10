@@ -13,6 +13,10 @@ export const useTranslation = (namespace: string = "") => {
 
   const { t, i18n } = useI18nTranslation(namespace);
 
+  const getLocalizedString = (enText: string, arText: string) => {
+    return language === "en" ? enText : arText;
+  }
+
   return {
     language,
     direction,
@@ -20,6 +24,7 @@ export const useTranslation = (namespace: string = "") => {
     t,
     toggleLanguage: () => dispatch(toggleLanguage()),
     setLanguage: (lang: "en" | "ar") => dispatch(setLanguage(lang)),
+    getLocalizedString,
     i18n,
   };
 };

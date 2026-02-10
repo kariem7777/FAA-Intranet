@@ -1,0 +1,1 @@
+export { LegislationLookupsProvider } from './LegislationLookupsProvider';

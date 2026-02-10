@@ -13,6 +13,38 @@
   font-family: "Dubai", "Tajawal", sans-serif;
 }
 
+@theme {
+  --color-faa-primary: #908e81;
+  --color-primary: #1a1a1a;
+  --color-legislation-header-start: #908e81;
+  --color-legislation-header-end: #6d6b62;
+  --color-legislation-active-indicator: #e5ddc8;
+  --color-legislation-header-gradient: linear-gradient(135deg, #908e81 0%, #6d6b62 60%, #6d6b62 100%);
+  --color-legislation-hero-gradient-ltr: linear-gradient(99.67deg, rgba(94, 93, 84, 0.72) 1.4%, rgba(81, 57, 63, 0) 105.3%);
+  --color-legislation-hero-gradient-rtl: linear-gradient(280.33deg, rgba(94, 93, 84, 0.72) 1.4%, rgba(81, 57, 63, 0) 105.3%);
+  --color-button-gradient: linear-gradient(to right, #7b282d, #971b1e);
+  --color-button-gradient-hover: linear-gradient(to right, #6d231f, #7b282d);
+  /* Text Colors */
+  --color-text-primary: #1d293d;
+  --color-text-dark: #0b1a2b;
+  --color-text-darker: #0f172b;
+  --color-text-body: #314158;
+  --color-text-secondary: #62748e;
+  --color-text-muted: #374151;
+  --color-text-subtle: #45556c;
+  --color-text-light: #4B5563;
+  
+  /* Background Colors */
+  --color-bg-white: #FEFEFE;
+  --color-bg-subtle: #f5f7fa;
+  --color-bg-card: #f1f5f9;
+  --color-bg-light: #D1D5DB;
+  --color-bg-red-light: #fef2f2;
+  
+  /* Accent Colors */
+  --color-accent-red: #e7000b;
+}
+
 @layer base {
   *, :after, :before, ::backdrop {
     box-sizing: border-box;
@@ -206,7 +238,34 @@ body {
   color: #1a1a1a;
   background: #f5f5f5;
   line-height: 1.6;
+  scrollbar-width: thin !important;
+  scrollbar-color: var(--color-faa-gray) #f1f1f1 !important;
 }
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-faa-primary);
+  border-radius: 10px;
+  border: 2px solid #f1f1f1;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-faa-primary);
+}
+
+.hero-gradient {
+  background-image: var(--color-legislation-hero-gradient-ltr);
+}
+
+[dir="rtl"] .hero-gradient {
+  background-image: var(--color-legislation-hero-gradient-rtl);
+}
+
 
 h1 {
   font-size: 2.5rem;

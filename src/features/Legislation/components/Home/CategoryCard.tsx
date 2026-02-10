@@ -1,33 +1,26 @@
 import { motion } from 'framer-motion';
 import { useTranslation } from '../../../../shared/hooks/useTranslation';
+import type { LawCategory } from '../../types';
 
 interface CategoryCardProps {
-    id: number;
-    titleKey: string;
-    subtitleKey: string;
-    customImage: string;
-    stripColor: string;
+    category: LawCategory
     index: number;
     onClick: () => void;
 }
 
 export function CategoryCard({
-    id,
-    titleKey,
-    subtitleKey,
-    customImage,
-    stripColor,
+    category,
     index,
     onClick,
 }: CategoryCardProps) {
-    const { t, isRTL } = useTranslation('legislation');
+    const { isRTL, getLocalizedString } = useTranslation('legislation');
 
     return (
         <motion.div
             className="group relative cursor-pointer"
             tabIndex={0}
             role="button"
-            aria-label={`${t('accessLabel')} ${t(titleKey)}`}
+            aria-label={getLocalizedString(category.lawCategoryEn, category.lawCategoryAr)}
             onClick={onClick}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -46,27 +39,23 @@ export function CategoryCard({
           active:scale-[0.99]
           group`}
             >
-                {/* Color Strip - RTL aware */}
                 <div
                     className={`absolute ${isRTL ? 'right-0' : 'left-0'
                         } top-0 bottom-0 w-1 transition-all duration-300 group-hover:w-1.75`}
-                    style={{ backgroundColor: stripColor }}
+                    style={{ backgroundColor: category.color }}
                 />
 
-                {/* Background subtle highlight */}
                 <div
                     className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-20 transition-opacity duration-300"
-                    style={{ backgroundColor: '#f5f7fa' }}
+                    style={{ backgroundColor: 'var(--color-bg-subtle)' }}
                 />
 
-                {/* Card Content */}
                 <div className="px-6 py-6 flex flex-col items-center justify-start h-full relative z-5">
-                    {/* Icon/Emblem */}
                     <div className="flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-105 h-20">
                         <img
-                            src={customImage}
-                            alt={`${t(titleKey)} emblem`}
-                            className={`object-contain opacity-90 transition-all duration-300 group-hover:opacity-100 ${id === 4
+                            src={category.imagePath}
+                            alt={`${getLocalizedString(category.lawCategoryEn, category.lawCategoryAr)} emblem`}
+                            className={`object-contain opacity-90 transition-all duration-300 group-hover:opacity-100 ${category.id === 4
                                 ? 'max-w-35 max-h-22.5'
                                 : 'max-w-18 max-h-18'
                                 }`}
@@ -75,29 +64,35 @@ export function CategoryCard({
 
                     {/* Title */}
                     <h3
-                        className="text-[22px] text-[#1d293d] mb-3 leading-[1.6] text-center transition-colors duration-300 group-hover:text-[#0b1a2b]"
+                        className="text-[22px] mb-3 leading-[1.6] text-center transition-colors duration-300"
                         style={{
                             fontFamily: isRTL
                                 ? 'Dubai, Arial, sans-serif'
                                 : 'Inter, system-ui, sans-serif',
                             fontWeight: 600,
                             letterSpacing: '-0.01em',
+                            color: 'var(--color-text-primary)',
                         }}
+                        onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-text-dark)'}
+                        onMouseLeave={(e) => e.currentTarget.style.color = 'var(--color-text-primary)'}
                     >
-                        {t(titleKey)}
+                        {getLocalizedString(category.lawCategoryEn, category.lawCategoryAr)}
                     </h3>
 
                     {/* Subtitle */}
                     <p
-                        className="text-[16px] text-[#62748e] leading-[1.6] text-center transition-colors duration-300 group-hover:text-[#374151]"
+                        className="text-[16px] leading-[1.6] text-center transition-colors duration-300"
                         style={{
                             fontFamily: isRTL
                                 ? 'Dubai, Arial, sans-serif'
                                 : 'Inter, system-ui, sans-serif',
                             fontWeight: 400,
+                            color: 'var(--color-text-secondary)',
                         }}
+                        onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-text-muted)'}
+                        onMouseLeave={(e) => e.currentTarget.style.color = 'var(--color-text-secondary)'}
                     >
-                        {t(subtitleKey)}
+                        {getLocalizedString(category.descriptionEn, category.descriptionAr)}
                     </p>
                 </div>
             </div>

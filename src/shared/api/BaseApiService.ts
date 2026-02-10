@@ -20,9 +20,9 @@ export class BaseApiService {
       },
     });
 
-    // Request interceptor to add the access token to requests
     this.api.interceptors.request.use(
       async (config) => {
+        config.headers['X-Email'] = 'comp.user@legis.gov';
         const account = msalInstance.getActiveAccount();
         if (account) {
           try {

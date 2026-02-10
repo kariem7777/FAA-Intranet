@@ -1,14 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { resetCategories, resetFilters } from '@/features/Legislation/slices/legislationSlice';
-import { fetchEntities, performGlobalSearch } from '@/features/Legislation/slices/heroSlice';
-import { clearDocument } from '@/features/Legislation/slices/legislationDocumentSlice';
-import { LegislationHero, ImportantNoticeModal, ImportantNoticeCard, LegislationCategoriesGrid } from '../components';
-import { LegislationDocumentsPage } from './LegislationDocumentsPage';
-import { LegislationDocumentViewer } from './LegislationDocumentViewer';
-import { LEGISLATION_CATEGORIES } from '../config/categories.config';
 import type { AppDispatch, RootState } from '@/store';
-import type { LegislationDocument } from '../types';
+import { LegislationHero } from '@/features/Legislation/components/LegislationHero/LegislationHero';
+import { LegislationCategoriesGrid } from '../components/Home/LegislationCategoriesGrid';
+import { ImportantNoticeCard } from '../components/Home/Notice/ImportantNoticeCard';
+import { ImportantNoticeModal } from '../components/Home/Notice/ImportantNoticeModal';
+import { performGlobalSearch } from '../slices/legislationSlice';
 
 
 interface LegislationHomeProps {
@@ -22,11 +19,7 @@ function LegislationHome({ }: LegislationHomeProps = {}) {
   const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null);
   const [viewingDocumentId, setViewingDocumentId] = useState<number | null>(null);
 
-  const { globalSearchQuery } = useSelector((state: RootState) => state.hero);
-
-  useEffect(() => {
-    dispatch(fetchEntities());
-  }, [dispatch]);
+  const { globalSearchQuery } = useSelector((state: RootState) => state.legislationSlice);
 
   useEffect(() => {
     if (globalSearchQuery) {
@@ -34,35 +27,38 @@ function LegislationHome({ }: LegislationHomeProps = {}) {
     }
   }, [globalSearchQuery, dispatch]);
 
-  const handleViewDocument = (doc: LegislationDocument) => {
+  const handleViewDocument = (doc: any) => {
     setViewingDocumentId(doc.id);
   };
 
   const handleBackFromViewer = () => {
-    dispatch(clearDocument());
+    // dispatch(clearDocument());
     setViewingDocumentId(null);
   };
 
   if (viewingDocumentId !== null) {
     return (
-      <LegislationDocumentViewer
-        documentId={viewingDocumentId}
-        onBack={handleBackFromViewer}
-      />
+      // <LegislationDocumentViewer
+      //   documentId={viewingDocumentId}
+      //   onBack={handleBackFromViewer}
+      // />
+      <div></div>
     );
   }
 
   if (selectedCategoryId) {
     return (
-      <LegislationDocumentsPage
-        categoryId={selectedCategoryId}
-        onBack={() => {
-          setSelectedCategoryId(null);
-          dispatch(resetFilters());
-          dispatch(resetCategories());
-        }}
-        onViewDocument={handleViewDocument}
-      />
+      // <LegislationDocumentsPage
+      //   categoryId={selectedCategoryId}
+      //   onBack={() => {
+      //     setSelectedCategoryId(null);
+      //     dispatch(resetFilters());
+      //     dispatch(resetCategories());
+      //   }}
+      //   onViewDocument={handleViewDocument}
+      // />
+      <div></div>
+
     );
   }
 
@@ -71,16 +67,12 @@ function LegislationHome({ }: LegislationHomeProps = {}) {
   };
 
   return (
-    <div className="min-h-screen bg-[#FEFEFE]">
-      {/* Hero Banner */}
+    <div>
       <div className="relative">
         <LegislationHero
           handleCategorySearch={handleCategorySearch}
-          legislationCategories={LEGISLATION_CATEGORIES}
         />
       </div>
-
-      {/* Main Content Area */}
       <div className="px-20 pt-10 pb-8 space-y-8">
         <LegislationCategoriesGrid onCategorySelect={setSelectedCategoryId} />
         <ImportantNoticeCard />

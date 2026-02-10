@@ -1,6 +1,7 @@
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { LegislationHeader } from "../components/layout/LegislationHeader";
 import { useRef, useLayoutEffect, useState } from "react";
+import { LegislationLookupsProvider } from "../providers";
 
 type NavigationPage = 'home' | 'legislations' | 'dashboard' | 'documents' | 'search' | 'approved-opinions';
 
@@ -77,7 +78,9 @@ export const LegislationLayout = () => {
                 userRole={userRole}
                 onRoleChange={handleRoleChange}
             />
-            <Outlet />
+            <LegislationLookupsProvider>
+                <Outlet />
+            </LegislationLookupsProvider>
         </div>
     );
 };
