@@ -1,10 +1,23 @@
 import { BaseApiService } from '@/shared/api/BaseApiService';
 import { API_ROUTES } from '@/shared/api/routes';
 import type { PaginatedResponse } from '@/shared/api/types';
-import type { LawCategory, LawSubCategory } from '@/features/Legislation/types';
+import type { LawCategory, LawSubCategory , Entities} from '@/features/Legislation/types';
 
 
 export class LegislationService extends BaseApiService {
+
+  public async getEntities(params?: {
+    pageNumber?: number;
+    pageSize?: number;
+  }): Promise<PaginatedResponse<Entities>> {
+    return this.get<PaginatedResponse<Entities>>(API_ROUTES.ENTITIES_ENDPOINT, {
+      params: {
+        pageNumber: params?.pageNumber || 1,
+        pageSize: params?.pageSize || 100,
+      },
+    });
+  }
+
   public async getLawCategories(params?: {
     pageNumber?: number;
     pageSize?: number;

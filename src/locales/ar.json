@@ -27,6 +27,7 @@
     "hideCategories": "إخفاء التصنيفات",
     "pageOf": "{{current}} من {{total}}",
     "failedToLoadCategories": "حدث خطأ أثناء تحميل التصنيفات",
+    "failedToLoadEntities": "حدث خطأ أثناء تحميل الجهات",
     "entity": "الجهة",
     "selectEntity": "اختر الجهة",
     "searchEntity": "ابحث عن جهة...",

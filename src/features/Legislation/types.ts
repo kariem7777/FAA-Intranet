@@ -16,3 +16,10 @@ export interface LawSubCategory {
   isActive: boolean;
   documentsCount: number;
 }
+
+export interface Entities {
+  id: number;
+  entityNameAr: string;
+  entityNameEn: string;
+  isActive: boolean;
+}

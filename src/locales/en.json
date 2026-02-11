@@ -27,6 +27,7 @@
     "hideCategories": "Hide Categories",
     "pageOf": "{{current}} of {{total}}",
     "failedToLoadCategories": "Failed to load categories",
+    "failedToLoadEntities": "Failed to load entities",
     "entity": "Entity",
     "selectEntity": "Select Entity",
     "searchEntity": "Search entity...",

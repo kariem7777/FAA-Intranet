@@ -5,16 +5,16 @@ const ToastProvider = ({ children }: { children: React.ReactNode }) => {
     return (
         <>
             <Toaster
-                position="top-right"
+                position="bottom-left"
                 reverseOrder={false}
                 gutter={12}
                 toastOptions={{
                     // Default options
                     duration: 4000,
                     style: {
-                        background: '#131720',
-                        color: '#F8FAFC',
-                        border: '1px solid #222A3A',
+                        background: 'var(--color-legislation-header-gradient)',
+                        color: 'var(--color-bg-white)',
+                        border: '1px solid var(--color-text-secondary)',
                         borderRadius: '0.5rem',
                         boxShadow: '0 10px 40px rgba(0, 0, 0, 0.4)',
                         fontSize: '0.875rem',
@@ -25,40 +25,40 @@ const ToastProvider = ({ children }: { children: React.ReactNode }) => {
                     success: {
                         duration: 4000,
                         style: {
-                            background: '#131720',
-                            color: '#F8FAFC',
+                            background: 'var(--color-legislation-header-gradient)',
+                            color: 'var(--color-bg-white)',
                             border: '1px solid #10B981',
                             borderRadius: '0.5rem',
                         },
                         iconTheme: {
                             primary: '#10B981',
-                            secondary: '#F8FAFC',
+                            secondary: 'var(--color-bg-white)',
                         },
                     },
                     error: {
                         duration: 4000,
                         style: {
-                            background: '#131720',
-                            color: '#F8FAFC',
-                            border: '1px solid #EF4444',
+                            background: 'var(--color-legislation-header-gradient)',
+                            color: 'var(--color-bg-white)',
+                            border: '1px solid var(--color-accent-red)',
                             borderRadius: '0.5rem',
                         },
                         iconTheme: {
-                            primary: '#EF4444',
-                            secondary: '#F8FAFC',
+                            primary: 'var(--color-accent-red)',
+                            secondary: 'var(--color-bg-white)',
                         },
                     },
                     loading: {
                         duration: Infinity,
                         style: {
-                            background: '#131720',
-                            color: '#F8FAFC',
-                            border: '1px solid #FA890F',
+                            background: 'var(--color-legislation-header-gradient)',
+                            color: 'var(--color-bg-white)',
+                            border: '1px solid var(--color-faa-primary)',
                             borderRadius: '0.5rem',
                         },
                         iconTheme: {
-                            primary: '#FA890F',
-                            secondary: '#F8FAFC',
+                            primary: 'var(--color-faa-primary)',
+                            secondary: 'var(--color-bg-white)',
                         },
                     },
                 }}

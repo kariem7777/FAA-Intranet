@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit';
-import type { LawCategory, LawSubCategory } from '../types';
+import type { Entities, LawCategory, LawSubCategory } from '../types';
 import { legislationService } from '../services/legislationService';
 
 interface SearchResult {
@@ -22,6 +22,11 @@ interface GlobalCategoriesState {
     loading: boolean;
     error: string | null;
   };
+  entities: {
+    items: Entities[];
+    loading: boolean;
+    error: string | null;
+  };  
 }
 
 const initialState: GlobalCategoriesState = {
@@ -38,7 +43,28 @@ const initialState: GlobalCategoriesState = {
     loading: false,
     error: null,
   },
+  entities: {
+    items: [],
+    loading: false,
+    error: null,
+  },
 };
+
+export const fetchEntities = createAsyncThunk(
+  'globalCategories/fetchEntities',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await legislationService.getEntities({
+        pageNumber: 1,
+        pageSize: 100,
+      });
+      return response;
+    }
+    catch (error: any) {
+      return rejectWithValue(error.message || 'Failed to fetch entities');
+    }
+    }
+  );
 
 // Async Thunks
 export const fetchSubCategories = createAsyncThunk(
@@ -130,22 +156,39 @@ const legislationSlice = createSlice({
   },
   extraReducers: (builder) => {
     // SubCategories
+
     builder.addCase(fetchSubCategories.fulfilled, (state, action) => {
-      state.subCategories = action.payload.items || [];
+      state.subCategories = action.payload.data?.items || [];
     });
 
-    // Entities
+    // Categories
     builder.addCase(fetchCategories.pending, (state) => {
       state.categories.loading = true;
       state.categories.error = null;
     });
+
     builder.addCase(fetchCategories.fulfilled, (state, action) => {
       state.categories.loading = false;
-      state.categories.items = action.payload.items || [];
+      state.categories.items = action.payload.data?.items || [];
     });
+    
     builder.addCase(fetchCategories.rejected, (state, action) => {
       state.categories.loading = false;
       state.categories.error = action.payload as string;
+    });
+
+    // Entities
+    builder.addCase(fetchEntities.pending, (state) => {
+      state.entities.loading = true;
+      state.entities.error = null;
+    });
+    builder.addCase(fetchEntities.fulfilled, (state, action) => {
+      state.entities  .loading = false;
+      state.entities.items = action.payload.data?.items || [];
+    });
+    builder.addCase(fetchEntities.rejected, (state, action) => {
+      state.entities.loading = false;
+      state.entities.error = action.payload as string;
     });
 
     // Global Search
