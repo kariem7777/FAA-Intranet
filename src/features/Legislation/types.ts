@@ -18,8 +18,15 @@ export interface LawSubCategory {
 }
 
 export interface Entities {
-  id: number;
+  entityId: number;
   entityNameAr: string;
-  entityNameEn: string;
+  entityName: string;
+  isActive: boolean;
+}
+
+export interface Department {
+  id: number;
+  departmentNameAr: string;
+  departmentNameEn: string;
   isActive: boolean;
 }

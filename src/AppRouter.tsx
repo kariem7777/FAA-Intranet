@@ -1,15 +1,13 @@
-import { lazy, Suspense, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { type RootState } from "@/store";
+import { lazy, Suspense } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Loading, ErrorPage } from "@/shared";
 import { LegislationLayout } from "./features/Legislation/layout/LegislationLayout";
 
 const LegislationHome = lazy(() => import("@/features/Legislation/pages/LegislationHome"));
-// const LegislationDashboardPage = lazy(() => import("@/features/Legislation/pages/LegislationDashboardPage"));
-// const DocumentsManagementPage = lazy(() => import("@/features/DocumentManagement/pages/DocumentsManagementPage").then(module => ({ default: module.DocumentsManagementPage })));
-// const ApprovedLegalOpinionsPage = lazy(() => import("@/features/Legislation/pages/ApprovedLegalOpinionsPage"));
-// const ApprovedOpinionDetailPage = lazy(() => import("@/features/Legislation/pages/ApprovedOpinionDetailPage"));
+const LegislationDashboardPage = lazy(() => import("@/features/Dashboard/pages/LegislationDashboardPage"));
+const DocumentsManagementPage = lazy(() => import("@/features/Documents/pages/DocumentsManagementPage").then(module => ({ default: module.DocumentsManagementPage })));
+const ApprovedLegalOpinionsPage = lazy(() => import("@/features/LegalOpinions/pages/ApprovedLegalOpinionsPage"));
+const ApprovedOpinionDetailPage = lazy(() => import("@/features/LegalOpinions/pages/OpinionDetailPage"));
 
 
 const router = createBrowserRouter([
@@ -30,52 +28,57 @@ const router = createBrowserRouter([
                     </Suspense>
                 ),
             },
+            {
+                path: "documents",
+                element: (
+                    <Suspense fallback={<Loading />}>
+                        <DocumentsManagementPage
+                            onAddDocument={() => { }}
+                            onEditDocument={() => { }}
+                        />
+                    </Suspense>
+                ),
+            },
+            {
+                path: "dashboard",
+                element: (
+                    <Suspense fallback={<Loading />}>
+                        <LegislationDashboardPage />
+                    </Suspense>
+                ),
+            },
+            {
+                path: "approved-opinions",
+                element: (
+                    <Suspense fallback={<Loading />}>
+                        <ApprovedLegalOpinionsPage />
+                    </Suspense>
+                ),
+            },
+            {
+                path: "opinions/:id",
+                element: (
+                    <Suspense fallback={<Loading />}>
+                        <ApprovedOpinionDetailPage />
+                    </Suspense>
+                ),
+            }
             // {
-            //     path: "documents",
+            //     path: "legal-opinions",
             //     element: (
             //         <Suspense fallback={<Loading />}>
-            //             <DocumentsManagementPage
-            //                 onAddDocument={() => { }}
-            //                 onEditDocument={() => { }}
+            //             <LegalOpinionsPage
+            //                 onBack={() => { }}
             //             />
             //         </Suspense>
             //     ),
-            // },
-            // {
-            //     path: "dashboard",
-            //     element: (
-            //         <Suspense fallback={<Loading />}>
-            //             <LegislationDashboardPage />
-            //         </Suspense>
-            //     ),
-            // },
-            // {
-            //     path: "approved-opinions",
-            //     element: (
-            //         <Suspense fallback={<Loading />}>
-            //             <ApprovedLegalOpinionsPage />
-            //         </Suspense>
-            //     ),
-            // },
-            // {
-            //     path: "approved-opinions/:id",
-            //     element: (
-            //         <Suspense fallback={<Loading />}>
-            //             <ApprovedOpinionDetailPage />
-            //         </Suspense>
-            //     ),
-            // },
+
+            // }
         ]
     },
 ]);
 
 const AppRouter = () => {
-    const { fontSizeMultiplier } = useSelector((state: RootState) => state.global);
-
-    useEffect(() => {
-        document.documentElement.style.setProperty('--font-scale', fontSizeMultiplier.toString());
-    }, [fontSizeMultiplier]);
-
     return <RouterProvider router={router} />;
 };
 

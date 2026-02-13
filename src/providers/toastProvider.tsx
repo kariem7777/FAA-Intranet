@@ -17,7 +17,7 @@ const ToastProvider = ({ children }: { children: React.ReactNode }) => {
                         border: '1px solid var(--color-text-secondary)',
                         borderRadius: '0.5rem',
                         boxShadow: '0 10px 40px rgba(0, 0, 0, 0.4)',
-                        fontSize: '0.875rem',
+                        fontSize: 'var(--font-size-sm)',
                         fontWeight: '500',
                         padding: '12px 16px',
                     },

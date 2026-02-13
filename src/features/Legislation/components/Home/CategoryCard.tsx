@@ -66,9 +66,6 @@ export function CategoryCard({
                     <h3
                         className="text-[22px] mb-3 leading-[1.6] text-center transition-colors duration-300"
                         style={{
-                            fontFamily: isRTL
-                                ? 'Dubai, Arial, sans-serif'
-                                : 'Inter, system-ui, sans-serif',
                             fontWeight: 600,
                             letterSpacing: '-0.01em',
                             color: 'var(--color-text-primary)',
@@ -83,9 +80,6 @@ export function CategoryCard({
                     <p
                         className="text-[16px] leading-[1.6] text-center transition-colors duration-300"
                         style={{
-                            fontFamily: isRTL
-                                ? 'Dubai, Arial, sans-serif'
-                                : 'Inter, system-ui, sans-serif',
                             fontWeight: 400,
                             color: 'var(--color-text-secondary)',
                         }}

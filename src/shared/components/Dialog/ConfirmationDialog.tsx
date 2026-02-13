@@ -1,6 +1,8 @@
+import { useTranslation } from 'react-i18next';
+import { Button } from '../ui/button';
 import { Dialog } from './Dialog';
-import { Button } from '@/shared/ui/Button';
-import { useTranslation } from '@/shared/hooks';
+import { CheckCircle, Info, MessageCircleWarning, XCircle } from 'lucide-react';
+
 
 export interface ConfirmationDialogProps {
     title: string;
@@ -25,33 +27,34 @@ export function ConfirmationDialog({
 }: ConfirmationDialogProps) {
     const { t } = useTranslation();
     if (!isOpen) return null;
-
+    // "default" | "destructive" | "outline" | "secondary" | "ghost" | "link"
     const getConfirmButtonVariant = () => {
         switch (variant) {
             case 'danger':
-                return 'danger';
+                return 'destructive';
             case 'warning':
-                return 'secondary';
+                return 'outline';
             case 'success':
-            case 'info':
             case 'primary':
+                return 'default';
+            case 'info':
             default:
-                return 'primary';
+                return 'ghost';
+
         }
     };
 
     const getIcon = () => {
         switch (variant) {
-            case 'danger':
-                return 'error_outline';
             case 'warning':
-                return 'warning_amber';
+                return MessageCircleWarning;
             case 'success':
-                return 'check_circle_outline';
+                return CheckCircle;
             case 'primary':
             case 'info':
+                return Info
             default:
-                return 'info_outline';
+                return XCircle
         }
     };
 
@@ -69,6 +72,8 @@ export function ConfirmationDialog({
                 return 'text-blue-600 bg-blue-100';
         }
     };
+    const Icon = getIcon();
+
     return (
         <Dialog
             title={title}
@@ -80,7 +85,7 @@ export function ConfirmationDialog({
         >
             <div className="flex flex-col items-center text-center">
                 <div className={`w-12 h-12 rounded-full flex items-center justify-center mb-2 ${getIconColor()}`}>
-                    <span className="material-icons text-3xl!">{getIcon()}</span>
+                    <Icon className={`w-6 h-6  ${getIconColor}`} />
                 </div>
 
                 <p className="text-gray-600 mb-8 max-w-sm  mb-2!">
@@ -91,7 +96,7 @@ export function ConfirmationDialog({
                     <Button
                         variant="outline"
                         onClick={onCancel}
-                        className="flex-1 justify-center" size='small'
+                        className="flex-1 justify-center" size='sm'
 
                     >
                         {cancelLabel || t('cms.common.cancel')}
@@ -99,7 +104,7 @@ export function ConfirmationDialog({
                     <Button
                         variant={getConfirmButtonVariant()}
                         onClick={onConfirm}
-                        size='small'
+                        size='sm'
                         className="flex-1 justify-center"
                         autoFocus
                     >

@@ -6,10 +6,11 @@ import { LegislationCategoriesGrid } from '../components/Home/LegislationCategor
 import { ImportantNoticeCard } from '../components/Home/Notice/ImportantNoticeCard';
 import { ImportantNoticeModal } from '../components/Home/Notice/ImportantNoticeModal';
 import { performGlobalSearch } from '../slices/legislationSlice';
+import { LegalOpinions } from '@/features/LegalOpinions/pages/LegalOpinions';
+import { OpinionDetailPage } from '@/features/LegalOpinions/pages/OpinionDetailPage';
 
 
 interface LegislationHomeProps {
-  fontSizeMultiplier?: number;
   userRole?: 'admin' | 'user';
 }
 
@@ -18,6 +19,7 @@ function LegislationHome({ }: LegislationHomeProps = {}) {
 
   const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null);
   const [viewingDocumentId, setViewingDocumentId] = useState<number | null>(null);
+  const [selectedEnquiryId, setSelectedEnquiryId] = useState<number | null>(null);
 
   const { globalSearchQuery } = useSelector((state: RootState) => state.legislationSlice);
 
@@ -47,6 +49,24 @@ function LegislationHome({ }: LegislationHomeProps = {}) {
   }
 
   if (selectedCategoryId) {
+    if (selectedCategoryId === -1) {
+      if (selectedEnquiryId !== null) {
+        return (
+          <OpinionDetailPage
+            id={selectedEnquiryId}
+            onBack={() => setSelectedEnquiryId(null)}
+          />
+        );
+      }
+
+      return (
+        <LegalOpinions
+          onBack={() => setSelectedCategoryId(null)}
+          onOpinionSelect={(enquiry) => setSelectedEnquiryId(enquiry.id)}
+        />
+      );
+    }
+
     return (
       // <LegislationDocumentsPage
       //   categoryId={selectedCategoryId}
@@ -58,7 +78,6 @@ function LegislationHome({ }: LegislationHomeProps = {}) {
       //   onViewDocument={handleViewDocument}
       // />
       <div></div>
-
     );
   }
 

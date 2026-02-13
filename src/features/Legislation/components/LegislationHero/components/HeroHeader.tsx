@@ -19,7 +19,6 @@ export function HeroHeader({
     isAddingDocument = false,
 }: HeroHeaderProps) {
     const { t, isRTL } = useTranslation();
-    const fontFamily = isRTL ? "Dubai, Arial, sans-serif" : "Inter, system-ui, sans-serif";
 
     const showBackButton = mode === 'approved-opinions' && onBack;
     const showAddButton = mode === "documents" && onAddDocument;
@@ -33,8 +32,7 @@ export function HeroHeader({
                         <>
                             <button
                                 onClick={onBack}
-                                className="flex items-center gap-2 text-white/80 hover:text-white hover:bg-white/10 h-10 px-3 rounded-lg transition-all"
-                                style={{ fontFamily, fontSize: "15px", fontWeight: 500 }}
+                                className="flex items-center gap-2 text-white/80 hover:text-white hover:bg-white/10 h-10 px-3 rounded-lg transition-all text-lg"
                             >
                                 <ArrowLeft className={`h-5 w-5 ${isRTL ? 'rotate-180' : ''}`} />
                                 {t('legalOpinions.back')}
@@ -51,8 +49,7 @@ export function HeroHeader({
                     </div>
 
                     <h1
-                        className="text-[32px] font-bold text-white"
-                        style={{ fontFamily }}
+                        className="text-3xl font-bold text-white"
                     >
                         {title}
                     </h1>
@@ -62,13 +59,9 @@ export function HeroHeader({
                     <button
                         onClick={onAddDocument}
                         disabled={isAddingDocument}
-                        className="flex items-center gap-2 px-6 py-3 rounded-lg transition-all hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+                        className="flex items-center gap-2 text-md font-medium px-6 py-3 rounded-lg transition-all hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
                         style={{
                             backgroundColor: isAddingDocument ? "#9CA3AF" : "var(--color-legislation-active-indicator)",
-                            color: "#FFFFFF",
-                            fontFamily,
-                            fontSize: "15px",
-                            fontWeight: 500,
                         }}
                     >
                         <Plus className="w-5 h-5" />
@@ -77,7 +70,7 @@ export function HeroHeader({
                 )}
             </div>
 
-            <p className="text-md text-white/80 max-w-[1400px] leading-[1.6] line-clamp-2 wrap-break-word">
+            <p className="text-base text-white/80 max-w-[1400px] leading-[1.6] line-clamp-2 wrap-break-word">
                 {description}
             </p>
         </div>

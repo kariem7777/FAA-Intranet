@@ -26,31 +26,31 @@ export const ImportantNoticeCard = () => {
                     <AlertCircle className="h-6 w-6" style={{ color: 'var(--color-accent-red)' }} />
                 </div>
                 <div className="flex-1">
-                    <h3 className="text-[22px] mb-4" style={{ fontFamily: isRTL ? 'Dubai, Arial, sans-serif' : 'Arial, sans-serif', fontWeight: 700, color: 'var(--color-text-darker)' }}>
+                    <h3 className="text-xl mb-4" style={{ fontWeight: 700, color: 'var(--color-text-darker)' }}>
                         {t('legislation.noticeTitle')}
                     </h3>
                     <ul className="space-y-3">
                         <li className="flex items-start gap-3">
-                            <span className="shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-[14px] mt-0.5" style={{ backgroundColor: 'var(--color-bg-card)', color: 'var(--color-text-subtle)' }}>
+                            <span className="shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-sm mt-0.5" style={{ backgroundColor: 'var(--color-bg-card)', color: 'var(--color-text-subtle)' }}>
                                 1
                             </span>
-                            <span className="flex-1 text-[16px] leading-relaxed" style={{ fontFamily: isRTL ? 'Dubai, Arial, sans-serif' : 'Arial, sans-serif', color: 'var(--color-text-body)' }}>
+                            <span className="flex-1 text-base leading-relaxed" style={{ color: 'var(--color-text-body)' }}>
                                 {t('legislation.notice1')}
                             </span>
                         </li>
                         <li className="flex items-start gap-3">
-                            <span className="shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-[14px] mt-0.5" style={{ backgroundColor: 'var(--color-bg-card)', color: 'var(--color-text-subtle)' }}>
+                            <span className="shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-sm mt-0.5" style={{ backgroundColor: 'var(--color-bg-card)', color: 'var(--color-text-subtle)' }}>
                                 2
                             </span>
-                            <span className="flex-1 text-[16px] leading-relaxed" style={{ fontFamily: isRTL ? 'Dubai, Arial, sans-serif' : 'Arial, sans-serif', color: 'var(--color-text-body)' }}>
+                            <span className="flex-1 text-base leading-relaxed" style={{ color: 'var(--color-text-body)' }}>
                                 {t('legislation.notice2')}
                             </span>
                         </li>
                         <li className="flex items-start gap-3">
-                            <span className="shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-[14px] mt-0.5" style={{ backgroundColor: 'var(--color-bg-card)', color: 'var(--color-text-subtle)' }}>
+                            <span className="shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-sm mt-0.5" style={{ backgroundColor: 'var(--color-bg-card)', color: 'var(--color-text-subtle)' }}>
                                 3
                             </span>
-                            <span className="flex-1 text-[16px] leading-relaxed" style={{ fontFamily: isRTL ? 'Dubai, Arial, sans-serif' : 'Arial, sans-serif', color: 'var(--color-text-body)' }}>
+                            <span className="flex-1 text-base leading-relaxed" style={{ color: 'var(--color-text-body)' }}>
                                 {t('legislation.notice3')}
                             </span>
                         </li>

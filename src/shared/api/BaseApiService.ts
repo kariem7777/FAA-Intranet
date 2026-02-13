@@ -22,7 +22,7 @@ export class BaseApiService {
 
     this.api.interceptors.request.use(
       async (config) => {
-        config.headers['X-Email'] = 'comp.user@legis.gov';
+        config.headers['X-Email'] = 'admin@legis.gov';
         const account = msalInstance.getActiveAccount();
         if (account) {
           try {
@@ -32,16 +32,12 @@ export class BaseApiService {
             });
             const accessToken = response.accessToken;
             const idToken = response.idToken;
-
-            // Log tokens as requested
             console.log('🔑 Access Token attached to request:', accessToken);
             console.log('🔑 ID Token available:', idToken);
 
             config.headers.Authorization = `Bearer ${accessToken}`;
           } catch (error) {
             if (error instanceof InteractionRequiredAuthError) {
-              // Token expired or interaction required, user might need to login again
-              // For now, we just log the error, but in a real app you might trigger a redirect or popup
               console.error('Interaction required for token acquisition:', error);
             } else {
               console.error('Error acquiring token silently:', error);

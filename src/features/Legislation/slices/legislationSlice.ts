@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit';
-import type { Entities, LawCategory, LawSubCategory } from '../types';
+import type { Department, Entities, LawCategory, LawSubCategory } from '../types';
 import { legislationService } from '../services/legislationService';
 
 interface SearchResult {
@@ -16,7 +16,11 @@ interface GlobalCategoriesState {
   showSearchTooltip: boolean;
   searchResults: SearchResult[];
   totalResults: number;
-  subCategories: LawSubCategory[];
+  subCategories: {
+    items: LawSubCategory[];
+    loading: boolean;
+    error: string | null;
+  };
   categories: {
     items: LawCategory[];
     loading: boolean;
@@ -26,7 +30,12 @@ interface GlobalCategoriesState {
     items: Entities[];
     loading: boolean;
     error: string | null;
-  };  
+  };
+  departments: {
+    items: Department[];
+    loading: boolean;
+    error: string | null;
+  };
 }
 
 const initialState: GlobalCategoriesState = {
@@ -37,7 +46,11 @@ const initialState: GlobalCategoriesState = {
   showSearchTooltip: false,
   searchResults: [],
   totalResults: 0,
-  subCategories: [],
+  subCategories: {
+    items: [],
+    loading: false,
+    error: null,
+  },
   categories: {
     items: [],
     loading: false,
@@ -48,23 +61,25 @@ const initialState: GlobalCategoriesState = {
     loading: false,
     error: null,
   },
+  departments: {
+    items: [],
+    loading: false,
+    error: null,
+  },
 };
 
 export const fetchEntities = createAsyncThunk(
   'globalCategories/fetchEntities',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await legislationService.getEntities({
-        pageNumber: 1,
-        pageSize: 100,
-      });
+      const response = await legislationService.getEntities();
       return response;
     }
     catch (error: any) {
       return rejectWithValue(error.message || 'Failed to fetch entities');
     }
-    }
-  );
+  }
+);
 
 // Async Thunks
 export const fetchSubCategories = createAsyncThunk(
@@ -73,7 +88,7 @@ export const fetchSubCategories = createAsyncThunk(
     try {
       const response = await legislationService.getLawSubCategories({
         pageNumber: 1,
-        pageSize: 1000,
+        pageSize: 100,
       });
       return response;
     } catch (error: any) {
@@ -81,6 +96,8 @@ export const fetchSubCategories = createAsyncThunk(
     }
   }
 );
+
+
 
 export const fetchCategories = createAsyncThunk(
   'globalCategories/fetchCategories',
@@ -94,12 +111,42 @@ export const fetchCategories = createAsyncThunk(
   }
 );
 
+
+export const fetchSubCategoriesByCategory = createAsyncThunk(
+  'globalCategories/fetchSubCategoriesByCategory',
+  async (categoryId: number, { rejectWithValue }) => {
+    try {
+      const response = await legislationService.getLawSubCategories({
+        pageNumber: 1,
+        pageSize: 100,
+        categoryId,
+      });
+      return response;
+    } catch (error: any) {
+      return rejectWithValue(error.message || 'Failed to fetch subcategories');
+    }
+  }
+);
+
+
+export const fetchDepartments = createAsyncThunk(
+  'globalCategories/fetchDepartments',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await legislationService.getDepartments();
+      return response;
+    } catch (error: any) {
+      return rejectWithValue(error.message || 'Failed to fetch departments');
+    }
+  }
+);
+
 export const performGlobalSearch = createAsyncThunk(
   'globalCategories/performGlobalSearch',
   async (_, { getState, rejectWithValue }) => {
     const state = getState() as any;
     const { globalSearchQuery } = state.legislationSlice as GlobalCategoriesState;
-    
+
     if (!globalSearchQuery.trim()) {
       return { results: [], total: 0 };
     }
@@ -126,7 +173,7 @@ const legislationSlice = createSlice({
     },
     setSelectedEntity: (state, action: PayloadAction<string>) => {
       state.selectedEntity = action.payload;
-      state.globalSearchQuery = ''; 
+      state.globalSearchQuery = '';
       state.searchResults = [];
       state.totalResults = 0;
     },
@@ -155,10 +202,23 @@ const legislationSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    // SubCategories
-
+    // SubCategories (all)
     builder.addCase(fetchSubCategories.fulfilled, (state, action) => {
-      state.subCategories = action.payload.data?.items || [];
+      state.subCategories.items = action.payload.data?.items || [];
+    });
+
+    // SubCategories by Category
+    builder.addCase(fetchSubCategoriesByCategory.pending, (state) => {
+      state.subCategories.loading = true;
+      state.subCategories.error = null;
+    });
+    builder.addCase(fetchSubCategoriesByCategory.fulfilled, (state, action) => {
+      state.subCategories.loading = false;
+      state.subCategories.items = action.payload.data?.items || [];
+    });
+    builder.addCase(fetchSubCategoriesByCategory.rejected, (state, action) => {
+      state.subCategories.loading = false;
+      state.subCategories.error = action.payload as string;
     });
 
     // Categories
@@ -171,7 +231,7 @@ const legislationSlice = createSlice({
       state.categories.loading = false;
       state.categories.items = action.payload.data?.items || [];
     });
-    
+
     builder.addCase(fetchCategories.rejected, (state, action) => {
       state.categories.loading = false;
       state.categories.error = action.payload as string;
@@ -183,12 +243,26 @@ const legislationSlice = createSlice({
       state.entities.error = null;
     });
     builder.addCase(fetchEntities.fulfilled, (state, action) => {
-      state.entities  .loading = false;
-      state.entities.items = action.payload.data?.items || [];
-    });
+      state.entities.loading = false;
+      state.entities.items = action.payload?.data || [];
+    })
     builder.addCase(fetchEntities.rejected, (state, action) => {
       state.entities.loading = false;
       state.entities.error = action.payload as string;
+    });
+
+    // Departments
+    builder.addCase(fetchDepartments.pending, (state) => {
+      state.departments.loading = true;
+      state.departments.error = null;
+    });
+    builder.addCase(fetchDepartments.fulfilled, (state, action) => {
+      state.departments.loading = false;
+      state.departments.items = action.payload?.data || [];
+    });
+    builder.addCase(fetchDepartments.rejected, (state, action) => {
+      state.departments.loading = false;
+      state.departments.error = action.payload as string;
     });
 
     // Global Search

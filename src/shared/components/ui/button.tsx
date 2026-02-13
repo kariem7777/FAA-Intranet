@@ -15,7 +15,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     // Variants
     switch (variant) {
       case "default":
-        classes += " bg-primary text-primary-foreground hover:bg-primary/90";
+        classes += " bg-faa-primary! text-white hover:bg-faa-primary/90!";
         break;
       case "destructive":
         classes += " bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60";

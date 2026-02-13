@@ -1,28 +1,21 @@
 import { BaseApiService } from '@/shared/api/BaseApiService';
 import { API_ROUTES } from '@/shared/api/routes';
-import type { PaginatedResponse } from '@/shared/api/types';
-import type { LawCategory, LawSubCategory , Entities} from '@/features/Legislation/types';
+import type { ApiResponse, PaginatedResponse } from '@/shared/api/types';
+import type { LawCategory, LawSubCategory, Entities, Department } from '@/features/Legislation/types';
 
 
 export class LegislationService extends BaseApiService {
 
-  public async getEntities(params?: {
-    pageNumber?: number;
-    pageSize?: number;
-  }): Promise<PaginatedResponse<Entities>> {
-    return this.get<PaginatedResponse<Entities>>(API_ROUTES.ENTITIES_ENDPOINT, {
-      params: {
-        pageNumber: params?.pageNumber || 1,
-        pageSize: params?.pageSize || 100,
-      },
-    });
+  public async getEntities(): Promise<ApiResponse<Entities[]>> {
+    return this.get<ApiResponse<Entities[]>>(API_ROUTES.LOOKUPS.ENTITIES);
   }
 
   public async getLawCategories(params?: {
     pageNumber?: number;
     pageSize?: number;
+
   }): Promise<PaginatedResponse<LawCategory>> {
-    return this.get<PaginatedResponse<LawCategory>>(API_ROUTES.CATEGORIES_ENDPOINT, {
+    return this.get<PaginatedResponse<LawCategory>>(API_ROUTES.LOOKUPS.CATEGORIES, {
       params: {
         pageNumber: params?.pageNumber || 1,
         pageSize: params?.pageSize || 100,
@@ -35,7 +28,7 @@ export class LegislationService extends BaseApiService {
     pageSize?: number;
     categoryId?: number;
   }): Promise<PaginatedResponse<LawSubCategory>> {
-    return this.get<PaginatedResponse<LawSubCategory>>(API_ROUTES.SUBCATEGORIES_ENDPOINT, {
+    return this.get<PaginatedResponse<LawSubCategory>>(API_ROUTES.LOOKUPS.SUBCATEGORIES, {
       params: {
         pageNumber: params?.pageNumber || 1,
         pageSize: params?.pageSize || 100,
@@ -44,13 +37,17 @@ export class LegislationService extends BaseApiService {
     });
   }
 
+  public async getDepartments(): Promise<ApiResponse<Department[]>> {
+    return this.get<ApiResponse<Department[]>>(API_ROUTES.LOOKUPS.DEPARTMENTS);
+  }
+
   public async searchGlobal(params: {
     query: string;
     entityId?: string;
   }): Promise<{ results: Array<{ categoryId: number; count: number }>; total: number }> {
     const subCategoriesResponse = await this.getLawSubCategories({
       pageNumber: 1,
-      pageSize: 1000, 
+      pageSize: 100,
     });
 
     if (!subCategoriesResponse || !subCategoriesResponse.data || !subCategoriesResponse.data.items) {
@@ -61,13 +58,13 @@ export class LegislationService extends BaseApiService {
     const searchLower = params.query.toLowerCase();
 
     const matchingSubCategories = items.filter((subCat: LawSubCategory) => {
-      const matchesQuery = 
+      const matchesQuery =
         subCat.lawSubCategoryEn.toLowerCase().includes(searchLower) ||
         subCat.lawSubCategoryAr.includes(params.query);
-      
+
       const isActive = subCat.isActive;
-      const hasDocuments = subCat.documentsCount  > 0;
-      
+      const hasDocuments = subCat.documentsCount > 0;
+
       return matchesQuery && isActive && hasDocuments;
     });
 

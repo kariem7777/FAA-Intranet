@@ -27,7 +27,7 @@ export function HeroSearchBar({ value, onChange, onClear }: HeroSearchBarProps) 
           defaultValue={value}
           onChange={handleChange}
           placeholder={t('legislation.hero.searchAllLegislations')}
-          className="w-full h-[52px] rounded-lg border-2 transition-all outline-none bg-white text-[#1A1A1A] text-md pl-15 pr-15"
+          className="w-full h-[52px] rounded-lg border-2 transition-all outline-none bg-white text-[#1A1A1A] text-base pl-15 pr-15"
         />
 
         {value && (

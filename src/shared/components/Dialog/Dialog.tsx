@@ -88,7 +88,7 @@ export function Dialog({
 
     return (
         <div
-            className={`fixed inset-0 flex items-center justify-center z-[40] p-4 transition-all duration-300 ${isVisible ? 'bg-black/50 backdrop-blur-sm' : 'bg-black/0 backdrop-blur-none'
+            className={`fixed inset-0 flex items-center justify-center z-[100] p-4 transition-all duration-300 ${isVisible ? 'bg-black/50 backdrop-blur-sm' : 'bg-black/0 backdrop-blur-none'
                 }`}
             onClick={handleBackdropClick}
             role="presentation"

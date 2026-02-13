@@ -4,7 +4,7 @@ import i18n from '../../i18n';
 interface GlobalState {
   language: 'en' | 'ar';
   direction: 'ltr' | 'rtl';
-  fontSizeMultiplier: number;
+  fontSize: 'sm' | 'base' | 'lg' | 'xl';
 }
 
 const getInitialLanguage = (): 'en' | 'ar' => {
@@ -15,15 +15,24 @@ const getInitialLanguage = (): 'en' | 'ar' => {
   return 'ar'; // Default to Arabic
 };
 
+// Initialize font scale from localStorage or default
+const initializeFontScale = (): string => {
+  const storedScale = localStorage.getItem('textSize') as 'sm' | 'base' | 'lg' | 'xl' | null;
+  const size = storedScale || 'base';
+  document.documentElement.setAttribute('data-text-size', size);
+  return size;
+};
+
 const initialState: GlobalState = {
   language: getInitialLanguage(),
   direction: getInitialLanguage() === 'ar' ? 'rtl' : 'ltr',
-  fontSizeMultiplier: 1,
+  fontSize: initializeFontScale() as 'sm' | 'base' | 'lg' | 'xl',
 };
 
-// Set initial document direction
+// Set initial document direction and font scale
 document.documentElement.dir = initialState.direction;
 document.documentElement.lang = initialState.language;
+initializeFontScale();
 
 const globalSlice = createSlice({
   name: 'global',
@@ -56,17 +65,21 @@ const globalSlice = createSlice({
       i18n.changeLanguage(newLang);
     },
     increaseFontSize: (state) => {
-        if (state.fontSizeMultiplier < 1.3) {
-            state.fontSizeMultiplier = parseFloat((state.fontSizeMultiplier + 0.1).toFixed(1));
-        }
+        const currentSize = document.documentElement.getAttribute('data-text-size') as 'sm' | 'base' | 'lg' | 'xl';
+        const newSize = currentSize === 'sm' ? 'base' : currentSize === 'base' ? 'lg' : currentSize === 'lg' ? 'xl' : 'xl'  ;
+        document.documentElement.setAttribute('data-text-size', newSize);
+        localStorage.setItem('textSize', newSize);
     },
     decreaseFontSize: (state) => {
-        if (state.fontSizeMultiplier > 0.8) {
-            state.fontSizeMultiplier = parseFloat((state.fontSizeMultiplier - 0.1).toFixed(1));
-        }
+        const currentSize = document.documentElement.getAttribute('data-text-size') as 'sm' | 'base' | 'lg' | 'xl';
+        const newSize = currentSize === 'xl' ? 'lg' : currentSize === 'lg' ? 'base' : currentSize === 'base' ? 'sm' : 'sm';
+        document.documentElement.setAttribute('data-text-size', newSize);
+        localStorage.setItem('textSize', newSize);
     },
-    setFontSize: (state, action: PayloadAction<number>) => {
-        state.fontSizeMultiplier = action.payload;
+    setFontSize: (state, action: PayloadAction<'sm' | 'base' | 'lg' | 'xl'>) => {
+        const size = action.payload;
+        document.documentElement.setAttribute('data-text-size', size);
+        localStorage.setItem('textSize', size);
     }
   },
 });

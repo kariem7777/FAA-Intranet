@@ -25,7 +25,7 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
 }, ref) => {
 
   const dispatch = useDispatch();
-  const { language, fontSizeMultiplier } = useSelector((state: RootState) => state.global);
+  const { language, fontSize } = useSelector((state: RootState) => state.global);
   const { t } = useTranslation();
 
   const handleIncreaseFontSize = () => dispatch(increaseFontSize());
@@ -33,6 +33,10 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
   const handleSetLanguage = (lang: 'en' | 'ar') => dispatch(setLanguage(lang));
 
   const isArabic = language === 'ar';
+  const fontSizes: Array<'sm' | 'base' | 'lg' | 'xl'> = ['sm', 'base', 'lg', 'xl'];
+  const fontSizeIndex = fontSizes.indexOf(fontSize);
+  const canDecreaseFont = fontSizeIndex > 0;
+  const canIncreaseFont = fontSizeIndex < fontSizes.length - 1;
   const [showRoleDropdown, setShowRoleDropdown] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const roleDropdownRef = useRef<HTMLDivElement>(null);
@@ -103,10 +107,8 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
               <button
                 key={item.id}
                 onClick={() => onNavigate(item.id)}
-                className="relative py-2 transition-all"
+                className="relative py-2 transition-all text-base"
                 style={{
-                  fontFamily: 'Dubai, Arial, sans-serif',
-                  fontSize: '17px',
                   fontWeight: 600,
                   color:
                     currentPage === item.id
@@ -129,12 +131,9 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
             <div className="flex items-center gap-2">
               <button
                 onClick={handleDecreaseFontSize}
-                disabled={fontSizeMultiplier <= 0.9}
-                className="w-9 h-9 rounded-lg bg-white/10 hover:bg-white/20 transition-colors disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center border border-white/20"
+                disabled={!canDecreaseFont}
+                className="w-9 h-9 rounded-lg bg-white/10 hover:bg-white/20 transition-colors disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center border border-white/20 text-sm font-semibold"
                 style={{
-                  fontFamily: 'Dubai, Arial, sans-serif',
-                  fontSize: '15px',
-                  fontWeight: 600,
                   color: '#FFFFFF'
                 }}
                 title={t('legislationHeader.decreaseFontSize')}
@@ -143,12 +142,9 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
               </button>
               <button
                 onClick={handleIncreaseFontSize}
-                disabled={fontSizeMultiplier >= 1.2}
-                className="w-9 h-9 rounded-lg bg-white/10 hover:bg-white/20 transition-colors disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center border border-white/20"
+                disabled={!canIncreaseFont}
+                className="w-9 h-9 rounded-lg bg-white/10 hover:bg-white/20 transition-colors disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center border border-white/20 text-sm font-semibold"
                 style={{
-                  fontFamily: 'Dubai, Arial, sans-serif',
-                  fontSize: '15px',
-                  fontWeight: 600,
                   color: '#FFFFFF'
                 }}
                 title={t('legislationHeader.increaseFontSize')}
@@ -159,11 +155,8 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
 
             <button
               onClick={() => handleSetLanguage(language === 'en' ? 'ar' : 'en')}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-white/10 transition-all"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-white/10 transition-all text-sm font-semibold"
               style={{
-                fontFamily: 'Dubai, Arial, sans-serif',
-                fontSize: '15px',
-                fontWeight: 600,
                 color: '#FFFFFF',
               }}
             >
@@ -194,7 +187,6 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
                   className="absolute top-12 bg-white shadow-xl rounded-lg overflow-hidden min-w-[180px] border border-gray-200"
                   style={{
                     [isArabic ? 'left' : 'right']: '0',
-                    fontFamily: isArabic ? 'Dubai, Arial, sans-serif' : 'Inter, system-ui, sans-serif'
                   }}
                   dir={isArabic ? 'rtl' : 'ltr'}
                 >
@@ -202,9 +194,8 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
                     className={`block px-4 py-3 w-full transition-colors ${userRole === 'admin'
                       ? 'text-white'
                       : 'text-gray-700 hover:bg-gray-50'
-                      }`}
+                      } text-sm`}
                     style={{
-                      fontSize: '15px',
                       fontWeight: userRole === 'admin' ? 600 : 500,
                       textAlign: isArabic ? 'right' : 'left',
                       ...(userRole === 'admin' && { backgroundColor: 'var(--color-legislation-header-end)' })
@@ -223,9 +214,8 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
                     className={`block px-4 py-3 w-full transition-colors ${userRole === 'user'
                       ? 'text-white'
                       : 'text-gray-700 hover:bg-gray-50'
-                      }`}
+                      } text-sm`}
                     style={{
-                      fontSize: '15px',
                       fontWeight: userRole === 'user' ? 600 : 500,
                       textAlign: isArabic ? 'right' : 'left',
                       ...(userRole === 'user' && { backgroundColor: 'var(--color-legislation-header-end)' })
@@ -268,7 +258,6 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
                       setShowMobileMenu(false);
                     }}
                     className="text-left py-3 px-4 rounded-lg bg-white/5 hover:bg-white/10 transition-all text-white font-medium"
-                    style={{ fontFamily: 'Dubai, Arial, sans-serif' }}
                   >
                     {item.label}
                   </button>
@@ -284,15 +273,15 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
                     <div className="flex items-center gap-2">
                       <button
                         onClick={handleDecreaseFontSize}
-                        disabled={fontSizeMultiplier <= 0.9}
-                        className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center text-white border border-white/10"
+                        disabled={!canDecreaseFont}
+                        className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center text-white border border-white/10 text-sm font-semibold"
                       >
                         A-
                       </button>
                       <button
                         onClick={handleIncreaseFontSize}
-                        disabled={fontSizeMultiplier >= 1.2}
-                        className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center text-white border border-white/10"
+                        disabled={!canIncreaseFont}
+                        className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center text-white border border-white/10 text-sm font-semibold"
                       >
                         A+
                       </button>

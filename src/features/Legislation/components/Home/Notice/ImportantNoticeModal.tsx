@@ -39,20 +39,18 @@ export const ImportantNoticeModal = ({ onClose }: ImportantNoticeModalProps) => 
                     {[t('legislation.notice1'), t('legislation.notice2'), t('legislation.notice3')].map((text, index) => (
                         <li key={index} className="flex items-start gap-4">
                             <span
-                                className="shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-[14px]"
+                                className="shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-sm"
                                 style={{
                                     backgroundColor: 'var(--color-bg-light)',
                                     color: 'var(--color-text-light)',
-                                    fontFamily: isRTL ? 'Dubai, Arial, sans-serif' : 'Arial, sans-serif',
                                     fontWeight: 600,
                                 }}
                             >
                                 {index + 1}
                             </span>
                             <p
-                                className="text-[15px] leading-relaxed flex-1"
+                                className="text-sm leading-relaxed flex-1"
                                 style={{
-                                    fontFamily: isRTL ? 'Dubai, Arial, sans-serif' : 'Arial, sans-serif',
                                     color: 'var(--color-text-light)',
                                 }}
                             >

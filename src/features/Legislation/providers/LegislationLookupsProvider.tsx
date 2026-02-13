@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import type { AppDispatch, RootState } from '@/store';
-import { fetchCategories, fetchEntities } from '../slices/legislationSlice';
+import { fetchCategories, fetchDepartments, fetchEntities } from '../slices/legislationSlice';
 import toast from 'react-hot-toast';
 import { useTranslation } from '@/shared/hooks/useTranslation';
 import { RefreshCw } from 'lucide-react';
@@ -10,19 +10,19 @@ interface LegislationLookupsProviderProps {
     children: React.ReactNode;
 }
 
-type FailedFetch = 'categories' | 'entities';
+type FailedFetch = 'categories' | 'entities' | 'departments';
 
 export function LegislationLookupsProvider({ children }: LegislationLookupsProviderProps) {
     const dispatch = useDispatch<AppDispatch>();
     const { t, isRTL } = useTranslation();
-    const { categories, entities } = useSelector((state: RootState) => state.legislationSlice);
+    const { categories, entities, departments } = useSelector((state: RootState) => state.legislationSlice);
     const [refreshing, setRefreshing] = useState<Set<FailedFetch>>(new Set());
 
     useEffect(() => {
-        // Fetch both categories and entities in parallel
         Promise.allSettled([
             dispatch(fetchCategories()),
-            dispatch(fetchEntities())
+            dispatch(fetchEntities()),
+            dispatch(fetchDepartments())
         ]);
     }, [dispatch]);
 
@@ -42,6 +42,14 @@ export function LegislationLookupsProvider({ children }: LegislationLookupsProvi
         }
     }, [entities.error, t]);
 
+    useEffect(() => {
+        if (departments.error) {
+            toast.error(t('legislation.failedToLoadDepartments'), {
+                id: 'departments-error',
+            });
+        }
+    }, [departments.error, t]);
+
     const handleRetry = async (type: FailedFetch) => {
         setRefreshing(prev => new Set(prev).add(type));
 
@@ -50,6 +58,8 @@ export function LegislationLookupsProvider({ children }: LegislationLookupsProvi
                 await dispatch(fetchCategories());
             } else if (type === 'entities') {
                 await dispatch(fetchEntities());
+            } else if (type === 'departments') {
+                await dispatch(fetchDepartments());
             }
         } finally {
             setTimeout(() => {
@@ -66,26 +76,28 @@ export function LegislationLookupsProvider({ children }: LegislationLookupsProvi
         const failedFetches: FailedFetch[] = [];
         if (categories.error) failedFetches.push('categories');
         if (entities.error) failedFetches.push('entities');
+        if (departments.error) failedFetches.push('departments');
 
         setRefreshing(new Set(failedFetches));
 
         try {
             await Promise.allSettled([
                 categories.error ? dispatch(fetchCategories()) : Promise.resolve(),
-                entities.error ? dispatch(fetchEntities()) : Promise.resolve()
+                entities.error ? dispatch(fetchEntities()) : Promise.resolve(),
+                departments.error ? dispatch(fetchDepartments()) : Promise.resolve()
             ]);
         } finally {
             setTimeout(() => setRefreshing(new Set()), 500);
         }
     };
 
-    const hasMultipleErrors = categories.error && entities.error;
+    const hasMultipleErrors = categories.error && entities.error && departments.error;
 
     return (
         <>
             {children}
             {/* Individual retry buttons for specific failed fetches */}
-            {categories.error && !entities.error && (
+            {categories.error && !entities.error && !departments.error && (
                 <button
                     onClick={() => handleRetry('categories')}
                     disabled={refreshing.has('categories') || categories.loading}
@@ -120,7 +132,7 @@ export function LegislationLookupsProvider({ children }: LegislationLookupsProvi
                 </button>
             )}
 
-            {entities.error && !categories.error && (
+            {entities.error && !categories.error && !departments.error && (
                 <button
                     onClick={() => handleRetry('entities')}
                     disabled={refreshing.has('entities') || entities.loading}
@@ -159,7 +171,7 @@ export function LegislationLookupsProvider({ children }: LegislationLookupsProvi
             {hasMultipleErrors && (
                 <button
                     onClick={handleRetryAll}
-                    disabled={refreshing.size > 0 || categories.loading || entities.loading}
+                    disabled={refreshing.size > 0 || categories.loading || entities.loading || departments.loading}
                     className={`
                         fixed bottom-8 z-50 
                         flex items-center gap-2 
@@ -176,7 +188,7 @@ export function LegislationLookupsProvider({ children }: LegislationLookupsProvi
                         animation: 'fadeInUp 0.5s ease-out',
                     }}
                     onMouseEnter={(e) => {
-                        if (refreshing.size === 0 && !categories.loading && !entities.loading) {
+                        if (refreshing.size === 0 && !categories.loading && !entities.loading && !departments.loading) {
                             e.currentTarget.style.background = 'var(--color-legislation-header-gradient)';
                         }
                     }}
