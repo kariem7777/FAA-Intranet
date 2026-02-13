@@ -23,7 +23,7 @@ export function EnquiryListCard({ enquiry, onSelect }: EnquiryListCardProps) {
 
     return (
         <div
-            className="bg-white transition-all duration-300 cursor-pointer group rounded-xl"
+            className="bg-white transition-all duration-300 cursor-pointer group rounded-xl border border-faa-primary/10"
             style={{ borderInlineStart: '4px solid transparent' }}
             onMouseEnter={(e) => {
                 const el = e.currentTarget;

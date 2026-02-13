@@ -5,9 +5,12 @@ import { LegislationHero } from '@/features/Legislation/components/LegislationHe
 import { LegislationCategoriesGrid } from '../components/Home/LegislationCategoriesGrid';
 import { ImportantNoticeCard } from '../components/Home/Notice/ImportantNoticeCard';
 import { ImportantNoticeModal } from '../components/Home/Notice/ImportantNoticeModal';
-import { performGlobalSearch } from '../slices/legislationSlice';
+import { performGlobalSearch, resetSubCategories } from '../slices/legislationSlice';
 import { LegalOpinions } from '@/features/LegalOpinions/pages/LegalOpinions';
 import { OpinionDetailPage } from '@/features/LegalOpinions/pages/OpinionDetailPage';
+import { LegislationDocumentsPage } from '@/features/Documents/pages/LegislationDocumentsPage';
+import { LegislationDocumentViewer } from '@/features/Documents/pages/LegislationDocumentViewer';
+import { clearSelectedDocument } from '@/features/Documents/slices/documentsManagementSlice';
 
 
 interface LegislationHomeProps {
@@ -34,17 +37,16 @@ function LegislationHome({ }: LegislationHomeProps = {}) {
   };
 
   const handleBackFromViewer = () => {
-    // dispatch(clearDocument());
+    dispatch(clearSelectedDocument());
     setViewingDocumentId(null);
   };
 
   if (viewingDocumentId !== null) {
     return (
-      // <LegislationDocumentViewer
-      //   documentId={viewingDocumentId}
-      //   onBack={handleBackFromViewer}
-      // />
-      <div></div>
+      <LegislationDocumentViewer
+        documentId={viewingDocumentId}
+        onBack={handleBackFromViewer}
+      />
     );
   }
 
@@ -68,16 +70,14 @@ function LegislationHome({ }: LegislationHomeProps = {}) {
     }
 
     return (
-      // <LegislationDocumentsPage
-      //   categoryId={selectedCategoryId}
-      //   onBack={() => {
-      //     setSelectedCategoryId(null);
-      //     dispatch(resetFilters());
-      //     dispatch(resetCategories());
-      //   }}
-      //   onViewDocument={handleViewDocument}
-      // />
-      <div></div>
+      <LegislationDocumentsPage
+        categoryId={selectedCategoryId}
+        onBack={() => {
+          setSelectedCategoryId(null);
+          dispatch(resetSubCategories());
+        }}
+        onViewDocument={handleViewDocument}
+      />
     );
   }
 

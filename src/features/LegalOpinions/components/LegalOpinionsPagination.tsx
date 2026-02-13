@@ -53,7 +53,7 @@ export function LegalOpinionsPagination({
     const pageNumbers = getPageNumbers();
 
     return (
-        <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 bg-white rounded-xl p-4 border border-gray-100 text-base">
+        <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 bg-white rounded-xl p-4 border border-faa-primary/10 text-base">
             {/* Results info */}
             <div
                 style={{
@@ -96,7 +96,7 @@ export function LegalOpinionsPagination({
                                 className={`min-w-[36px]
                                     text-base
                                     h-9 rounded-lg transition-all ${page === pageNumber
-                                        ? 'bg-[#2F4F6F] text-white font-semibold'
+                                        ? 'bg-faa-primary text-white font-semibold shadow-sm'
                                         : 'bg-gray-50 text-gray-700 hover:bg-gray-100'
                                     }`}
 

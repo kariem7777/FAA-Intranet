@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { Search, Filter, ChevronDown, X, Building2 } from 'lucide-react';
 import { useTranslation } from '@/shared/hooks/useTranslation';
 import { Button } from '@/shared/components/ui/button';
@@ -51,6 +51,11 @@ export function LegalOpinionsPageFilters({
     const [isDepartmentDropdownOpen, setIsDepartmentDropdownOpen] = useState(false);
     const [isStatusDropdownOpen, setIsStatusDropdownOpen] = useState(false);
 
+    // Sync search query with Redux filters (important for reset on mount)
+    useEffect(() => {
+        setSearchQuery(filters.searchText || '');
+    }, [filters.searchText]);
+
     const dropdownRef = useRef<HTMLDivElement>(null);
     const statusDropdownRef = useRef<HTMLDivElement>(null);
 
@@ -76,7 +81,6 @@ export function LegalOpinionsPageFilters({
         return map[Number(filters.status)] ?? t('legalOpinions.allStatuses');
     })();
 
-    const handleSearch = () => onSearchSubmit(searchQuery);
 
     const statusOptions = [
         { value: 1, label: t('legalOpinions.status.new'), color: 'var(--color-chart-blue)' },
@@ -87,7 +91,7 @@ export function LegalOpinionsPageFilters({
     const hasActiveFilters = (userRole === 'admin' && filters.departmentId) || filters.searchText || (filters.status !== '' && filters.status !== undefined);
 
     return (
-        <div className="bg-white border-b border-gray-200 shadow-sm">
+        <div className="bg-white border-b border-faa-primary/10 shadow-sm">
             <div className="max-w-[1800px] mx-auto px-8 py-6">
                 <div className="flex flex-col gap-4">
                     <div className="flex flex-col md:flex-row gap-4">
@@ -98,15 +102,15 @@ export function LegalOpinionsPageFilters({
                                     <Building2 className={`absolute ${isRTL ? 'right-3' : 'left-3'} top-3 h-5 w-5 text-gray-400 pointer-events-none z-10`} />
                                     <button
                                         onClick={() => setIsDepartmentDropdownOpen(!isDepartmentDropdownOpen)}
-                                        className={`w-full h-12 ${isRTL ? 'pr-11 pl-11' : 'pl-11 pr-11'} rounded-lg border-2 border-gray-300 bg-white text-slate-700 focus:outline-none transition-all flex items-center justify-between ${isRTL ? 'text-right' : 'text-left'}`}
+                                        className={`w-full h-12 ${isRTL ? 'pr-11 pl-11 shadow-sm' : 'pl-11 pr-11 shadow-sm'} rounded-lg border-2 border-faa-primary/30 bg-white text-slate-700 focus:outline-none focus:border-faa-primary transition-all flex items-center justify-between ${isRTL ? 'text-right' : 'text-left'}`}
                                     >
-                                        <span className="text-sm truncate">{selectedDepartmentName || t('legalOpinions.selectDepartment')}</span>
+                                        <span className="text-sm truncate font-medium">{selectedDepartmentName || t('legalOpinions.selectDepartment')}</span>
                                         <ChevronDown className={`h-5 w-5 transition-transform duration-200 ${isDepartmentDropdownOpen ? 'rotate-180' : ''}`} />
                                     </button>
 
                                     {isDepartmentDropdownOpen && (
-                                        <div className="absolute z-50 mt-1 w-full bg-white border-2 border-gray-300 shadow-xl rounded-lg max-h-80 overflow-hidden">
-                                            <div className="p-3 border-b border-gray-200 bg-gray-50">
+                                        <div className="absolute z-50 mt-1 w-full bg-white border-2 border-faa-primary/30 shadow-xl rounded-lg max-h-80 overflow-hidden">
+                                            <div className="p-3 border-b border-faa-primary/10 bg-gray-50">
                                                 <div className="relative">
                                                     <Search className={`absolute ${isRTL ? 'right-3' : 'left-3'} top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400`} />
                                                     <Input
@@ -114,7 +118,7 @@ export function LegalOpinionsPageFilters({
                                                         placeholder={t('legalOpinions.searchDepartment')}
                                                         value={departmentSearchQuery}
                                                         onChange={(e) => setDepartmentSearchQuery(e.target.value)}
-                                                        className={`h-10 ${isRTL ? 'pr-10' : 'pl-10'} border-gray-300`}
+                                                        className={`h-10 ${isRTL ? 'pr-10' : 'pl-10'} border-faa-primary/30`}
                                                         onClick={(e) => e.stopPropagation()}
                                                     />
                                                 </div>
@@ -153,14 +157,14 @@ export function LegalOpinionsPageFilters({
                                 <Filter className={`absolute ${isRTL ? 'right-3' : 'left-3'} top-3 h-5 w-5 text-gray-400 pointer-events-none z-10`} />
                                 <button
                                     onClick={() => setIsStatusDropdownOpen(!isStatusDropdownOpen)}
-                                    className={`w-full h-12 ${isRTL ? 'pr-11 pl-11' : 'pl-11 pr-11'} rounded-lg border-2 border-gray-300 bg-white text-slate-700 focus:outline-none transition-all flex items-center justify-between ${isRTL ? 'text-right' : 'text-left'}`}
+                                    className={`w-full h-12 ${isRTL ? 'pr-11 pl-11 shadow-sm' : 'pl-11 pr-11 shadow-sm'} rounded-lg border-2 border-faa-primary/30 bg-white text-slate-700 focus:outline-none focus:border-faa-primary transition-all flex items-center justify-between ${isRTL ? 'text-right' : 'text-left'}`}
                                 >
-                                    <span className="text-base truncate">{selectedStatusLabel}</span>
+                                    <span className="text-base truncate font-medium">{selectedStatusLabel}</span>
                                     <ChevronDown className={`h-5 w-5 transition-transform duration-200 ${isStatusDropdownOpen ? 'rotate-180' : ''}`} />
                                 </button>
 
                                 {isStatusDropdownOpen && (
-                                    <div className="absolute z-50 mt-1 w-full bg-white border-2 border-gray-300 shadow-xl rounded-lg overflow-hidden">
+                                    <div className="absolute z-50 mt-1 w-full bg-white border-2 border-faa-primary/30 shadow-xl rounded-lg overflow-hidden">
                                         <button
                                             onClick={() => { onStatusChange(''); setIsStatusDropdownOpen(false); }}
                                             className={`w-full ${isRTL ? 'text-right' : 'text-left'} px-4 py-3 hover:bg-gray-50 transition-colors flex items-center justify-between min-h-[48px] ${filters.status === '' || filters.status === undefined ? 'bg-gray-100' : ''}`}
@@ -193,25 +197,18 @@ export function LegalOpinionsPageFilters({
 
                         <div className="flex-1">
                             <label className="block text-base text-slate-700 mb-2 font-semibold">{t('legalOpinions.search')}</label>
-                            <div className="flex gap-2">
-                                <div className="relative flex-1">
-                                    <Search className={`absolute ${isRTL ? 'right-3' : 'left-3'} top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400`} />
-                                    <Input
-                                        type="text"
-                                        placeholder={t('legalOpinions.searchPlaceholder')}
-                                        value={searchQuery}
-                                        onChange={(e) => setSearchQuery(e.target.value)}
-                                        onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-                                        className={`h-12 ${isRTL ? 'pr-11' : 'pl-11'} border-2 border-gray-300 text-sm`}
-                                    />
-                                </div>
-                                <button
-                                    onClick={handleSearch}
-                                    className="h-12 px-8 text-white rounded-lg transition-all duration-200 text-sm flex items-center gap-2 font-medium bg-faa-primary hover:bg-dashboard-primary"
-                                >
-                                    <Search className={`h-4 w-4 ${isRTL ? 'ml-2' : 'mr-2'}`} />
-                                    {t('legalOpinions.search')}
-                                </button>
+                            <div className="relative">
+                                <Search className={`absolute ${isRTL ? 'right-3' : 'left-3'} top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400`} />
+                                <Input
+                                    type="text"
+                                    placeholder={t('legalOpinions.searchPlaceholder')}
+                                    value={searchQuery}
+                                    onChange={(e) => {
+                                        setSearchQuery(e.target.value);
+                                        onSearchSubmit(e.target.value);
+                                    }}
+                                    className={`h-12 ${isRTL ? 'pr-11' : 'pl-11'} border-2 border-faa-primary/30 text-base shadow-sm`}
+                                />
                             </div>
                         </div>
                     </div>

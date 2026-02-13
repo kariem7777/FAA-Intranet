@@ -64,7 +64,7 @@ export function OpinionDetailPage({ id: propId, status, onBack: onBackProp }: { 
     if (onBackProp) {
       onBackProp();
     } else {
-      navigate('/opinions');
+      navigate('/approved-opinions');
     }
   }, [navigate, onBackProp]);
 
@@ -292,12 +292,12 @@ export function OpinionDetailPage({ id: propId, status, onBack: onBackProp }: { 
                   {/* Expandable Reply Editor */}
                   {showReplyEditor && (
                     <div
-                      className="bg-white rounded-lg border"
-                      style={{ borderColor: 'rgba(148, 163, 184, 0.3)' }}
+                      className="bg-white rounded-lg border-2 shadow-sm overflow-hidden"
+                      style={{ borderColor: 'rgba(144, 142, 129, 0.3)' }}
                     >
                       <div
-                        className="px-6 py-4 border-b flex items-center gap-3"
-                        style={{ borderColor: 'rgba(148, 163, 184, 0.3)' }}
+                        className="px-6 py-4 border-b flex items-center gap-3 bg-gray-50/50"
+                        style={{ borderColor: 'rgba(144, 142, 129, 0.2)' }}
                       >
                         <div className='flex justify-between w-full'>
                           <div className='flex items-center gap-2'>

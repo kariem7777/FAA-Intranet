@@ -1,48 +1,52 @@
-import { Hash, Building2, Calendar, FileText, Shield } from 'lucide-react';
+import { Hash, Building2, Calendar, FileText, Shield, Tags, FileCode, Clock } from 'lucide-react';
 import { useTranslation } from '@/shared/hooks/useTranslation';
 import { MetadataItem } from './MetadataItem';
 import { ClassificationBadge } from './ClassificationBadge';
 import { ActionButtons } from './ActionButtons';
+import type { Document } from '../../types';
 
 interface DocumentMetadataProps {
-    document: {
-        title: string;
-        titleAr: string;
-        referenceNumber: string;
-        entityName: string;
-        entityNameAr: string;
-        issueDate: string;
-        year: number;
-        classification: 'public' | 'secret';
-    };
-    fontSizeMultiplier?: number;
+    document: Document
     onOpenInNewTab: () => void;
     onDownload: () => void;
-    colors: {
-        bgWhite: string;
-        bgOffWhite: string;
-        primary: string;
-        accent: string;
-        textPrimary: string;
-        textSecondary: string;
-    };
 }
+
+// id: number,
+// categoryId: number,
+// subCategoryId: number,
+// entityId: number,
+// documentNameEn: string,
+// documentNameAr: string,
+// documentPhysicalPath: string,
+// fileType: string,
+// lawNumber: string,
+// lawNameAr: string,
+// lawNameEn: string,
+// documentContent: string,
+// classification: number,
+// isActive: boolean,
+// createdOn: string,
+// updatedOn: string,
+// categoryNameEn: string,
+// categoryNameAr: string,
+// subCategoryNameEn: string,
+// subCategoryNameAr: string,
+// entityNameEn: string,
+// entityNameAr: string
 
 export function DocumentMetadata({
     document,
-    fontSizeMultiplier = 1,
     onOpenInNewTab,
     onDownload,
-    colors,
 }: DocumentMetadataProps) {
-    const { isRTL, t } = useTranslation();
+    const { isRTL, t, getLocalizedString } = useTranslation();
 
     return (
         <div
             className="rounded-lg border p-6 sticky top-6"
             style={{
-                backgroundColor: colors.bgWhite,
-                borderColor: '#E5E7EB',
+                backgroundColor: 'var(--color-bg-white)',
+                borderColor: 'var(--color-bg-light)',
                 maxHeight: 'calc(100vh - 160px)',
                 overflowY: 'auto',
             }}
@@ -51,90 +55,78 @@ export function DocumentMetadata({
             <h1
                 className="mb-6"
                 style={{
-                    fontFamily: 'Dubai, Arial, sans-serif',
-                    fontSize: `${28 * fontSizeMultiplier}px`,
+                    fontSize: 'var(--font-size-2xl)',
                     fontWeight: 700,
-                    color: colors.textPrimary,
+                    color: 'var(--color-primary)',
                     lineHeight: 1.3,
                 }}
             >
-                {isRTL ? document.titleAr : document.title}
+                {isRTL ? document.documentNameAr : document.documentNameEn}
             </h1>
 
             {/* Divider */}
-            <div className="h-px mb-6" style={{ backgroundColor: '#E5E7EB' }} />
+            <div className="h-px mb-6" style={{ backgroundColor: 'var(--color-bg-light)' }} />
 
             {/* Document Metadata */}
             <div className="space-y-5 mb-8">
                 <MetadataItem
                     icon={Hash}
-                    label={t('legislation.referenceNumber')}
-                    value={document.referenceNumber}
-                    fontSizeMultiplier={fontSizeMultiplier}
-                    bgOffWhite={colors.bgOffWhite}
-                    primary={colors.primary}
-                    textSecondary={colors.textSecondary}
-                    textPrimary={colors.textPrimary}
+                    label={t('legislation.lawNumber')}
+                    value={document.lawNumber}
                 />
 
                 <MetadataItem
                     icon={Building2}
                     label={t('legislation.entity')}
-                    value={isRTL ? document.entityNameAr : document.entityName}
-                    fontSizeMultiplier={fontSizeMultiplier}
-                    bgOffWhite={colors.bgOffWhite}
-                    primary={colors.primary}
-                    textSecondary={colors.textSecondary}
-                    textPrimary={colors.textPrimary}
+                    value={getLocalizedString(document.entityNameAr, document.entityNameEn)}
                 />
 
                 <MetadataItem
                     icon={Calendar}
                     label={t('legislation.issueDate')}
-                    value={new Date(document.issueDate).toLocaleDateString(isRTL ? 'ar-AE' : 'en-US', {
+                    value={new Date(document.createdOn).toLocaleDateString(isRTL ? 'ar-AE' : 'en-US', {
                         year: 'numeric',
                         month: 'long',
                         day: 'numeric',
                     })}
-                    fontSizeMultiplier={fontSizeMultiplier}
-                    bgOffWhite={colors.bgOffWhite}
-                    primary={colors.primary}
-                    textSecondary={colors.textSecondary}
-                    textPrimary={colors.textPrimary}
                 />
 
                 <MetadataItem
                     icon={FileText}
-                    label={t('legislation.year')}
-                    value={document.year}
-                    fontSizeMultiplier={fontSizeMultiplier}
-                    bgOffWhite={colors.bgOffWhite}
-                    primary={colors.primary}
-                    textSecondary={colors.textSecondary}
-                    textPrimary={colors.textPrimary}
+                    label={t('legislation.category')}
+                    value={isRTL ? document.categoryNameAr : document.categoryNameEn}
+                />
+
+                <MetadataItem
+                    icon={Tags}
+                    label={t('legislation.subCategory')}
+                    value={isRTL ? document.subCategoryNameAr : document.subCategoryNameEn}
                 />
 
                 <MetadataItem
                     icon={Shield}
                     label={t('legislation.classification')}
                     value={<ClassificationBadge classification={document.classification} />}
-                    fontSizeMultiplier={fontSizeMultiplier}
-                    bgOffWhite={colors.bgOffWhite}
-                    primary={colors.primary}
-                    textSecondary={colors.textSecondary}
-                    textPrimary={colors.textPrimary}
+                />
+
+                <MetadataItem
+                    icon={Clock}
+                    label={t('legislation.lastUpdated')}
+                    value={new Date(document.updatedOn).toLocaleDateString(isRTL ? 'ar-AE' : 'en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                    })}
                 />
             </div>
 
             {/* Divider */}
-            <div className="h-px mb-6" style={{ backgroundColor: '#E5E7EB' }} />
+            <div className="h-px mb-6" style={{ backgroundColor: 'var(--color-bg-light)' }} />
 
             {/* Action Buttons */}
             <ActionButtons
                 onOpenInNewTab={onOpenInNewTab}
                 onDownload={onDownload}
-                accent={colors.accent}
-                primary={colors.primary}
             />
         </div>
     );

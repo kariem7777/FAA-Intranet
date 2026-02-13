@@ -145,18 +145,18 @@ export function DocumentsTable({
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <div className="flex items-center gap-3">
                                             <FileText className="h-5 w-5 flex-shrink-0" style={{ color: 'var(--color-faa-primary)' }} />
-                                            <span className="text-[15px] text-[var(--color-faa-primary)]" style={{ fontFamily, fontWeight: 600 }}>
+                                            <span className="text-[15px] text-black" style={{ fontFamily, fontWeight: 600 }}>
                                                 {isArabic ? doc.documentNameAr : doc.documentNameEn}
                                             </span>
                                         </div>
                                     </td>
-                                    <td className="px-6 py-4 text-[15px] text-[#6B7280] whitespace-nowrap" style={{ fontFamily }}>
+                                    <td className="px-6 py-4 text-[15px] text-black whitespace-nowrap" style={{ fontFamily }}>
                                         {isArabic ? doc.entityNameAr : doc.entityNameEn}
                                     </td>
-                                    <td className="px-6 py-4 text-[15px] text-[#6B7280] whitespace-nowrap" style={{ fontFamily }}>
+                                    <td className="px-6 py-4 text-[15px] text-black whitespace-nowrap" style={{ fontFamily }}>
                                         {isArabic ? doc.categoryNameAr : doc.categoryNameEn}
                                     </td>
-                                    <td className="px-6 py-4 text-[15px] text-[#6B7280] whitespace-nowrap" style={{ fontFamily }}>
+                                    <td className="px-6 py-4 text-[15px] text-black whitespace-nowrap" style={{ fontFamily }}>
                                         {isArabic ? doc.subCategoryNameAr : doc.subCategoryNameEn}
                                     </td>
                                     <td className="px-6 py-4 text-[15px] text-[#6B7280] whitespace-nowrap" style={{ fontFamily }}>

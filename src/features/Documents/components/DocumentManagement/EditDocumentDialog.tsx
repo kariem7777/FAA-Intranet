@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 import { Dialog } from '@/shared/components/Dialog/Dialog';
 import { Button } from '@/shared/components/ui/button';
 import { Input } from '@/shared/components/ui/input';
+import { Select } from '@/shared/components/ui/select';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { Upload, X, FileText } from 'lucide-react';
 import { updateDocument } from '../../slices/documentsManagementSlice';
@@ -40,14 +41,14 @@ export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDi
     // Fetch sub-categories when category changes
     useEffect(() => {
         if (categoryId && categoryId !== 0) {
-            dispatch(fetchSubCategoriesByCategory(categoryId));
+            dispatch(fetchSubCategoriesByCategory({ categoryId }));
         }
     }, [categoryId, dispatch]);
 
     // Load sub-categories for the initial category
     useEffect(() => {
         if (document.categoryId) {
-            dispatch(fetchSubCategoriesByCategory(document.categoryId));
+            dispatch(fetchSubCategoriesByCategory({ categoryId: document.categoryId }));
         }
     }, [document.categoryId, dispatch]);
 
@@ -133,10 +134,9 @@ export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDi
                     <label className="block text-sm font-medium mb-2" style={{ color: 'var(--color-dashboard-primary)' }}>
                         {t('legislation.documentsManagement.dialogs.edit.entity')}
                     </label>
-                    <select
+                    <Select
                         value={entityId}
                         onChange={(e) => setEntityId(Number(e.target.value))}
-                        className="w-full px-3 py-2 border rounded-md"
                         required
                     >
                         <option value={0}>{t('legislation.documentsManagement.dialogs.edit.selectEntity')}</option>
@@ -145,7 +145,7 @@ export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDi
                                 {isArabic ? entity.entityNameAr : entity.entityName}
                             </option>
                         ))}
-                    </select>
+                    </Select>
                 </div>
 
                 {/* Category */}
@@ -153,13 +153,12 @@ export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDi
                     <label className="block text-sm font-medium mb-2" style={{ color: 'var(--color-dashboard-primary)' }}>
                         {t('legislation.documentsManagement.dialogs.edit.category')}
                     </label>
-                    <select
+                    <Select
                         value={categoryId}
                         onChange={(e) => {
                             setCategoryId(Number(e.target.value));
                             setSubCategoryId(0); // Reset sub-category when category changes
                         }}
-                        className="w-full px-3 py-2 border rounded-md"
                         required
                     >
                         <option value={0}>{t('legislation.documentsManagement.dialogs.edit.selectCategory')}</option>
@@ -168,7 +167,7 @@ export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDi
                                 {isArabic ? cat.lawCategoryAr : cat.lawCategoryEn}
                             </option>
                         ))}
-                    </select>
+                    </Select>
                 </div>
 
                 {/* Sub Category */}
@@ -176,10 +175,9 @@ export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDi
                     <label className="block text-sm font-medium mb-2" style={{ color: 'var(--color-dashboard-primary)' }}>
                         {t('legislation.documentsManagement.dialogs.edit.subCategory')}
                     </label>
-                    <select
+                    <Select
                         value={subCategoryId}
                         onChange={(e) => setSubCategoryId(Number(e.target.value))}
-                        className="w-full px-3 py-2 border rounded-md"
                         required
                         disabled={!categoryId || subCategories.loading}
                     >
@@ -197,7 +195,7 @@ export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDi
                                 {isArabic ? cat.lawSubCategoryAr : cat.lawSubCategoryEn}
                             </option>
                         ))}
-                    </select>
+                    </Select>
                     {subCategories.error && (
                         <p className="text-red-500 text-sm mt-1">{subCategories.error}</p>
                     )}
@@ -244,14 +242,13 @@ export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDi
                     <label className="block text-sm font-medium mb-2" style={{ color: 'var(--color-dashboard-primary)' }}>
                         {t('legislation.documentsManagement.dialogs.edit.classification')}
                     </label>
-                    <select
+                    <Select
                         value={classification}
                         onChange={(e) => setClassification(Number(e.target.value))}
-                        className="w-full px-3 py-2 border rounded-md"
                     >
                         <option value={1}>{t('legislation.documentsManagement.public')}</option>
                         <option value={2}>{t('legislation.documentsManagement.secret')}</option>
-                    </select>
+                    </Select>
                 </div>
 
                 {/* File Upload (Optional for edit) */}

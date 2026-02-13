@@ -6,15 +6,9 @@ import { useTranslation } from '@/shared/hooks/useTranslation';
 interface ErrorStateProps {
     error: string | null;
     onBack: () => void;
-    fontSizeMultiplier?: number;
-    colors: {
-        bgOffWhite: string;
-        bgWhite: string;
-        primary: string;
-    };
 }
 
-export function ErrorState({ error, onBack, fontSizeMultiplier = 1, colors }: ErrorStateProps) {
+export function ErrorState({ error, onBack }: ErrorStateProps) {
     const { isRTL, t } = useTranslation();
 
     return (
@@ -22,14 +16,11 @@ export function ErrorState({ error, onBack, fontSizeMultiplier = 1, colors }: Er
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             className="min-h-screen"
-            style={{ backgroundColor: colors.bgOffWhite }}
+            style={{ backgroundColor: 'var(--color-bg-subtle)' }}
             dir={isRTL ? 'rtl' : 'ltr'}
         >
             <BackButton
                 onBack={onBack}
-                fontSizeMultiplier={fontSizeMultiplier}
-                bgWhite={colors.bgWhite}
-                primary={colors.primary}
             />
 
             {/* Error Content */}
@@ -47,10 +38,9 @@ export function ErrorState({ error, onBack, fontSizeMultiplier = 1, colors }: Er
                     onClick={onBack}
                     className="px-6 py-3 rounded-lg transition-all hover:opacity-90"
                     style={{
-                        backgroundColor: colors.primary,
-                        color: '#FFFFFF',
-                        fontFamily: 'Dubai, Arial, sans-serif',
-                        fontSize: '15px',
+                        backgroundColor: 'var(--color-faa-primary)',
+                        color: 'var(--color-bg-white)',
+                        fontSize: 'var(--font-size-base)',
                         fontWeight: 600,
                     }}
                 >

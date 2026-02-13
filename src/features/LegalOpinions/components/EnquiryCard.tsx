@@ -9,10 +9,10 @@ interface EnquiryCardProps {
 
 
 export function EnquiryCard({ enquiry }: EnquiryCardProps) {
-    const { t, isRTL } = useTranslation();
+    const { t } = useTranslation();
 
     return (
-        <div className="bg-white rounded-lg border" style={{ borderColor: '#E5E7EB' }}>
+        <div className="bg-white rounded-lg border" style={{ borderColor: 'rgba(144, 142, 129, 0.3)' }}>
             <div className="p-6">
                 <div className="flex items-center gap-2 mb-4">
                     <FileText className="h-5 w-5" style={{ color: 'var(--color-faa-primary)' }} />
@@ -21,7 +21,7 @@ export function EnquiryCard({ enquiry }: EnquiryCardProps) {
                     </h3>
                 </div>
                 <div
-                    className="bg-slate-50 rounded-lg p-5 border border-slate-200"
+                    className="rounded-lg p-5 border border-faa-primary/10"
                     style={{
                         backgroundColor: '#F8FAFC',
                         color: '#475569',

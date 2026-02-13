@@ -46,7 +46,7 @@ export class DocumentsService extends BaseApiService {
     formData.append('lawNameEn', document.lawNameEn);
     formData.append('classification', document.classification.toString());
     if (file) formData.append('file', file);
-    const response = await this.api.postForm<ApiResponse<Document>>(`/lawDocuments/${document.id}`, formData);
+    const response = await this.api.putForm<ApiResponse<Document>>(`/lawDocuments/${document.id}`, formData);
     return response.data;
   }
 
@@ -55,6 +55,10 @@ export class DocumentsService extends BaseApiService {
     return response.data;
   }
 
+  public async getDocumentById(id: number): Promise<ApiResponse<Document>> {
+    const response = await this.api.get<ApiResponse<Document>>(`/lawDocuments/${id}`);
+    return response.data;
+  }
 }
 
 export const documentsService = new DocumentsService();

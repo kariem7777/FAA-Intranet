@@ -49,7 +49,7 @@ export function EnquiryDetailsSidebar({
         <div
             className="bg-white rounded-lg border p-6 sticky"
             style={{
-                borderColor: 'rgba(148, 163, 184, 0.3)',
+                borderColor: 'rgba(144, 142, 129, 0.3)',
                 top: '165px',
             }}
         >
@@ -57,7 +57,7 @@ export function EnquiryDetailsSidebar({
                 className="mb-6 pb-4 border-b text-lg font-semibold"
                 style={{
                     color: 'var(--color-dashboard-primary)',
-                    borderColor: 'rgba(148, 163, 184, 0.3)'
+                    borderColor: 'rgba(144, 142, 129, 0.3)'
                 }}
             >
                 {t('legalOpinions.enquiryDetails')}

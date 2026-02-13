@@ -24,7 +24,7 @@ export function LegalOpinionsPageHeader({ onBack }: LegalOpinionsPageHeaderProps
                     </Button>
                     <div className="h-6 w-px bg-gray-300" />
                     <h6 className="text-slate-900 text-lg font-semibold leading-relaxed">
-                        {t('legalOpinions.pageTitle')}absolute
+                        {t('legalOpinions.pageTitle')}
                     </h6>
                 </div>
             </div>

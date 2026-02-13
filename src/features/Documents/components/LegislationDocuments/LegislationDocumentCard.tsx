@@ -1,33 +1,43 @@
 import { Eye, Calendar, FileText } from 'lucide-react';
 import { useTranslation } from '@/shared/hooks/useTranslation';
-import type { LegislationDocument } from '../../types';
+import type { Document } from '../../types';
 import { motion } from 'framer-motion';
 
 interface LegislationDocumentCardProps {
-    document: LegislationDocument;
-    onView?: (doc: LegislationDocument) => void;
+    document: Document;
+    onView?: (doc: Document) => void;
 }
 
 export function LegislationDocumentCard({ document: doc, onView }: LegislationDocumentCardProps) {
     const { isRTL, t } = useTranslation();
 
-    const colors = {
-        bgWhite: '#FFFFFF',
-        textPrimary: '#1A1A1A',
-        textSecondary: '#5A5A5A',
-        primary: '#0F2A44',
-    };
-
-    const ClassificationBadge = ({ classification }: { classification: 'public' | 'secret' }) => {
+    const ClassificationBadge = ({ classification }: { classification: number }) => {
         const config = {
-            public: { bg: '#E8F5E9', text: '#2F7D32', label: t('legislation.public') },
-            secret: { bg: '#FFEBEE', text: '#9B1C1C', label: t('legislation.secret') },
-        }[classification];
+            1: {
+                bg: 'var(--color-msg-admin-bg)',
+                text: 'var(--color-msg-admin-text)',
+                label: t('legislation.public')
+            },
+            2: {
+                bg: 'var(--color-bg-red-light)',
+                text: 'var(--color-accent-red)',
+                label: t('legislation.secret')
+            },
+        }[classification as 1 | 2] || {
+            bg: 'var(--color-bg-card)',
+            text: 'var(--color-secondary)',
+            label: t('legislation.unknown')
+        };
 
         return (
             <span
                 className="px-3 py-1 rounded-full text-sm font-semibold"
-                style={{ backgroundColor: config.bg, color: config.text, fontFamily: 'Dubai, Arial, sans-serif' }}
+                style={{
+                    backgroundColor: config.bg,
+                    color: config.text,
+                    fontFamily: 'Dubai, Arial, sans-serif',
+                    fontSize: 'var(--font-size-sm)'
+                }}
             >
                 {config.label}
             </span>
@@ -38,62 +48,76 @@ export function LegislationDocumentCard({ document: doc, onView }: LegislationDo
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            whileHover={{ y: -4, boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)' }}
-            transition={{ duration: 0.3 }}
-            className="group rounded-xl border bg-white"
-            style={{ borderColor: '#E5E7EB' }}
+            whileHover={{
+                y: -2,
+                backgroundColor: 'rgba(144, 142, 129, 0.08)', // primary + 15
+                boxShadow: '0 8px 20px rgba(47, 79, 111, 0.18)',
+                borderInlineStart: '4px solid var(--color-legislation-active-indicator)',
+                scale: 1.03
+            }}
+            transition={{ duration: 0.02 }}
+            className="group p-6 rounded-xl border transition-all duration-300 cursor-pointer"
+            style={{
+                backgroundColor: 'var(--color-bg-white)',
+                borderColor: 'rgba(144, 142, 129, 0.3)',
+            }}
+            onClick={() => onView && onView(doc)}
         >
-            <div className="p-5">
-                <div className="flex items-start justify-between gap-4">
-                    <div className="flex-1">
-                        <h3
-                            className="mb-3 text-lg font-bold leading-snug"
-                            style={{ fontFamily: 'Dubai, Arial, sans-serif', color: colors.textPrimary }}
-                        >
-                            {isRTL ? doc.titleAr : doc.title}
-                        </h3>
+            <div className="flex items-start justify-between gap-4">
+                <div className="flex-1 min-w-0">
+                    {/* Document Title */}
+                    <h3
+                        className="mb-3 font-bold leading-snug break-words"
+                        style={{
+                            color: 'var(--color-primary)',
+                            fontSize: 'var(--font-size-xl)'
+                        }}
+                    >
+                        {isRTL ? doc.documentNameAr : doc.documentNameEn}
+                    </h3>
 
-                        <div className="flex flex-wrap items-center gap-4 text-sm" style={{ color: colors.textSecondary }}>
-                            <span className="flex items-center gap-2">
-                                <FileText className="w-4 h-4" />
-                                <span className="font-mono">{doc.referenceNumber}</span>
-                            </span>
-                            <span className="flex items-center gap-2">
-                                <Calendar className="w-4 h-4" />
-                                <span className="font-mono">{doc.issueDate}</span>
-                            </span>
-                        </div>
+                    {/* Metadata */}
+                    <div className="flex flex-wrap items-center gap-4 mb-3">
+                        <span className="flex items-center gap-2" style={{ color: 'var(--color-secondary)', fontSize: 'var(--font-size-sm)' }}>
+                            <FileText className="w-4 h-4" />
+                            <span className="font-mono">{doc.lawNumber}</span>
+                        </span>
+                        <span className="flex items-center gap-2" style={{ color: 'var(--color-secondary)', fontSize: 'var(--font-size-sm)' }}>
+                            <Calendar className="w-4 h-4" />
+                            <span className="font-mono">{new Date(doc.createdOn).toLocaleDateString(isRTL ? 'ar-AE' : 'en-GB')}</span>
+                        </span>
+                        <ClassificationBadge classification={doc.classification} />
                     </div>
 
-                    <ClassificationBadge classification={doc.classification} />
-                </div>
-
-                <div className="h-px my-4 bg-gray-100" />
-
-                <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center border border-gray-100">
-                            {/* Ideally replace with entity logo using doc.entityId */}
-                            <span className="text-xs font-bold text-gray-400">{doc.entityId.substring(0, 2).toUpperCase()}</span>
+                    {/* Entity Name */}
+                    <div className="flex items-center gap-2 mt-4">
+                        <div className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center border border-faa-primary/20 overflow-hidden">
+                            <span className="text-xs font-bold text-gray-400">FA</span>
                         </div>
-                        <p className="text-sm font-medium" style={{ color: colors.textSecondary }}>
-                            {isRTL ? doc.entityNameAr : doc.entityName}
+                        <p className="font-medium" style={{ color: 'var(--color-secondary)', fontSize: 'var(--font-size-sm)' }}>
+                            {isRTL ? doc.entityNameAr : doc.entityNameEn}
                         </p>
                     </div>
-
-                    <div className="flex items-center gap-2">
-                        <motion.button
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            onClick={() => onView && onView(doc)}
-                            className="flex items-center gap-2 px-4 py-2 rounded-lg transition-colors hover:bg-gray-50 font-medium text-sm"
-                            style={{ color: colors.primary }}
-                        >
-                            <Eye className="w-4 h-4" />
-                            {t('legislation.viewDocument')}
-                        </motion.button>
-                    </div>
                 </div>
+
+                {/* View Document Button */}
+                <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        onView && onView(doc);
+                    }}
+                    className="shrink-0 flex items-center justify-center gap-2 px-6 py-3 rounded-lg transition-all font-semibold"
+                    style={{
+                        backgroundColor: 'var(--color-faa-primary)',
+                        color: 'var(--color-bg-white)',
+                        fontSize: 'var(--font-size-sm)'
+                    }}
+                >
+                    <Eye className="w-4 h-4" />
+                    {t('legislation.viewDocument')}
+                </motion.button>
             </div>
         </motion.div>
     );

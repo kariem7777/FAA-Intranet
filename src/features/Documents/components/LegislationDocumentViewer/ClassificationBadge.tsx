@@ -1,26 +1,36 @@
 import { useTranslation } from '@/shared/hooks/useTranslation';
 
 interface ClassificationBadgeProps {
-    classification: 'public' | 'secret';
+    classification: number;
 }
 
 export function ClassificationBadge({ classification }: ClassificationBadgeProps) {
     const { t } = useTranslation();
 
-    const classificationConfig = {
-        public: {
-            bg: '#E8F5E9',
-            text: '#2F7D32',
-            label: t('legislation.public'),
-        },
-        secret: {
-            bg: '#FFEBEE',
-            text: '#9B1C1C',
-            label: t('legislation.secret'),
-        },
+    const getClassificationConfig = (type: number) => {
+        switch (type) {
+            case 1: // Public
+                return {
+                    bg: 'var(--color-msg-admin-bg)',
+                    text: 'var(--color-msg-admin-text)',
+                    label: t('legislation.public'),
+                };
+            case 2: // Secret
+                return {
+                    bg: 'var(--color-bg-red-light)',
+                    text: 'var(--color-accent-red)',
+                    label: t('legislation.secret'),
+                };
+            default:
+                return {
+                    bg: 'var(--color-bg-card)',
+                    text: 'var(--color-secondary)',
+                    label: t('legislation.unknown'),
+                };
+        }
     };
 
-    const config = classificationConfig[classification];
+    const config = getClassificationConfig(classification);
 
     return (
         <span
@@ -28,9 +38,8 @@ export function ClassificationBadge({ classification }: ClassificationBadgeProps
             style={{
                 backgroundColor: config.bg,
                 color: config.text,
-                fontFamily: 'Dubai, Arial, sans-serif',
                 fontWeight: 600,
-                fontSize: '13px',
+                fontSize: 'var(--font-size-xs)',
             }}
         >
             {config.label}

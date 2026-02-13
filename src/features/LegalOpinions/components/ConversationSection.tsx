@@ -49,9 +49,9 @@ export function ConversationSection({ messages, isAdmin, onApproveReply, approvi
     };
 
     return (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+        <div className="bg-white rounded-xl shadow-sm border border-faa-primary/10 overflow-hidden">
             <div
-                className="px-6 py-4 border-b border-gray-200 bg-[#fafafa]"
+                className="px-6 py-4 border-b border-faa-primary/10 bg-[#fafafa]"
             >
                 <div className="flex items-center gap-2">
                     <MessageSquare className="h-5 w-5" style={{ color: 'var(--color-legislation-primary)' }} />

@@ -20,6 +20,14 @@ interface GlobalCategoriesState {
     items: LawSubCategory[];
     loading: boolean;
     error: string | null;
+    pagination: {
+      pageNumber: number;
+      pageSize: number;
+      totalCount: number;
+      totalPages: number;
+      hasNextPage: boolean;
+      hasPreviousPage: boolean;
+    };
   };
   categories: {
     items: LawCategory[];
@@ -50,6 +58,14 @@ const initialState: GlobalCategoriesState = {
     items: [],
     loading: false,
     error: null,
+    pagination: {
+      pageNumber: 1,
+      pageSize: 10,
+      totalCount: 0,
+      totalPages: 0,
+      hasNextPage: false,
+      hasPreviousPage: false,
+    },
   },
   categories: {
     items: [],
@@ -114,11 +130,11 @@ export const fetchCategories = createAsyncThunk(
 
 export const fetchSubCategoriesByCategory = createAsyncThunk(
   'globalCategories/fetchSubCategoriesByCategory',
-  async (categoryId: number, { rejectWithValue }) => {
+  async ({ categoryId, pageNumber = 1, pageSize = 10 }: { categoryId: number; pageNumber?: number; pageSize?: number }, { rejectWithValue }) => {
     try {
       const response = await legislationService.getLawSubCategories({
-        pageNumber: 1,
-        pageSize: 100,
+        pageNumber,
+        pageSize,
         categoryId,
       });
       return response;
@@ -200,6 +216,12 @@ const legislationSlice = createSlice({
       state.searchResults = [];
       state.totalResults = 0;
     },
+    resetSubCategories(state) {
+      state.subCategories.items = [];
+      state.subCategories.loading = false;
+      state.subCategories.error = null;
+    }
+
   },
   extraReducers: (builder) => {
     // SubCategories (all)
@@ -215,6 +237,16 @@ const legislationSlice = createSlice({
     builder.addCase(fetchSubCategoriesByCategory.fulfilled, (state, action) => {
       state.subCategories.loading = false;
       state.subCategories.items = action.payload.data?.items || [];
+      if (action.payload.data) {
+        state.subCategories.pagination = {
+          pageNumber: action.payload.data.pageNumber,
+          pageSize: action.payload.data.pageSize,
+          totalCount: action.payload.data.totalCount,
+          totalPages: action.payload.data.totalPages,
+          hasNextPage: (action.payload.data?.pageNumber || 1) < (action.payload.data?.totalPages || 0),
+          hasPreviousPage: (action.payload.data?.pageNumber || 1) > 1,
+        };
+      }
     });
     builder.addCase(fetchSubCategoriesByCategory.rejected, (state, action) => {
       state.subCategories.loading = false;
@@ -281,6 +313,7 @@ export const {
   setShowSearchTooltip,
   clearSearch,
   resetGlobalCategories,
+  resetSubCategories
 } = legislationSlice.actions;
 
 export default legislationSlice.reducer;

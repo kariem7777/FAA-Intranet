@@ -3,11 +3,13 @@ import { useTranslation } from '@/shared/hooks/useTranslation';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import {
-  fetchEnquiries,
-  setSearchText,
-  setDepartmentFilter,
-  setPage,
+  fetchApprovedOpinions,
+  setApprovedSearchText,
+  setApprovedDepartmentFilter,
+  setApprovedPage,
+  resetFilters,
 } from '../slices/EnquiriesSlice';
+import useDebounce from '@/shared/hooks/useDebouncing';
 import {
   LegalOpinionsFilters,
   OpinionsList,
@@ -25,31 +27,27 @@ export function ApprovedLegalOpinionsPage() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const { enquiries, filters } = useAppSelector((state) => state.enquiries);
+  const { approvedOpinions: enquiries, approvedFilters: filters } = useAppSelector((state) => state.enquiries);
 
   const [showScrollToTop, setShowScrollToTop] = useState(false);
-  const [searchDebounce, setSearchDebounce] = useState(filters.searchText);
+  const [localSearch, setLocalSearch] = useState(filters.searchText || '');
+  const debounce = useDebounce();
+
+  // Sync local search with Redux state (important for reset)
+  useEffect(() => {
+    setLocalSearch(filters.searchText || '');
+  }, [filters.searchText]);
 
   // Fetch data on mount
   useEffect(() => {
-    dispatch(fetchEnquiries(
-      { status: '3' }
-    ));
+    dispatch(resetFilters());
+    dispatch(fetchApprovedOpinions({}));
   }, [dispatch]);
 
-  // Debounce search
+  // Sync data on filter change
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (searchDebounce !== filters.searchText) {
-        dispatch(setSearchText(searchDebounce || ''));
-        dispatch(fetchEnquiries({
-          status: '3', searchText: searchDebounce || ''
-        }));
-      }
-    }, 300);
-
-    return () => clearTimeout(timer);
-  }, [searchDebounce, dispatch, filters.searchText]);
+    dispatch(fetchApprovedOpinions({}));
+  }, [dispatch, filters.searchText, filters.departmentId, enquiries.pagination.pageNumber]);
 
   // Scroll handling
   useEffect(() => {
@@ -61,15 +59,14 @@ export function ApprovedLegalOpinionsPage() {
   }, []);
 
   const handleSearchChange = useCallback((value: string) => {
-    setSearchDebounce(value);
-  }, []);
+    setLocalSearch(value);
+    debounce(() => {
+      dispatch(setApprovedSearchText(value));
+    }, 500);
+  }, [dispatch, debounce]);
 
   const handleDepartmentChange = useCallback((value: string) => {
-    dispatch(setDepartmentFilter(value));
-    dispatch(fetchEnquiries({
-      status: '3',
-      departmentId: value
-    }));
+    dispatch(setApprovedDepartmentFilter(value));
   }, [dispatch]);
 
   const handleEnquirySelect = useCallback((enquiry: Enquiry) => {
@@ -77,10 +74,7 @@ export function ApprovedLegalOpinionsPage() {
   }, [navigate]);
 
   const handlePageChange = useCallback((page: number) => {
-    dispatch(setPage(page));
-    dispatch(fetchEnquiries(
-      { status: '3', pageNumber: page }
-    ));
+    dispatch(setApprovedPage(page));
     // Scroll to top when page changes
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [dispatch]);
@@ -90,7 +84,7 @@ export function ApprovedLegalOpinionsPage() {
   }, []);
 
   const handleRetry = useCallback(() => {
-    dispatch(fetchEnquiries({ status: '3' }));
+    dispatch(fetchApprovedOpinions({}));
   }, [dispatch]);
 
   return (
@@ -109,7 +103,7 @@ export function ApprovedLegalOpinionsPage() {
         <div className="max-w-[1600px] mx-auto px-8">
           {/* Search and Filters */}
           <LegalOpinionsFilters
-            searchQuery={searchDebounce || filters.searchText || ''}
+            searchQuery={localSearch}
             selectedDepartment={filters.departmentId?.toString() || ''}
             entities={[]}
             onSearchChange={handleSearchChange}

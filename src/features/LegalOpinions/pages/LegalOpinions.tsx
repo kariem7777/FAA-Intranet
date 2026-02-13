@@ -5,8 +5,9 @@ import { useTranslation } from '@/shared/hooks/useTranslation';
 import type { Enquiry } from '../types';
 import {
     fetchEnquiries, createEnquiry, setDepartmentFilter,
-    setPage, setPageSize, setSearchText, setStatusFilter, clearErrors,
+    setPage, setPageSize, setSearchText, setStatusFilter, clearErrors, resetFilters
 } from '../slices/EnquiriesSlice';
+import useDebounce from '@/shared/hooks/useDebouncing';
 import { LegalOpinionsPagination } from '../components';
 import {
     LegalOpinionsPageHeader,
@@ -31,17 +32,19 @@ export function LegalOpinions({ onBack, onOpinionSelect }: LegalOpinionsPageProp
 
     const departments = useSelector((state: RootState) => state.legislationSlice.departments.items);
     const { items, loading, error, pagination } = useSelector((state: RootState) => state.enquiries.enquiries);
-    const filters = useSelector((state: RootState) => state.enquiries.filters);
+    const filters = useSelector((state: RootState) => state.enquiries.enquiryFilters);
     const { createLoading, error: createError } = useSelector((state: RootState) => state.enquiries.enquiryActions);
+    const debounce = useDebounce();
 
     const currentUser = { role: 'user' as 'user' | 'admin', departmentId: 1 };
 
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [showReturnButton, setShowReturnButton] = useState(false);
 
+
     useEffect(() => {
         dispatch(setPageSize(10));
-    }, [dispatch]);
+    }, []);
 
     useEffect(() => {
         dispatch(fetchEnquiries({}));
@@ -67,7 +70,9 @@ export function LegalOpinions({ onBack, onOpinionSelect }: LegalOpinionsPageProp
     };
 
     const handleSearchSubmit = (query: string) => {
-        dispatch(setSearchText(query));
+        debounce(() => {
+            dispatch(setSearchText(query));
+        }, 500);
     };
 
     const handleAddEnquiry = async (title: string, description: string) => {

@@ -6,6 +6,7 @@ import { legislationService } from '@/features/Legislation/services/legislationS
 
 interface DocumentsManagementState {
   items: Document[];
+  selectedDocument: Document | null;
   entities: Entities[];
   categories: LawSubCategory[];
   pagination: {
@@ -42,6 +43,7 @@ interface DocumentsManagementState {
 
 const initialState: DocumentsManagementState = {
   items: [],
+  selectedDocument: null,
   entities: [],
   categories: [],
   pagination: {
@@ -75,6 +77,21 @@ const initialState: DocumentsManagementState = {
     selectedEntity: null,
   }
 };
+
+export const fetchDocumentDetails = createAsyncThunk(
+  'documentsManagement/fetchDocumentDetails',
+  async (id: number, { rejectWithValue }) => {
+    try {
+      const response = await documentsService.getDocumentById(id);
+      if (response.data) {
+        return response.data;
+      }
+      return rejectWithValue(response.message || 'Failed to fetch document details');
+    } catch (error: any) {
+      return rejectWithValue(error.message || 'Failed to fetch document details');
+    }
+  }
+);
 
 export const fetchDocuments = createAsyncThunk(
   'documentsManagement/fetchDocuments',
@@ -191,11 +208,10 @@ const documentsManagementSlice = createSlice({
     },
     setSelectedSubCategory: (state, action: PayloadAction<number | null>) => {
       state.filters.selectedSubCategory = action.payload;
-      state.filters.selectedCategory = null;
-      state.categories = [];
       state.pagination.pageNumber = 1;
     },
     setSelectedCategory: (state, action: PayloadAction<number | null>) => {
+      if (state.filters.selectedCategory === action.payload) return;
       state.filters.selectedCategory = action.payload;
       state.filters.selectedSubCategory = null;
       state.pagination.pageNumber = 1;
@@ -215,6 +231,12 @@ const documentsManagementSlice = createSlice({
       state.filters = initialState.filters;
       state.pagination = initialState.pagination;
     },
+    setSelectedDocument: (state, action: PayloadAction<Document | null>) => {
+      state.selectedDocument = action.payload;
+    },
+    clearSelectedDocument: (state) => {
+      state.selectedDocument = null;
+    },
     clearErrors: (state) => {
       state.error = initialState.error;
     }
@@ -233,8 +255,8 @@ const documentsManagementSlice = createSlice({
         pageSize: action.payload.pageSize,
         totalCount: action.payload.totalCount,
         totalPages: action.payload.totalPages,
-        hasNextPage: action.payload.hasNextPage,
-        hasPreviousPage: action.payload.hasPreviousPage
+        hasNextPage: (action.payload?.pageNumber || 1) < (action.payload?.totalPages || 0),
+        hasPreviousPage: (action.payload?.pageNumber || 1) > 1,
       };
     });
     builder.addCase(fetchDocuments.rejected, (state, action) => {
@@ -315,6 +337,20 @@ const documentsManagementSlice = createSlice({
       state.loading.delete = false;
       state.error.delete = action.payload as string;
     });
+
+    // Fetch Document Details
+    builder.addCase(fetchDocumentDetails.pending, (state) => {
+      state.loading.fetch = true;
+      state.error.fetch = null;
+    });
+    builder.addCase(fetchDocumentDetails.fulfilled, (state, action) => {
+      state.loading.fetch = false;
+      state.selectedDocument = action.payload;
+    });
+    builder.addCase(fetchDocumentDetails.rejected, (state, action) => {
+      state.loading.fetch = false;
+      state.error.fetch = action.payload as string;
+    });
   }
 });
 
@@ -326,6 +362,8 @@ export const {
   setPageNumber,
   setPageSize,
   resetFilters,
+  setSelectedDocument,
+  clearSelectedDocument,
   clearErrors
 } = documentsManagementSlice.actions;
 

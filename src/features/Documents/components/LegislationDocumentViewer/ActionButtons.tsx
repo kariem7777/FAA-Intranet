@@ -5,11 +5,9 @@ import { useTranslation } from '@/shared/hooks/useTranslation';
 interface ActionButtonsProps {
     onOpenInNewTab: () => void;
     onDownload: () => void;
-    accent: string;
-    primary: string;
 }
 
-export function ActionButtons({ onOpenInNewTab, onDownload, accent, primary }: ActionButtonsProps) {
+export function ActionButtons({ onOpenInNewTab, onDownload }: ActionButtonsProps) {
     const { t } = useTranslation();
 
     return (
@@ -18,12 +16,9 @@ export function ActionButtons({ onOpenInNewTab, onDownload, accent, primary }: A
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={onOpenInNewTab}
-                className="w-full px-6 py-3.5 rounded-lg transition-all hover:opacity-90 flex items-center justify-center gap-2"
+                className="w-full px-6 py-3.5 rounded-lg transition-all hover:opacity-90 flex items-center justify-center gap-2 font-base bg-faa-primary"
                 style={{
-                    backgroundColor: accent,
-                    color: '#FFFFFF',
-                    fontFamily: 'Dubai, Arial, sans-serif',
-                    fontSize: '15px',
+                    color: 'white',
                     fontWeight: 600,
                 }}
             >
@@ -35,12 +30,9 @@ export function ActionButtons({ onOpenInNewTab, onDownload, accent, primary }: A
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={onDownload}
-                className="w-full px-6 py-3.5 rounded-lg transition-all hover:opacity-90 flex items-center justify-center gap-2"
+                className="w-full px-6 py-3.5 rounded-lg transition-all hover:opacity-90 flex items-center justify-center gap-2 font-base bg-faa-primary"
                 style={{
-                    backgroundColor: primary,
-                    color: '#FFFFFF',
-                    fontFamily: 'Dubai, Arial, sans-serif',
-                    fontSize: '15px',
+                    color: 'white',
                     fontWeight: 600,
                 }}
             >

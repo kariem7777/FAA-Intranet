@@ -3,35 +3,32 @@ import { useSelector, useDispatch } from 'react-redux';
 import { FileText } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { AppDispatch, RootState } from '@/store';
-import { fetchDocuments, setPageNumber } from '@/features/Legislation/slices/legislationSlice';
+import { fetchDocuments, setPageNumber, setSelectedDocument } from '@/features/Documents/slices/documentsManagementSlice';
 import { LegislationDocumentCard } from './LegislationDocumentCard';
 import { useTranslation } from '@/shared/hooks/useTranslation';
-import type { LegislationDocument } from '../types';
+import type { Document } from '../../types';
 import { Shimmer } from '@/shared/components/Shimmer/Shimmer';
 
-export function LegislationDocumentList({ onViewDocument }: { onViewDocument?: (doc: LegislationDocument) => void }) {
-    const { isRTL, t } = useTranslation();
+export function LegislationDocumentList({ categoryId, onViewDocument }: { categoryId: number; onViewDocument?: (doc: Document) => void }) {
+    const { t } = useTranslation();
     const dispatch = useDispatch<AppDispatch>();
 
-    const { items: documents, loading, error, pagination } = useSelector((state: RootState) => state.legislation.documents);
-    const { selectedCategory, selectedEntity, searchQuery } = useSelector((state: RootState) => state.legislation.filters);
+    const { items: documents, loading, error, pagination, filters } = useSelector((state: RootState) => state.documentsManagement);
 
     useEffect(() => {
-        dispatch(fetchDocuments());
-    }, [dispatch, selectedCategory, selectedEntity, searchQuery, pagination.pageNumber]);
+        if (filters.selectedCategory === categoryId) {
+            dispatch(fetchDocuments());
+        }
+    }, [dispatch, categoryId, filters.selectedCategory, filters.selectedSubCategory, filters.selectedEntity, filters.searchQuery, pagination.pageNumber]);
 
     const handlePageChange = (newPage: number) => {
         dispatch(setPageNumber(newPage));
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    const colors = {
-        bgWhite: '#FFFFFF',
-        textSecondary: '#5A5A5A',
-        accent: '#C9A24D',
-    };
 
-    if (loading) {
+
+    if (loading.fetch) {
         return (
             <motion.div
                 initial={{ opacity: 0 }}
@@ -45,7 +42,7 @@ export function LegislationDocumentList({ onViewDocument }: { onViewDocument?: (
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: i * 0.1 }}
-                        className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm flex items-start gap-4"
+                        className="bg-white rounded-xl p-6 border border-faa-primary/10 shadow-sm flex items-start gap-4"
                     >
                         <Shimmer width={48} height={48} rounded="rounded-lg" className="shrink-0" />
                         <div className="flex-1 space-y-3">
@@ -61,7 +58,7 @@ export function LegislationDocumentList({ onViewDocument }: { onViewDocument?: (
         );
     }
 
-    if (error) {
+    if (error.fetch) {
         return (
             <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -75,28 +72,7 @@ export function LegislationDocumentList({ onViewDocument }: { onViewDocument?: (
                 <h3 className="text-lg font-semibold text-gray-900 mb-1">
                     {t('common.somethingWentWrong')}
                 </h3>
-                <p className="text-gray-500 mb-4">{error}</p>
-            </motion.div>
-        );
-    }
-
-    if (!selectedEntity && !selectedCategory) {
-        return (
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4 }}
-                className="text-center py-24 bg-white rounded-xl border border-dashed border-gray-200"
-            >
-                <div className="bg-gray-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <FileText className="w-10 h-10 text-gray-400" />
-                </div>
-                <h3 className="mb-2 text-xl font-bold text-gray-900" style={{ fontFamily: 'Dubai, Arial, sans-serif' }}>
-                    {t('legislation.selectEntityToView')}
-                </h3>
-                <p className="text-gray-500 max-w-sm mx-auto" style={{ fontFamily: 'Dubai, Arial, sans-serif' }}>
-                    {t('legislation.selectEntityDescription')}
-                </p>
+                <p className="text-gray-500 mb-4">{error.fetch}</p>
             </motion.div>
         );
     }
@@ -107,15 +83,15 @@ export function LegislationDocumentList({ onViewDocument }: { onViewDocument?: (
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
-                className="text-center py-24 bg-white rounded-xl border border-dashed border-gray-200"
+                className="text-center py-24 bg-white rounded-xl border border-dashed border-faa-primary/30"
             >
                 <div className="bg-gray-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
                     <FileText className="w-10 h-10 text-gray-400" />
                 </div>
-                <h3 className="mb-2 text-xl font-bold text-gray-900" style={{ fontFamily: 'Dubai, Arial, sans-serif' }}>
+                <h3 className="mb-2 text-xl font-bold text-gray-900">
                     {t('common.noResultsFound')}
                 </h3>
-                <p className="text-gray-500 max-w-sm mx-auto" style={{ fontFamily: 'Dubai, Arial, sans-serif' }}>
+                <p className="text-gray-500 max-w-sm mx-auto">
                     {t('legislation.adjustSearchCriteria')}
                 </p>
             </motion.div>
@@ -134,14 +110,13 @@ export function LegislationDocumentList({ onViewDocument }: { onViewDocument?: (
             <motion.p
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="mb-4 text-sm font-medium"
-                style={{ color: colors.textSecondary, fontFamily: 'Dubai, Arial, sans-serif' }}
+                className="mb-4 text-sm font-medium text-secondary"
             >
                 {t('legislation.documentCount', { count: pagination.totalCount })}
             </motion.p>
 
             <AnimatePresence mode="wait">
-                {documents.map((doc, index) => (
+                {documents.map((doc: Document, index: number) => (
                     <motion.div
                         key={doc.id}
                         initial={{ opacity: 0, y: 20 }}
@@ -149,7 +124,13 @@ export function LegislationDocumentList({ onViewDocument }: { onViewDocument?: (
                         exit={{ opacity: 0, y: -20 }}
                         transition={{ delay: index * 0.05, duration: 0.3 }}
                     >
-                        <LegislationDocumentCard document={doc} onView={onViewDocument} />
+                        <LegislationDocumentCard
+                            document={doc}
+                            onView={(document) => {
+                                dispatch(setSelectedDocument(document));
+                                onViewDocument?.(document);
+                            }}
+                        />
                     </motion.div>
                 ))}
             </AnimatePresence>

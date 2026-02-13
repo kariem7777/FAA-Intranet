@@ -34,7 +34,8 @@ interface EnquiriesState {
     replyLoading: boolean;
     error: string | null;
   };
-  filters: EnquiriesFilters;
+  enquiryFilters: EnquiriesFilters;
+  approvedFilters: EnquiriesFilters;
   approvedOpinions: {
     items: Enquiry[];
     loading: boolean;
@@ -76,7 +77,12 @@ const initialState: EnquiriesState = {
     replyLoading: false,
     error: null,
   },
-  filters: {
+  enquiryFilters: {
+    searchText: '',
+    departmentId: '',
+    status: '',
+  },
+  approvedFilters: {
     searchText: '',
     departmentId: '',
     status: '',
@@ -111,7 +117,7 @@ export const fetchEnquiries = createAsyncThunk(
   ) => {
     try {
       const state = getState() as { enquiries: EnquiriesState };
-      const currentFilters = state.enquiries.filters;
+      const currentFilters = state.enquiries.enquiryFilters;
       const currentPagination = state.enquiries.enquiries.pagination;
 
       const requestParams = {
@@ -204,13 +210,25 @@ export const fetchApprovedOpinions = createAsyncThunk(
   async (
     params: {
       searchText?: string;
+      departmentId?: number | string;
       pageNumber?: number;
       pageSize?: number;
     } = {},
-    { rejectWithValue }
+    { getState, rejectWithValue }
   ) => {
     try {
-      const response = await enquiriesService.getApprovedReplies(params);
+      const state = getState() as { enquiries: EnquiriesState };
+      const currentFilters = state.enquiries.approvedFilters;
+      const currentPagination = state.enquiries.approvedOpinions.pagination;
+
+      const requestParams = {
+        searchText: params?.searchText ?? currentFilters.searchText,
+        departmentId: params?.departmentId ?? currentFilters.departmentId,
+        pageNumber: params?.pageNumber ?? currentPagination.pageNumber,
+        pageSize: params?.pageSize ?? currentPagination.pageSize,
+      };
+
+      const response = await enquiriesService.getApprovedReplies(requestParams);
       return response;
     } catch (error: unknown) {
       const errorMessage = error instanceof Error ? error.message : 'Failed to fetch approved opinions';
@@ -224,34 +242,53 @@ const enquiriesSlice = createSlice({
   name: 'enquiries',
   initialState,
   reducers: {
+    // Enquiry Filters
     setSearchText: (state, action: PayloadAction<string>) => {
-      state.filters.searchText = action.payload;
-      state.enquiries.pagination.pageNumber = 1; // Reset to page 1 when search changes
+      state.enquiryFilters.searchText = action.payload;
+      state.enquiries.pagination.pageNumber = 1;
     },
     setDepartmentFilter: (state, action: PayloadAction<number | string>) => {
-      state.filters.departmentId = action.payload;
-      state.enquiries.pagination.pageNumber = 1; // Reset to page 1 when filter changes
+      state.enquiryFilters.departmentId = action.payload;
+      state.enquiries.pagination.pageNumber = 1;
     },
     setStatusFilter: (state, action: PayloadAction<number | string>) => {
-      state.filters.status = action.payload;
-      state.enquiries.pagination.pageNumber = 1; // Reset to page 1 when filter changes
+      state.enquiryFilters.status = action.payload;
+      state.enquiries.pagination.pageNumber = 1;
     },
+
+    // Approved Filters
+    setApprovedSearchText: (state, action: PayloadAction<string>) => {
+      state.approvedFilters.searchText = action.payload;
+      state.approvedOpinions.pagination.pageNumber = 1;
+    },
+    setApprovedDepartmentFilter: (state, action: PayloadAction<number | string>) => {
+      state.approvedFilters.departmentId = action.payload;
+      state.approvedOpinions.pagination.pageNumber = 1;
+    },
+
     setPage: (state, action: PayloadAction<number>) => {
       state.enquiries.pagination.pageNumber = action.payload;
     },
+    setApprovedPage: (state, action: PayloadAction<number>) => {
+      state.approvedOpinions.pagination.pageNumber = action.payload;
+    },
     setPageSize: (state, action: PayloadAction<number>) => {
       state.enquiries.pagination.pageSize = action.payload;
-      state.enquiries.pagination.pageNumber = 1; // Reset to page 1 when page size changes
+      state.enquiries.pagination.pageNumber = 1;
     },
     clearSelectedEnquiry: (state) => {
       state.selectedEnquiry.data = null;
       state.selectedEnquiry.error = null;
     },
     resetFilters: (state) => {
-      state.filters.searchText = '';
-      state.filters.departmentId = '';
-      state.filters.status = '';
+      state.enquiryFilters.searchText = '';
+      state.enquiryFilters.departmentId = '';
+      state.enquiryFilters.status = '';
       state.enquiries.pagination.pageNumber = 1;
+
+      state.approvedFilters.searchText = '';
+      state.approvedFilters.departmentId = '';
+      state.approvedOpinions.pagination.pageNumber = 1;
     },
     clearErrors: (state) => {
       state.enquiries.error = null;
@@ -403,7 +440,10 @@ export const {
   setSearchText,
   setDepartmentFilter,
   setStatusFilter,
+  setApprovedSearchText,
+  setApprovedDepartmentFilter,
   setPage,
+  setApprovedPage,
   setPageSize,
   clearSelectedEnquiry,
   resetFilters,

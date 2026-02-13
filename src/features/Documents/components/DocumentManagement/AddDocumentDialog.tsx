@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 import { Dialog } from '@/shared/components/Dialog/Dialog';
 import { Button } from '@/shared/components/ui/button';
 import { Input } from '@/shared/components/ui/input';
+import { Select } from '@/shared/components/ui/select';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { Upload, X, FileText } from 'lucide-react';
 import { addDocument } from '../../slices/documentsManagementSlice';
@@ -39,7 +40,7 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
     // Fetch sub-categories when category changes
     useEffect(() => {
         if (categoryId && categoryId !== 0) {
-            dispatch(fetchSubCategoriesByCategory(categoryId));
+            dispatch(fetchSubCategoriesByCategory({ categoryId }));
             setSubCategoryId(0); // Reset sub-category when category changes
         }
     }, [categoryId, dispatch]);
@@ -137,10 +138,9 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
                     <label className="block text-sm font-medium mb-2" style={{ color: 'var(--color-dashboard-primary)' }}>
                         {t('legislation.documentsManagement.dialogs.add.entity')}
                     </label>
-                    <select
+                    <Select
                         value={entityId}
                         onChange={(e) => setEntityId(Number(e.target.value))}
-                        className="w-full px-3 py-2 border rounded-md"
                         required
                     >
                         <option value={0}>{t('legislation.documentsManagement.dialogs.add.selectEntity')}</option>
@@ -149,7 +149,7 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
                                 {isArabic ? entity.entityNameAr : entity.entityName}
                             </option>
                         ))}
-                    </select>
+                    </Select>
                 </div>
 
                 {/* Category */}
@@ -157,13 +157,12 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
                     <label className="block text-sm font-medium mb-2" style={{ color: 'var(--color-dashboard-primary)' }}>
                         {t('legislation.documentsManagement.dialogs.add.category')}
                     </label>
-                    <select
+                    <Select
                         value={categoryId}
                         onChange={(e) => {
                             setCategoryId(Number(e.target.value));
                             setSubCategoryId(0); // Reset sub-category when category changes
                         }}
-                        className="w-full px-3 py-2 border rounded-md"
                         required
                     >
                         <option value={0}>{t('legislation.documentsManagement.dialogs.add.selectCategory')}</option>
@@ -172,7 +171,7 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
                                 {isArabic ? cat.lawCategoryAr : cat.lawCategoryEn}
                             </option>
                         ))}
-                    </select>
+                    </Select>
                 </div>
 
                 {/* Sub Category */}
@@ -180,10 +179,9 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
                     <label className="block text-sm font-medium mb-2" style={{ color: 'var(--color-dashboard-primary)' }}>
                         {t('legislation.documentsManagement.dialogs.add.subCategory')}
                     </label>
-                    <select
+                    <Select
                         value={subCategoryId}
                         onChange={(e) => setSubCategoryId(Number(e.target.value))}
-                        className="w-full px-3 py-2 border rounded-md"
                         required
                         disabled={!categoryId || subCategories.loading}
                     >
@@ -201,7 +199,7 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
                                 {isArabic ? cat.lawSubCategoryAr : cat.lawSubCategoryEn}
                             </option>
                         ))}
-                    </select>
+                    </Select>
                     {subCategories.error && (
                         <p className="text-red-500 text-sm mt-1">{subCategories.error}</p>
                     )}
@@ -248,14 +246,13 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
                     <label className="block text-sm font-medium mb-2" style={{ color: 'var(--color-dashboard-primary)' }}>
                         {t('legislation.documentsManagement.dialogs.add.classification')}
                     </label>
-                    <select
+                    <Select
                         value={classification}
                         onChange={(e) => setClassification(Number(e.target.value))}
-                        className="w-full px-3 py-2 border rounded-md"
                     >
                         <option value={1}>{t('legislation.documentsManagement.public')}</option>
                         <option value={2}>{t('legislation.documentsManagement.secret')}</option>
-                    </select>
+                    </Select>
                 </div>
 
                 {/* File Upload */}

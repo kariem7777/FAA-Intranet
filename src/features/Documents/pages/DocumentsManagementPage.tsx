@@ -1,7 +1,8 @@
 import { useState, useEffect, type Key } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Search, ChevronDown } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { Input } from '@/shared/components/ui/input';
+import { Select } from '@/shared/components/ui/select';
 import { DeleteConfirmationDialog } from '../components/DocumentManagement/DeleteConfirmationDialog';
 import { AddDocumentDialog } from '../components/DocumentManagement/AddDocumentDialog';
 import { EditDocumentDialog } from '../components/DocumentManagement/EditDocumentDialog';
@@ -41,7 +42,7 @@ export function DocumentsManagementPage({ }: DocumentsManagementPageProps) {
     if (filters.selectedCategory && filters.selectedCategory !== null) {
       const categoryId = Number(filters.selectedCategory);
       if (!isNaN(categoryId)) {
-        dispatch(fetchSubCategoriesByCategory(categoryId));
+        dispatch(fetchSubCategoriesByCategory({ categoryId }));
       }
     }
   }, [dispatch, filters.selectedCategory]);
@@ -97,8 +98,7 @@ export function DocumentsManagementPage({ }: DocumentsManagementPageProps) {
                 placeholder={t('legislation.documentsManagement.searchPlaceholder')}
                 value={filters.searchQuery}
                 onChange={(e) => dispatch(setSearchQuery(e.target.value))}
-                className={`${isArabic ? 'pr-14 pl-6' : 'pl-14 pr-6'} h-16 bg-[#F3F4F6] border-1 outline-none! focus:border-[var(--color-faa-primary)]! focus:bg-white transition-all duration-300 text-[18px] text-[#1D293D] rounded-xl shadow-inner`}
-                style={{ fontFamily, fontWeight: 500 }}
+                className={`${isArabic ? 'pr-14' : 'pl-14'} h-16 text-[18px] rounded-xl bg-[#F3F4F6] border-faa-primary/30`}
               />
             </div>
           </div>
@@ -115,11 +115,10 @@ export function DocumentsManagementPage({ }: DocumentsManagementPageProps) {
                     {t('legislation.documentsManagement.entity')}
                   </label>
                   <div className="relative">
-                    <select
+                    <Select
                       value={filters.selectedEntity || 'null'}
                       onChange={(e) => dispatch(setSelectedEntity(e.target.value == 'null' ? null : Number(e.target.value)))}
-                      className={`w-full h-14 px-5 bg-[#F9FAFB] border-2 border-[#E5E7EB] hover:border-[var(--color-faa-primary)] focus:border-[var(--color-faa-primary)] text-[#1D293D] appearance-none transition-all duration-200 cursor-pointer text-[16px] outline-none ${isArabic ? 'pr-5 pl-12' : 'pl-5 pr-12'}`}
-                      style={{ fontFamily, fontWeight: 600, borderRadius: '10px' }}
+                      className="h-14 bg-[#F9FAFB] border-faa-primary/30"
                     >
                       <option value='null'>{t('legislation.documentsManagement.allEntities')}</option>
                       {entities.items.map(entity => (
@@ -127,8 +126,7 @@ export function DocumentsManagementPage({ }: DocumentsManagementPageProps) {
                           {isArabic ? entity.entityNameAr : entity.entityName}
                         </option>
                       ))}
-                    </select>
-                    <ChevronDown className={`absolute ${isArabic ? 'left-4' : 'right-4'} top-1/2 -translate-y-1/2 h-5 w-5 text-[#9CA3AF] pointer-events-none transition-transform duration-200`} />
+                    </Select>
                   </div>
                 </div>
 
@@ -138,11 +136,10 @@ export function DocumentsManagementPage({ }: DocumentsManagementPageProps) {
                     {t('legislation.documentsManagement.category')}
                   </label>
                   <div className="relative">
-                    <select
+                    <Select
                       value={filters.selectedCategory || 'null'}
                       onChange={(e) => dispatch(setSelectedCategory(e.target.value == 'null' ? null : Number(e.target.value)))}
-                      className={`w-full h-14 px-5 bg-[#F9FAFB] border-2 border-[#E5E7EB] hover:border-[var(--color-faa-primary)] focus:border-[var(--color-faa-primary)] text-[#1D293D] appearance-none transition-all duration-200 cursor-pointer text-[16px] outline-none ${isArabic ? 'pr-5 pl-12' : 'pl-5 pr-12'}`}
-                      style={{ fontFamily, fontWeight: 600, borderRadius: '10px' }}
+                      className="h-14 bg-[#F9FAFB] border-gray-200"
                     >
                       <option value="null">{t('legislation.documentsManagement.allCategories')}</option>
                       {categories.items.map(category => (
@@ -150,8 +147,7 @@ export function DocumentsManagementPage({ }: DocumentsManagementPageProps) {
                           {isArabic ? category.lawCategoryAr : (category.lawCategoryEn)}
                         </option>
                       ))}
-                    </select>
-                    <ChevronDown className={`absolute ${isArabic ? 'left-4' : 'right-4'} top-1/2 -translate-y-1/2 h-5 w-5 text-[#9CA3AF] pointer-events-none`} />
+                    </Select>
                   </div>
                 </div>
 
@@ -162,11 +158,10 @@ export function DocumentsManagementPage({ }: DocumentsManagementPageProps) {
                       {isArabic ? 'التصنيف الفرعي' : 'Sub-Category'}
                     </label>
                     <div className="relative">
-                      <select
+                      <Select
                         value={filters.selectedSubCategory || 'null'}
                         onChange={(e) => dispatch(setSelectedSubCategory(e.target.value == 'null' ? null : Number(e.target.value)))}
-                        className={`w-full h-14 px-5 bg-[#F9FAFB] border-2 border-[#E5E7EB] hover:border-[var(--color-faa-primary)] focus:border-[var(--color-faa-primary)] text-[#1D293D] appearance-none transition-all duration-200 cursor-pointer text-[16px] outline-none ${isArabic ? 'pr-5 pl-12' : 'pl-5 pr-12'}`}
-                        style={{ fontFamily, fontWeight: 600, borderRadius: '10px' }}
+                        className="h-14 bg-[#F9FAFB] border-faa-primary/30"
                         disabled={subCategories.loading}
                       >
                         <option value="null">
@@ -179,8 +174,7 @@ export function DocumentsManagementPage({ }: DocumentsManagementPageProps) {
                             {isArabic ? subCategory.lawSubCategoryAr : subCategory.lawSubCategoryEn}
                           </option>
                         ))}
-                      </select>
-                      <ChevronDown className={`absolute ${isArabic ? 'left-4' : 'right-4'} top-1/2 -translate-y-1/2 h-5 w-5 text-[#9CA3AF] pointer-events-none`} />
+                      </Select>
                     </div>
                   </div>
                 )}
@@ -188,7 +182,7 @@ export function DocumentsManagementPage({ }: DocumentsManagementPageProps) {
                 {/* Reset Button */}
                 <button
                   onClick={() => dispatch(resetFilters())}
-                  className="h-14 px-8 flex items-center gap-3 bg-white border-2 border-gray-200 text-[#4B5563] hover:bg-gray-50 hover:border-gray-300 hover:text-[#1D293D] transition-all duration-300 shadow-md group active:scale-95"
+                  className="h-14 px-8 flex items-center gap-3 bg-white border-2 border-faa-primary/30 text-[#4B5563] hover:bg-gray-50 hover:border-faa-primary/50 hover:text-[#1D293D] transition-all duration-300 shadow-md group active:scale-95"
                   style={{ borderRadius: '10px', fontFamily, fontWeight: 700 }}
                   title={isArabic ? 'إعادة ضبط الفلاتر' : 'Reset Filters'}
                 >

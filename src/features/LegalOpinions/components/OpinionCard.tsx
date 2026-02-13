@@ -16,7 +16,7 @@ export function OpinionCard({
 
     return (
         <div
-            className="bg-white rounded-lg border border-gray-200 p-6 transition-all duration-200 cursor-pointer hover:shadow-lg hover:scale-[1.02]"
+            className="bg-white rounded-lg border border-faa-primary/20 p-6 transition-all duration-200 cursor-pointer hover:shadow-lg hover:scale-[1.02]"
             style={{
                 borderInlineStart: '4px solid transparent',
             }}

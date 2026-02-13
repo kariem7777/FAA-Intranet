@@ -5,36 +5,24 @@ interface MetadataItemProps {
     icon: LucideIcon;
     label: string;
     value: ReactNode;
-    fontSizeMultiplier?: number;
-    bgOffWhite: string;
-    primary: string;
-    textSecondary: string;
-    textPrimary: string;
 }
 
 export function MetadataItem({
     icon: Icon,
     label,
     value,
-    fontSizeMultiplier = 1,
-    bgOffWhite,
-    primary,
-    textSecondary,
-    textPrimary,
 }: MetadataItemProps) {
     return (
         <div className="flex items-start gap-3">
-            <div className="p-2 rounded-lg mt-1" style={{ backgroundColor: bgOffWhite }}>
-                <Icon className="w-5 h-5" style={{ color: primary }} />
+            <div className="p-2 rounded-lg mt-1 bg-faa-primary/10">
+                <Icon className="w-5 h-5 " style={{ color: 'var(--color-faa-primary)' }} />
             </div>
             <div className="flex-1">
                 <p
-                    className="mb-1"
+                    className="mb-1 text-gray-500"
                     style={{
-                        fontFamily: 'Dubai, Arial, sans-serif',
-                        fontSize: `${13 * fontSizeMultiplier}px`,
-                        fontWeight: 600,
-                        color: textSecondary,
+                        fontSize: `var(--font-size-xs)`,
+                        fontWeight: 500,
                         textTransform: 'uppercase',
                         letterSpacing: '0.5px',
                     }}
@@ -43,10 +31,9 @@ export function MetadataItem({
                 </p>
                 <div
                     style={{
-                        fontFamily: 'Dubai, Arial, sans-serif',
-                        fontSize: `${16 * fontSizeMultiplier}px`,
-                        fontWeight: 600,
-                        color: textPrimary,
+                        fontSize: `var(--font-size-base)`,
+                        fontWeight: 500,
+                        color: 'var(--color-text-primary)',
                     }}
                 >
                     {value}
