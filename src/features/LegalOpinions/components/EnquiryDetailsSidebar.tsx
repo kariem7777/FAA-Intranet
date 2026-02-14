@@ -56,7 +56,6 @@ export function EnquiryDetailsSidebar({
             <h3
                 className="mb-6 pb-4 border-b text-lg font-semibold"
                 style={{
-                    color: 'var(--color-dashboard-primary)',
                     borderColor: 'rgba(144, 142, 129, 0.3)'
                 }}
             >

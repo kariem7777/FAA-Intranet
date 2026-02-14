@@ -33,14 +33,17 @@ export function ApprovedLegalOpinionsPage() {
   const [localSearch, setLocalSearch] = useState(filters.searchText || '');
   const debounce = useDebounce();
 
-  // Sync local search with Redux state (important for reset)
+
+  useEffect(() => {
+    dispatch(resetFilters());
+  }, [])
+
   useEffect(() => {
     setLocalSearch(filters.searchText || '');
   }, [filters.searchText]);
 
   // Fetch data on mount
   useEffect(() => {
-    dispatch(resetFilters());
     dispatch(fetchApprovedOpinions({}));
   }, [dispatch]);
 

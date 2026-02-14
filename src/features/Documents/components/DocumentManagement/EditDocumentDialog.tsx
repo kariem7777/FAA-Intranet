@@ -100,32 +100,46 @@ export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDi
             onClose={onClose}
             title={t('legislation.documentsManagement.dialogs.edit.title')}
             size="fullscreen"
-            className={'max-w-[1800px]! max-h-[1100px]!'}
+            className={'max-w-[1800px]! max-h-[970px]!'}
         >
             <form onSubmit={handleSubmit} dir={isArabic ? 'rtl' : 'ltr'} className="space-y-4">
-                {/* Document Name English */}
-                <div>
-                    <label className="block text-sm font-medium mb-2" style={{ color: 'var(--color-dashboard-primary)' }}>
-                        {t('legislation.documentsManagement.dialogs.edit.documentNameEn')}
-                    </label>
-                    <Input
-                        type="text"
-                        value={documentNameEn}
-                        onChange={(e) => setDocumentNameEn(e.target.value)}
-                        required
-                    />
-                </div>
+                {/* Document Name and Law Number Row */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {/* Document Name English */}
+                    <div>
+                        <label className="block text-sm font-medium mb-2" style={{ color: 'var(--color-dashboard-primary)' }}>
+                            {t('legislation.documentsManagement.dialogs.edit.documentNameEn')}
+                        </label>
+                        <Input
+                            type="text"
+                            value={documentNameEn}
+                            onChange={(e) => setDocumentNameEn(e.target.value)}
+                            required
+                        />
+                    </div>
 
-                {/* Document Name Arabic */}
+                    {/* Document Name Arabic */}
+                    <div>
+                        <label className="block text-sm font-medium mb-2" style={{ color: 'var(--color-dashboard-primary)' }}>
+                            {t('legislation.documentsManagement.dialogs.edit.documentNameAr')}
+                        </label>
+                        <Input
+                            type="text"
+                            value={documentNameAr}
+                            onChange={(e) => setDocumentNameAr(e.target.value)}
+                            required
+                        />
+                    </div>
+                </div>
+                {/* Law Number (Unique Column) */}
                 <div>
                     <label className="block text-sm font-medium mb-2" style={{ color: 'var(--color-dashboard-primary)' }}>
-                        {t('legislation.documentsManagement.dialogs.edit.documentNameAr')}
+                        {t('legislation.documentsManagement.dialogs.edit.lawNumber')}
                     </label>
                     <Input
                         type="text"
-                        value={documentNameAr}
-                        onChange={(e) => setDocumentNameAr(e.target.value)}
-                        required
+                        value={lawNumber}
+                        onChange={(e) => setLawNumber(e.target.value)}
                     />
                 </div>
 
@@ -201,41 +215,33 @@ export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDi
                     )}
                 </div>
 
-                {/* Law Number */}
-                <div>
-                    <label className="block text-sm font-medium mb-2" style={{ color: 'var(--color-dashboard-primary)' }}>
-                        {t('legislation.documentsManagement.dialogs.edit.lawNumber')}
-                    </label>
-                    <Input
-                        type="text"
-                        value={lawNumber}
-                        onChange={(e) => setLawNumber(e.target.value)}
-                    />
+                {/*Law Name English  */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {/* Law Name English */}
+                    <div>
+                        <label className="block text-sm font-medium mb-2" style={{ color: 'var(--color-dashboard-primary)' }}>
+                            {t('legislation.documentsManagement.dialogs.edit.lawNameEn')}
+                        </label>
+                        <Input
+                            type="text"
+                            value={lawNameEn}
+                            onChange={(e) => setLawNameEn(e.target.value)}
+                        />
+                    </div>
+
+                    {/* Law Name Arabic */}
+                    <div>
+                        <label className="block text-sm font-medium mb-2" style={{ color: 'var(--color-dashboard-primary)' }}>
+                            {t('legislation.documentsManagement.dialogs.edit.lawNameAr')}
+                        </label>
+                        <Input
+                            type="text"
+                            value={lawNameAr}
+                            onChange={(e) => setLawNameAr(e.target.value)}
+                        />
+                    </div>
                 </div>
 
-                {/* Law Name English */}
-                <div>
-                    <label className="block text-sm font-medium mb-2" style={{ color: 'var(--color-dashboard-primary)' }}>
-                        {t('legislation.documentsManagement.dialogs.edit.lawNameEn')}
-                    </label>
-                    <Input
-                        type="text"
-                        value={lawNameEn}
-                        onChange={(e) => setLawNameEn(e.target.value)}
-                    />
-                </div>
-
-                {/* Law Name Arabic */}
-                <div>
-                    <label className="block text-sm font-medium mb-2" style={{ color: 'var(--color-dashboard-primary)' }}>
-                        {t('legislation.documentsManagement.dialogs.edit.lawNameAr')}
-                    </label>
-                    <Input
-                        type="text"
-                        value={lawNameAr}
-                        onChange={(e) => setLawNameAr(e.target.value)}
-                    />
-                </div>
 
                 {/* Classification */}
                 <div>

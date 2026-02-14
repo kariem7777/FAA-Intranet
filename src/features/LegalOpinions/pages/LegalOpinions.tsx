@@ -41,7 +41,9 @@ export function LegalOpinions({ onBack, onOpinionSelect }: LegalOpinionsPageProp
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [showReturnButton, setShowReturnButton] = useState(false);
 
-
+    useEffect(() => {
+        dispatch(resetFilters());
+    }, [])
     useEffect(() => {
         dispatch(setPageSize(10));
     }, []);

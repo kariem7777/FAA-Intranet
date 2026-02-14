@@ -13,7 +13,7 @@ import type { Document } from '../types';
 import { fetchDocuments, setPageNumber, setSearchQuery, setSelectedSubCategory, setSelectedEntity, setSelectedCategory, resetFilters } from '../slices/documentsManagementSlice';
 import { fetchSubCategoriesByCategory } from '@/features/Legislation/slices/legislationSlice';
 import { LegislationHero } from '@/features/Legislation/components/LegislationHero/LegislationHero';
-import { RotateCcw, Filter } from 'lucide-react';
+import { RotateCcw } from 'lucide-react';
 
 interface DocumentsManagementPageProps {
   onAddDocument: () => void;
@@ -32,6 +32,10 @@ export function DocumentsManagementPage({ }: DocumentsManagementPageProps) {
   const [editDocument, setEditDocument] = useState<Document | null>(null);
   const [deleteDocument, setDeleteDocument] = useState<Document | null>(null);
   const [viewingDocumentId, setViewingDocumentId] = useState<number | null>(null);
+
+  useEffect(() => {
+    dispatch(resetFilters());
+  }, [])
 
   useEffect(() => {
     dispatch(fetchDocuments());
