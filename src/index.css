@@ -137,7 +137,72 @@
     font-weight: inherit;
   }
 
-  a {
+  .quill-viewer {
+  direction: auto;
+  text-align: start;
+}
+
+.quill-viewer img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.quill-viewer .ql-video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  display: block;
+}
+/* Font family mapping */
+.ql-font-serif { font-family: Georgia, "Times New Roman", serif; }
+.ql-font-monospace { font-family: Menlo, Monaco, Consolas, "Courier New", monospace; }
+.ql-font-sans { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+
+/* Font size mapping (if you use px whitelist) */
+.ql-size-12px { font-size: 12px; }
+.ql-size-14px { font-size: 14px; }
+.ql-size-16px { font-size: 16px; }
+.ql-size-18px { font-size: 18px; }
+.ql-size-20px { font-size: 20px; }
+.ql-size-24px { font-size: 24px; }
+.ql-size-28px { font-size: 28px; }
+.ql-size-32px { font-size: 32px; }
+/* ---------- Size picker labels (show px names) ---------- */
+.ql-snow .ql-picker.ql-size .ql-picker-label::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item::before {
+  content: "15px"; /* default label */
+}
+
+.ql-size-12px { font-size: 12px; }
+.ql-size-14px { font-size: 14px; }
+.ql-size-16px { font-size: 16px; }
+.ql-size-18px { font-size: 18px; }
+.ql-size-20px { font-size: 20px; }
+.ql-size-24px { font-size: 24px; }
+.ql-size-28px { font-size: 28px; }
+.ql-size-32px { font-size: 32px; }
+  
+/* REMOVE "Normal" completely */
+.ql-snow .ql-picker.ql-size .ql-picker-label::before {
+  content: attr(data-value) !important;
+}
+
+/* If nothing selected → default to 16px */
+.ql-snow .ql-picker.ql-size .ql-picker-label:not([data-value])::before {
+  content: "16px" !important;
+}
+
+/* Dropdown items */
+.ql-snow .ql-picker.ql-size .ql-picker-item::before {
+  content: attr(data-value) !important;
+}
+
+/* Hide empty default option */
+.ql-snow .ql-picker.ql-size .ql-picker-item:not([data-value]) {
+  display: none !important;
+}
+a {
     color: inherit;
     -webkit-text-decoration: inherit;
     -webkit-text-decoration: inherit;

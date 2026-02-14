@@ -1,9 +1,10 @@
 import { createRoot } from 'react-dom/client'
-import './index.css'
 import { ReduxProvider, ToastProvider, DialogPortalProvider, MsalAuthProvider } from './providers'
 import './i18n';
 import AppRouter from './AppRouter';
 import { msalInstance } from './features/authentication';
+import "quill/dist/quill.snow.css";
+import './index.css'
 
 if ('scrollRestoration' in window.history) {
   window.history.scrollRestoration = 'manual';

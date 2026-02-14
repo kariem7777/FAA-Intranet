@@ -2,6 +2,7 @@ import { Dialog } from '@/shared/components/Dialog';
 import { useTranslation } from '@/shared/hooks/useTranslation';
 import type { EnquiryReply } from '../../types';
 import { Building2, X } from 'lucide-react';
+import { QuillViewer } from '@/shared/components/QuillViewer';
 
 interface MessageDetailsDialogProps {
     message: EnquiryReply;
@@ -51,10 +52,7 @@ export function MessageDetailsDialog({ message, senderName, onClose }: MessageDe
                         className={`bg-gray-50 p-5 rounded-xl ${isRTL ? 'border-r-4' : 'border-l-4'} overflow-y-auto max-h-[60vh]`}
                         style={{ borderColor: 'var(--color-legislation-accent)' }}
                     >
-                        <div
-                            className="text-gray-700 text-[17px] leading-[1.7] break-words whitespace-pre-wrap"
-                            dangerouslySetInnerHTML={{ __html: message.content }}
-                        />
+                        <QuillViewer html={message.content} isLineClamp={false} />
                     </div>
                 </div>
 

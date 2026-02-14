@@ -41,9 +41,9 @@ interface LegalOpinionDetailPageProps {
   fontSizeMultiplier?: number;
 }
 
-export function LegalOpinionDetailPage({ 
-  opinion, 
-  onBack, 
+export function LegalOpinionDetailPage({
+  opinion,
+  onBack,
   userRole = 'user',
   onReply,
   onDelete,
@@ -214,7 +214,7 @@ export function LegalOpinionDetailPage({
   // Handle reply submission
   const handleReplySubmit = () => {
     if (!replyText || replyText === '<p><br></p>') return;
-    
+
     // Show confirmation dialog
     setShowSubmitConfirm(true);
   };
@@ -230,14 +230,14 @@ export function LegalOpinionDetailPage({
       date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }),
       senderName: userRole === 'admin' ? 'FAA Legal Team' : getDepartmentName(opinion.department),
     };
-    
+
     setConversationHistory([...conversationHistory, newMessage]);
     setReplyText('');
     setIsReplyMode(false);
     setShowSubmitConfirm(false);
     setShowSuccessMessage(true);
     setSuccessMessage(t.replySuccess);
-    
+
     // Also call the original onReply if provided
     if (onReply) {
       onReply(opinion.id, replyText);
@@ -287,7 +287,7 @@ export function LegalOpinionDetailPage({
     const text = isArabic ? message.messageAr : message.messageEn;
     const strippedText = text.replace(/<[^>]*>/g, '');
     if (strippedText.length <= 200) return text;
-    
+
     // Truncate to 300 characters
     return strippedText.substring(0, 200) + '...';
   };
@@ -298,7 +298,7 @@ export function LegalOpinionDetailPage({
       const text = isArabic ? message.messageAr : message.messageEn;
       // Strip HTML tags before copying
       const strippedText = text.replace(/<[^>]*>/g, '');
-      
+
       // Fallback copy method using textarea (more compatible)
       const textarea = document.createElement('textarea');
       textarea.value = strippedText;
@@ -309,7 +309,7 @@ export function LegalOpinionDetailPage({
       document.body.appendChild(textarea);
       textarea.focus();
       textarea.select();
-      
+
       try {
         // Try modern clipboard API first
         await navigator.clipboard.writeText(strippedText);
@@ -317,13 +317,13 @@ export function LegalOpinionDetailPage({
         // Fallback to execCommand
         document.execCommand('copy');
       }
-      
+
       document.body.removeChild(textarea);
-      
+
       // Show success feedback
       setCopiedMessageId(message.id);
       setTimeout(() => setCopiedMessageId(null), 2000);
-      
+
       // Optional: Show success message
       setShowSuccessMessage(true);
       setSuccessMessage(t.messageCopied);
@@ -346,9 +346,9 @@ export function LegalOpinionDetailPage({
             <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
               <CheckCircle2 className="h-5 w-5 text-green-600" />
             </div>
-            <p 
+            <p
               className="flex-1 text-green-800 text-sm"
-              style={{ 
+              style={{
                 fontFamily,
                 fontWeight: 500
               }}
@@ -370,14 +370,14 @@ export function LegalOpinionDetailPage({
       <div className="bg-white border-b border-gray-200 shadow-sm fixed top-[135px] z-20 w-full">
         {/* Red top border line */}
         <div className="h-1 w-full" style={{ backgroundColor: themeColor }}></div>
-        
+
         <div className="max-w-[1600px] mx-auto px-8 py-4">
           <div className="flex items-center gap-4">
             <Button
               variant="ghost"
               onClick={onBack}
               className="flex items-center gap-2 text-slate-700 hover:text-slate-900 hover:bg-slate-50 h-9 px-3 -ml-3"
-              style={{ 
+              style={{
                 fontFamily,
                 fontSize: `${18 * fontSizeMultiplier}px`,
                 fontWeight: 500
@@ -386,10 +386,10 @@ export function LegalOpinionDetailPage({
               <ArrowLeft className={`h-4 w-4 ${isArabic ? 'rotate-180' : ''}`} />
               {t.back}
             </Button>
-            
-            <h6 
+
+            <h6
               className="text-slate-900"
-              style={{ 
+              style={{
                 fontFamily,
                 fontSize: `${20 * fontSizeMultiplier}px`,
                 fontWeight: 600,
@@ -410,7 +410,7 @@ export function LegalOpinionDetailPage({
             {/* Info Card */}
             <Card className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden sticky top-[180px] self-start">
               <div className="p-6 space-y-4">
-                <h3 
+                <h3
                   className="text-slate-900 pb-3 border-b border-gray-200"
                   style={{ fontFamily, fontSize: '19px', fontWeight: 600 }}
                 >
@@ -502,7 +502,7 @@ export function LegalOpinionDetailPage({
           <div className="lg:col-span-2 space-y-6">
             {/* Enquiry Card */}
             <Card className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-              <div 
+              <div
                 className="px-6 py-4 border-b border-gray-200"
                 style={{ backgroundColor: '#fafafa' }}
               >
@@ -516,7 +516,7 @@ export function LegalOpinionDetailPage({
 
               <div className="p-6">
                 <div className="bg-slate-50 rounded-lg p-5 border border-slate-200">
-                  <p 
+                  <p
                     className="text-slate-700 leading-relaxed whitespace-pre-wrap"
                     style={{ fontFamily, fontSize: '17px', lineHeight: '1.8' }}
                   >
@@ -529,7 +529,7 @@ export function LegalOpinionDetailPage({
             {/* Conversation Thread - Show if there are any replies */}
             {conversationHistory.length > 0 && (
               <Card className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-                <div 
+                <div
                   className="px-6 py-4 border-b border-gray-200"
                   style={{ backgroundColor: '#fafafa' }}
                 >
@@ -550,30 +550,29 @@ export function LegalOpinionDetailPage({
                       key={message.id}
                       className={`flex ${message.sender === 'admin' ? (isArabic ? 'justify-start' : 'justify-end') : (isArabic ? 'justify-end' : 'justify-start')}`}
                     >
-                      <div 
-                        className={`relative max-w-[80%] rounded-lg p-4 ${
-                          message.sender === 'admin' 
-                            ? 'bg-green-50 border border-green-200' 
-                            : 'bg-blue-50 border border-blue-200'
-                        }`}
+                      <div
+                        className={`relative max-w-[80%] rounded-lg p-4 ${message.sender === 'admin'
+                          ? 'bg-green-50 border border-green-200'
+                          : 'bg-blue-50 border border-blue-200'
+                          }`}
                       >
                         {/* Copy Button */}
                         <button
                           onClick={() => handleCopyMessage(message)}
                           title={t.copyMessage}
                           className={`absolute ${isArabic ? 'left-2' : 'right-2'} top-2 p-1.5 rounded-md transition-all duration-200 hover:bg-white/50 group`}
-                          style={{ 
+                          style={{
                             color: message.sender === 'admin' ? '#15803D' : '#1D4ED8'
                           }}
                         >
                           {copiedMessageId === message.id ? (
-                            <Check 
-                              className="h-4 w-4 text-green-600" 
+                            <Check
+                              className="h-4 w-4 text-green-600"
                               style={{ strokeWidth: 2.5 }}
                             />
                           ) : (
-                            <Copy 
-                              className="h-4 w-4 opacity-60 group-hover:opacity-100" 
+                            <Copy
+                              className="h-4 w-4 opacity-60 group-hover:opacity-100"
                               style={{ strokeWidth: 2 }}
                             />
                           )}
@@ -581,23 +580,20 @@ export function LegalOpinionDetailPage({
 
                         {/* Message Header */}
                         <div className="flex items-center gap-2 mb-2">
-                          <div 
-                            className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                              message.sender === 'admin' ? 'bg-green-100' : 'bg-blue-100'
-                            }`}
+                          <div
+                            className={`w-8 h-8 rounded-full flex items-center justify-center ${message.sender === 'admin' ? 'bg-green-100' : 'bg-blue-100'
+                              }`}
                           >
-                            <User 
-                              className={`h-4 w-4 ${
-                                message.sender === 'admin' ? 'text-green-700' : 'text-blue-700'
-                              }`} 
+                            <User
+                              className={`h-4 w-4 ${message.sender === 'admin' ? 'text-green-700' : 'text-blue-700'
+                                }`}
                             />
                           </div>
                           <div className="flex-1">
-                            <p 
-                              className={`text-sm ${
-                                message.sender === 'admin' ? 'text-green-800' : 'text-blue-800'
-                              }`}
-                              style={{ 
+                            <p
+                              className={`text-sm ${message.sender === 'admin' ? 'text-green-800' : 'text-blue-800'
+                                }`}
+                              style={{
                                 fontFamily,
                                 fontSize: '16px',
                                 fontWeight: 600
@@ -605,7 +601,7 @@ export function LegalOpinionDetailPage({
                             >
                               {message.senderName}
                             </p>
-                            <p 
+                            <p
                               className="text-slate-500"
                               style={{ fontFamily, fontSize: '14px' }}
                             >
@@ -615,9 +611,9 @@ export function LegalOpinionDetailPage({
                         </div>
 
                         {/* Message Content */}
-                        <div 
+                        <div
                           className={`text-slate-700 leading-relaxed ${isArabic ? 'text-right' : 'text-left'}`}
-                          style={{ 
+                          style={{
                             fontFamily,
                             fontSize: '17px',
                             lineHeight: '1.8'
@@ -625,6 +621,7 @@ export function LegalOpinionDetailPage({
                         >
                           {isLongMessage(message) ? (
                             <>
+                              asdas
                               <div dangerouslySetInnerHTML={{ __html: getTruncatedMessage(message) }} />
                               <button
                                 onClick={() => setExpandedMessageId(message.id)}
@@ -637,7 +634,7 @@ export function LegalOpinionDetailPage({
                               </button>
                             </>
                           ) : (
-                            <div dangerouslySetInnerHTML={{ __html: isArabic ? message.messageAr : message.messageEn }} />
+                            < div dangerouslySetInnerHTML={{ __html: isArabic ? message.messageAr : message.messageEn }} />
                           )}
                         </div>
 
@@ -648,7 +645,7 @@ export function LegalOpinionDetailPage({
                               <div className="flex items-center gap-2 text-green-700">
                                 <CheckCheck className="h-4 w-4" style={{ strokeWidth: 2.5 }} />
                                 <span
-                                  style={{ 
+                                  style={{
                                     fontFamily,
                                     fontSize: '15px',
                                     fontWeight: 600
@@ -664,7 +661,7 @@ export function LegalOpinionDetailPage({
                                   onClick={() => handleApproveReply(message.id)}
                                   variant="outline"
                                   className="border-green-500 text-green-700 hover:bg-green-50 h-9 px-4 rounded-lg gap-2"
-                                  style={{ 
+                                  style={{
                                     fontFamily,
                                     fontSize: '15px',
                                     fontWeight: 500
@@ -690,7 +687,7 @@ export function LegalOpinionDetailPage({
                 <Button
                   onClick={() => setIsReplyMode(true)}
                   className="text-white hover:opacity-90 h-11 px-6 rounded-lg gap-2"
-                  style={{ 
+                  style={{
                     backgroundColor: themeColor,
                     fontFamily,
                     fontSize: '17px',
@@ -706,7 +703,7 @@ export function LegalOpinionDetailPage({
                   <Button
                     onClick={handleCloseConversation}
                     className="bg-gray-600 text-white hover:bg-gray-700 h-11 px-6 rounded-lg gap-2"
-                    style={{ 
+                    style={{
                       fontFamily,
                       fontSize: '17px',
                       fontWeight: 500
@@ -741,7 +738,7 @@ export function LegalOpinionDetailPage({
             {/* Reply Form - Both admin and user can reply */}
             {isReplyMode && (
               <Card className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-                <div 
+                <div
                   className="px-6 py-4 border-b border-gray-200"
                   style={{ backgroundColor: '#fafafa' }}
                 >
@@ -783,7 +780,7 @@ export function LegalOpinionDetailPage({
                       onClick={handleReplySubmit}
                       disabled={!replyText || replyText === '<p><br></p>'}
                       className="flex-1 h-11 text-white hover:opacity-90 rounded-lg disabled:opacity-50 gap-2"
-                      style={{ 
+                      style={{
                         backgroundColor: themeColor,
                         fontFamily,
                         fontSize: '17px',
@@ -801,7 +798,7 @@ export function LegalOpinionDetailPage({
             {/* Confirmation Dialog */}
             {showSubmitConfirm && (
               <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={cancelSubmit}>
-                <div 
+                <div
                   className="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden"
                   onClick={(e) => e.stopPropagation()}
                   dir={isArabic ? 'rtl' : 'ltr'}
@@ -812,12 +809,12 @@ export function LegalOpinionDetailPage({
                       <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
                         <AlertCircle className="h-6 w-6 text-white" />
                       </div>
-                      <h3 
+                      <h3
                         className="text-white text-lg mb-0"
-                        style={{ 
+                        style={{
                           fontFamily,
                           fontSize: '21px',
-                          fontWeight: 600 
+                          fontWeight: 600
                         }}
                       >
                         {t.submitConfirmTitle}
@@ -827,7 +824,7 @@ export function LegalOpinionDetailPage({
 
                   {/* Content */}
                   <div className="px-6 py-6">
-                    <p 
+                    <p
                       className={`text-gray-700 leading-relaxed ${isArabic ? 'text-right' : 'text-left'}`}
                       style={{ fontFamily, fontSize: '18px' }}
                     >
@@ -848,7 +845,7 @@ export function LegalOpinionDetailPage({
                     <Button
                       onClick={confirmSubmit}
                       className="flex-1 h-11 text-white border-0 shadow-md hover:shadow-lg transition-all"
-                      style={{ 
+                      style={{
                         backgroundColor: legislationColors.primary,
                         fontFamily,
                         fontSize: '17px'
@@ -867,7 +864,7 @@ export function LegalOpinionDetailPage({
             {/* Close Conversation Confirmation Dialog */}
             {showCloseConfirm && (
               <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={cancelCloseConversation}>
-                <div 
+                <div
                   className="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden"
                   onClick={(e) => e.stopPropagation()}
                   dir={isArabic ? 'rtl' : 'ltr'}
@@ -878,12 +875,12 @@ export function LegalOpinionDetailPage({
                       <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
                         <AlertCircle className="h-6 w-6 text-white" />
                       </div>
-                      <h3 
+                      <h3
                         className="text-white text-lg mb-0"
-                        style={{ 
+                        style={{
                           fontFamily,
                           fontSize: '21px',
-                          fontWeight: 600 
+                          fontWeight: 600
                         }}
                       >
                         {t.closeConfirmTitle}
@@ -893,7 +890,7 @@ export function LegalOpinionDetailPage({
 
                   {/* Content */}
                   <div className="px-6 py-6">
-                    <p 
+                    <p
                       className={`text-gray-700 leading-relaxed ${isArabic ? 'text-right' : 'text-left'}`}
                       style={{ fontFamily, fontSize: '18px' }}
                     >
@@ -914,7 +911,7 @@ export function LegalOpinionDetailPage({
                     <Button
                       onClick={confirmCloseConversation}
                       className="flex-1 h-11 text-white border-0 shadow-md hover:shadow-lg transition-all"
-                      style={{ 
+                      style={{
                         backgroundColor: legislationColors.primary,
                         fontFamily,
                         fontSize: '17px'
@@ -936,15 +933,15 @@ export function LegalOpinionDetailPage({
               if (!message) return null;
 
               return (
-                <div 
-                  className="fixed inset-0 z-[60] flex items-center justify-center p-4" 
+                <div
+                  className="fixed inset-0 z-[60] flex items-center justify-center p-4"
                   style={{
                     backgroundColor: 'rgba(0, 0, 0, 0.6)',
                     backdropFilter: 'blur(4px)'
                   }}
                   onClick={() => setExpandedMessageId(null)}
                 >
-                  <div 
+                  <div
                     className="bg-white overflow-hidden flex flex-col"
                     style={{
                       width: '660px',
@@ -957,7 +954,7 @@ export function LegalOpinionDetailPage({
                     onClick={(e) => e.stopPropagation()}
                   >
                     {/* Header Section */}
-                    <div 
+                    <div
                       className="relative"
                       style={{
                         backgroundColor: '#F8F9FA',
@@ -968,7 +965,7 @@ export function LegalOpinionDetailPage({
                       {/* Sender Info */}
                       <div className={`flex items-start ${isArabic ? 'gap-3' : 'gap-3'}`}>
                         {/* Avatar */}
-                        <div 
+                        <div
                           className="flex-shrink-0 rounded-full flex items-center justify-center"
                           style={{
                             width: '48px',
@@ -981,8 +978,8 @@ export function LegalOpinionDetailPage({
 
                         {/* Name and Date */}
                         <div className="flex-1">
-                          <h3 
-                            style={{ 
+                          <h3
+                            style={{
                               fontFamily,
                               fontSize: '18px',
                               fontWeight: 600,
@@ -994,8 +991,8 @@ export function LegalOpinionDetailPage({
                           >
                             {message.senderName}
                           </h3>
-                          <p 
-                            style={{ 
+                          <p
+                            style={{
                               fontFamily,
                               fontSize: '14px',
                               fontWeight: 400,
@@ -1040,7 +1037,7 @@ export function LegalOpinionDetailPage({
                     <div style={{ height: '1px', backgroundColor: '#E5E7EB' }}></div>
 
                     {/* Content Section */}
-                    <div 
+                    <div
                       className="overflow-y-auto"
                       style={{
                         padding: '24px',
@@ -1048,20 +1045,20 @@ export function LegalOpinionDetailPage({
                       }}
                     >
                       {/* Message Card */}
-                      <div 
+                      <div
                         style={{
                           backgroundColor: '#F8F9FA',
                           padding: '20px',
                           borderRadius: '12px',
-                          ...(isArabic 
+                          ...(isArabic
                             ? { borderRight: `4px solid ${legislationColors.accent}` }
                             : { borderLeft: `4px solid ${legislationColors.accent}` }
                           )
                         }}
                       >
-                        <div 
+                        <div
                           className={isArabic ? 'text-right' : 'text-left'}
-                          style={{ 
+                          style={{
                             fontFamily,
                             fontSize: '17px',
                             lineHeight: '1.7',
@@ -1069,15 +1066,15 @@ export function LegalOpinionDetailPage({
                             color: '#374151',
                             direction: isArabic ? 'rtl' : 'ltr'
                           }}
-                          dangerouslySetInnerHTML={{ 
-                            __html: isArabic ? message.messageAr : message.messageEn 
+                          dangerouslySetInnerHTML={{
+                            __html: isArabic ? message.messageAr : message.messageEn
                           }}
                         />
                       </div>
                     </div>
 
                     {/* Footer Section */}
-                    <div 
+                    <div
                       className={`flex ${isArabic ? 'justify-start' : 'justify-end'}`}
                       style={{
                         backgroundColor: '#FFFFFF',

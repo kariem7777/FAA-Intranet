@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { QuillViewer } from '@/shared/components/QuillViewer';
 import { MessageSquare, Copy, Loader2, User, Check, CheckCheck } from 'lucide-react';
 import { useTranslation } from '@/shared/hooks/useTranslation';
 import type { EnquiryReply } from '../types';
@@ -131,7 +132,7 @@ export function ConversationSection({ messages, isAdmin, onApproveReply, approvi
                                 >
                                     {isLongMessage(message.content) ? (
                                         <>
-                                            <div className="word-line-break! line-clamp-2" dangerouslySetInnerHTML={{ __html: message.content }} />
+                                            <QuillViewer html={message.content} />
                                             <button
                                                 onClick={() => handleExpandMessage(message)}
                                                 className="mt-2 hover:underline transition-colors block font-medium"
@@ -143,7 +144,7 @@ export function ConversationSection({ messages, isAdmin, onApproveReply, approvi
                                             </button>
                                         </>
                                     ) : (
-                                        <div dangerouslySetInnerHTML={{ __html: message.content }} />
+                                        <QuillViewer html={message.content} />
                                     )}
                                 </div>
 

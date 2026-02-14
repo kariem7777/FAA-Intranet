@@ -48,7 +48,7 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        // Validation
+
         if (!documentNameEn || !documentNameAr || !selectedFile || !entityId || !categoryId || !subCategoryId) {
             toast.error(t('legislation.documentsManagement.toasts.fillAllFields'));
             return;
@@ -64,16 +64,19 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
             lawNameAr,
             lawNameEn,
             classification,
-            file: selectedFile
+            file: selectedFile,
         };
 
-        const resultAction = await dispatch(addDocument(newDocument));
-
-        if (addDocument.fulfilled.match(resultAction)) {
-            toast.success(t('legislation.documentsManagement.toasts.addSuccess'));
-            onClose();
-            resetForm();
-        } else {
+        try {
+            const resultAction = await dispatch(addDocument(newDocument));
+            if (resultAction && resultAction.type && resultAction.type.endsWith('/fulfilled')) {
+                toast.success(t('legislation.documentsManagement.toasts.addSuccess'));
+                onClose();
+                resetForm();
+            } else {
+                toast.error(t('legislation.documentsManagement.toasts.addError'));
+            }
+        } catch (error) {
             toast.error(t('legislation.documentsManagement.toasts.addError'));
         }
     };

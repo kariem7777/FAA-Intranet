@@ -78,8 +78,7 @@ export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDi
             document: updatedDocument,
             file: selectedFile || undefined
         }));
-
-        if (updateDocument.fulfilled.match(resultAction)) {
+        if (resultAction && resultAction.type && resultAction.type.endsWith('/fulfilled')) {
             toast.success(t('legislation.documentsManagement.toasts.updateSuccess'));
             onClose();
         } else {

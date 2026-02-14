@@ -40,6 +40,8 @@ export function OpinionDetailPage({ id: propId, status, onBack: onBackProp }: { 
   const { replyLoading, closeLoading, error: actionError } = enquiryActions;
 
   const [replyContent, setReplyContent] = useState('');
+  const [pureContent, setPureContent] = useState('');
+
   const [approvingReplyId, setApprovingReplyId] = useState<number | string | null>(null);
   const [showReplyEditor, setShowReplyEditor] = useState(false);
   const [showReferenceDialog, setShowReferenceDialog] = useState(false);
@@ -77,7 +79,7 @@ export function OpinionDetailPage({ id: propId, status, onBack: onBackProp }: { 
   const handleSendReply = useCallback(async () => {
     if (!id || !replyContent.trim()) return;
     try {
-      await dispatch(sendReply({ enquiryId: id, message: replyContent })).unwrap();
+      await dispatch(sendReply({ enquiryId: id, message: replyContent, pureContent: pureContent })).unwrap();
       setReplyContent('');
       toast.success(t('legalOpinions.replySentSuccess'));
       // Refresh enquiry details to show the new reply
@@ -85,7 +87,7 @@ export function OpinionDetailPage({ id: propId, status, onBack: onBackProp }: { 
     } catch {
       toast.error(actionError || t('legalOpinions.replySentError'));
     }
-  }, [dispatch, id, replyContent, t, actionError]);
+  }, [dispatch, id, replyContent, pureContent, t, actionError]);
 
   const handleCloseConversation = useCallback(async () => {
     if (!id) return;
@@ -328,6 +330,7 @@ export function OpinionDetailPage({ id: propId, status, onBack: onBackProp }: { 
                         <SharedRichTextEditor
                           content={replyContent}
                           onChange={setReplyContent}
+                          onTextChange={setPureContent}
                           placeholder={t('legalOpinions.replyPlaceholder')}
                         />
                         <div className="flex items-center gap-3">

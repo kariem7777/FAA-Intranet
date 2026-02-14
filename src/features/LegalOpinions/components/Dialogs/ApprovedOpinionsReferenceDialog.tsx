@@ -8,6 +8,7 @@ import { formatDate } from '@/shared/utils/dateUtils';
 import toast from 'react-hot-toast';
 import { useDialogPortal } from '@/shared/hooks/useDialogPortal';
 import { MessageDetailsDialog } from './MessageDetailsDialog';
+import { QuillViewer } from '@/shared/components/QuillViewer';
 
 interface ApprovedOpinionsReferenceDialogProps {
     onClose: () => void;
@@ -434,6 +435,9 @@ export function ApprovedOpinionsReferenceDialog({
                                                         >
                                                             {isLongMessage(approvedReply.content) ? (
                                                                 <>
+                                                                    hnaasdas
+                                                                    <QuillViewer html={approvedReply.content} />
+
                                                                     <div
                                                                         className="line-clamp-4 break-words w-full overflow-hidden rich-text-content"
                                                                         dangerouslySetInnerHTML={{ __html: approvedReply.content }}
@@ -447,10 +451,14 @@ export function ApprovedOpinionsReferenceDialog({
                                                                     </button>
                                                                 </>
                                                             ) : (
-                                                                <div
-                                                                    className="break-words w-full overflow-hidden rich-text-content"
-                                                                    dangerouslySetInnerHTML={{ __html: approvedReply.content }}
-                                                                />
+                                                                <>
+                                                                    hnass
+                                                                    <QuillViewer html={approvedReply.content} />
+                                                                    <div
+                                                                        className="line-clamp-4 break-words w-full overflow-hidden rich-text-content"
+                                                                        dangerouslySetInnerHTML={{ __html: approvedReply.content }}
+                                                                    />
+                                                                </>
                                                             )}
                                                         </div>
                                                     </div>

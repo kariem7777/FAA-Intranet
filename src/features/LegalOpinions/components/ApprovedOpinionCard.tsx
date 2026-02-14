@@ -4,6 +4,7 @@ import { useTranslation } from '@/shared/hooks/useTranslation';
 import type { EnquiryReply } from '../types';
 import { useDialogPortal } from '@/shared/hooks/useDialogPortal';
 import { MessageDetailsDialog } from './Dialogs/MessageDetailsDialog';
+import { QuillViewer } from '@/shared/components/QuillViewer';
 
 interface ApprovedOpinionCardProps {
     approvedReply: EnquiryReply;
@@ -89,10 +90,7 @@ export function ApprovedOpinionCard({ approvedReply }: ApprovedOpinionCardProps)
                 >
                     {isLongMessage(approvedReply.content) ? (
                         <>
-                            <div
-                                className="line-clamp-4 break-words w-full overflow-hidden rich-text-content"
-                                dangerouslySetInnerHTML={{ __html: approvedReply.content }}
-                            />
+                            <QuillViewer html={approvedReply.content} />
                             <button
                                 onClick={handleExpandMessage}
                                 className="mt-2 hover:underline transition-colors block font-medium"
@@ -104,10 +102,9 @@ export function ApprovedOpinionCard({ approvedReply }: ApprovedOpinionCardProps)
                             </button>
                         </>
                     ) : (
-                        <div
-                            className="break-words w-full overflow-hidden rich-text-content"
-                            dangerouslySetInnerHTML={{ __html: approvedReply.content }}
-                        />
+                        <>
+                            <QuillViewer html={approvedReply.content} />
+                        </>
                     )}
                 </div>
 
