@@ -16,20 +16,22 @@ export function OpinionCard({
 
     return (
         <div
-            className="bg-white rounded-lg border border-faa-primary/20 p-6 transition-all duration-200 cursor-pointer hover:shadow-lg hover:scale-[1.02]"
-            style={{
-                borderInlineStart: '4px solid transparent',
-            }}
-            onMouseEnter={(e) => {
-                e.currentTarget.style.borderInlineStartColor = 'var(--color-faa-primary)';
-                e.currentTarget.style.backgroundColor = 'var(--color-faa-primary-08)';
-            }}
-            onMouseLeave={(e) => {
-                e.currentTarget.style.borderInlineStartColor = 'transparent';
-                e.currentTarget.style.backgroundColor = '#FFFFFF';
-            }}
+            className="
+                bg-white 
+                rounded-lg 
+                border border-faa-primary/20 
+                p-6 
+                transition-all duration-200 
+                cursor-pointer 
+                hover:shadow-lg 
+                hover:scale-[1.02]
+                hover:bg-[var(--color-faa-primary-08)]
+                hover:border-s-4
+                hover:border-faa-primary
+  "
             onClick={() => onSelect(enquiry)}
         >
+
             <div className="flex items-start justify-between gap-4">
                 {/* Left Section - Content */}
                 <div className="flex-1">
@@ -38,7 +40,6 @@ export function OpinionCard({
                         <h3 className="text-lg font-bold leading-snug flex-1 text-slate-900">
                             {enquiry.title}
                         </h3>
-
 
                         <div
                             className="flex items-center gap-2 px-3 py-1.5 rounded-full"
