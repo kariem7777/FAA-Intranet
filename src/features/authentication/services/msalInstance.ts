@@ -28,8 +28,3 @@ msalInstance.addEventCallback((event: EventMessage) => {
         console.log("🔑 [Global Callback] Access Token:", payload.accessToken);
     }
 });
-
-// Initialize MSAL instance
-export const initializeMsal = async () => {
-    await msalInstance.initialize();
-};

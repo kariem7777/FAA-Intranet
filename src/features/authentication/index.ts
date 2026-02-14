@@ -2,7 +2,7 @@
 export { msalConfig, loginRequest, graphConfig } from './config/authConfig';
 
 // Services
-export { msalInstance, initializeMsal } from './services/msalInstance';
+export { msalInstance } from './services/msalInstance';
 
 // Hooks
 export { useAzureAuth } from './hooks/useAzureAuth';

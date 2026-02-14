@@ -20,14 +20,9 @@ export const useAzureAuth = () => {
         setIsLoggingIn(true);
         try {
             const response = await instance.loginPopup(loginRequest);
-            console.log("✅ Login successful!", response);
-
-            if (response.idToken) {
-                console.log("🔑 ID Token:", response.idToken);
-            }
-            if (response.accessToken) {
-                console.log("🔑 Access Token:", response.accessToken);
-            }
+            console.log("✅ [Auth] Login successful!");
+            console.log("🔑 [Auth] ID Token:", response.idToken);
+            console.log("🔑 [Auth] Access Token:", response.accessToken);
 
             return response;
         } catch (error) {
