@@ -9,3 +9,9 @@ export { useAzureAuth } from './hooks/useAzureAuth';
 
 // Components
 export { AzureLoginButton } from './components/AzureLoginButton';
+
+// Services
+export { authService } from './services/AuthService';
+
+// State
+export { default as authReducer, authenticateUser, logout } from './slices/authSlice';

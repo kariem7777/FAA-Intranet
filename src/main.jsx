@@ -19,8 +19,15 @@ if ('scrollRestoration' in window.history) {
 async function startApp() {
   try {
     await msalInstance.initialize();
-    // Process auth code from popup/redirect — in a popup this closes the window
-    await msalInstance.handleRedirectPromise();
+
+    // Process auth code from popup/redirect
+    const response = await msalInstance.handleRedirectPromise();
+
+    if (response) {
+      console.log("✅ [Auth] Redirect login successful!");
+      console.log("🔑 [Auth] ID Token:", response.idToken);
+      console.log("🔑 [Auth] Access Token:", response.accessToken);
+    }
   } catch (error) {
     console.error('MSAL initialization error:', error);
   }

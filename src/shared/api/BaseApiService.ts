@@ -6,7 +6,8 @@ import axios, {
   type AxiosResponse,
 } from 'axios';
 
-import { msalInstance, loginRequest } from '@/features/authentication';
+import { msalInstance } from '../../features/authentication/services/msalInstance';
+import { loginRequest } from '../../features/authentication/config/authConfig';
 import { InteractionRequiredAuthError } from '@azure/msal-browser';
 
 export class BaseApiService {
