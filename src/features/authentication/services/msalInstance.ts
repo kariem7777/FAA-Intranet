@@ -7,10 +7,7 @@ import { msalConfig } from "../config/authConfig";
  */
 export const msalInstance = new PublicClientApplication(msalConfig);
 
-// Default to using the first account if no account is active on page load
-if (!msalInstance.getActiveAccount() && msalInstance.getAllAccounts().length > 0) {
-    msalInstance.setActiveAccount(msalInstance.getAllAccounts()[0]);
-}
+// Logic to set active account on page load pushed to main.jsx after initialization
 
 // Listen for sign-in event and set active account
 msalInstance.addEventCallback((event: EventMessage) => {

@@ -11,7 +11,9 @@ class AuthService extends BaseApiService {
     }
 
     public async authenticate(): Promise<UserResponse> {
-        return this.post<UserResponse>('/authenticate');
+        const response = await this.get<UserResponse>('/AuthTest/authenticate');
+        console.log('✅ [AuthService] Authenticate Response:', response);
+        return response;
     }
 }
 

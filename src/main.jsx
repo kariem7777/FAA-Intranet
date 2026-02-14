@@ -28,6 +28,11 @@ async function startApp() {
       console.log("🔑 [Auth] ID Token:", response.idToken);
       console.log("🔑 [Auth] Access Token:", response.accessToken);
     }
+
+    // Set active account on page load if user is already signed in
+    if (!msalInstance.getActiveAccount() && msalInstance.getAllAccounts().length > 0) {
+      msalInstance.setActiveAccount(msalInstance.getAllAccounts()[0]);
+    }
   } catch (error) {
     console.error('MSAL initialization error:', error);
   }

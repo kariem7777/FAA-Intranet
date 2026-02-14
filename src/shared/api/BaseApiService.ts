@@ -44,6 +44,8 @@ export class BaseApiService {
               console.error('Error acquiring token silently:', error);
             }
           }
+        } else {
+          console.warn('⚠️ No active account found in BaseApiService interceptor. Request will be sent without token.');
         }
         return config;
       },
