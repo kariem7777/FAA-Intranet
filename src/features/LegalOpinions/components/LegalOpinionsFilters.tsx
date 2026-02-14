@@ -1,13 +1,13 @@
 import { Search } from 'lucide-react';
 import { useTranslation } from '@/shared/hooks/useTranslation';
-import type { Entities } from '@/features/Legislation/types';
+import type { Department, Entities } from '@/features/Legislation/types';
 import { Input } from '@/shared/components/ui/input';
 import { Select } from '@/shared/components/ui/select';
 
 interface LegalOpinionsFiltersProps {
     searchQuery: string;
     selectedDepartment: string;
-    entities: Entities[];
+    departments: Department[];
     onSearchChange: (value: string) => void;
     onDepartmentChange: (value: string) => void;
 }
@@ -15,7 +15,7 @@ interface LegalOpinionsFiltersProps {
 export function LegalOpinionsFilters({
     searchQuery,
     selectedDepartment,
-    entities,
+    departments,
     onSearchChange,
     onDepartmentChange,
 }: LegalOpinionsFiltersProps) {
@@ -72,9 +72,9 @@ export function LegalOpinionsFilters({
                         className={`w-full h-[56px] bg-white border-faa-primary/30 text-base ${isArabic ? 'text-right' : 'text-left'}`}
                     >
                         <option value="">{t('legalOpinions.allDepartments')}</option>
-                        {entities.map(entity => (
-                            <option key={entity.entityId} value={entity.entityId}>
-                                {getLocalizedString(entity.entityName, entity.entityNameAr)}
+                        {departments.map(dept => (
+                            <option key={dept.id} value={dept.id}>
+                                {getLocalizedString(dept.departmentNameEn, dept.departmentNameAr)}
                             </option>
                         ))}
                     </Select>

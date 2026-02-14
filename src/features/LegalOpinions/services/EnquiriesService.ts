@@ -42,12 +42,14 @@ export class EnquiriesService extends BaseApiService {
     searchText?: string;
     pageNumber?: number;
     pageSize?: number;
+    departmentId?:number
   }): Promise<PaginatedResponse<Enquiry>> {
     return this.get<PaginatedResponse<Enquiry>>(`${API_ROUTES.ENQURIES.GET_APPROVED_REPLIES}`, {
       params: {
         searchText: params.searchText,
         pageNumber: params.pageNumber || 1,
         pageSize: params.pageSize || 10,
+        departmentId:params.departmentId
       },
     });
   }

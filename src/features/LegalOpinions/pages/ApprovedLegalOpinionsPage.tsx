@@ -28,6 +28,7 @@ export function ApprovedLegalOpinionsPage() {
   const dispatch = useAppDispatch();
 
   const { approvedOpinions: enquiries, approvedFilters: filters } = useAppSelector((state) => state.enquiries);
+  const { departments } = useAppSelector((state) => state.legislationSlice);
 
   const [showScrollToTop, setShowScrollToTop] = useState(false);
   const [localSearch, setLocalSearch] = useState(filters.searchText || '');
@@ -49,7 +50,11 @@ export function ApprovedLegalOpinionsPage() {
 
   // Sync data on filter change
   useEffect(() => {
-    dispatch(fetchApprovedOpinions({}));
+    dispatch(fetchApprovedOpinions({
+      searchText: filters.searchText,
+      departmentId: filters.departmentId,
+      pageNumber: enquiries.pagination.pageNumber,
+    }));
   }, [dispatch, filters.searchText, filters.departmentId, enquiries.pagination.pageNumber]);
 
   // Scroll handling
@@ -108,7 +113,7 @@ export function ApprovedLegalOpinionsPage() {
           <LegalOpinionsFilters
             searchQuery={localSearch}
             selectedDepartment={filters.departmentId?.toString() || ''}
-            entities={[]}
+            departments={departments.items}
             onSearchChange={handleSearchChange}
             onDepartmentChange={handleDepartmentChange}
           />
