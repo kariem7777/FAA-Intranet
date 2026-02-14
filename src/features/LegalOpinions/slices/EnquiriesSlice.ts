@@ -210,7 +210,7 @@ export const fetchApprovedOpinions = createAsyncThunk(
   async (
     params: {
       searchText?: string;
-      departmentId?: number | string;
+      departmentId?: string | number | undefined;
       pageNumber?: number;
       pageSize?: number;
     } = {},
