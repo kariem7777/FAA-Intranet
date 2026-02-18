@@ -14,4 +14,4 @@ export { AzureLoginButton } from './components/AzureLoginButton';
 export { authService } from './services/AuthService';
 
 // State
-export { default as authReducer, authenticateUser, logout } from './slices/authSlice';
+export { default as authReducer, authenticateUser, logout, addUser, resetAddUser } from './slices/authSlice';

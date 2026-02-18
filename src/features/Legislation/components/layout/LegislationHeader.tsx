@@ -1,30 +1,29 @@
-import { Bell, User, Globe, Menu, X } from 'lucide-react';
+import { Bell, Globe, Menu, X, UserPlus } from 'lucide-react';
 import GovernmentOfDubai from '@/imports/GovernmentOfDubai';
 import imgImageFinancialAuditAuthority from "@/assets/e2cb68d504b659d40535c18e986fce5d5ed9ca82.png";
-import { useState, useRef, useEffect, forwardRef } from 'react';
+import { useState, useEffect, forwardRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { type RootState } from '@/store';
 import { increaseFontSize, decreaseFontSize, setLanguage } from '@/store/slices/globalSlice';
 import { AzureLoginButton } from '@/features/authentication';
 import { useTranslation } from '@/shared/hooks/useTranslation';
 
 interface LegislationHeaderProps {
-  currentPage: 'home' | 'legislations' | 'dashboard' | 'documents' | 'search' | 'approved-opinions';
+  currentPage: 'home' | 'legislations' | 'dashboard' | 'documents' | 'search' | 'approved-opinions' | null;
   onNavigate: (page: 'home' | 'legislations' | 'dashboard' | 'documents' | 'search' | 'approved-opinions') => void;
   userRole?: 'admin' | 'user';
-  onRoleChange?: (role: 'admin' | 'user') => void;
 }
 
 
-export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>(({
+export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>(({ userRole = 'admin',
   currentPage,
   onNavigate,
-  userRole = 'admin',
-  onRoleChange,
 }, ref) => {
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { language, fontSize } = useSelector((state: RootState) => state.global);
   const { t } = useTranslation();
 
@@ -37,9 +36,7 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
   const fontSizeIndex = fontSizes.indexOf(fontSize);
   const canDecreaseFont = fontSizeIndex > 0;
   const canIncreaseFont = fontSizeIndex < fontSizes.length - 1;
-  const [showRoleDropdown, setShowRoleDropdown] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
-  const roleDropdownRef = useRef<HTMLDivElement>(null);
 
   const navItems = [
     { id: 'home' as const, label: t('legislationHeader.home') },
@@ -48,18 +45,6 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
     { id: 'approved-opinions' as const, label: t('legislationHeader.approvedOpinions') },
   ];
 
-  useEffect(() => {
-    const currentRef = roleDropdownRef.current;
-    const handleClickOutside = (event: MouseEvent) => {
-      if (currentRef && !currentRef.contains(event.target as Node)) {
-        setShowRoleDropdown(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -169,71 +154,19 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
               <span className="absolute top-1 right-1 w-2 h-2 rounded-full" style={{ backgroundColor: 'var(--color-legislation-active-indicator)' }} />
             </button>
 
-            <div className="relative" ref={roleDropdownRef}>
-              <button
-                className="p-2 rounded-lg hover:bg-white/10 transition-all relative"
-                onClick={() => setShowRoleDropdown(!showRoleDropdown)}
-                title={t('legislationHeader.switchRole')}
-              >
-                <User className="h-6 w-6 text-white" />
-                {/* Role indicator badge */}
-                <span
-                  className="absolute top-1 right-1 w-2 h-2 rounded-full border-2"
-                  style={{ borderColor: 'var(--color-legislation-header-end)', backgroundColor: userRole === 'admin' ? 'var(--color-legislation-active-indicator)' : '#4ADE80' }}
-                />
-              </button>
-              {showRoleDropdown && (
-                <div
-                  className="absolute top-12 bg-white shadow-xl rounded-lg overflow-hidden min-w-[180px] border border-gray-200"
-                  style={{
-                    [isArabic ? 'left' : 'right']: '0',
-                  }}
-                  dir={isArabic ? 'rtl' : 'ltr'}
-                >
-                  <button
-                    className={`block px-4 py-3 w-full transition-colors ${userRole === 'admin'
-                      ? 'text-white'
-                      : 'text-gray-700 hover:bg-gray-50'
-                      } text-sm`}
-                    style={{
-                      fontWeight: userRole === 'admin' ? 600 : 500,
-                      textAlign: isArabic ? 'right' : 'left',
-                      ...(userRole === 'admin' && { backgroundColor: 'var(--color-legislation-header-end)' })
-                    }}
-                    onClick={() => {
-                      if (onRoleChange) onRoleChange('admin');
-                      setShowRoleDropdown(false);
-                    }}
-                  >
-                    <span className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full" style={{ backgroundColor: 'var(--color-legislation-active-indicator)' }} />
-                      {t('legislationHeader.adminRole')}
-                    </span>
-                  </button>
-                  <button
-                    className={`block px-4 py-3 w-full transition-colors ${userRole === 'user'
-                      ? 'text-white'
-                      : 'text-gray-700 hover:bg-gray-50'
-                      } text-sm`}
-                    style={{
-                      fontWeight: userRole === 'user' ? 600 : 500,
-                      textAlign: isArabic ? 'right' : 'left',
-                      ...(userRole === 'user' && { backgroundColor: 'var(--color-legislation-header-end)' })
-                    }}
-                    onClick={() => {
-                      if (onRoleChange) onRoleChange('user');
-                      setShowRoleDropdown(false);
-                    }}
-                  >
-                    <span className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-green-400" />
-                      {t('legislationHeader.userRole')}
-                    </span>
-                  </button>
-                </div>
-              )}
-            </div>
             <AzureLoginButton showUserInfo={false} />
+
+            {userRole === 'admin' && (
+              <button
+                onClick={() => navigate('/add-user')}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all hover:bg-white/20"
+                style={{ color: '#FFFFFF', border: '1.5px solid rgba(255,255,255,0.4)' }}
+                title="Add New User"
+              >
+                <UserPlus size={16} />
+                Add User
+              </button>
+            )}
           </div>
         </div>
 
@@ -302,22 +235,19 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
                     </div>
                   </button>
 
-                  <button
-                    className="flex items-center justify-between py-3 px-4 rounded-lg bg-white/5 text-white"
-                    onClick={() => {
-                      if (onRoleChange) onRoleChange(userRole === 'admin' ? 'user' : 'admin');
-                      setShowMobileMenu(false);
-                    }}
-                  >
-                    <span>{t('legislationHeader.switchRole')}</span>
-                    <div className="flex items-center gap-2">
-                      <User size={18} />
-                      <span className="text-sm opacity-80">{userRole === 'admin' ? t('legislationHeader.adminRole') : t('legislationHeader.userRole')}</span>
-                    </div>
-                  </button>
                   <div className="pt-2">
                     <AzureLoginButton showUserInfo={true} className="w-full justify-center" />
                   </div>
+
+                  {userRole === 'admin' && (
+                    <button
+                      onClick={() => { navigate('/add-user'); setShowMobileMenu(false); }}
+                      className="flex items-center gap-2 py-3 px-4 rounded-lg bg-white/5 text-white font-medium w-full"
+                    >
+                      <UserPlus size={18} />
+                      Add User
+                    </button>
+                  )}
 
                 </div>
               </div>

@@ -10,7 +10,7 @@ import { performGlobalSearch, setGlobalSearchQuery } from "../../slices/legislat
 
 interface LegislationBannerProps {
   handleCategorySearch?: (categoryId: number) => void;
-  mode?: "legislation" | "documents" | "approved-opinions";
+  mode?: "legislation" | "documents" | "approved-opinions" | "add-user";
   onAddDocument?: () => void;
   onBack?: () => void;
 }
@@ -40,6 +40,10 @@ export function LegislationHero({
     'approved-opinions': {
       title: t('legislation.hero.approvedOpinionsTitle'),
       description: t('legislation.hero.approvedOpinionsDescription'),
+    },
+    'add-user': {
+      title: 'Add New User',
+      description: 'Create a new user account by filling in the required information below.',
     },
   };
 

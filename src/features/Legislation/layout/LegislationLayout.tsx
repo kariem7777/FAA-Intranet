@@ -3,12 +3,11 @@ import { LegislationHeader } from "../components/layout/LegislationHeader";
 import { useRef, useLayoutEffect, useState } from "react";
 import { LegislationLookupsProvider } from "../providers";
 
-type NavigationPage = 'home' | 'legislations' | 'dashboard' | 'documents' | 'search' | 'approved-opinions';
+type NavigationPage = 'home' | 'legislations' | 'dashboard' | 'documents' | 'search' | 'approved-opinions' | null;
 
 export const LegislationLayout = () => {
     const headerRef = useRef<HTMLElement>(null);
     const [headerHeight, setHeaderHeight] = useState(0);
-    const [userRole, setUserRole] = useState<'admin' | 'user'>('admin');
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -20,6 +19,7 @@ export const LegislationLayout = () => {
         if (path === '/documents') return 'documents';
         if (path === '/search') return 'search';
         if (path === '/approved-opinions') return 'approved-opinions';
+        if (path === '/add-user') return null;
         return 'home';
     };
 
@@ -48,10 +48,6 @@ export const LegislationLayout = () => {
         }
     };
 
-    const handleRoleChange = (role: 'admin' | 'user') => {
-        setUserRole(role);
-    };
-
     useLayoutEffect(() => {
         if (!headerRef.current) return;
 
@@ -62,8 +58,6 @@ export const LegislationLayout = () => {
         });
 
         observer.observe(headerRef.current);
-
-        // Initial measurement
         setHeaderHeight(headerRef.current.offsetHeight);
 
         return () => observer.disconnect();
@@ -75,8 +69,6 @@ export const LegislationLayout = () => {
                 ref={headerRef}
                 currentPage={getCurrentPage()}
                 onNavigate={handleNavigate}
-                userRole={userRole}
-                onRoleChange={handleRoleChange}
             />
             <LegislationLookupsProvider>
                 <Outlet />
