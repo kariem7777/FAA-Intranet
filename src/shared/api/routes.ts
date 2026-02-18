@@ -6,6 +6,8 @@ export const API_ROUTES = {
         SUBCATEGORIES: '/LawCategorySubs',
         ENTITIES: '/Lookups/Entities',
         DEPARTMENTS: '/Lookups/Departments',
+        ROLES: '/Lookups/Roles',
+        JOB_TITLES: '/Lookups/JobTitles',
     },
     DASHBOARD: {
         ENQURIES_METRICS: '/Enquiries/Metrics',

@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { authService, type UserResponse } from '../services/AuthService';
-import type { CreateUserRequest } from '../types';
+import type { CreateUserRequest, Role, JobTitle } from '../types';
 
 export const authenticateUser = createAsyncThunk(
     'auth/authenticate',
@@ -30,6 +30,30 @@ export const addUser = createAsyncThunk(
     }
 );
 
+export const fetchRoles = createAsyncThunk(
+    'auth/fetchRoles',
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await authService.getRoles();
+            return response.data ?? [];
+        } catch (error: any) {
+            return rejectWithValue(error.message || 'Failed to fetch roles');
+        }
+    }
+);
+
+export const fetchJobTitles = createAsyncThunk(
+    'auth/fetchJobTitles',
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await authService.getJobTitles();
+            return response.data ?? [];
+        } catch (error: any) {
+            return rejectWithValue(error.message || 'Failed to fetch job titles');
+        }
+    }
+);
+
 interface AuthState {
     user: UserResponse | null;
     isLoading: boolean;
@@ -38,6 +62,14 @@ interface AuthState {
         isLoading: boolean;
         error: string | null;
         success: boolean;
+    };
+    lookups: {
+        roles: Role[];
+        rolesLoading: boolean;
+        rolesError: string | null;
+        jobTitles: JobTitle[];
+        jobTitlesLoading: boolean;
+        jobTitlesError: string | null;
     };
 }
 
@@ -49,6 +81,14 @@ const initialState: AuthState = {
         isLoading: false,
         error: null,
         success: false,
+    },
+    lookups: {
+        roles: [],
+        rolesLoading: false,
+        rolesError: null,
+        jobTitles: [],
+        jobTitlesLoading: false,
+        jobTitlesError: null,
     },
 };
 
@@ -66,6 +106,7 @@ const authSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
+            // authenticate
             .addCase(authenticateUser.pending, (state) => {
                 state.isLoading = true;
                 state.error = null;
@@ -78,6 +119,7 @@ const authSlice = createSlice({
                 state.isLoading = false;
                 state.error = action.payload as string;
             })
+            // addUser
             .addCase(addUser.pending, (state) => {
                 state.addUser.isLoading = true;
                 state.addUser.error = null;
@@ -90,6 +132,32 @@ const authSlice = createSlice({
             .addCase(addUser.rejected, (state, action) => {
                 state.addUser.isLoading = false;
                 state.addUser.error = action.payload as string;
+            })
+            // fetchRoles
+            .addCase(fetchRoles.pending, (state) => {
+                state.lookups.rolesLoading = true;
+                state.lookups.rolesError = null;
+            })
+            .addCase(fetchRoles.fulfilled, (state, action) => {
+                state.lookups.rolesLoading = false;
+                state.lookups.roles = action.payload;
+            })
+            .addCase(fetchRoles.rejected, (state, action) => {
+                state.lookups.rolesLoading = false;
+                state.lookups.rolesError = action.payload as string;
+            })
+            // fetchJobTitles
+            .addCase(fetchJobTitles.pending, (state) => {
+                state.lookups.jobTitlesLoading = true;
+                state.lookups.jobTitlesError = null;
+            })
+            .addCase(fetchJobTitles.fulfilled, (state, action) => {
+                state.lookups.jobTitlesLoading = false;
+                state.lookups.jobTitles = action.payload;
+            })
+            .addCase(fetchJobTitles.rejected, (state, action) => {
+                state.lookups.jobTitlesLoading = false;
+                state.lookups.jobTitlesError = action.payload as string;
             });
     },
 });

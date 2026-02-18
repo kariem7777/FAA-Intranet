@@ -98,8 +98,8 @@ export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDi
         <Dialog
             onClose={onClose}
             title={t('legislation.documentsManagement.dialogs.edit.title')}
-            size="fullscreen"
-            className={'max-w-[1800px]! max-h-[970px]!'}
+            size="large"
+            className={'max-w-[1800px]! min-h-[935px]! max-h-[1000px]!'}
         >
             <form onSubmit={handleSubmit} dir={isArabic ? 'rtl' : 'ltr'} className="space-y-4">
                 {/* Document Name and Law Number Row */}

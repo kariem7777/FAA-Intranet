@@ -14,3 +14,15 @@ export interface CreateUserRequest {
     fkJobTitle: number;
     roleId: number;
 }
+
+export interface Role {
+    id: string,
+    roleNameEn: string,
+    roleNameAr: string,
+}
+
+export interface JobTitle {
+    id: string,
+    titleEn: string,
+    titleAr: string
+}
