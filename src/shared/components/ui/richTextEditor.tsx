@@ -1,8 +1,35 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect, useMemo, useRef } from "react";
-import Quill from "quill";
-import "quill/dist/quill.snow.css";
-import useDebounce from "../../hooks/useDebouncing";
+import React from "react";
+import { RichTextProvider } from 'reactjs-tiptap-editor';
+import { EditorContent, useEditor } from "@tiptap/react";
+import { Document } from '@tiptap/extension-document';
+import { Text } from '@tiptap/extension-text';
+import { Paragraph } from '@tiptap/extension-paragraph';
+import { Dropcursor, Gapcursor, Placeholder } from '@tiptap/extensions';
+import { HardBreak } from '@tiptap/extension-hard-break';
+import { TextStyle } from '@tiptap/extension-text-style';
+import { ListItem } from '@tiptap/extension-list-item';
+import { BulletList, RichTextBulletList } from 'reactjs-tiptap-editor/bulletlist';
+import { OrderedList, RichTextOrderedList } from 'reactjs-tiptap-editor/orderedlist';
+import { Bold, RichTextBold } from "reactjs-tiptap-editor/bold";
+import { Italic, RichTextItalic } from "reactjs-tiptap-editor/italic";
+import { Heading, RichTextHeading } from "reactjs-tiptap-editor/heading";
+import { TextAlign, RichTextAlign } from "reactjs-tiptap-editor/textalign";
+import { Image, RichTextImage } from "reactjs-tiptap-editor/image";
+import { Color, RichTextColor } from 'reactjs-tiptap-editor/color';
+import { FontSize, RichTextFontSize } from 'reactjs-tiptap-editor/fontsize';
+import { Table, RichTextTable } from 'reactjs-tiptap-editor/table';
+import { TextDirection, RichTextTextDirection } from 'reactjs-tiptap-editor/textdirection';
+import { Indent, RichTextIndent } from 'reactjs-tiptap-editor/indent';
+import { TextUnderline, RichTextUnderline } from "reactjs-tiptap-editor/textunderline";
+import { Strike, RichTextStrike } from "reactjs-tiptap-editor/strike";
+import { History, RichTextUndo, RichTextRedo } from "reactjs-tiptap-editor/history";
+import { Link, RichTextLink } from "reactjs-tiptap-editor/link";
+import { LineHeight, RichTextLineHeight } from 'reactjs-tiptap-editor/lineheight';
+import { FontWeight } from "../Extensions/FontWeight";
+import { NoTrailingParagraph } from "../Extensions/NoTrailingP";
+import useDebounce from "@/shared/hooks/useDebouncing";
+import Loading from "../Loading";
 
 interface SharedRichTextEditorProps {
     content: string;
@@ -11,291 +38,182 @@ interface SharedRichTextEditorProps {
     label?: string;
     placeholder?: string;
     className?: string;
-    disabled?: boolean;
 }
 
-function htmlToText(html: string) {
-    const div = document.createElement("div");
-    div.innerHTML = html || "";
-    return div.textContent || div.innerText || "";
-}
+const RichTextToolbar = ({ editor }: { editor: any }) => (
+    <div className="flex items-center p-1 gap-1 flex-wrap border-b border-gray-300">
+        <RichTextUndo />
+        <RichTextRedo />
+        <RichTextHeading />
+        <RichTextFontSize />
+        <RichTextBold />
+        <RichTextItalic />
+        <RichTextUnderline />
+        <RichTextStrike />
+        <RichTextColor />
+        <RichTextAlign />
+        <RichTextBulletList />
+        <RichTextOrderedList />
+        <RichTextIndent />
+        <RichTextLineHeight />
+        <RichTextLink />
+        <RichTextImage />
+        <RichTextTable />
+        <RichTextTextDirection />
+        <RichTextFontWeight editor={editor} />
+    </div>
+);
 
-function isValidHex(input: string) {
-    return /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6}|[0-9A-Fa-f]{8})$/.test(input.trim());
-}
+const fontWeightOptions = [
+    { text: '100', value: '100' },
+    { text: '200', value: '200' },
+    { text: '300', value: '300' },
+    { text: '400', value: '400' },
+    { text: '500', value: '500' },
+    { text: '600', value: '600' },
+    { text: '700', value: '700' },
+    { text: '800', value: '800' },
+    { text: '900', value: '900' },
+];
 
-/** Register sizes + fonts ONCE (avoid HMR duplicates) */
-let registryDone = false;
-function registerQuillFormatsOnce() {
-    if (registryDone) return;
-    registryDone = true;
+const RichTextFontWeight = ({ editor }: { editor: any }) => {
+    if (!editor) return null;
 
-    const Size = Quill.import("formats/size") as any;
-    Size.whitelist = ["12px", "14px", "16px", "18px", "20px", "24px", "28px", "32px"];
-    Quill.register(Size, true);
-
-    const Font = Quill.import("formats/font") as any;
-    Font.whitelist = ["sans", "serif", "monospace", "dubai"];
-    Quill.register(Font, true);
-}
-
-/**
- * Remove Quill injected toolbar/container to prevent duplication.
- * IMPORTANT: don't remove your own toolbar (we avoid .ql-toolbar class on it).
- */
-function cleanupQuillDom(wrapper: HTMLElement | null) {
-    if (!wrapper) return;
-    wrapper.querySelectorAll(":scope > .ql-toolbar").forEach((n) => n.remove());
-    wrapper.querySelectorAll(":scope > .ql-container").forEach((n) => n.remove());
-}
-
-const SharedRichTextEditor = React.memo(function SharedRichTextEditor({
-    content,
-    onChange,
-    onTextChange,
-    label,
-    placeholder = "Type here...",
-    className,
-    disabled = false,
-}: SharedRichTextEditorProps) {
-    const debounce = useDebounce();
-
-    const wrapperRef = useRef<HTMLDivElement | null>(null);
-    const toolbarRef = useRef<HTMLDivElement | null>(null);
-    const mountRef = useRef<HTMLDivElement | null>(null);
-    const quillRef = useRef<Quill | null>(null);
-
-    const applyingExternalRef = useRef(false);
-    const lastExternalContentRef = useRef<string | null>(null);
-
-    const sizeWhitelist = useMemo(
-        () => ["12px", "14px", "16px", "18px", "20px", "24px", "28px", "32px"],
-        []
-    );
-
-    // ✅ Init Quill ONLY once
-    useEffect(() => {
-        if (!wrapperRef.current || !toolbarRef.current || !mountRef.current) return;
-        if (quillRef.current) return;
-
-        registerQuillFormatsOnce();
-
-        // remove only Quill injected nodes (not your toolbar)
-        cleanupQuillDom(wrapperRef.current);
-        mountRef.current.innerHTML = "";
-
-        const quill = new Quill(mountRef.current, {
-            theme: "snow",
-            placeholder,
-            readOnly: disabled,
-            modules: {
-                toolbar: toolbarRef.current, // ✅ use your DOM toolbar
-                history: { delay: 800, maxStack: 100, userOnly: true },
-                clipboard: { matchVisual: false },
-            },
-        });
-
-        const toolbarModule = quill.getModule("toolbar") as any;
-
-        toolbarModule?.addHandler("image", () => {
-            const url = window.prompt("Paste image URL");
-            if (!url) return;
-            const range = quill.getSelection(true);
-            quill.insertEmbed(range.index, "image", url.trim(), "user");
-            quill.setSelection(range.index + 1, 0);
-        });
-
-        toolbarModule?.addHandler("video", () => {
-            const url = window.prompt("Paste embedded video URL (YouTube/Vimeo)");
-            if (!url) return;
-            const range = quill.getSelection(true);
-            quill.insertEmbed(range.index, "video", url.trim(), "user");
-            quill.setSelection(range.index + 1, 0);
-        });
-
-        // ✅ custom HEX color button (works because the button exists)
-        const customBtn = toolbarRef.current.querySelector(".ql-customColor") as HTMLButtonElement | null;
-        const onCustomColor = () => {
-            const current = quill.getFormat()?.color;
-            const hex = window.prompt(
-                "Enter HEX color (example: #8B0000):",
-                typeof current === "string" ? current : "#8B0000"
-            );
-            if (!hex) return;
-
-            const value = hex.trim();
-            if (!isValidHex(value)) {
-                window.alert("Invalid HEX. Use like: #8B0000 or #F00");
-                return;
-            }
-            quill.format("color", value);
-        };
-        customBtn?.addEventListener("click", onCustomColor);
-
-        // initial content silently
-        applyingExternalRef.current = true;
-        quill.clipboard.dangerouslyPasteHTML(content || "", "silent");
-        applyingExternalRef.current = false;
-        lastExternalContentRef.current = content;
-
-        // editor defaults
-        const editorEl = wrapperRef.current.querySelector(".ql-editor") as HTMLElement | null;
-        if (editorEl) {
-            editorEl.style.direction = "auto";
-            editorEl.style.textAlign = "start";
-            editorEl.style.minHeight = "30vh";
-        }
-
-        // change listener
-        const handler = () => {
-            if (applyingExternalRef.current) return;
-
-            const html = quill.root.innerHTML;
-            debounce(() => onChange(html), 50);
-
-            if (typeof onTextChange === "function") {
-                const text = quill.getText().replace(/\n$/, "");
-                onTextChange(text);
-            }
-        };
-
-        quill.on("text-change", handler);
-        quillRef.current = quill;
-
-        return () => {
-            customBtn?.removeEventListener("click", onCustomColor);
-            quill.off("text-change", handler);
-            quillRef.current = null;
-            cleanupQuillDom(wrapperRef.current);
-            if (mountRef.current) mountRef.current.innerHTML = "";
-        };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    // Sync external content changes
-    useEffect(() => {
-        const quill = quillRef.current;
-        if (!quill) return;
-
-        if (content === lastExternalContentRef.current) return;
-
-        const currentHtml = quill.root.innerHTML;
-        if ((content || "") === (currentHtml || "")) {
-            lastExternalContentRef.current = content;
-            return;
-        }
-
-        applyingExternalRef.current = true;
-        quill.clipboard.dangerouslyPasteHTML(content || "", "silent");
-        applyingExternalRef.current = false;
-        lastExternalContentRef.current = content;
-
-        if (typeof onTextChange === "function") {
-            onTextChange(htmlToText(content || ""));
-        }
-    }, [content, onTextChange]);
-
-    // Update readOnly
-    useEffect(() => {
-        const quill = quillRef.current;
-        if (!quill) return;
-        quill.enable(!disabled);
-    }, [disabled]);
+    const currentWeight = editor.getAttributes('textStyle').fontWeight || '400';
 
     return (
-        <div className={`space-y-1.5 min-h-[30vh] ${className ?? ""}`}>
-            {label && <label className="text-xs font-semibold text-gray-700 ms-1">{label}</label>}
+        <select
+            className="h-7 text-xs border border-gray-300 rounded px-1 focus:outline-none focus:ring-1 focus:ring-cms-primary"
+            value={currentWeight}
+            onChange={(e) => {
+                const weight = e.target.value;
+                if (weight === '400') {
+                    editor.commands.unsetFontWeight();
+                } else {
+                    editor.commands.setFontWeight(weight);
+                }
+            }}
+        >
+            <option value="" disabled>Weight</option>
+            {fontWeightOptions.map(opt => (
+                <option key={opt.value} value={opt.value}>{opt.text}</option>
+            ))}
+        </select>
+    );
+};
 
-            <div
-                ref={wrapperRef}
-                className="border min-h-[30vh] border-gray-300 rounded-lg overflow-visible transition-all hover:border-[var(--color-faa-primary)] focus-within:ring-1 focus-within:ring-[var(--color-faa-primary)] focus-within:border-[var(--color-faa-primary)]"
-            >
-                {/* ✅ Custom toolbar DOM (NOT .ql-toolbar) */}
-                <div ref={toolbarRef} className="my-quill-toolbar ql-snow">
-                    <span className="ql-formats">
-                        <select className="ql-font" defaultValue="sans">
-                            <option value="sans">Sans</option>
-                            <option value="serif">Serif</option>
-                            <option value="monospace">Mono</option>
-                            <option value="dubai">Dubai</option>
-                        </select>
+const SharedRichTextEditor = React.memo(function SharedRichTextEditor(props: SharedRichTextEditorProps) {
+    const { content, onChange, label, className, onTextChange, placeholder } = props;
+    const debounce = useDebounce();
 
-                        <select className="ql-size" defaultValue="16px">
-                            {sizeWhitelist.map((s) => (
-                                <option key={s} value={s}>
-                                    {s}
-                                </option>
-                            ))}
-                        </select>
-                    </span>
+    const editor = useEditor({
+        textDirection: 'auto',
+        immediatelyRender: false,
+        extensions: [
+            Document,
+            Text,
+            Dropcursor,
+            Gapcursor,
+            Paragraph.configure({
+                HTMLAttributes: { dir: 'auto' },
+            }),
+            ListItem,
+            TextStyle,
+            Placeholder.configure({
+                placeholder: placeholder ?? "Press '/' for commands",
+            }),
+            History,
+            HardBreak.extend({
+                renderHTML() {
+                    return ['br', { 'data-type': 'hard-break' }];
+                },
+                addKeyboardShortcuts() {
+                    return {
+                        'Shift-Enter': () => this.editor.commands.insertContent('\n'),
+                    };
+                },
+            }),
+            Heading,
+            FontSize,
+            Bold,
+            Italic,
+            TextUnderline,
+            Strike,
+            Link,
+            LineHeight,
+            NoTrailingParagraph,
+            Image.configure({
+                resourceImage: "link",
+                HTMLAttributes: { class: 'tiptap-image' },
+            }),
+            Color,
+            TextAlign.configure({ types: ['heading', 'paragraph', 'listItem', 'image'] }),
+            Table,
+            Indent.configure({
+                types: ['heading', 'paragraph', 'listItem', 'blockquote'],
+            }),
+            TextDirection.configure({
+                types: ['heading', 'paragraph', 'listItem'],
+                defaultDirection: 'auto',
+            }),
 
-                    <span className="ql-formats">
-                        <button className="ql-bold" />
-                        <button className="ql-italic" />
-                        <button className="ql-underline" />
-                        <button className="ql-strike" />
-                    </span>
+            FontWeight,
+            BulletList.configure({
+                keepMarks: true,
+                keepAttributes: true,
+            }),
+            OrderedList.configure({
+                keepMarks: true,
+                keepAttributes: true,
+            }),
+        ],
+        content,
+        onUpdate: ({ editor }) => {
+            debounce(() => {
+                let html = editor.getHTML();
+                html = html.replace(
+                    /<p[^>]*><br class="ProseMirror-trailingBreak"><\/p>$/,
+                    ''
+                );
+                html = html.replace(
+                    /<p dir="auto"><br class="ProseMirror-trailingBreak"><\/p>$/,
+                    ''
+                )
+                html = html.replace(/(<p[^>]*>\s*(<br[^>]*>)?\s*<\/p>\s*)+$/, '');
 
-                    <span className="ql-formats">
-                        <select className="ql-color" />
-                        <select className="ql-background" />
-                        <button type="button" className="ql-customColor" title="HEX color" />
-                    </span>
+                onChange(html);
 
-                    <span className="ql-formats">
-                        <button className="ql-list" value="ordered" />
-                        <button className="ql-list" value="bullet" />
-                        <button className="ql-indent" value="-1" />
-                        <button className="ql-indent" value="+1" />
-                    </span>
+                if (typeof onTextChange === 'function') {
+                    onTextChange(editor.getText());
+                }
+            }, 20);
+        }
+    });
+    React.useEffect(() => {
+        if (!editor) return;
+        const editorHTML = editor.getHTML().replace(/(<p[^>]*>\s*(<br[^>]*>)?\s*<\/p>\s*)+$/, '');
+        if (content === editorHTML) return;
+        editor.commands.setContent(content);
+    }, [content, editor]);
 
-                    <span className="ql-formats">
-                        <select className="ql-align" />
-                        <button className="ql-direction" value="rtl" />
-                    </span>
+    return (
+        <div className={`space-y-1.5 ${className}`}>
+            {label && (
+                <label className="text-xs font-semibold text-gray-700 ms-1">
+                    {label}
+                </label>
+            )}
+            <div className="border border-gray-300 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-cms-primary/20 focus-within:border-cms-primary transition-all">
+                {editor ? (
+                    <RichTextProvider editor={editor}>
+                        <RichTextToolbar editor={editor} />
+                        <EditorContent className="quill-viewer wrap-break-word" editor={editor} />
 
-                    <span className="ql-formats">
-                        <button className="ql-link" />
-                        <button className="ql-image" />
-                        <button className="ql-video" />
-                        <button className="ql-clean" />
-                    </span>
-                </div>
-
-                {/* editor */}
-                <div className="overflow-hidden rounded-b-lg">
-                    <div ref={mountRef} />
-                </div>
+                    </RichTextProvider>
+                ) : (
+                    <Loading />
+                )}
             </div>
-
-            <style>{`
-        /* Make toolbar look like Snow toolbar */
-        .my-quill-toolbar {
-          border-bottom: 1px solid #ccc;
-          padding: 8px;
-        }
-
-        .ql-font-sans { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
-        .ql-font-serif { font-family: Georgia, "Times New Roman", serif; }
-        .ql-font-monospace { font-family: Menlo, Monaco, Consolas, "Courier New", monospace; }
-        .ql-font-dubai { font-family: "Dubai", sans-serif; }
-
-        .ql-size-12px { font-size: 12px; }
-        .ql-size-14px { font-size: 14px; }
-        .ql-size-16px { font-size: 16px; }
-        .ql-size-18px { font-size: 18px; }
-        .ql-size-20px { font-size: 20px; }
-        .ql-size-24px { font-size: 24px; }
-        .ql-size-28px { font-size: 28px; }
-        .ql-size-32px { font-size: 32px; }
-
-        .ql-customColor::before {
-          content: "#";
-          font-weight: 900;
-        }
-
-        .ql-editor { direction: auto; text-align: start; min-height: 30vh !important; }
-      `}</style>
         </div>
     );
 });

@@ -72,17 +72,6 @@ const router = createBrowserRouter([
                     </Suspense>
                 ),
             }
-            // {
-            //     path: "legal-opinions",
-            //     element: (
-            //         <Suspense fallback={<Loading />}>
-            //             <LegalOpinionsPage
-            //                 onBack={() => { }}
-            //             />
-            //         </Suspense>
-            //     ),
-
-            // }
         ]
     },
 ]);

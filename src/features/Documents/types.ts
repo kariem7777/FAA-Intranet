@@ -12,6 +12,7 @@ export interface Document {
     lawNameEn: string,
     documentContent: string,
     classification: number,
+    slug: string,
     isActive: boolean,
     createdOn: string,
     updatedOn: string,
@@ -33,5 +34,6 @@ export interface CreateDocument {
     lawNameAr: string,
     lawNameEn: string,
     classification: number,
+    slug: string,
     file: File
 }

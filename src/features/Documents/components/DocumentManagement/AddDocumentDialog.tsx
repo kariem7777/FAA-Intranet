@@ -23,8 +23,6 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
     const { entities, categories, subCategories } = useAppSelector((state) => state.legislationSlice);
 
     const isArabic = i18n.language === 'ar';
-
-    // Form state matching CreateDocument interface
     const [categoryId, setCategoryId] = useState<number>(0);
     const [subCategoryId, setSubCategoryId] = useState<number>(0);
     const [entityId, setEntityId] = useState<number>(0);
@@ -34,14 +32,13 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
     const [lawNameAr, setLawNameAr] = useState('');
     const [lawNameEn, setLawNameEn] = useState('');
     const [classification, setClassification] = useState<number>(1); // 1 = public, 2 = secret
+    const [slug, setSlug] = useState('');
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
-
-    // Fetch sub-categories when category changes
     useEffect(() => {
         if (categoryId && categoryId !== 0) {
             dispatch(fetchSubCategoriesByCategory({ categoryId }));
-            setSubCategoryId(0); // Reset sub-category when category changes
+            setSubCategoryId(0);
         }
     }, [categoryId, dispatch]);
 
@@ -49,7 +46,7 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
         e.preventDefault();
 
 
-        if (!documentNameEn || !documentNameAr || !selectedFile || !entityId || !categoryId || !subCategoryId) {
+        if (!documentNameEn || !documentNameAr || !selectedFile || !entityId || !categoryId || !subCategoryId || !slug) {
             toast.error(t('legislation.documentsManagement.toasts.fillAllFields'));
             return;
         }
@@ -64,6 +61,7 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
             lawNameAr,
             lawNameEn,
             classification,
+            slug,
             file: selectedFile,
         };
 
@@ -91,6 +89,7 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
         setLawNameAr('');
         setLawNameEn('');
         setClassification(1);
+        setSlug('');
         setSelectedFile(null);
     };
 
@@ -107,10 +106,8 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
             onClose={onClose}
             title={t('legislation.documentsManagement.dialogs.add.title')}
             size="large"
-            className={'max-w-[1800px]! min-h-[935px]! max-h-[1000px]!'}
         >
-            <form onSubmit={handleSubmit} dir={isArabic ? 'rtl' : 'ltr'} className="space-y-4">
-                {/* Document Name and Law Number Row */}
+            <form onSubmit={handleSubmit} dir={isArabic ? 'rtl' : 'ltr'} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {/* Document Name English */}
                     <div>
@@ -138,88 +135,104 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
                         />
                     </div>
                 </div>
-                <div>
-                    <label className="block text-sm font-medium mb-2" style={{ color: 'var(--color-dashboard-primary)' }}>
-                        {t('legislation.documentsManagement.dialogs.add.lawNumber')}
-                    </label>
-                    <Input
-                        type="text"
-                        value={lawNumber}
-                        onChange={(e) => setLawNumber(e.target.value)}
-                    />
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label className="block text-sm font-medium mb-2" style={{ color: 'var(--color-dashboard-primary)' }}>
+                            {t('legislation.documentsManagement.dialogs.add.lawNumber')}
+                        </label>
+                        <Input
+                            type="text"
+                            value={lawNumber}
+                            onChange={(e) => setLawNumber(e.target.value)}
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium mb-2" style={{ color: 'var(--color-dashboard-primary)' }}>
+                            {isArabic ? 'الرابط (Slug)' : 'Slug'}
+                        </label>
+                        <Input
+                            type="text"
+                            value={slug}
+                            onChange={(e) => setSlug(e.target.value)}
+                            required
+                        />
+                    </div>
                 </div>
 
                 {/* Entity */}
-                <div>
-                    <label className="block text-sm font-medium mb-2" style={{ color: 'var(--color-dashboard-primary)' }}>
-                        {t('legislation.documentsManagement.dialogs.add.entity')}
-                    </label>
-                    <Select
-                        value={entityId}
-                        onChange={(e) => setEntityId(Number(e.target.value))}
-                        required
-                    >
-                        <option value={0}>{t('legislation.documentsManagement.dialogs.add.selectEntity')}</option>
-                        {entities.items.map((entity) => (
-                            <option key={entity.entityId} value={entity.entityId}>
-                                {isArabic ? entity.entityNameAr : entity.entityName}
-                            </option>
-                        ))}
-                    </Select>
-                </div>
+                <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
+                    <div>
+                        <label className="block text-sm font-medium mb-2" style={{ color: 'var(--color-dashboard-primary)' }}>
+                            {t('legislation.documentsManagement.dialogs.add.entity')}
+                        </label>
+                        <Select
+                            value={entityId}
+                            onChange={(e) => setEntityId(Number(e.target.value))}
+                            required
+                        >
+                            <option value={0}>{t('legislation.documentsManagement.dialogs.add.selectEntity')}</option>
+                            {entities.items.map((entity) => (
+                                <option key={entity.entityId} value={entity.entityId}>
+                                    {isArabic ? entity.entityNameAr : entity.entityName}
+                                </option>
+                            ))}
+                        </Select>
+                    </div>
 
+                    <div>
+                        <label className="block text-sm font-medium mb-2" style={{ color: 'var(--color-dashboard-primary)' }}>
+                            {t('legislation.documentsManagement.dialogs.add.category')}
+                        </label>
+                        <Select
+                            value={categoryId}
+                            onChange={(e) => {
+                                setCategoryId(Number(e.target.value));
+                                setSubCategoryId(0); // Reset sub-category when category changes
+                            }}
+                            required
+                        >
+                            <option value={0}>{t('legislation.documentsManagement.dialogs.add.selectCategory')}</option>
+                            {categories.items.map((cat) => (
+                                <option key={cat.id} value={cat.id}>
+                                    {isArabic ? cat.lawCategoryAr : cat.lawCategoryEn}
+                                </option>
+                            ))}
+                        </Select>
+                    </div>
+
+                    {/* Sub Category */}
+                    <div>
+                        <label className="block text-sm font-medium mb-2" style={{ color: 'var(--color-dashboard-primary)' }}>
+                            {t('legislation.documentsManagement.dialogs.add.subCategory')}
+                        </label>
+                        <Select
+                            value={subCategoryId}
+                            onChange={(e) => setSubCategoryId(Number(e.target.value))}
+                            required
+                            disabled={!categoryId || subCategories.loading}
+                        >
+                            <option value={0}>
+                                {!categoryId
+                                    ? t('legislation.documentsManagement.dialogs.add.selectCategoryFirst')
+                                    : subCategories.loading
+                                        ? t('common.loading')
+                                        : subCategories.items.length === 0
+                                            ? t('legislation.documentsManagement.dialogs.add.noSubCategories')
+                                            : t('legislation.documentsManagement.dialogs.add.selectSubCategory')}
+                            </option>
+                            {subCategories.items.map((cat) => (
+                                <option key={cat.id} value={cat.id}>
+                                    {isArabic ? cat.lawSubCategoryAr : cat.lawSubCategoryEn}
+                                </option>
+                            ))}
+                        </Select>
+                        {subCategories.error && (
+                            <p className="text-red-500 text-sm mt-1">{subCategories.error}</p>
+                        )}
+                    </div>
+                </div>
                 {/* Category */}
-                <div>
-                    <label className="block text-sm font-medium mb-2" style={{ color: 'var(--color-dashboard-primary)' }}>
-                        {t('legislation.documentsManagement.dialogs.add.category')}
-                    </label>
-                    <Select
-                        value={categoryId}
-                        onChange={(e) => {
-                            setCategoryId(Number(e.target.value));
-                            setSubCategoryId(0); // Reset sub-category when category changes
-                        }}
-                        required
-                    >
-                        <option value={0}>{t('legislation.documentsManagement.dialogs.add.selectCategory')}</option>
-                        {categories.items.map((cat) => (
-                            <option key={cat.id} value={cat.id}>
-                                {isArabic ? cat.lawCategoryAr : cat.lawCategoryEn}
-                            </option>
-                        ))}
-                    </Select>
-                </div>
-
-                {/* Sub Category */}
-                <div>
-                    <label className="block text-sm font-medium mb-2" style={{ color: 'var(--color-dashboard-primary)' }}>
-                        {t('legislation.documentsManagement.dialogs.add.subCategory')}
-                    </label>
-                    <Select
-                        value={subCategoryId}
-                        onChange={(e) => setSubCategoryId(Number(e.target.value))}
-                        required
-                        disabled={!categoryId || subCategories.loading}
-                    >
-                        <option value={0}>
-                            {!categoryId
-                                ? t('legislation.documentsManagement.dialogs.add.selectCategoryFirst')
-                                : subCategories.loading
-                                    ? t('common.loading')
-                                    : subCategories.items.length === 0
-                                        ? t('legislation.documentsManagement.dialogs.add.noSubCategories')
-                                        : t('legislation.documentsManagement.dialogs.add.selectSubCategory')}
-                        </option>
-                        {subCategories.items.map((cat) => (
-                            <option key={cat.id} value={cat.id}>
-                                {isArabic ? cat.lawSubCategoryAr : cat.lawSubCategoryEn}
-                            </option>
-                        ))}
-                    </Select>
-                    {subCategories.error && (
-                        <p className="text-red-500 text-sm mt-1">{subCategories.error}</p>
-                    )}
-                </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {/* Law Name English */}

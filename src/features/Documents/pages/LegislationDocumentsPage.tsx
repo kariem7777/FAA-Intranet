@@ -83,8 +83,8 @@ export function LegislationDocumentsPage({
                         transition={{ delay: 0.2 }}
                         className="sticky top-[92px] z-30 border-b"
                         style={{
-                            backgroundColor: 'white',
-                            borderColor: '#E5E7EB',
+                            backgroundColor: 'var(--color-bg-white)',
+                            borderColor: 'var(--color-bg-light)',
                         }}
                     >
                         <motion.div
@@ -98,7 +98,7 @@ export function LegislationDocumentsPage({
                                 onClick={onBack}
                                 className="flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all hover:bg-gray-100 mb-4"
                                 style={{
-                                    fontSize: `${16 * fontSizeMultiplier}px`,
+                                    fontSize: 'calc(var(--font-size-base) * var(--font-scale, 1))',
                                     fontWeight: 600,
                                     color: colors.primary,
                                 }}
@@ -157,7 +157,7 @@ export function LegislationDocumentsPage({
                             bottom: '40px',
                             [isRTL ? 'left' : 'right']: '40px',
                             backgroundColor: colors.accent,
-                            color: '#FFFFFF',
+                            color: 'var(--color-bg-white)',
                             padding: '16px 24px',
                         }}
                         aria-label={t('legislation.returnToTop')}
@@ -165,8 +165,7 @@ export function LegislationDocumentsPage({
                         <ArrowUp className="w-5 h-5 transition-transform group-hover:translate-y-[-4px]" />
                         <span
                             style={{
-                                fontFamily: 'Dubai, Arial, sans-serif',
-                                fontSize: '14px',
+                                fontSize: 'var(--font-size-sm)',
                                 fontWeight: 600,
                             }}
                         >

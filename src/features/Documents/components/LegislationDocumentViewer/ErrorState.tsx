@@ -28,10 +28,10 @@ export function ErrorState({ error, onBack }: ErrorStateProps) {
                 <div className="bg-red-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
                     <AlertCircle className="w-10 h-10 text-red-400" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2" style={{ fontFamily: 'Dubai, Arial, sans-serif' }}>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">
                     {t('common.somethingWentWrong')}
                 </h3>
-                <p className="text-gray-500 mb-6" style={{ fontFamily: 'Dubai, Arial, sans-serif' }}>
+                <p className="text-gray-500 mb-6">
                     {error || t('legislation.documentNotFound')}
                 </p>
                 <button

@@ -11,7 +11,6 @@ interface DocumentsTableProps {
     onEdit: (doc: Document) => void;
     onDelete: (doc: Document) => void;
     isArabic: boolean;
-    fontFamily: string;
     currentPage: number;
     totalPages: number;
     onPageChange: (page: number) => void;
@@ -24,7 +23,6 @@ export function DocumentsTable({
     onEdit,
     onDelete,
     isArabic,
-    fontFamily,
     currentPage,
     totalPages,
     onPageChange
@@ -55,7 +53,7 @@ export function DocumentsTable({
                                 key={page}
                                 onClick={() => onPageChange(page)}
                                 className={`w-8 h-8 rounded-md text-sm font-medium transition-colors ${currentPage === page
-                                    ? 'bg-[#2F4F6F] text-white'
+                                    ? 'bg-dashboard-primary text-white'
                                     : 'text-gray-600 hover:bg-gray-100'
                                     }`}
                             >
@@ -83,7 +81,7 @@ export function DocumentsTable({
 
     const renderLoadingState = () => {
         return Array.from({ length: 5 }).map((_, index) => (
-            <tr key={index} className="border-t border-[#F3F4F6]">
+            <tr key={index} className="border-t border-gray-100">
                 <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center gap-3">
                         <Shimmer width="20px" height="20px" rounded="rounded-sm" />
@@ -121,12 +119,12 @@ export function DocumentsTable({
             <div className="overflow-x-auto">
                 <table className="w-full">
                     <thead>
-                        <tr className="bg-[#ffffff] border-b-2" style={{ borderColor: 'var(--color-faa-primary' }}>
+                        <tr className="bg-white border-b-2" style={{ borderColor: 'var(--color-faa-primary' }}>
                             {['documentTitle', 'entity', 'legislation', 'category', 'uploadDate', 'classification', 'actions'].map((headerKey) => (
                                 <th
                                     key={headerKey}
-                                    className={`px-6 py-4 text-${isArabic ? 'right' : 'left'} text-[15px] text-[#1D293D] uppercase tracking-wide whitespace-nowrap`}
-                                    style={{ fontFamily, fontWeight: 800 }}
+                                    className={`px-6 py-4 text-${isArabic ? 'right' : 'left'} text-base text-gray-900 uppercase tracking-wide whitespace-nowrap`}
+                                    style={{ fontWeight: 800 }}
                                 >
                                     {t(`legislation.documentsManagement.${headerKey}`)}
                                 </th>
@@ -140,61 +138,61 @@ export function DocumentsTable({
                             documents.map((doc) => (
                                 <tr
                                     key={doc.id}
-                                    className="border-t border-[#F3F4F6] hover:bg-[#F9FAFB] hover:translate-y-[-2px] hover:shadow-md transition-all duration-300 ease-in-out group cursor-pointer"
+                                    className="border-t border-gray-100 hover:bg-gray-50 hover:translate-y-[-2px] hover:shadow-md transition-all duration-300 ease-in-out group cursor-pointer"
                                 >
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <div className="flex items-center gap-3">
                                             <FileText className="h-5 w-5 flex-shrink-0" style={{ color: 'var(--color-faa-primary)' }} />
-                                            <span className="text-[15px] text-black" style={{ fontFamily, fontWeight: 600 }}>
+                                            <span className="text-base text-black" style={{ fontWeight: 600 }}>
                                                 {isArabic ? doc.documentNameAr : doc.documentNameEn}
                                             </span>
                                         </div>
                                     </td>
-                                    <td className="px-6 py-4 text-[15px] text-black whitespace-nowrap" style={{ fontFamily }}>
+                                    <td className="px-6 py-4 text-base text-black whitespace-nowrap" >
                                         {isArabic ? doc.entityNameAr : doc.entityNameEn}
                                     </td>
-                                    <td className="px-6 py-4 text-[15px] text-black whitespace-nowrap" style={{ fontFamily }}>
+                                    <td className="px-6 py-4 text-base text-black whitespace-nowrap" >
                                         {isArabic ? doc.categoryNameAr : doc.categoryNameEn}
                                     </td>
-                                    <td className="px-6 py-4 text-[15px] text-black whitespace-nowrap" style={{ fontFamily }}>
+                                    <td className="px-6 py-4 text-base text-black whitespace-nowrap" >
                                         {isArabic ? doc.subCategoryNameAr : doc.subCategoryNameEn}
                                     </td>
-                                    <td className="px-6 py-4 text-[15px] text-[#6B7280] whitespace-nowrap" style={{ fontFamily }}>
+                                    <td className="px-6 py-4 text-base text-gray-500 whitespace-nowrap" >
                                         {new Date(doc.createdOn).toLocaleDateString()}
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <span
-                                            className={`inline-flex items-center px-2.5 py-1 text-[13px] ${doc.classification === 1
+                                            className={`inline-flex items-center px-2.5 py-1 text-sm ${doc.classification === 1
                                                 ? 'bg-green-50 text-green-700'
                                                 : 'bg-red-50 text-red-700'
                                                 }`}
-                                            style={{ fontFamily, fontWeight: 700, borderRadius: '6px' }}
+                                            style={{ fontWeight: 700, borderRadius: '6px' }}
                                         >
                                             {doc.classification === 1 ? t('legislation.documentsManagement.public') : t('legislation.documentsManagement.secret')}
                                         </span>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="flex items-center gap-2">
+                                        <div className="flex items-center gap-1.5 opacity-90 group-hover:opacity-100 transition-opacity">
                                             <button
-                                                className="p-2 hover:bg-[#F3F4F6] transition-colors duration-150 rounded-md"
+                                                className="p-2 hover:bg-gray-50 transition-all duration-200 rounded-lg shadow-sm hover:shadow text-gray-500 hover:text-gray-700 bg-white border border-gray-100"
                                                 title={t('legislation.documentsManagement.view')}
                                                 onClick={() => onPreview(doc)}
                                             >
-                                                <Eye className="h-4 w-4 text-[#6B7280]" />
+                                                <Eye className="h-4 w-4" />
                                             </button>
                                             <button
-                                                className="p-2 hover:bg-[#F3F4F6] transition-colors duration-150 rounded-md"
+                                                className="p-2 hover:bg-blue-50 transition-all duration-200 rounded-lg shadow-sm hover:shadow text-blue-500 hover:text-blue-700 bg-white border border-gray-100"
                                                 title={t('legislation.documentsManagement.edit')}
                                                 onClick={() => onEdit(doc)}
                                             >
-                                                <Edit className="h-4 w-4 text-[#6B7280]" />
+                                                <Edit className="h-4 w-4" />
                                             </button>
                                             <button
-                                                className="p-2 hover:bg-red-50 transition-colors duration-150 rounded-md"
+                                                className="p-2 hover:bg-red-50 transition-all duration-200 rounded-lg shadow-sm hover:shadow text-red-500 hover:text-red-700 bg-white border border-gray-100"
                                                 title={t('legislation.documentsManagement.delete')}
                                                 onClick={() => onDelete(doc)}
                                             >
-                                                <Trash2 className="h-4 w-4 text-red-600" />
+                                                <Trash2 className="h-4 w-4" />
                                             </button>
                                         </div>
                                     </td>
@@ -203,8 +201,8 @@ export function DocumentsTable({
                         ) : (
                             <tr>
                                 <td colSpan={7} className="px-6 py-16 text-center">
-                                    <FileText className="h-14 w-14 text-[#D1D5DB] mx-auto mb-4" />
-                                    <p className="text-[16px] text-[#6B7280]" style={{ fontFamily }}>
+                                    <FileText className="h-14 w-14 text-gray-300 mx-auto mb-4" />
+                                    <p className="text-base text-gray-500" >
                                         {t('legislation.documentsManagement.noDocuments')}
                                     </p>
                                 </td>

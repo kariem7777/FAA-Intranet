@@ -35,7 +35,6 @@ export function LegislationDocumentCard({ document: doc, onView }: LegislationDo
                 style={{
                     backgroundColor: config.bg,
                     color: config.text,
-                    fontFamily: 'Dubai, Arial, sans-serif',
                     fontSize: 'var(--font-size-sm)'
                 }}
             >

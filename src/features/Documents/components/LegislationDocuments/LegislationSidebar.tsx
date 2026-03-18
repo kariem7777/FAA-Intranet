@@ -63,7 +63,6 @@ export function LegislationSidebar({ categoryId }: { categoryId: number }) {
         <div className="pt-3 pb-4 flex items-center justify-between">
           <h3
             style={{
-              fontFamily: 'Dubai, Arial, sans-serif',
               fontSize: 'var(--font-size-base)',
               fontWeight: 700,
               color: 'var(--color-secondary)',
@@ -113,7 +112,6 @@ export function LegislationSidebar({ categoryId }: { categoryId: number }) {
             style={{
               backgroundColor: selectedSubCategory === null ? 'var(--color-faa-primary)' : 'transparent',
               color: selectedSubCategory === null ? 'var(--color-bg-white)' : 'var(--color-primary)',
-              fontFamily: 'Dubai, Arial, sans-serif',
               fontSize: 'var(--font-size-base)',
               fontWeight: selectedSubCategory === null ? 600 : 500,
               textAlign: isRTL ? 'right' : 'left',
@@ -139,7 +137,6 @@ export function LegislationSidebar({ categoryId }: { categoryId: number }) {
               style={{
                 backgroundColor: selectedSubCategory === cat.id ? 'var(--color-faa-primary)' : 'transparent',
                 color: selectedSubCategory === cat.id ? 'var(--color-bg-white)' : 'var(--color-primary)',
-                fontFamily: 'Dubai, Arial, sans-serif',
                 fontSize: 'var(--font-size-base)',
                 fontWeight: selectedSubCategory === cat.id ? 800! : 500!,
                 textAlign: isRTL ? 'right' : 'left',
@@ -164,7 +161,7 @@ export function LegislationSidebar({ categoryId }: { categoryId: number }) {
         {/* Pagination */}
         {subCategories.items.length > 0 && pagination.totalPages > 1 && (
           <div className="mt-3 pt-4 px-3 flex justify-between items-center bg-white sticky bottom-0 border-t-1 border-faa-primary" style={{ color: 'var(--color-faa-primary)' }}>
-            <div className="text-center" style={{ fontFamily: 'Dubai, Arial, sans-serif', fontSize: 'var(--font-size-xs)', color: 'var(--color-secondary)' }}>
+            <div className="text-center" style={{ fontSize: 'var(--font-size-xs)', color: 'var(--color-secondary)' }}>
               {t('legislation.pageOf', { current: pagination.pageNumber, total: pagination.totalPages })}
             </div>
             <div className="flex items-center justify-center gap-2">

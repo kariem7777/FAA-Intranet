@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
 import type { AppDispatch, RootState } from '@/store';
 import { LegislationHero } from '@/features/Legislation/components/LegislationHero/LegislationHero';
 import { LegislationCategoriesGrid } from '../components/Home/LegislationCategoriesGrid';
@@ -19,10 +20,35 @@ interface LegislationHomeProps {
 
 function LegislationHome({ }: LegislationHomeProps = {}) {
   const dispatch = useDispatch<AppDispatch>();
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null);
-  const [viewingDocumentId, setViewingDocumentId] = useState<number | null>(null);
-  const [selectedEnquiryId, setSelectedEnquiryId] = useState<number | null>(null);
+  const selectedCategoryId = searchParams.get('categoryId') ? Number(searchParams.get('categoryId')) : null;
+  const viewingDocumentId = searchParams.get('documentId') ? Number(searchParams.get('documentId')) : null;
+  const selectedEnquiryId = searchParams.get('enquiryId') ? Number(searchParams.get('enquiryId')) : null;
+
+  const setSelectedCategoryId = (id: number | null) => {
+    setSearchParams(prev => {
+      if (id === null) prev.delete('categoryId');
+      else prev.set('categoryId', id.toString());
+      return prev;
+    }, { replace: false }); // keep history so user can use back button
+  };
+
+  const setViewingDocumentId = (id: number | null) => {
+    setSearchParams(prev => {
+      if (id === null) prev.delete('documentId');
+      else prev.set('documentId', id.toString());
+      return prev;
+    }, { replace: false });
+  };
+
+  const setSelectedEnquiryId = (id: number | null) => {
+    setSearchParams(prev => {
+      if (id === null) prev.delete('enquiryId');
+      else prev.set('enquiryId', id.toString());
+      return prev;
+    }, { replace: false });
+  };
 
   const { globalSearchQuery } = useSelector((state: RootState) => state.legislationSlice);
 

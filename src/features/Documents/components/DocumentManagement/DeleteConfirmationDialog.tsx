@@ -20,8 +20,7 @@ export function DeleteConfirmationDialog({ isOpen, onClose, document }: DeleteCo
 
 
 
-  const isArabic = i18n.language === 'ar';
-  const fontFamily = isArabic ? 'Dubai, Arial, sans-serif' : 'Inter, system-ui, sans-serif';
+
 
   const handleDelete = async () => {
     const resultAction = await dispatch(deleteDocument(document.id));
@@ -40,40 +39,37 @@ export function DeleteConfirmationDialog({ isOpen, onClose, document }: DeleteCo
       onClose={onClose}
       title={t('legislation.documentsManagement.dialogs.delete.title')}
       size="small"
-      className={isArabic ? 'rtl' : 'ltr'}
+      className={i18n.language === 'ar' ? 'rtl' : 'ltr'}
     >
-      <div dir={isArabic ? 'rtl' : 'ltr'} style={{ fontFamily }} className="space-y-4">
-        <div className="flex items-start gap-4">
-          <div className="p-2 bg-red-100 rounded-full flex-shrink-0">
-            <AlertCircle className="h-6 w-6 text-red-600" />
+      <div dir={i18n.language === 'ar' ? 'rtl' : 'ltr'} className="space-y-6 px-2 py-4">
+        <div className="flex flex-col items-center justify-center text-center gap-4">
+          <div className="p-4 bg-red-100 rounded-full flex-shrink-0 bg-opacity-70">
+            <AlertCircle className="h-12 w-12 text-red-600" />
           </div>
-          <div>
-            <p className="text-gray-600">
-              {t('legislation.documentsManagement.dialogs.delete.message')}
-            </p>
-          </div>
+          <p className="text-gray-700 text-base leading-relaxed max-w-sm">
+            {t('legislation.documentsManagement.dialogs.delete.message')}
+          </p>
         </div>
 
-        <div className="bg-gray-50 p-3 rounded-md">
-          <span className="text-xs text-gray-500 uppercase tracking-wider font-semibold">
+        <div className="bg-red-50 border border-red-100 p-4 rounded-lg text-center">
+          <span className="text-xs text-red-500 uppercase tracking-wider font-semibold block mb-1">
             {t('legislation.documentsManagement.dialogs.delete.documentLabel')}
           </span>
-          <p className="font-medium text-gray-900 mt-1">{isArabic ? document.documentNameAr : document.documentNameEn}</p>
+          <p className="font-bold text-gray-900 text-lg">{i18n.language === 'ar' ? document.documentNameAr : document.documentNameEn}</p>
         </div>
 
-        <div className="flex justify-end gap-3 pt-4 border-t">
+        <div className="flex justify-center gap-4 pt-6 border-t border-gray-100">
           <Button
             variant="outline"
             onClick={onClose}
-            style={{ fontFamily }}
+            className="w-full sm:w-auto min-w-[120px]"
           >
             {t('legislation.documentsManagement.dialogs.delete.cancel')}
           </Button>
           <Button
             onClick={handleDelete}
-            className="bg-red-600 hover:bg-red-700 text-white"
+            className="w-full sm:w-auto min-w-[120px] bg-red-600 hover:bg-red-700 text-white shadow-md hover:shadow-lg transition-all"
             disabled={loading.delete}
-            style={{ fontFamily }}
           >
             {loading.delete ? t('common.loading') : t('legislation.documentsManagement.dialogs.delete.confirm')}
           </Button>
