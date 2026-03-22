@@ -59,10 +59,7 @@ export function HeroHeader({
                     <button
                         onClick={onAddDocument}
                         disabled={isAddingDocument}
-                        className="flex items-center gap-2 text-md font-medium px-6 py-3 rounded-lg transition-all hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
-                        style={{
-                            backgroundColor: isAddingDocument ? "#9CA3AF" : "var(--color-legislation-active-indicator)",
-                        }}
+                        className="flex items-center gap-2 text-md font-medium px-6 py-3 rounded-lg transition-all hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60 bg-faa-primary"
                     >
                         <Plus className="w-5 h-5" />
                         <span>{t('legislation.hero.addNewDocument')}</span>

@@ -23,4 +23,9 @@ export const API_ROUTES = {
         GET_BYID: (id: number | string) => `/Enquiries/${id}`,
         GET_APPROVED_REPLIES: '/Enquiries/ApprovedReplies',
     },
+    DOCUMENTS: {
+        SEARCH: '/LawDocuments/search',
+    },
+    AUTH: '/AuthTest/authenticate',
+    USERS: '/Users'
 }; 

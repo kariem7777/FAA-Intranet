@@ -1,4 +1,4 @@
-import { useState, useEffect, type Key } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Search } from 'lucide-react';
 import { Input } from '@/shared/components/ui/input';
@@ -16,8 +16,8 @@ import { LegislationHero } from '@/features/Legislation/components/LegislationHe
 import { RotateCcw } from 'lucide-react';
 
 interface DocumentsManagementPageProps {
-  onAddDocument: () => void;
-  onEditDocument: (document: Document) => void;
+  onAddDocument?: () => void;
+  onEditDocument?: (document: Document) => void;
   onBack?: () => void;
 }
 
@@ -35,7 +35,7 @@ export function DocumentsManagementPage({ }: DocumentsManagementPageProps) {
 
   useEffect(() => {
     dispatch(resetFilters());
-  }, [])
+  }, [dispatch])
 
   useEffect(() => {
     dispatch(fetchDocuments());
@@ -59,32 +59,28 @@ export function DocumentsManagementPage({ }: DocumentsManagementPageProps) {
     setViewingDocumentId(doc.id);
   };
 
-  const handleBackFromViewer = () => {
-    // dispatch(clearDocument());
-    setViewingDocumentId(null);
-  };
-
   // If viewing a document, show the document viewer
   if (viewingDocumentId !== null) {
     return (
-      // <LegislationDocumentViewer
-      //   documentId={viewingDocumentId}
-      //   onBack={handleBackFromViewer}
-      // />
-      <div>
-
+      <div className="flex flex-col items-center justify-center p-20">
+        <h2 className="text-2xl font-bold mb-4">{t('legislation.documentsManagement.documentViewerPlaceholder')}</h2>
+        <button
+          onClick={() => setViewingDocumentId(null)}
+          className="px-4 py-2 bg-faa-primary text-white rounded-lg"
+        >
+          {t('common.back')}
+        </button>
       </div>
     );
   }
 
 
-
-
+  const isEntityLegislation = categories.items.find(c => c.id === filters.selectedCategory)?.slug === 'entity-legislation';
 
   const showSubCategoryFilter = filters.selectedCategory && filters.selectedCategory !== null;
 
   return (
-    <div style={{ backgroundColor: 'rgb(250, 250, 248)' }}>
+    <div className="bg-bg-subtle">
       <LegislationHero
         mode="documents"
         onAddDocument={() => setIsAddDialogOpen(true)}
@@ -116,33 +112,11 @@ export function DocumentsManagementPage({ }: DocumentsManagementPageProps) {
                 <path d="M1 3.5A.5.5 0 0 1 1.5 3h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 3.5zm2 3A.5.5 0 0 1 3.5 6h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6.5zm2 3A.5.5 0 0 1 5.5 9h5a.5.5 0 0 1 0 1h-5A.5.5 0 0 1 5 9.5z" />
               </svg>
               <span className="text-xs font-semibold text-gray-400 uppercase tracking-widest">
-                {isArabic ? 'تصفية النتائج' : 'Filter Results'}
+                {t('legislation.documentsManagement.filterResults')}
               </span>
             </div>
 
             <div className="flex flex-wrap items-end gap-4 px-5 py-4">
-              {/* Entity Filter */}
-              <div className="flex-1 min-w-[200px] space-y-1.5">
-                <label className="flex items-center gap-1.5 text-xs font-semibold text-gray-400 uppercase tracking-wider px-0.5">
-                  <span className="inline-block w-1.5 h-1.5 rounded-full bg-faa-primary/60" />
-                  {t('legislation.documentsManagement.entity')}
-                </label>
-                <Select
-                  value={filters.selectedEntity || 'null'}
-                  onChange={(e) => dispatch(setSelectedEntity(e.target.value == 'null' ? null : Number(e.target.value)))}
-                  className="h-10 bg-gray-50/80 border border-gray-200 rounded-xl text-sm focus:border-faa-primary/50 focus:bg-white transition-all duration-200 hover:border-gray-300"
-                >
-                  <option value='null'>{t('legislation.documentsManagement.allEntities')}</option>
-                  {entities.items.map(entity => (
-                    <option key={entity.entityId} value={entity.entityId}>
-                      {isArabic ? entity.entityNameAr : entity.entityName}
-                    </option>
-                  ))}
-                </Select>
-              </div>
-
-              {/* Divider */}
-              <div className="hidden md:block w-px h-10 bg-gray-100 self-end mb-0.5" />
 
               {/* Category Filter */}
               <div className="flex-1 min-w-[200px] space-y-1.5">
@@ -171,7 +145,7 @@ export function DocumentsManagementPage({ }: DocumentsManagementPageProps) {
                   <div className="flex-1 min-w-[200px] space-y-1.5 animate-fadeInFast">
                     <label className="flex items-center gap-1.5 text-xs font-semibold text-gray-400 uppercase tracking-wider px-0.5">
                       <span className="inline-block w-1.5 h-1.5 rounded-full bg-faa-primary/40" />
-                      {isArabic ? 'التصنيف الفرعي' : 'Sub-Category'}
+                      {t('legislation.subCategory')}
                     </label>
                     <Select
                       value={filters.selectedSubCategory || 'null'}
@@ -192,15 +166,38 @@ export function DocumentsManagementPage({ }: DocumentsManagementPageProps) {
                 </>
               )}
 
+              {
+                isEntityLegislation &&
+                <div className="flex-1 min-w-[200px] space-y-1.5">
+                  <label className="flex items-center gap-1.5 text-xs font-semibold text-gray-400 uppercase tracking-wider px-0.5">
+                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-faa-primary/60" />
+                    {t('legislation.documentsManagement.entity')}
+                  </label>
+                  <Select
+                    value={filters.selectedEntity || 'null'}
+                    onChange={(e) => dispatch(setSelectedEntity(e.target.value == 'null' ? null : Number(e.target.value)))}
+                    className="h-10 bg-gray-50/80 border border-gray-200 rounded-xl text-sm focus:border-faa-primary/50 focus:bg-white transition-all duration-200 hover:border-gray-300"
+                  >
+                    <option value='null'>{t('legislation.documentsManagement.allEntities')}</option>
+                    {entities.items.map(entity => (
+                      <option key={entity.entityId} value={entity.entityId}>
+                        {isArabic ? entity.entityNameAr : entity.entityName}
+                      </option>
+                    ))}
+                  </Select>
+                </div>
+              }
+
+
               {/* Reset Button — inline with filters */}
               {filters && (
                 <button
                   onClick={() => dispatch(resetFilters())}
                   className="self-end h-10 px-5 flex items-center gap-2 rounded-xl border border-gray-200 bg-gray-50 text-gray-500 text-sm font-medium hover:bg-red-50 hover:border-red-200 hover:text-red-500 transition-all duration-200 group active:scale-95"
-                  title={isArabic ? 'إعادة ضبط الفلاتر' : 'Reset Filters'}
+                  title={t('legislation.documentsManagement.reset')}
                 >
                   <RotateCcw className="h-3.5 w-3.5 transition-transform duration-500 group-hover:rotate-180" />
-                  <span>{isArabic ? 'إعادة ضبط' : 'Reset'}</span>
+                  <span>{t('legislation.documentsManagement.reset')}</span>
                 </button>
               )}
             </div>

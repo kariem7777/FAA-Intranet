@@ -95,7 +95,7 @@ export function SLAPerformanceStatic({ isEmpty }: SLAPerformanceProps) {
                                     {metric.count} {t('legislation.dashboard.cases.cases')}
                                 </span>
                                 <span className="text-gray-400 text-[10px] font-medium">
-                                    {isArabic ? 'محدث منذ ساعة' : 'Updated 1h ago'}
+                                    {t('legislation.dashboard.cases.updatedAgo')}
                                 </span>
                             </div>
                         </div>

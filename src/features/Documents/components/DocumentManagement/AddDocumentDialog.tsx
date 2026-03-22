@@ -35,6 +35,9 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
     const [slug, setSlug] = useState('');
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
+
+    const selectedCategory = categories.items.find(cat => cat.id === categoryId);
+    const isEntityLegislation = selectedCategory?.slug === 'entity-legislation';
     useEffect(() => {
         if (categoryId && categoryId !== 0) {
             dispatch(fetchSubCategoriesByCategory({ categoryId }));
@@ -46,7 +49,10 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
         e.preventDefault();
 
 
-        if (!documentNameEn || !documentNameAr || !selectedFile || !entityId || !categoryId || !subCategoryId || !slug) {
+        const isReady = documentNameEn && documentNameAr && selectedFile && categoryId && subCategoryId && slug &&
+            (!isEntityLegislation || (isEntityLegislation && entityId !== 0));
+
+        if (!isReady) {
             toast.error(t('legislation.documentsManagement.toasts.fillAllFields'));
             return;
         }
@@ -111,7 +117,7 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {/* Document Name English */}
                     <div>
-                        <label className="block text-sm font-medium mb-2" style={{ color: 'var(--color-dashboard-primary)' }}>
+                        <label className="block text-sm font-medium mb-2 text-faa-primary">
                             {t('legislation.documentsManagement.dialogs.add.documentNameEn')}
                         </label>
                         <Input
@@ -124,7 +130,7 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
 
                     {/* Document Name Arabic */}
                     <div>
-                        <label className="block text-sm font-medium mb-2" style={{ color: 'var(--color-dashboard-primary)' }}>
+                        <label className="block text-sm font-medium mb-2 text-faa-primary">
                             {t('legislation.documentsManagement.dialogs.add.documentNameAr')}
                         </label>
                         <Input
@@ -138,7 +144,7 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label className="block text-sm font-medium mb-2" style={{ color: 'var(--color-dashboard-primary)' }}>
+                        <label className="block text-sm font-medium mb-2 text-faa-primary">
                             {t('legislation.documentsManagement.dialogs.add.lawNumber')}
                         </label>
                         <Input
@@ -148,8 +154,8 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium mb-2" style={{ color: 'var(--color-dashboard-primary)' }}>
-                            {isArabic ? 'الرابط (Slug)' : 'Slug'}
+                        <label className="block text-sm font-medium mb-2 text-faa-primary">
+                            {t('legislation.documentsManagement.dialogs.add.slug')}
                         </label>
                         <Input
                             type="text"
@@ -161,27 +167,31 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
                 </div>
 
                 {/* Entity */}
-                <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
-                    <div>
-                        <label className="block text-sm font-medium mb-2" style={{ color: 'var(--color-dashboard-primary)' }}>
-                            {t('legislation.documentsManagement.dialogs.add.entity')}
-                        </label>
-                        <Select
-                            value={entityId}
-                            onChange={(e) => setEntityId(Number(e.target.value))}
-                            required
-                        >
-                            <option value={0}>{t('legislation.documentsManagement.dialogs.add.selectEntity')}</option>
-                            {entities.items.map((entity) => (
-                                <option key={entity.entityId} value={entity.entityId}>
-                                    {isArabic ? entity.entityNameAr : entity.entityName}
-                                </option>
-                            ))}
-                        </Select>
+                {isEntityLegislation && (
+                    <div className='grid grid-cols-1 md:grid-cols-1 gap-4'>
+                        <div>
+                            <label className="block text-sm font-medium mb-2 text-faa-primary">
+                                {t('legislation.documentsManagement.dialogs.add.entity')}
+                            </label>
+                            <Select
+                                value={entityId}
+                                onChange={(e) => setEntityId(Number(e.target.value))}
+                                required
+                            >
+                                <option value={0}>{t('legislation.documentsManagement.dialogs.add.selectEntity')}</option>
+                                {entities.items.map((entity) => (
+                                    <option key={entity.entityId} value={entity.entityId}>
+                                        {isArabic ? entity.entityNameAr : entity.entityName}
+                                    </option>
+                                ))}
+                            </Select>
+                        </div>
                     </div>
+                )}
 
+                <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                     <div>
-                        <label className="block text-sm font-medium mb-2" style={{ color: 'var(--color-dashboard-primary)' }}>
+                        <label className="block text-sm font-medium mb-2 text-faa-primary">
                             {t('legislation.documentsManagement.dialogs.add.category')}
                         </label>
                         <Select
@@ -203,7 +213,7 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
 
                     {/* Sub Category */}
                     <div>
-                        <label className="block text-sm font-medium mb-2" style={{ color: 'var(--color-dashboard-primary)' }}>
+                        <label className="block text-sm font-medium mb-2 text-faa-primary">
                             {t('legislation.documentsManagement.dialogs.add.subCategory')}
                         </label>
                         <Select
@@ -237,7 +247,7 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {/* Law Name English */}
                     <div>
-                        <label className="block text-sm font-medium mb-2" style={{ color: 'var(--color-dashboard-primary)' }}>
+                        <label className="block text-sm font-medium mb-2 text-faa-primary">
                             {t('legislation.documentsManagement.dialogs.add.lawNameEn')}
                         </label>
                         <Input
@@ -249,7 +259,7 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
 
                     {/* Law Name Arabic */}
                     <div>
-                        <label className="block text-sm font-medium mb-2" style={{ color: 'var(--color-dashboard-primary)' }}>
+                        <label className="block text-sm font-medium mb-2 text-faa-primary">
                             {t('legislation.documentsManagement.dialogs.add.lawNameAr')}
                         </label>
                         <Input
@@ -264,7 +274,7 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
 
                 {/* Classification */}
                 <div>
-                    <label className="block text-sm font-medium mb-2" style={{ color: 'var(--color-dashboard-primary)' }}>
+                    <label className="block text-sm font-medium mb-2 text-faa-primary">
                         {t('legislation.documentsManagement.dialogs.add.classification')}
                     </label>
                     <Select
@@ -278,7 +288,7 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
 
                 {/* File Upload */}
                 <div>
-                    <label className="block text-sm font-medium mb-2" style={{ color: 'var(--color-dashboard-primary)' }}>
+                    <label className="block text-sm font-medium mb-2 text-faa-primary">
                         {t('legislation.documentsManagement.dialogs.add.file')}
                     </label>
                     <div className="border-2 border-dashed rounded-lg p-6 text-center">
@@ -292,7 +302,7 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
                         {selectedFile ? (
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-2">
-                                    <FileText className="h-5 w-5" style={{ color: 'var(--color-dashboard-primary)' }} />
+                                    <FileText className="h-5 w-5 text-faa-primary" />
                                     <span>{selectedFile.name}</span>
                                 </div>
                                 <Button
@@ -305,7 +315,7 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
                             </div>
                         ) : (
                             <div>
-                                <Upload className="h-8 w-8 mx-auto mb-2" style={{ color: 'var(--color-dashboard-primary)' }} />
+                                <Upload className="h-8 w-8 mx-auto mb-2 text-faa-primary" />
                                 <Button
                                     type="button"
                                     variant="outline"
@@ -330,7 +340,7 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
                     <Button
                         type="submit"
                         disabled={loading.add}
-                        style={{ background: 'var(--color-dashboard-primary)' }}
+                        className="bg-faa-primary"
                     >
                         {loading.add ? t('common.loading') : t('legislation.documentsManagement.dialogs.add.submit')}
                     </Button>

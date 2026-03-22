@@ -9,6 +9,10 @@ export { useAzureAuth } from './hooks/useAzureAuth';
 
 // Components
 export { AzureLoginButton } from './components/AzureLoginButton';
+export { AuthGate } from './components/AuthGate';
+
+// Pages
+export { AuthErrorPage } from './pages/AuthErrorPage';
 
 // Services
 export { authService } from './services/AuthService';

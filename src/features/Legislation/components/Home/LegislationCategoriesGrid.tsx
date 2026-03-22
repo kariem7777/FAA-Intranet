@@ -33,9 +33,11 @@ const LegalOpinionsCategory: LawCategory = {
     descriptionEn: "Legal opinions and consultations issued by the Authority",
     descriptionAr: "الآراء والاستشارات القانونية الصادرة عن الهيئة",
     color: '#2F4F6F',
+    slug: 'legal-opinions',
     imagePath: '/src/assets/categories/legal-opinions.png',
     isActive: true,
 }
+
 export const LegislationCategoriesGrid = ({ onCategorySelect }: LegislationCategoriesGridProps) => {
     const { categories } = useSelector((state: RootState) => state.legislationSlice);
     const { t } = useTranslation();

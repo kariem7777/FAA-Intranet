@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import type { AppDispatch, RootState } from '@/store';
@@ -6,12 +6,12 @@ import { LegislationHero } from '@/features/Legislation/components/LegislationHe
 import { LegislationCategoriesGrid } from '../components/Home/LegislationCategoriesGrid';
 import { ImportantNoticeCard } from '../components/Home/Notice/ImportantNoticeCard';
 import { ImportantNoticeModal } from '../components/Home/Notice/ImportantNoticeModal';
-import { performGlobalSearch, resetSubCategories } from '../slices/legislationSlice';
+import { resetSubCategories, clearSearch } from '../slices/legislationSlice';
 import { LegalOpinions } from '@/features/LegalOpinions/pages/LegalOpinions';
 import { OpinionDetailPage } from '@/features/LegalOpinions/pages/OpinionDetailPage';
 import { LegislationDocumentsPage } from '@/features/Documents/pages/LegislationDocumentsPage';
 import { LegislationDocumentViewer } from '@/features/Documents/pages/LegislationDocumentViewer';
-import { clearSelectedDocument } from '@/features/Documents/slices/documentsManagementSlice';
+import { clearSelectedDocument, setSearchQuery, setSelectedDocument } from '@/features/Documents/slices/documentsManagementSlice';
 
 
 interface LegislationHomeProps {
@@ -52,13 +52,8 @@ function LegislationHome({ }: LegislationHomeProps = {}) {
 
   const { globalSearchQuery } = useSelector((state: RootState) => state.legislationSlice);
 
-  useEffect(() => {
-    if (globalSearchQuery) {
-      dispatch(performGlobalSearch());
-    }
-  }, [globalSearchQuery, dispatch]);
-
   const handleViewDocument = (doc: any) => {
+    dispatch(setSelectedDocument(doc));
     setViewingDocumentId(doc.id);
   };
 
@@ -108,6 +103,10 @@ function LegislationHome({ }: LegislationHomeProps = {}) {
   }
 
   const handleCategorySearch = (categoryId: number) => {
+    if (globalSearchQuery) {
+        dispatch(setSearchQuery(globalSearchQuery));
+        dispatch(clearSearch());
+    }
     setSelectedCategoryId(categoryId);
   };
 
@@ -116,6 +115,7 @@ function LegislationHome({ }: LegislationHomeProps = {}) {
       <div className="relative">
         <LegislationHero
           handleCategorySearch={handleCategorySearch}
+          onViewDocument={handleViewDocument}
         />
       </div>
       <div className="px-20 pt-10 pb-8 space-y-8">
@@ -131,4 +131,3 @@ function LegislationHome({ }: LegislationHomeProps = {}) {
 }
 
 export default LegislationHome;
-

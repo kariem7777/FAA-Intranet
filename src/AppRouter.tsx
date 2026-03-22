@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Loading, ErrorPage } from "@/shared";
 import { LegislationLayout } from "./features/Legislation/layout/LegislationLayout";
+import { ProtectedRoute } from "@/features/authentication/routes/ProtectedRoute";
 
 const LegislationHome = lazy(() => import("@/features/Legislation/pages/LegislationHome"));
 const LegislationDashboardPage = lazy(() => import("@/features/Dashboard/pages/LegislationDashboardPage"));
@@ -21,6 +22,7 @@ const router = createBrowserRouter([
         ),
         errorElement: <ErrorPage />,
         children: [
+            // Public routes — accessible by all authenticated users
             {
                 index: true,
                 element: (
@@ -29,33 +31,7 @@ const router = createBrowserRouter([
                     </Suspense>
                 ),
             },
-            {
-                path: "documents",
-                element: (
-                    <Suspense fallback={<Loading />}>
-                        <DocumentsManagementPage
-                            onAddDocument={() => { }}
-                            onEditDocument={() => { }}
-                        />
-                    </Suspense>
-                ),
-            },
-            {
-                path: "dashboard",
-                element: (
-                    <Suspense fallback={<Loading />}>
-                        <LegislationDashboardPage />
-                    </Suspense>
-                ),
-            },
-            {
-                path: "approved-opinions",
-                element: (
-                    <Suspense fallback={<Loading />}>
-                        <ApprovedLegalOpinionsPage />
-                    </Suspense>
-                ),
-            },
+
             {
                 path: "opinions/:id",
                 element: (
@@ -64,14 +40,47 @@ const router = createBrowserRouter([
                     </Suspense>
                 ),
             },
+
             {
-                path: "add-user",
-                element: (
-                    <Suspense fallback={<Loading />}>
-                        <AddUserPage />
-                    </Suspense>
-                ),
-            }
+                element: <ProtectedRoute allowedRoles={['Admin', "Manager"]} />,
+                children: [
+                    {
+                        path: "documents",
+                        element: (
+                            <Suspense fallback={<Loading />}>
+                                <DocumentsManagementPage
+                                    onAddDocument={() => { }}
+                                    onEditDocument={() => { }}
+                                />
+                            </Suspense>
+                        ),
+                    },
+                    {
+                        path: "approved-opinions",
+                        element: (
+                            <Suspense fallback={<Loading />}>
+                                <ApprovedLegalOpinionsPage />
+                            </Suspense>
+                        ),
+                    },
+                    {
+                        path: "dashboard",
+                        element: (
+                            <Suspense fallback={<Loading />}>
+                                <LegislationDashboardPage />
+                            </Suspense>
+                        ),
+                    },
+                    {
+                        path: "add-user",
+                        element: (
+                            <Suspense fallback={<Loading />}>
+                                <AddUserPage />
+                            </Suspense>
+                        ),
+                    },
+                ],
+            },
         ]
     },
 ]);
@@ -81,4 +90,3 @@ const AppRouter = () => {
 };
 
 export default AppRouter;
-

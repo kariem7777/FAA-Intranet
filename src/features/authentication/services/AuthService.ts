@@ -4,8 +4,11 @@ import type { CreateUserRequest, JobTitle, Role } from '../types';
 import { API_ROUTES } from '@/shared/api/routes';
 
 export interface UserResponse {
+    isAuthenticated: boolean;
     email: string;
-    role: string;
+    roles: string[];
+    userName: string;
+    message?: string;
 }
 
 class AuthService extends BaseApiService {
@@ -14,11 +17,11 @@ class AuthService extends BaseApiService {
     }
 
     public async authenticate(): Promise<UserResponse> {
-        return this.post<UserResponse>('/authenticate');
+        return this.get<UserResponse>(API_ROUTES.AUTH);
     }
 
     public async addUser(user: CreateUserRequest): Promise<ApiResponse<void>> {
-        return this.post<ApiResponse<void>>('/Users', user);
+        return this.post<ApiResponse<void>>(API_ROUTES.USERS, user);
     }
 
     public async getRoles(): Promise<ApiResponse<Role[]>> {

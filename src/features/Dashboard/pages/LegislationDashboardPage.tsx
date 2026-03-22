@@ -6,7 +6,7 @@ import {
 } from 'lucide-react';
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState, AppDispatch } from '@/store';
-import { setActiveTab, fetchEnquiriesMetrics, fetchLegislationMetrics } from '../slices/dashboardSlice';
+import { setActiveTab } from '../slices/dashboardSlice';
 import type { DashboardTab } from '../types';
 import { useTranslation } from '@/shared/hooks/useTranslation';
 import { EnquiresDashboard } from '../components/EnquiresDashboard';
@@ -26,23 +26,17 @@ export default function LegislationDashboardPage() {
 
   const isArabic = language === 'ar';
 
-  const colors = {
-    primary: "#908e81", // Neutral gray (legislation primary)
-    accent: "#e5ddc8", // Light beige gold
-    bgOffWhite: "#FAFAF8", // Off-White,
-  };
-
   const tabs: DashboardTabConfig[] = [
     {
       id: 'cases',
-      labelEn: 'Legal Opinions & Inquiries',
-      labelAr: 'الآراء القانونية والاستفسارات',
+      labelEn: t('legislation.dashboard.cases.tab'),
+      labelAr: t('legislation.dashboard.cases.tab'),
       icon: MessageSquare,
     },
     {
       id: 'documents',
-      labelEn: 'Documents & Legislation',
-      labelAr: 'الوثائق والتشريعات',
+      labelEn: t('legislation.dashboard.documents.tab'),
+      labelAr: t('legislation.dashboard.documents.tab'),
       icon: FileText,
     },
   ];
@@ -71,34 +65,25 @@ export default function LegislationDashboardPage() {
   };
 
   return (
-    <div style={{ backgroundColor: colors.bgOffWhite }} dir={isArabic ? 'rtl' : 'ltr'}>
+    <div className="bg-bg-subtle" dir={isArabic ? 'rtl' : 'ltr'}>
       {/* Header Section */}
       <div className="bg-white border-b border-gray-200 shadow-sm">
         {/* Accent top border */}
-        <div className="h-1 w-full" style={{ backgroundColor: colors.accent }}></div>
+        <div className="h-1 w-full bg-legislation-active-indicator"></div>
 
         <div className="max-w-350 mx-auto px-6 py-6">
           <div>
             <div className="flex items-center gap-3 mb-1">
               <div
-                className="flex items-center justify-center rounded-lg"
-                style={{
-                  width: "48px",
-                  height: "48px",
-                  backgroundColor: "rgba(164, 168, 169, 0.1)",
-                }}
+                className="flex items-center justify-center rounded-lg w-12 h-12 bg-gray-400/10"
               >
                 <Scale
-                  className="w-6 h-6 text-[#C9A24D]"
-                  style={{ color: "#908e81" }}
+                  className="w-6 h-6 text-faa-primary"
                   strokeWidth={2}
                 />
               </div>
               <h1
-                className="text-3xl font-bold leading-tight"
-                style={{
-                  color: "#7e2425",
-                }}
+                className="text-3xl font-bold leading-tight text-[#7e2425]"
               >
                 {t('legislation.dashboard.title')}
               </h1>
@@ -121,31 +106,10 @@ export default function LegislationDashboardPage() {
                 <button
                   key={tab.id}
                   onClick={() => handleTabChange(tab.id)}
-                  className="flex items-center gap-2 px-5 py-3 transition-all duration-200 relative text-base"
-                  style={{
-                    fontWeight: isActive ? 600 : 500,
-                    color: isActive ? "#7e2425" : "#a8a8a8",
-                    borderBottom: isActive ? `3px solid ${colors.accent}` : '3px solid transparent',
-                    marginBottom: '-1px',
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!isActive) {
-                      e.currentTarget.style.color = colors.primary;
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!isActive) {
-                      e.currentTarget.style.color = '#64748b';
-                      e.currentTarget.style.backgroundColor = 'transparent';
-                    }
-                  }}
+                  className={`flex items-center gap-2 px-5 py-3 transition-all duration-200 relative text-base ${isActive ? 'font-semibold text-[#7e2425] border-b-3 border-legislation-active-indicator mb-[-1px]' : 'font-medium text-gray-400 border-b-3 border-transparent mb-[-1px] hover:text-faa-primary'}`}
                 >
                   <Icon
-                    style={{
-                      width: '20px',
-                      height: '20px',
-                      color: isActive ? colors.accent : '#94a3b8'
-                    }}
+                    className={`w-5 h-5 ${isActive ? 'text-legislation-active-indicator' : 'text-gray-400'}`}
                   />
                   <span>{label}</span>
                 </button>

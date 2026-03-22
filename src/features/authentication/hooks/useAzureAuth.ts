@@ -1,4 +1,5 @@
 import { useMsal } from "@azure/msal-react";
+import { InteractionStatus } from "@azure/msal-browser";
 import { loginRequest } from "../config/authConfig";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,7 +10,7 @@ import type { RootState, AppDispatch } from "../../../store";
  * Custom hook to handle Azure AD authentication
  */
 export const useAzureAuth = () => {
-    const { instance, accounts } = useMsal();
+    const { instance, accounts, inProgress } = useMsal();
     const [isLoggingIn, setIsLoggingIn] = useState(false);
     const [isLoggingOut, setIsLoggingOut] = useState(false);
 
@@ -19,11 +20,18 @@ export const useAzureAuth = () => {
     const isAuthenticated = accounts.length > 0;
     const currentAccount = accounts[0] || null;
 
+
     useEffect(() => {
-        if (isAuthenticated && !user && !isBackendLoading && !error) {
+        if (
+            inProgress === InteractionStatus.None &&
+            isAuthenticated &&
+            !user &&
+            !isBackendLoading &&
+            !error
+        ) {
             dispatch(authenticateUser());
         }
-    }, [isAuthenticated, user, isBackendLoading, error, dispatch]);
+    }, [inProgress, isAuthenticated, user, isBackendLoading, error, dispatch]);
 
 
     /**
@@ -75,10 +83,7 @@ export const useAzureAuth = () => {
             return response.accessToken;
         } catch (error) {
             console.log("⚠️ Silent token acquisition failed, redirecting to acquire token...");
-            // Use redirect instead of popup
             await instance.acquireTokenRedirect(request);
-            // This will not return a token here, but will redirect the user.
-            // The token will be available after redirect in handleRedirectPromise()
             return null;
         }
     };
@@ -87,11 +92,11 @@ export const useAzureAuth = () => {
         isAuthenticated,
         currentAccount,
         user,
-        role: user?.role,
+        role: user?.roles?.[0],
         login,
         logout,
         getAccessToken,
-        isLoggingIn: isLoggingIn || (isAuthenticated && isBackendLoading),
+        isLoggingIn: isLoggingIn || inProgress === InteractionStatus.HandleRedirect || (isAuthenticated && isBackendLoading),
         isLoggingOut,
         error
     };

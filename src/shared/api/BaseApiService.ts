@@ -23,33 +23,26 @@ export class BaseApiService {
 
     this.api.interceptors.request.use(
       async (config) => {
-        config.headers['X-Email'] = 'admin@legis.gov';
         const account = msalInstance.getActiveAccount();
         if (account) {
           try {
             const response = await msalInstance.acquireTokenSilent({
               ...loginRequest,
-              account: account,
+              account,
             });
-            const accessToken = response.accessToken;
-            const idToken = response.idToken;
-            console.log('🔑 Access Token attached to request:', accessToken);
-            console.log('🔑 ID Token available:', idToken);
-
-            config.headers.Authorization = `Bearer ${accessToken}`;
+            config.headers.Authorization = `Bearer ${response.accessToken}`;
           } catch (error) {
             if (error instanceof InteractionRequiredAuthError) {
-              console.error('Interaction required for token acquisition:', error);
+              console.warn('Token expired or interaction required — redirecting to login...');
+              await msalInstance.acquireTokenRedirect({ ...loginRequest, account });
             } else {
-              console.error('Error acquiring token silently:', error);
+              console.error('Failed to acquire access token silently:', error);
             }
           }
         }
         return config;
       },
-      (error) => {
-        return Promise.reject(error);
-      }
+      (error) => Promise.reject(error)
     );
 
     this.api.interceptors.response.use(

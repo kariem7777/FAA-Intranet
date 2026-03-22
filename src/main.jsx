@@ -2,7 +2,7 @@ import { createRoot } from 'react-dom/client'
 import { ReduxProvider, ToastProvider, DialogPortalProvider, MsalAuthProvider } from './providers'
 import './i18n';
 import AppRouter from './AppRouter';
-import { msalInstance } from './features/authentication';
+import { msalInstance, AuthGate } from './features/authentication';
 import "quill/dist/quill.snow.css";
 import './index.css'
 
@@ -24,7 +24,8 @@ async function startApp() {
     // Process auth code from popup/redirect
     const response = await msalInstance.handleRedirectPromise();
 
-    if (response) {
+    if (response?.account) {
+      msalInstance.setActiveAccount(response.account);
       console.log("✅ [Auth] Redirect login successful!");
       console.log("🔑 [Auth] ID Token:", response.idToken);
       console.log("🔑 [Auth] Access Token:", response.accessToken);
@@ -36,11 +37,13 @@ async function startApp() {
   createRoot(document.getElementById('root')).render(
     <MsalAuthProvider>
       <ReduxProvider>
-        <DialogPortalProvider>
-          <ToastProvider>
-            <AppRouter />
-          </ToastProvider>
-        </DialogPortalProvider>
+        <AuthGate>
+          <DialogPortalProvider>
+            <ToastProvider>
+              <AppRouter />
+            </ToastProvider>
+          </DialogPortalProvider>
+        </AuthGate>
       </ReduxProvider>
     </MsalAuthProvider>,
   );

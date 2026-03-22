@@ -54,15 +54,6 @@ export function LegislationDocumentsPage({
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    const colors = {
-        primary: '#908e81',      // Neutral gray
-        accent: '#e5ddc8',       // Light beige gold
-        bgOffWhite: '#FAFAF8',   // Off-White
-        bgWhite: '#FFFFFF',      // White
-        textPrimary: '#1A1A1A',  // Primary Text
-        textSecondary: '#6B7280', // Secondary Text
-    };
-
     return (
         <motion.div
             initial={{ opacity: 0 }}
@@ -70,7 +61,7 @@ export function LegislationDocumentsPage({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             dir={isRTL ? 'rtl' : 'ltr'}
-            style={{ backgroundColor: 'rgb(250, 250, 248)' }}
+            className="bg-bg-subtle"
         >
             <div className="flex">
                 <LegislationSidebar categoryId={categoryId} />
@@ -81,11 +72,7 @@ export function LegislationDocumentsPage({
                         initial={{ y: -20, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
                         transition={{ delay: 0.2 }}
-                        className="sticky top-[92px] z-30 border-b"
-                        style={{
-                            backgroundColor: 'var(--color-bg-white)',
-                            borderColor: 'var(--color-bg-light)',
-                        }}
+                        className="sticky top-[92px] z-30 border-b border-bg-light bg-bg-white"
                     >
                         <motion.div
                             initial={{ opacity: 0 }}
@@ -96,12 +83,7 @@ export function LegislationDocumentsPage({
                             {/* BACK BUTTON */}
                             <button
                                 onClick={onBack}
-                                className="flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all hover:bg-gray-100 mb-4"
-                                style={{
-                                    fontSize: 'calc(var(--font-size-base) * var(--font-scale, 1))',
-                                    fontWeight: 600,
-                                    color: colors.primary,
-                                }}
+                                className="flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all hover:bg-gray-100 mb-4 text-faa-primary text-base font-semibold"
                             >
                                 <ArrowLeft className="w-5 h-5" style={{ transform: isRTL ? 'rotate(180deg)' : 'none' }} />
                                 {t('legislation.backToLegislations')}
@@ -109,23 +91,14 @@ export function LegislationDocumentsPage({
 
                             {/* PAGE TITLE */}
                             <h1
-                                className="mb-2 lg:mb-3 text-3xl sm:text-4xl lg:text-5xl"
-                                style={{
-                                    fontWeight: 700,
-                                    color: colors.textPrimary,
-                                    lineHeight: 1.2,
-                                }}
+                                className="mb-2 lg:mb-3 text-3xl sm:text-4xl lg:text-5xl font-bold text-primary leading-tight"
                             >
                                 {category ? (isRTL ? category.lawCategoryAr : category.lawCategoryEn) : ''}
                             </h1>
 
                             {/* Subtitle */}
                             <p
-                                className="mb-0 text-base sm:text-lg"
-                                style={{
-                                    fontWeight: 500,
-                                    color: colors.textSecondary,
-                                }}
+                                className="mb-0 text-base sm:text-lg font-medium text-secondary"
                             >
                                 {currentSubCategoryName}
                             </p>
@@ -152,24 +125,16 @@ export function LegislationDocumentsPage({
                         whileTap={{ scale: 0.9 }}
                         transition={{ type: 'spring', stiffness: 300, damping: 20 }}
                         onClick={scrollToTop}
-                        className="fixed z-50 rounded-full shadow-2xl group flex items-center gap-3"
+                        className="fixed z-50 rounded-full shadow-2xl group flex items-center gap-3 bg-legislation-active-indicator text-bg-white p-4 px-6"
                         style={{
                             bottom: '40px',
                             [isRTL ? 'left' : 'right']: '40px',
-                            backgroundColor: colors.accent,
-                            color: 'var(--color-bg-white)',
-                            padding: '16px 24px',
                         }}
                         aria-label={t('legislation.returnToTop')}
                     >
                         <ArrowUp className="w-5 h-5 transition-transform group-hover:translate-y-[-4px]" />
-                        <span
-                            style={{
-                                fontSize: 'var(--font-size-sm)',
-                                fontWeight: 600,
-                            }}
-                        >
-                            {t('legislation.returnToSearch')}
+                        <span className="text-sm font-semibold">
+                            {t('legislation.returnToTop')}
                         </span>
                     </motion.button>
                 )}

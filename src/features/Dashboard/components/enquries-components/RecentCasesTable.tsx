@@ -81,12 +81,33 @@ export function RecentCasesTable({ data, loading }: RecentCasesTableProps): Reac
     });
 
     const getStatusBadge = (status: string) => {
-        const badges: Record<string, { bg: string; text: string; label: string }> = {
-            'New': { bg: 'bg-orange-50', text: 'text-orange-700', label: isArabic ? 'جديد' : 'New' },
-            'Replied': { bg: 'bg-blue-50', text: 'text-blue-700', label: isArabic ? 'تم الرد' : 'Replied' },
-            'Closed': { bg: 'bg-green-50', text: 'text-green-700', label: isArabic ? 'مغلق' : 'Closed' },
+        const s = status.toLowerCase();
+        if (s === 'new') {
+            return {
+                bg: 'bg-orange-50',
+                text: 'text-orange-700',
+                label: t('legislation.dashboard.cases.status.new')
+            };
+        }
+        if (s === 'replied') {
+            return {
+                bg: 'bg-blue-50',
+                text: 'text-blue-700',
+                label: t('legislation.dashboard.cases.status.replied')
+            };
+        }
+        if (s === 'closed') {
+            return {
+                bg: 'bg-green-50',
+                text: 'text-green-700',
+                label: t('legislation.dashboard.cases.status.closed')
+            };
+        }
+        return {
+            bg: 'bg-gray-50',
+            text: 'text-gray-700',
+            label: status
         };
-        return badges[status] || { bg: 'bg-gray-50', text: 'text-gray-700', label: status };
     };
 
     const handleExport = () => {
@@ -95,7 +116,7 @@ export function RecentCasesTable({ data, loading }: RecentCasesTableProps): Reac
             t('legislation.dashboard.cases.caseTitle'),
             t('legislation.dashboard.cases.conversationLength'),
             t('legislation.dashboard.cases.timeLength'),
-            t('legislation.dashboard.cases.status')
+            t('legislation.dashboard.cases.statusHeader')
         ];
 
         const csvRows = [
@@ -177,7 +198,7 @@ export function RecentCasesTable({ data, loading }: RecentCasesTableProps): Reac
                                 </button>
                             </th>
                             <th className={`pb-3 px-4 text-sm font-semibold text-gray-500 ${isArabic ? 'text-right' : 'text-left'}`}>
-                                {t('legislation.dashboard.cases.status')}
+                                {t('legislation.dashboard.cases.statusHeader')}
                             </th>
                         </tr>
                     </thead>

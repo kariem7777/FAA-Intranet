@@ -82,24 +82,37 @@ export function UploadTrendChart({ data, loading }: UploadTrendChartProps) {
                             orientation={isArabic ? 'right' : 'left'}
                         />
                         <Tooltip
-                            contentStyle={{ backgroundColor: '#1F2937', border: 'none', borderRadius: '8px', padding: '8px 12px', fontSize: 'var(--font-size-sm)', color: '#FFFFFF' }}
-                            formatter={(value) => [`${value ?? 0}`, isArabic ? 'التحميلات' : 'Uploads']}
-                            labelStyle={{ color: '#FFFFFF', fontWeight: 600 }}
-                        />
-                        <Area
-                            type="monotone"
-                            dataKey="count"
-                            stroke="#6366F1"
-                            strokeWidth={3}
-                            fill="url(#colorUploads)"
-                            dot={{ fill: '#6366F1', stroke: '#FFFFFF', strokeWidth: 3, r: 6 }}
-                            activeDot={{ fill: '#6366F1', stroke: '#FFFFFF', strokeWidth: 3, r: 8 }}
-                        />
-                    </AreaChart>
-                </ResponsiveContainer>
-            </div>
+                  contentStyle={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                    border: 'none',
+                    borderRadius: '12px',
+                    boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+                  }}
+                  formatter={(value: number | undefined) => [
+                    <span key={value} className="font-semibold text-gray-900">{value ?? 0} {t('legislation.dashboard.documents.uploads')}</span>,
+                    <span key="label" className="text-gray-500 font-medium">{t('legislation.dashboard.documents.uploads')}</span>
+                  ]}
+                  labelStyle={{ fontWeight: 600, color: '#1a1a1a', marginBottom: '4px' }}
+                />
+                <Area
+                  type="monotone"
+                  dataKey="count"
+                  stroke="var(--color-legislation-active-indicator)"
+                  strokeWidth={3}
+                  fillOpacity={1}
+                  fill="url(#colorUploads)"
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
 
-            {/* Legend */}
+          <div className="mt-4 flex items-center justify-between text-sm">
+            <div className="flex items-center gap-2 text-gray-500">
+              <span className="w-2 h-2 rounded-full bg-legislation-active-indicator"></span>
+              <span>{t('legislation.dashboard.documents.total')} <span className="font-bold text-gray-900">{totalUploads}</span> {t('legislation.dashboard.documents.uploads')}</span>
+            </div>
+          </div>
+    {/* Legend */}
             <div className="flex flex-wrap items-center justify-center gap-6 mt-6 pt-4 border-t border-gray-200">
                 {data.map((item, index) => {
                     const percentage = totalUploads > 0 ? ((item.count / totalUploads) * 100).toFixed(1) : '0';

@@ -67,10 +67,10 @@ export function ConversationMetrics({ data, loading }: ConversationMetricsProps)
     };
 
     const metricNames: Record<number, string> = {
-        0: isArabic ? 'متوسط طول المحادثة' : 'Avg. Conversation Length',
-        1: isArabic ? 'متوسط وقت الإغلاق' : 'Avg. Time to Close',
-        2: isArabic ? 'أطول محادثة' : 'Longest Conversation',
-        3: isArabic ? 'أسرع حل' : 'Shortest Resolution',
+        0: t('legislation.dashboard.cases.metrics.avgLength'),
+        1: t('legislation.dashboard.cases.metrics.avgTimeToClose'),
+        2: t('legislation.dashboard.cases.metrics.longest'),
+        3: t('legislation.dashboard.cases.metrics.shortest'),
     };
 
     return (

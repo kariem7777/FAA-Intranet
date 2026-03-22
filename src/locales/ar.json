@@ -260,7 +260,7 @@
         "closed": "تم الإغلاق",
         "timeLength": "طول الوقت",
         "recentCases": "الحالات الأخيرة",
-        "status": "الحالة",
+        "statusHeader": "الحالة",
         "exportData": "تصدير البيانات",
         "messages": "رسالة",
         "cases": "حالة",
@@ -274,7 +274,25 @@
         "noRecentCases": "لا توجد حالات حديثة",
         "noRecentCasesDescription": "لم يتم إنشاء أي حالات جديدة خلال هذا الإطار الزمني.",
         "noSLA": "لا توجد بيانات SLA",
-        "noSLADescription": "مقاييس أداء SLA غير متوفرة للفلاتر المختارة."
+        "noSLADescription": "مقاييس أداء SLA غير متوفرة للفلاتر المختارة.",
+        "updatedAgo": "محدث منذ ساعة",
+        "inquiries": "استفسار",
+        "status": {
+          "new": "جديد",
+          "replied": "تم الرد",
+          "closed": "مغلق"
+        },
+        "time": {
+          "days": "ي",
+          "hours": "س",
+          "minutes": "د"
+        },
+        "metrics": {
+          "avgLength": "متوسط طول المحادثة",
+          "avgTimeToClose": "متوسط وقت الإغلاق",
+          "longest": "أطول محادثة",
+          "shortest": "أسرع حل"
+        }
       },
       "documents": {
         "tab": "الوثائق والتشريعات",
@@ -287,9 +305,9 @@
         "totalDocuments": "إجمالي الوثائق",
         "averagePerCategory": "متوسط لكل فئة",
         "total": "الإجمالي:",
-        "uploads": "تحميل",
         "ofTotal": "من الإجمالي",
-        "errorFetchingData": "خطأ في جلب بيانات الوثائق"
+        "errorFetchingData": "خطأ في جلب بيانات الوثائق",
+        "uploads": "التحميلات"
       }
     },
     "hero": {
@@ -303,7 +321,9 @@
       "selectEntityFirst": "اختر جهة أولاً",
       "searchAllLegislations": "البحث في جميع التشريعات...",
       "foundResults": "تم العثور على {{count}} نتيجة في {{total}} وثيقة",
-      "documentCount_plural": "{{count}} وثائق"
+      "documentCount_plural": "{{count}} وثائق",
+      "addUserTitle": "إضافة مستخدم جديد",
+      "addUserDescription": "قم بإنشاء حساب مستخدم جديد عن طريق ملء المعلومات المطلوبة أدناه."
     },
     "documentsManagement": {
       "allLegislations": "جميع التشريعات",
@@ -312,6 +332,9 @@
       "allEntities": "جميع الجهات",
       "searchPlaceholder": "البحث بالعنوان أو المرجع...",
       "clearSelection": "مسح التحديد",
+      "slug": "الرابط (Slug)",
+      "filterResults": "تصفية النتائج",
+      "reset": "إعادة ضبط",
       "documentTitle": "عنوان الوثيقة",
       "entity": "الجهة",
       "legislation": "التشريع",
@@ -353,6 +376,7 @@
           "noSubCategories": "لا توجد تصنيفات فرعية",
           "selectSubCategory": "اختر التصنيف الفرعي",
           "lawNumber": "رقم القانون",
+          "slug": "الرابط (Slug)",
           "lawNameEn": "اسم القانون (En)",
           "lawNameAr": "اسم القانون (Ar)",
           "classification": "التصنيف",
@@ -374,6 +398,7 @@
           "noSubCategories": "لا توجد تصنيفات فرعية",
           "selectSubCategory": "اختر التصنيف الفرعي",
           "lawNumber": "رقم القانون",
+          "slug": "الرابط (Slug)",
           "lawNameEn": "اسم القانون (En)",
           "lawNameAr": "اسم القانون (Ar)",
           "classification": "التصنيف",
@@ -434,5 +459,18 @@
     "language": "اللغة",
     "decreaseFontSize": "تصغير حجم الخط",
     "increaseFontSize": "تكبير حجم الخط"
+  },
+  "auth": {
+    "loginTitle": "بوابة الإنترانت",
+    "loginSubtitle": "هذه البوابة مقتصرة على موظفي هيئة التدقيق المالي المصرح لهم. يرجى تسجيل الدخول بحساب العمل الخاص بك في مايكروسوفت للمتابعة.",
+    "orgName": "جهاز التدقيق المالي",
+    "signInWithMicrosoft": "تسجيل الدخول باستخدام مايكروسوفت",
+    "signingIn": "جاري تسجيل الدخول...",
+    "verifyingIdentity": "جاري التحقق من الهوية…",
+    "authFailedTitle": "فشل المصادقة",
+    "authFailedSubtitle": "لم نتمكن من التحقق من حسابك في النظام.",
+    "contactAdmin": "يرجى الاتصال بالمسؤول للحصول على صلاحية الوصول.",
+    "tryAgain": "حاول مرة أخرى",
+    "signOut": "تسجيل الخروج"
   }
 }

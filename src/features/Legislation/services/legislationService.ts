@@ -44,41 +44,14 @@ export class LegislationService extends BaseApiService {
   public async searchGlobal(params: {
     query: string;
     entityId?: string;
-  }): Promise<{ results: Array<{ categoryId: number; count: number }>; total: number }> {
-    const subCategoriesResponse = await this.getLawSubCategories({
-      pageNumber: 1,
-      pageSize: 100,
+  }): Promise<any> {
+    const response = await this.get<any>(API_ROUTES.DOCUMENTS.SEARCH, {
+      params: {
+        keyword: params.query,
+      },
     });
 
-    if (!subCategoriesResponse || !subCategoriesResponse.data || !subCategoriesResponse.data.items) {
-      throw new Error('Failed to fetch subcategories');
-    }
-
-    const { items } = subCategoriesResponse.data;
-    const searchLower = params.query.toLowerCase();
-
-    const matchingSubCategories = items.filter((subCat: LawSubCategory) => {
-      const matchesQuery =
-        subCat.lawSubCategoryEn.toLowerCase().includes(searchLower) ||
-        subCat.lawSubCategoryAr.includes(params.query);
-
-      const isActive = subCat.isActive;
-      const hasDocuments = subCat.documentsCount > 0;
-
-      return matchesQuery && isActive && hasDocuments;
-    });
-
-    const results = matchingSubCategories.map((subCat: LawSubCategory) => ({
-      categoryId: subCat.id,
-      count: subCat.documentsCount,
-    }));
-
-    const total = results.reduce((sum: number, r: { categoryId: number; count: number }) => sum + r.count, 0);
-
-    return {
-      results,
-      total,
-    };
+    return response.data;
   }
 }
 

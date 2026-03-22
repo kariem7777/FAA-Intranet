@@ -1,4 +1,4 @@
-import { Hash, Building2, Calendar, FileText, Shield, Tags, FileCode, Clock } from 'lucide-react';
+import { Hash, Building2, Calendar, FileText, Shield, Tags, Clock } from 'lucide-react';
 import { useTranslation } from '@/shared/hooks/useTranslation';
 import { MetadataItem } from './MetadataItem';
 import { ClassificationBadge } from './ClassificationBadge';
@@ -74,12 +74,23 @@ export function DocumentMetadata({
                     label={t('legislation.lawNumber')}
                     value={document.lawNumber}
                 />
+                {
+                    document.entityNameEn && document.entityNameAr &&
+                    <MetadataItem
+                        icon={Building2}
+                        label={t('legislation.entity')}
+                        value={getLocalizedString(document.entityNameEn, document.entityNameAr)}
+                    />
+                }
 
-                <MetadataItem
-                    icon={Building2}
-                    label={t('legislation.entity')}
-                    value={getLocalizedString(document.entityNameAr, document.entityNameEn)}
-                />
+                {getLocalizedString(document.lawNameEn, document.lawNameAr) &&
+                    getLocalizedString(document.lawNameEn, document.lawNameAr) !== getLocalizedString(document.documentNameEn, document.documentNameAr) && (
+                        <MetadataItem
+                            icon={FileText}
+                            label={isRTL ? "اسم القانون" : "Law Name"}
+                            value={getLocalizedString(document.lawNameEn, document.lawNameAr)}
+                        />
+                    )}
 
                 <MetadataItem
                     icon={Calendar}
@@ -94,13 +105,13 @@ export function DocumentMetadata({
                 <MetadataItem
                     icon={FileText}
                     label={t('legislation.category')}
-                    value={isRTL ? document.categoryNameAr : document.categoryNameEn}
+                    value={getLocalizedString(document.categoryNameEn, document.categoryNameAr)}
                 />
 
                 <MetadataItem
                     icon={Tags}
                     label={t('legislation.subCategory')}
-                    value={isRTL ? document.subCategoryNameAr : document.subCategoryNameEn}
+                    value={getLocalizedString(document.subCategoryNameEn, document.subCategoryNameAr)}
                 />
 
                 <MetadataItem

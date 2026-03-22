@@ -7,6 +7,9 @@ export const authenticateUser = createAsyncThunk(
     async (_, { rejectWithValue }) => {
         try {
             const response = await authService.authenticate();
+            if (!response.isAuthenticated) {
+                return rejectWithValue(response.message || 'User not found in database');
+            }
             return response;
         } catch (error: any) {
             if (error.response && error.response.data) {
@@ -103,6 +106,9 @@ const authSlice = createSlice({
         resetAddUser: (state) => {
             state.addUser = { isLoading: false, error: null, success: false };
         },
+        resetError: (state) => {
+            state.error = null;
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -162,5 +168,5 @@ const authSlice = createSlice({
     },
 });
 
-export const { logout, resetAddUser } = authSlice.actions;
+export const { logout, resetAddUser, resetError } = authSlice.actions;
 export default authSlice.reducer;

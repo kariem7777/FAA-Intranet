@@ -61,7 +61,7 @@ export function LegislationSidebar({ categoryId }: { categoryId: number }) {
       <div className="flex flex-col h-full">
         {/* Header */}
         <div className="pt-3 pb-4 flex items-center justify-between">
-          <h3
+          <h2
             style={{
               fontSize: 'var(--font-size-base)',
               fontWeight: 700,
@@ -71,7 +71,7 @@ export function LegislationSidebar({ categoryId }: { categoryId: number }) {
             }}
           >
             {t('legislation.categories.title')}
-          </h3>
+          </h2>
 
           <div className="flex items-center gap-1">
             {isMobileView ? (
@@ -112,7 +112,7 @@ export function LegislationSidebar({ categoryId }: { categoryId: number }) {
             style={{
               backgroundColor: selectedSubCategory === null ? 'var(--color-faa-primary)' : 'transparent',
               color: selectedSubCategory === null ? 'var(--color-bg-white)' : 'var(--color-primary)',
-              fontSize: 'var(--font-size-base)',
+              fontSize: 'var(--font-size-sm)',
               fontWeight: selectedSubCategory === null ? 600 : 500,
               textAlign: isRTL ? 'right' : 'left',
               border: 'none',
@@ -137,7 +137,7 @@ export function LegislationSidebar({ categoryId }: { categoryId: number }) {
               style={{
                 backgroundColor: selectedSubCategory === cat.id ? 'var(--color-faa-primary)' : 'transparent',
                 color: selectedSubCategory === cat.id ? 'var(--color-bg-white)' : 'var(--color-primary)',
-                fontSize: 'var(--font-size-base)',
+                fontSize: 'var(--font-size-sm)',
                 fontWeight: selectedSubCategory === cat.id ? 800! : 500!,
                 textAlign: isRTL ? 'right' : 'left',
                 border: 'none',
@@ -160,7 +160,7 @@ export function LegislationSidebar({ categoryId }: { categoryId: number }) {
 
         {/* Pagination */}
         {subCategories.items.length > 0 && pagination.totalPages > 1 && (
-          <div className="mt-3 pt-4 px-3 flex justify-between items-center bg-white sticky bottom-0 border-t-1 border-faa-primary" style={{ color: 'var(--color-faa-primary)' }}>
+          <div className="mt-3 pt-4 px-3 flex justify-between items-center bg-white sticky bottom-0 border-t-1 border-gray-200" style={{ color: 'var(--color-faa-primary)' }}>
             <div className="text-center" style={{ fontSize: 'var(--font-size-xs)', color: 'var(--color-secondary)' }}>
               {t('legislation.pageOf', { current: pagination.pageNumber, total: pagination.totalPages })}
             </div>

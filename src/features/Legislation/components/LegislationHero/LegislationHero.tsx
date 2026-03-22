@@ -13,6 +13,7 @@ interface LegislationBannerProps {
   mode?: "legislation" | "documents" | "approved-opinions" | "add-user";
   onAddDocument?: () => void;
   onBack?: () => void;
+  onViewDocument?: (doc: any) => void;
 }
 
 export function LegislationHero({
@@ -20,6 +21,7 @@ export function LegislationHero({
   handleCategorySearch,
   onAddDocument,
   onBack,
+  onViewDocument,
 }: LegislationBannerProps) {
   const { t, isRTL } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
@@ -42,8 +44,8 @@ export function LegislationHero({
       description: t('legislation.hero.approvedOpinionsDescription'),
     },
     'add-user': {
-      title: 'Add New User',
-      description: 'Create a new user account by filling in the required information below.',
+      title: t('legislation.hero.addUserTitle'),
+      description: t('legislation.hero.addUserDescription'),
     },
   };
 
@@ -102,6 +104,7 @@ export function LegislationHero({
           totalResults={totalResults}
           categories={categories.items}
           onCategoryClick={handleCategoryClick}
+          onDocumentClick={onViewDocument}
         />
       )}
     </div>

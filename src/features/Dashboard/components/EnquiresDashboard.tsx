@@ -49,9 +49,6 @@ export function EnquiresDashboard() {
                         <h3 className="text-red-800 mb-2 text-lg font-semibold">
                             {t('common.errorOccurred')}
                         </h3>
-                        <p className="text-red-600 mb-4 text-sm">
-                            {t('dashboard.cases.errorFetchingData')}
-                        </p>
                         <p className="text-red-500 text-sm bg-red-50 p-3 rounded border text-xs">
                             {error}
                         </p>

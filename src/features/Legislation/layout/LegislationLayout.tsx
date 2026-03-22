@@ -2,6 +2,8 @@ import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { LegislationHeader } from "../components/layout/LegislationHeader";
 import { useRef, useLayoutEffect, useState } from "react";
 import { LegislationLookupsProvider } from "../providers";
+import { useSelector } from "react-redux";
+import type { RootState } from "@/store";
 
 type NavigationPage = 'home' | 'legislations' | 'dashboard' | 'documents' | 'search' | 'approved-opinions' | null;
 
@@ -11,7 +13,8 @@ export const LegislationLayout = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    // Derive current page from route
+    const user = useSelector((state: RootState) => state.auth.user);
+    const userRole = (user?.roles?.[0] ?? '').toLowerCase() as 'admin' | 'user' | '';
     const getCurrentPage = (): NavigationPage => {
         const path = location.pathname;
         if (path === '/dashboard') return 'dashboard';
@@ -69,6 +72,8 @@ export const LegislationLayout = () => {
                 ref={headerRef}
                 currentPage={getCurrentPage()}
                 onNavigate={handleNavigate}
+                userRole={userRole || 'user'}
+                userName={user?.userName}
             />
             <LegislationLookupsProvider>
                 <Outlet />

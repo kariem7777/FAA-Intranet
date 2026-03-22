@@ -11,8 +11,7 @@ interface DepartmentInquiriesChartProps {
 }
 
 export function DepartmentInquiriesChart({ data, loading }: DepartmentInquiriesChartProps) {
-    const { t, language, getLocalizedString } = useTranslation('legislation');
-    const isArabic = language === 'ar';
+    const { t, getLocalizedString } = useTranslation('legislation');
 
     const { departments } = useAppSelector((state) => state.legislationSlice);
 
@@ -107,7 +106,7 @@ export function DepartmentInquiriesChart({ data, loading }: DepartmentInquiriesC
                                                 <div className="bg-gray-900 text-white px-3 py-2 rounded-lg shadow-lg whitespace-nowrap text-xs">
                                                     <div className="font-semibold">{department.departmentName}</div>
                                                     <div className="text-gray-300">
-                                                        {department.count} {isArabic ? 'استفسار' : 'inquiries'}
+                                                        {department.count} {t('legislation.dashboard.cases.inquiries')}
                                                     </div>
                                                 </div>
                                             </div>

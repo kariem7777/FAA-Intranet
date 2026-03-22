@@ -14,12 +14,14 @@ interface LegislationHeaderProps {
   currentPage: 'home' | 'legislations' | 'dashboard' | 'documents' | 'search' | 'approved-opinions' | null;
   onNavigate: (page: 'home' | 'legislations' | 'dashboard' | 'documents' | 'search' | 'approved-opinions') => void;
   userRole?: 'admin' | 'user';
+  userName?: string;
 }
 
 
-export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>(({ userRole = 'admin',
+export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>(({ userRole = 'user',
   currentPage,
   onNavigate,
+  userName,
 }, ref) => {
 
   const dispatch = useDispatch();
@@ -33,18 +35,20 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
 
   const isArabic = language === 'ar';
   const fontSizes: Array<'sm' | 'base' | 'lg' | 'xl'> = ['sm', 'base', 'lg', 'xl'];
-  const fontSizeIndex = fontSizes.indexOf(fontSize);
-  const canDecreaseFont = fontSizeIndex > 0;
-  const canIncreaseFont = fontSizeIndex < fontSizes.length - 1;
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
-  const navItems = [
-    { id: 'home' as const, label: t('legislationHeader.home') },
-    { id: 'dashboard' as const, label: t('legislationHeader.dashboard') },
-    { id: 'documents' as const, label: t('legislationHeader.documents') },
-    { id: 'approved-opinions' as const, label: t('legislationHeader.approvedOpinions') },
+  const allNavItems = [
+    { id: 'home' as const, label: t('legislationHeader.home'), roles: ['user', 'manager', 'admin'] },
+    { id: 'dashboard' as const, label: t('legislationHeader.dashboard'), roles: ['admin', 'manager'] },
+    { id: 'documents' as const, label: t('legislationHeader.documents'), roles: ['admin', 'manager'] },
+    { id: 'approved-opinions' as const, label: t('legislationHeader.approvedOpinions'), roles: ['admin', 'manager'] },
   ];
 
+  const navItems = allNavItems.filter(item =>
+    !item.roles || item.roles.includes(userRole)
+  );
+
+  const currentIndex = fontSizes.indexOf(fontSize);
 
   useEffect(() => {
     const handleResize = () => {
@@ -116,7 +120,7 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
             <div className="flex items-center gap-2">
               <button
                 onClick={handleDecreaseFontSize}
-                disabled={!canDecreaseFont}
+                disabled={currentIndex <= 0}
                 className="w-9 h-9 rounded-lg bg-white/10 hover:bg-white/20 transition-colors disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center border border-white/20 text-sm font-semibold"
                 style={{
                   color: '#FFFFFF'
@@ -127,7 +131,7 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
               </button>
               <button
                 onClick={handleIncreaseFontSize}
-                disabled={!canIncreaseFont}
+                disabled={currentIndex === fontSizes.length - 1}
                 className="w-9 h-9 rounded-lg bg-white/10 hover:bg-white/20 transition-colors disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center border border-white/20 text-sm font-semibold"
                 style={{
                   color: '#FFFFFF'
@@ -154,7 +158,7 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
               <span className="absolute top-1 right-1 w-2 h-2 rounded-full" style={{ backgroundColor: 'var(--color-legislation-active-indicator)' }} />
             </button>
 
-            <AzureLoginButton showUserInfo={false} />
+            <AzureLoginButton />
 
             {userRole === 'admin' && (
               <button
@@ -206,14 +210,14 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
                     <div className="flex items-center gap-2">
                       <button
                         onClick={handleDecreaseFontSize}
-                        disabled={!canDecreaseFont}
+                        disabled={currentIndex <= 0}
                         className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center text-white border border-white/10 text-sm font-semibold"
                       >
                         A-
                       </button>
                       <button
                         onClick={handleIncreaseFontSize}
-                        disabled={!canIncreaseFont}
+                        disabled={currentIndex === fontSizes.length - 1}
                         className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center text-white border border-white/10 text-sm font-semibold"
                       >
                         A+
@@ -235,8 +239,14 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
                     </div>
                   </button>
 
+                  {userName && (
+                    <div className="py-2 px-4 rounded-lg bg-white/5 text-white text-sm font-medium">
+                      {userName}
+                    </div>
+                  )}
+
                   <div className="pt-2">
-                    <AzureLoginButton showUserInfo={true} className="w-full justify-center" />
+                    <AzureLoginButton className="w-full justify-center" />
                   </div>
 
                   {userRole === 'admin' && (

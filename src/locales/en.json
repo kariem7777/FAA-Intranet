@@ -70,7 +70,7 @@
     "enterTitle": "Enter enquiry title",
     "enterEnquiry": "Enter enquiry details",
     "successAdded": "Enquiry added successfully",
-    "finalReply":"Final Reply",
+    "finalReply": "Final Reply",
     "submit": "Submit",
     "cancel": "Cancel",
     "activeFilters": "Active Filters:",
@@ -260,7 +260,7 @@
         "caseTitle": "Case Title",
         "conversationLength": "Conversation Length",
         "timeLength": "Time Length",
-        "status": "Status",
+        "statusHeader": "Status",
         "exportData": "Export Data",
         "messages": "messages",
         "cases": "cases",
@@ -274,7 +274,25 @@
         "noRecentCases": "No Recent Cases",
         "noRecentCasesDescription": "No new cases have been created during this timeframe.",
         "noSLA": "No SLA Data",
-        "noSLADescription": "SLA performance metrics are not available for the selected filters."
+        "noSLADescription": "SLA performance metrics are not available for the selected filters.",
+        "updatedAgo": "Updated 1h ago",
+        "inquiries": "inquiries",
+        "status": {
+          "new": "New",
+          "replied": "Replied",
+          "closed": "Closed"
+        },
+        "time": {
+          "days": "d",
+          "hours": "h",
+          "minutes": "m"
+        },
+        "metrics": {
+          "avgLength": "Avg. Conversation Length",
+          "avgTimeToClose": "Avg. Time to Close",
+          "longest": "Longest Conversation",
+          "shortest": "Shortest Resolution"
+        }
       },
       "documents": {
         "tab": "Documents & Legislation",
@@ -287,9 +305,9 @@
         "documents": "documents",
         "uploadsTrend": "Uploads Trend by Quarter",
         "total": "Total:",
-        "uploads": "uploads",
         "ofTotal": "of total",
-        "errorFetchingData": "Error fetching documents data"
+        "errorFetchingData": "Error fetching documents data",
+        "uploads": "Uploads"
       }
     },
     "hero": {
@@ -303,7 +321,9 @@
       "selectEntityFirst": "Select an Entity First",
       "searchAllLegislations": "Search all legislations...",
       "foundResults": "Found {{count}} results in {{total}} documents",
-      "documentCount_plural": "{{count}} documents"
+      "documentCount_plural": "{{count}} documents",
+      "addUserTitle": "Add New User",
+      "addUserDescription": "Create a new user account by filling in the required information below."
     },
     "documentsManagement": {
       "allLegislations": "All Legislations",
@@ -312,6 +332,9 @@
       "allEntities": "All Entities",
       "searchPlaceholder": "Search by title or reference...",
       "clearSelection": "Clear Selection",
+      "slug": "Slug",
+      "filterResults": "Filter Results",
+      "reset": "Reset",
       "documentTitle": "Document Title",
       "entity": "Entity",
       "legislation": "Legislation",
@@ -353,6 +376,7 @@
           "noSubCategories": "No sub-categories available",
           "selectSubCategory": "Select Sub Category",
           "lawNumber": "Law Number",
+          "slug": "Slug",
           "lawNameEn": "Law Name (En)",
           "lawNameAr": "Law Name (Ar)",
           "classification": "Classification",
@@ -374,6 +398,7 @@
           "noSubCategories": "No sub-categories available",
           "selectSubCategory": "Select Sub Category",
           "lawNumber": "Law Number",
+          "slug": "Slug",
           "lawNameEn": "Law Name (En)",
           "lawNameAr": "Law Name (Ar)",
           "classification": "Classification",
@@ -434,5 +459,18 @@
     "language": "Language",
     "decreaseFontSize": "Decrease font size",
     "increaseFontSize": "Increase font size"
+  },
+  "auth": {
+    "loginTitle": "Intranet Portal",
+    "loginSubtitle": "This portal is restricted to authorised FAA personnel. Please sign in with your Microsoft work account to continue.",
+    "orgName": "Financial Audit Authority",
+    "signInWithMicrosoft": "Sign in with Microsoft",
+    "signingIn": "Signing in...",
+    "verifyingIdentity": "Verifying identity...",
+    "authFailedTitle": "Authentication Failed",
+    "authFailedSubtitle": "We couldn't verify your account with the system.",
+    "contactAdmin": "Please contact your administrator for access.",
+    "tryAgain": "Try Again",
+    "signOut": "Sign Out"
   }
 }

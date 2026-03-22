@@ -2,9 +2,46 @@ import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/tool
 import type { Department, Entities, LawCategory, LawSubCategory } from '../types';
 import { legislationService } from '../services/legislationService';
 
-interface SearchResult {
+export interface GlobalSearchDocument {
+  id: number;
   categoryId: number;
-  count: number;
+  subCategoryId: number;
+  entityId: number;
+  documentNameEn: string;
+  documentNameAr: string;
+  documentPhysicalPath: string;
+  fileType: string;
+  lawNumber: string;
+  lawNameAr: string;
+  lawNameEn: string;
+  documentContent: string;
+  indexStatus: number;
+  classification: number;
+  isActive: boolean;
+  createdOn: string;
+  updatedOn: string;
+  categoryNameEn: string;
+  categoryNameAr: string;
+  subCategoryNameEn: string;
+  subCategoryNameAr: string;
+  entityNameEn: string;
+  entityNameAr: string;
+}
+
+export interface GlobalSearchSubCategory {
+  subCategoryId: number;
+  subCategoryNameEn: string;
+  subCategoryNameAr: string;
+  documentCount: number;
+  documents: GlobalSearchDocument[];
+}
+
+export interface GlobalSearchCategory {
+  categoryId: number;
+  categoryNameEn: string;
+  categoryNameAr: string;
+  documentCount: number;
+  subCategories: GlobalSearchSubCategory[];
 }
 
 
@@ -14,7 +51,7 @@ interface GlobalCategoriesState {
   isEntityDropdownOpen: boolean;
   entitySearchQuery: string;
   showSearchTooltip: boolean;
-  searchResults: SearchResult[];
+  searchResults: GlobalSearchCategory[];
   totalResults: number;
   subCategories: {
     items: LawSubCategory[];
@@ -164,7 +201,7 @@ export const performGlobalSearch = createAsyncThunk(
     const { globalSearchQuery } = state.legislationSlice as GlobalCategoriesState;
 
     if (!globalSearchQuery.trim()) {
-      return { results: [], total: 0 };
+      return { categories: [], totalCount: 0 };
     }
 
     try {
@@ -299,8 +336,8 @@ const legislationSlice = createSlice({
 
     // Global Search
     builder.addCase(performGlobalSearch.fulfilled, (state, action) => {
-      state.searchResults = action.payload.results;
-      state.totalResults = action.payload.total;
+      state.searchResults = action.payload?.categories || [];
+      state.totalResults = action.payload?.totalCount || 0;
     });
   },
 });

@@ -5,6 +5,7 @@ export interface LawCategory {
   descriptionEn: string;
   descriptionAr: string;
   color: string;
+  slug: string;
   imagePath: string;
   isActive: boolean;
 }
