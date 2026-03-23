@@ -3,6 +3,7 @@ import { Search, Filter, ChevronDown, X, Building2 } from 'lucide-react';
 import { useTranslation } from '@/shared/hooks/useTranslation';
 import { Button } from '@/shared/components/ui/button';
 import { Input } from '@/shared/components/ui/input';
+import { useAuth } from '@/features/authentication/hooks/useAuth';
 
 interface FiltersState {
     searchText?: string;
@@ -19,7 +20,6 @@ interface Department {
 interface LegalOpinionsPageFiltersProps {
     filters: FiltersState;
     departments: Department[];
-    userRole: 'admin' | 'user';
     statusCounts: Record<number, number>;
     onSearchSubmit: (query: string) => void;
     onStatusChange: (value: number | string) => void;
@@ -33,7 +33,6 @@ interface LegalOpinionsPageFiltersProps {
 export function LegalOpinionsPageFilters({
     filters,
     departments,
-    userRole,
     statusCounts,
     onSearchSubmit,
     onStatusChange,
@@ -50,7 +49,7 @@ export function LegalOpinionsPageFilters({
     const [departmentSearchQuery, setDepartmentSearchQuery] = useState('');
     const [isDepartmentDropdownOpen, setIsDepartmentDropdownOpen] = useState(false);
     const [isStatusDropdownOpen, setIsStatusDropdownOpen] = useState(false);
-
+    const { isAdmin } = useAuth();
     // Sync search query with Redux filters (important for reset on mount)
     useEffect(() => {
         setSearchQuery(filters.searchText || '');
@@ -88,14 +87,14 @@ export function LegalOpinionsPageFilters({
         { value: 3, label: t('legalOpinions.status.closed'), color: 'var(--color-chart-red)' },
     ];
 
-    const hasActiveFilters = (userRole === 'admin' && filters.departmentId) || filters.searchText || (filters.status !== '' && filters.status !== undefined);
+    const hasActiveFilters = (isAdmin && filters.departmentId) || filters.searchText || (filters.status !== '' && filters.status !== undefined);
 
     return (
         <div className="bg-white border-b border-faa-primary/10 shadow-sm">
             <div className="max-w-[1800px] mx-auto px-8 py-6">
                 <div className="flex flex-col gap-4">
                     <div className="flex flex-col md:flex-row gap-4">
-                        {userRole === 'admin' && (
+                        {isAdmin && (
                             <div className="flex-1" ref={dropdownRef}>
                                 <label className="block text-base text-slate-700 mb-2 font-semibold">{t('legalOpinions.departmentLabel')}</label>
                                 <div className="relative">
@@ -216,7 +215,7 @@ export function LegalOpinionsPageFilters({
                     {hasActiveFilters && (
                         <div className="flex items-center gap-2 flex-wrap">
                             <span className="text-sm text-slate-600 font-medium">{t('legalOpinions.activeFilters')}</span>
-                            {filters.departmentId && userRole === 'admin' && (
+                            {filters.departmentId && isAdmin && (
                                 <span className="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">
                                     <Building2 className="h-3 w-3" />
                                     <span>{selectedDepartmentName}</span>

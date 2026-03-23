@@ -8,7 +8,8 @@ export default {
     extend: {
       keyframes: {
         shimmer: {
-          '100%': { transform: 'translateX(100%)' },
+          '0%': { backgroundPosition: '-200% 0' },
+          '100%': { backgroundPosition: '200% 0' },
         }
       },
       animation: {

@@ -1,15 +1,15 @@
 import { MessageSquare } from 'lucide-react';
 import { useTranslation } from '@/shared/hooks/useTranslation';
+import { useAuth } from '@/features/authentication/hooks/useAuth';
 
 interface LegalOpinionsContentHeaderProps {
     totalCount: number;
-    userRole: 'user' | 'admin';
     onAddEnquiry: () => void;
 }
 
-export function LegalOpinionsContentHeader({ totalCount, userRole, onAddEnquiry }: LegalOpinionsContentHeaderProps) {
+export function LegalOpinionsContentHeader({ totalCount, onAddEnquiry }: LegalOpinionsContentHeaderProps) {
     const { t } = useTranslation();
-
+    const { isUser } = useAuth();
     return (
         <div className="py-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -21,7 +21,7 @@ export function LegalOpinionsContentHeader({ totalCount, userRole, onAddEnquiry 
                     </span>
                 </h4>
             </div>
-            {userRole === 'user' && (
+            {isUser && (
                 <button
                     onClick={onAddEnquiry}
                     className="h-10 px-6 rounded-lg transition-all duration-200 flex items-center gap-2 text-[16px] font-medium bg-legislation-active-indicator text-slate-800 hover:bg-dashboard-primary hover:text-white"

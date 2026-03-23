@@ -14,6 +14,7 @@ import { fetchDocuments, setPageNumber, setSearchQuery, setSelectedSubCategory, 
 import { fetchSubCategoriesByCategory } from '@/features/Legislation/slices/legislationSlice';
 import { LegislationHero } from '@/features/Legislation/components/LegislationHero/LegislationHero';
 import { RotateCcw } from 'lucide-react';
+import { LegislationDocumentViewer } from './LegislationDocumentViewer';
 
 interface DocumentsManagementPageProps {
   onAddDocument?: () => void;
@@ -62,15 +63,10 @@ export function DocumentsManagementPage({ }: DocumentsManagementPageProps) {
   // If viewing a document, show the document viewer
   if (viewingDocumentId !== null) {
     return (
-      <div className="flex flex-col items-center justify-center p-20">
-        <h2 className="text-2xl font-bold mb-4">{t('legislation.documentsManagement.documentViewerPlaceholder')}</h2>
-        <button
-          onClick={() => setViewingDocumentId(null)}
-          className="px-4 py-2 bg-faa-primary text-white rounded-lg"
-        >
-          {t('common.back')}
-        </button>
-      </div>
+      <LegislationDocumentViewer
+        documentId={viewingDocumentId}
+        onBack={() => setViewingDocumentId(null)}
+      />
     );
   }
 

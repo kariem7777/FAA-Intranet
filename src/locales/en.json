@@ -332,7 +332,6 @@
       "allEntities": "All Entities",
       "searchPlaceholder": "Search by title or reference...",
       "clearSelection": "Clear Selection",
-      "slug": "Slug",
       "filterResults": "Filter Results",
       "reset": "Reset",
       "documentTitle": "Document Title",
@@ -376,7 +375,6 @@
           "noSubCategories": "No sub-categories available",
           "selectSubCategory": "Select Sub Category",
           "lawNumber": "Law Number",
-          "slug": "Slug",
           "lawNameEn": "Law Name (En)",
           "lawNameAr": "Law Name (Ar)",
           "classification": "Classification",
@@ -398,7 +396,6 @@
           "noSubCategories": "No sub-categories available",
           "selectSubCategory": "Select Sub Category",
           "lawNumber": "Law Number",
-          "slug": "Slug",
           "lawNameEn": "Law Name (En)",
           "lawNameAr": "Law Name (Ar)",
           "classification": "Classification",
@@ -425,6 +422,14 @@
         "updateError": "Failed to update document",
         "deleteSuccess": "Document deleted successfully",
         "deleteError": "Failed to delete document"
+      },
+      "validation": {
+        "required": "This field is required",
+        "invalidEmail": "Invalid email address",
+        "selectCategory": "Please select a category",
+        "selectSubCategory": "Please select a sub-category",
+        "selectEntity": "Please select an entity",
+        "fileRequired": "Please upload a document file"
       }
     }
   },
@@ -472,5 +477,28 @@
     "contactAdmin": "Please contact your administrator for access.",
     "tryAgain": "Try Again",
     "signOut": "Sign Out"
+  },
+  "addUser": {
+    "title": "Add New User",
+    "userLogin": "User Login",
+    "userNameEn": "Name (English)",
+    "userNameAr": "Name (Arabic)",
+    "email": "Email",
+    "department": "Department",
+    "jobTitle": "Job Title",
+    "role": "Role",
+    "submit": "Create User",
+    "cancel": "Cancel",
+    "creating": "Creating...",
+    "success": "User created successfully! Redirecting...",
+    "placeholders": {
+      "userLogin": "e.g. jdoe",
+      "userNameEn": "e.g. John Doe",
+      "userNameAr": "e.g. جون دو",
+      "email": "e.g. john.doe@example.com",
+      "department": "Select a department...",
+      "jobTitle": "Select a job title...",
+      "role": "Select a role..."
+    }
   }
 }

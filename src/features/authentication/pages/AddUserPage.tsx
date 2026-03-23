@@ -1,15 +1,21 @@
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Loader2, CheckCircle, AlertCircle, UserPlus, ChevronDown } from 'lucide-react';
+import { Loader2, CheckCircle, AlertCircle, UserPlus } from 'lucide-react';
 import type { AppDispatch, RootState } from '@/store';
 import { addUser, resetAddUser, fetchRoles, fetchJobTitles } from '../slices/authSlice';
-import type { CreateUserRequest } from '../types';
+import { fetchDepartments } from '@/features/Legislation/slices/legislationSlice';
+import { useForm, Controller } from 'react-hook-form';
+import { useTranslation } from '@/shared/hooks/useTranslation';
+import { useAppSelector } from '@/store/hooks';
+import { addUserSchema, type AddUserFormData } from '../schemas';
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
 import { LegislationHero } from '@/features/Legislation/components/LegislationHero/LegislationHero';
+import { FetchingSelect } from '@/shared/components/Select/FetchingSelect';
+import { zodResolver } from '@hookform/resolvers/zod';
 
-const initialForm: CreateUserRequest = {
+const initialForm: AddUserFormData = {
     userLogin: '',
     userNameEn: '',
     userNameAr: '',
@@ -19,100 +25,38 @@ const initialForm: CreateUserRequest = {
     roleId: 0,
 };
 
-// ─── Reusable select wrapper ────────────────────────────────────────────────
-interface SelectFieldProps {
-    id: string;
-    label: string;
-    value: number;
-    onChange: (value: number) => void;
-    isLoading: boolean;
-    error: string | null;
-    placeholder?: string;
-    required?: boolean;
-    children: React.ReactNode;
-}
-
-const SelectField = ({
-    id,
-    label,
-    value,
-    onChange,
-    isLoading,
-    error,
-    placeholder = 'Select…',
-    required,
-    children,
-}: SelectFieldProps) => (
-    <div className="space-y-1.5">
-        <label className="text-sm font-medium text-gray-700" htmlFor={id}>
-            {label} {required && <span className="text-red-500">*</span>}
-        </label>
-
-        {/* Loading skeleton */}
-        {isLoading && (
-            <div className="h-10 rounded-md bg-gray-100 animate-pulse" />
-        )}
-
-        {/* Error state */}
-        {!isLoading && error && (
-            <div className="flex items-center gap-1.5 h-10 px-3 rounded-md border border-red-200 bg-red-50 text-red-600 text-sm">
-                <AlertCircle size={14} />
-                <span>{error}</span>
-            </div>
-        )}
-
-        {/* Select */}
-        {!isLoading && !error && (
-            <div className="relative">
-                <select
-                    id={id}
-                    value={value || ''}
-                    onChange={(e) => onChange(Number(e.target.value))}
-                    required={required}
-                    className="
-                        w-full h-10 pl-3 pr-9 rounded-md border border-input bg-background
-                        text-sm text-gray-700 shadow-sm appearance-none
-                        focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-0
-                        disabled:cursor-not-allowed disabled:opacity-50
-                    "
-                >
-                    <option value="" disabled>
-                        {placeholder}
-                    </option>
-                    {children}
-                </select>
-                <ChevronDown
-                    size={15}
-                    className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
-                />
-            </div>
-        )}
-    </div>
-);
-
-// ─── Page ────────────────────────────────────────────────────────────────────
 export const AddUserPage = () => {
+    const { t, i18n } = useTranslation();
+    const isRtl = i18n.language === 'ar';
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
 
-    const { isLoading, error, success } = useSelector(
+    const { isLoading, error, success } = useAppSelector(
         (state: RootState) => state.auth.addUser
     );
     const {
         roles, rolesLoading, rolesError,
         jobTitles, jobTitlesLoading, jobTitlesError,
-    } = useSelector((state: RootState) => state.auth.lookups);
+    } = useAppSelector((state: RootState) => state.auth.lookups);
 
-    const [form, setForm] = useState<CreateUserRequest>(initialForm);
+    const { departments } = useAppSelector(state => state.legislationSlice);
 
-    // Fetch lookups + reset add-user state on mount
+    const {
+        control,
+        handleSubmit,
+        formState: { errors },
+    } = useForm({
+        resolver: zodResolver(addUserSchema),
+        defaultValues: initialForm,
+        mode: 'onChange'
+    });
+
     useEffect(() => {
         dispatch(resetAddUser());
         dispatch(fetchRoles());
         dispatch(fetchJobTitles());
     }, [dispatch]);
 
-    // Navigate away after success
     useEffect(() => {
         if (success) {
             const timer = setTimeout(() => {
@@ -123,38 +67,27 @@ export const AddUserPage = () => {
         }
     }, [success, dispatch, navigate]);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setForm((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
+    const onSubmit = (data: AddUserFormData) => {
+        dispatch(addUser(data as any));
     };
 
-    const handleSelectChange = (field: keyof CreateUserRequest) => (value: number) => {
-        setForm((prev) => ({ ...prev, [field]: value }));
-    };
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        dispatch(addUser(form));
-    };
+    const handleRetryRoles = () => dispatch(fetchRoles());
+    const handleRetryJobTitles = () => dispatch(fetchJobTitles());
+    const handleRetryDepartments = () => dispatch(fetchDepartments());
 
     return (
-        <div className="min-h-screen bg-gray-50">
-            {/* Hero Banner */}
+        <div className="bg-gray-50">
             <LegislationHero
                 mode="add-user"
                 onBack={() => navigate(-1)}
             />
 
-            <div className="px-20 pt-10 pb-8 space-y-8">
-
+            <div className={`px-20 pt-10 pb-8 space-y-8 ${isRtl ? 'rtl' : 'ltr'}`}>
                 {/* Success Banner */}
                 {success && (
                     <div className="flex items-center gap-2 p-3 rounded-lg bg-green-50 border border-green-200 text-green-700 text-sm">
                         <CheckCircle size={16} />
-                        User created successfully! Redirecting…
+                        {t('addUser.success')}
                     </div>
                 )}
 
@@ -166,141 +99,220 @@ export const AddUserPage = () => {
                     </div>
                 )}
 
-                <form onSubmit={handleSubmit} className="space-y-5">
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
                     {/* User Login */}
                     <div className="space-y-1.5">
                         <label className="text-sm font-medium text-gray-700" htmlFor="userLogin">
-                            User Login <span className="text-red-500">*</span>
+                            {t('addUser.userLogin')} <span className="text-red-500">*</span>
                         </label>
-                        <Input
-                            id="userLogin"
+                        <Controller
                             name="userLogin"
-                            value={form.userLogin}
-                            onChange={handleChange}
-                            placeholder="e.g. jdoe"
-                            required
+                            control={control}
+                            render={({ field }) => (
+                                <Input
+                                    {...field}
+                                    id="userLogin"
+                                    placeholder={t('addUser.placeholders.userLogin')}
+                                    className={errors.userLogin ? 'border-red-500' : ''}
+                                />
+                            )}
                         />
+                        {errors.userLogin && (
+                            <p className="text-xs text-red-500">
+                                {t(errors.userLogin.message as string)}
+                            </p>
+                        )}
                     </div>
 
-                    {/* Name EN */}
-                    <div className="space-y-1.5">
-                        <label className="text-sm font-medium text-gray-700" htmlFor="userNameEn">
-                            Name (English) <span className="text-red-500">*</span>
-                        </label>
-                        <Input
-                            id="userNameEn"
-                            name="userNameEn"
-                            value={form.userNameEn}
-                            onChange={handleChange}
-                            placeholder="e.g. John Doe"
-                            required
-                        />
-                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                        {/* Name EN */}
+                        <div className="space-y-1.5">
+                            <label className="text-sm font-medium text-gray-700" htmlFor="userNameEn">
+                                {t('addUser.userNameEn')} <span className="text-red-500">*</span>
+                            </label>
+                            <Controller
+                                name="userNameEn"
+                                control={control}
+                                render={({ field }) => (
+                                    <Input
+                                        {...field}
+                                        id="userNameEn"
+                                        placeholder={t('addUser.placeholders.userNameEn')}
+                                        className={errors.userNameEn ? 'border-red-500' : ''}
+                                    />
+                                )}
+                            />
+                            {errors.userNameEn && (
+                                <p className="text-xs text-red-500">
+                                    {t(errors.userNameEn.message as string)}
+                                </p>
+                            )}
+                        </div>
 
-                    {/* Name AR */}
-                    <div className="space-y-1.5">
-                        <label className="text-sm font-medium text-gray-700" htmlFor="userNameAr">
-                            Name (Arabic) <span className="text-red-500">*</span>
-                        </label>
-                        <Input
-                            id="userNameAr"
-                            name="userNameAr"
-                            value={form.userNameAr}
-                            onChange={handleChange}
-                            placeholder="e.g. جون دو"
-                            dir="rtl"
-                            required
-                        />
+                        {/* Name AR */}
+                        <div className="space-y-1.5">
+                            <label className="text-sm font-medium text-gray-700" htmlFor="userNameAr">
+                                {t('addUser.userNameAr')} <span className="text-red-500">*</span>
+                            </label>
+                            <Controller
+                                name="userNameAr"
+                                control={control}
+                                render={({ field }) => (
+                                    <Input
+                                        {...field}
+                                        id="userNameAr"
+                                        placeholder={t('addUser.placeholders.userNameAr')}
+                                        dir="rtl"
+                                        className={errors.userNameAr ? 'border-red-500' : ''}
+                                    />
+                                )}
+                            />
+                            {errors.userNameAr && (
+                                <p className="text-xs text-red-500">
+                                    {t(errors.userNameAr.message as string)}
+                                </p>
+                            )}
+                        </div>
                     </div>
 
                     {/* Email */}
                     <div className="space-y-1.5">
                         <label className="text-sm font-medium text-gray-700" htmlFor="emailId">
-                            Email <span className="text-red-500">*</span>
+                            {t('addUser.email')} <span className="text-red-500">*</span>
                         </label>
-                        <Input
-                            id="emailId"
+                        <Controller
                             name="emailId"
-                            type="email"
-                            value={form.emailId}
-                            onChange={handleChange}
-                            placeholder="e.g. john.doe@example.com"
-                            required
+                            control={control}
+                            render={({ field }) => (
+                                <Input
+                                    {...field}
+                                    id="emailId"
+                                    type="email"
+                                    placeholder={t('addUser.placeholders.email')}
+                                    className={errors.emailId ? 'border-red-500' : ''}
+                                />
+                            )}
                         />
+                        {errors.emailId && (
+                            <p className="text-xs text-red-500">
+                                {t(errors.emailId.message as string)}
+                            </p>
+                        )}
                     </div>
 
-                    {/* Department ID (still a plain number input — no lookup endpoint yet) */}
+                    {/* Department */}
                     <div className="space-y-1.5">
-                        <label className="text-sm font-medium text-gray-700" htmlFor="fkDeptId">
-                            Department ID <span className="text-red-500">*</span>
-                        </label>
-                        <Input
-                            id="fkDeptId"
+                        <Controller
                             name="fkDeptId"
-                            type="number"
-                            min={0}
-                            value={form.fkDeptId || ''}
-                            onChange={handleChange}
-                            placeholder="0"
-                            required
+                            control={control}
+                            render={({ field }) => (
+                                <FetchingSelect
+                                    id="fkDeptId"
+                                    label={t('addUser.department')}
+                                    value={field.value}
+                                    onChange={(val) => field.onChange(val)}
+                                    isLoading={departments.loading}
+                                    error={departments.error}
+                                    onRetry={handleRetryDepartments}
+                                    placeholder={t('addUser.placeholders.department')}
+                                    required
+                                >
+                                    {departments.items.map((dept) => (
+                                        <option key={dept.id} value={dept.id}>
+                                            {isRtl ? dept.departmentNameAr : dept.departmentNameEn}
+                                        </option>
+                                    ))}
+                                </FetchingSelect>
+                            )}
                         />
+                        {errors.fkDeptId && (
+                            <p className="text-xs text-red-500">
+                                {t(errors.fkDeptId.message as string)}
+                            </p>
+                        )}
                     </div>
 
                     {/* Lookup dropdowns row */}
                     <div className="grid grid-cols-2 gap-4">
-                        {/* Job Title dropdown */}
-                        <SelectField
-                            id="fkJobTitle"
-                            label="Job Title"
-                            value={form.fkJobTitle}
-                            onChange={handleSelectChange('fkJobTitle')}
-                            isLoading={jobTitlesLoading}
-                            error={jobTitlesError}
-                            placeholder="Select a job title…"
-                            required
-                        >
-                            {jobTitles.map((jt) => (
-                                <option key={jt.id} value={jt.id}>
-                                    {jt.titleEn}
-                                </option>
-                            ))}
-                        </SelectField>
+                        <div className="space-y-1.5">
+                            <Controller
+                                name="fkJobTitle"
+                                control={control}
+                                render={({ field }) => (
+                                    <FetchingSelect
+                                        id="fkJobTitle"
+                                        label={t('addUser.jobTitle')}
+                                        value={field.value}
+                                        onChange={(val) => field.onChange(val)}
+                                        isLoading={jobTitlesLoading}
+                                        error={jobTitlesError}
+                                        onRetry={handleRetryJobTitles}
+                                        required
+                                        placeholder={t('addUser.placeholders.jobTitle')}
+                                    >
+                                        {jobTitles.map((jt) => (
+                                            <option key={jt.id} value={jt.id}>
+                                                {isRtl ? jt.titleAr : jt.titleEn}
+                                            </option>
+                                        ))}
+                                    </FetchingSelect>
+                                )}
+                            />
+                            {errors.fkJobTitle && (
+                                <p className="text-xs text-red-500">
+                                    {t(errors.fkJobTitle.message as string)}
+                                </p>
+                            )}
+                        </div>
 
-                        {/* Role dropdown */}
-                        <SelectField
-                            id="roleId"
-                            label="Role"
-                            value={form.roleId}
-                            onChange={handleSelectChange('roleId')}
-                            isLoading={rolesLoading}
-                            error={rolesError}
-                            placeholder="Select a role…"
-                            required
-                        >
-                            {roles.map((r) => (
-                                <option key={r.id} value={r.id}>
-                                    {r.roleNameEn}
-                                </option>
-                            ))}
-                        </SelectField>
+                        <div className="space-y-1.5">
+                            <Controller
+                                name="roleId"
+                                control={control}
+                                render={({ field }) => (
+                                    <FetchingSelect
+                                        id="roleId"
+                                        label={t('addUser.role')}
+                                        value={field.value}
+                                        onChange={(val) => field.onChange(val)}
+                                        isLoading={rolesLoading}
+                                        required
+                                        error={rolesError}
+                                        onRetry={handleRetryRoles}
+                                        placeholder={t('addUser.placeholders.role')}
+                                    >
+                                        {roles.map((r) => (
+                                            <option key={r.id} value={r.id}>
+                                                {isRtl ? r.roleNameAr : r.roleNameEn}
+                                            </option>
+                                        ))}
+                                    </FetchingSelect>
+                                )}
+                            />
+                            {errors.roleId && (
+                                <p className="text-xs text-red-500">
+                                    {t(errors.roleId.message as string)}
+                                </p>
+                            )}
+                        </div>
                     </div>
 
                     {/* Actions */}
                     <div className="flex items-center gap-3 pt-2">
                         <Button
                             type="submit"
-                            disabled={isLoading || success || rolesLoading || jobTitlesLoading}
+                            disabled={isLoading || success || rolesLoading || jobTitlesLoading || departments.loading}
                             className="flex-1"
                         >
                             {isLoading ? (
                                 <>
                                     <Loader2 size={16} className="animate-spin" />
-                                    Creating…
+                                    {t('addUser.creating')}
                                 </>
                             ) : (
                                 <>
                                     <UserPlus size={16} />
-                                    Create User
+                                    {t('addUser.submit')}
                                 </>
                             )}
                         </Button>
@@ -310,7 +322,7 @@ export const AddUserPage = () => {
                             onClick={() => navigate(-1)}
                             disabled={isLoading}
                         >
-                            Cancel
+                            {t('addUser.cancel')}
                         </Button>
                     </div>
                 </form>

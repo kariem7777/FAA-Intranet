@@ -14,14 +14,12 @@ interface LegislationDocumentsPageProps {
     categoryId: number;
     onBack: () => void;
     onViewDocument?: (doc: Document) => void;
-    fontSizeMultiplier?: number;
 }
 
 export function LegislationDocumentsPage({
     categoryId,
     onBack,
     onViewDocument,
-    fontSizeMultiplier = 1
 }: LegislationDocumentsPageProps) {
     const { isRTL, t } = useTranslation();
     const dispatch = useDispatch<AppDispatch>();

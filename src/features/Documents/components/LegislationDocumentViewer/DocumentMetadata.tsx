@@ -47,7 +47,6 @@ export function DocumentMetadata({
             style={{
                 backgroundColor: 'var(--color-bg-white)',
                 borderColor: 'var(--color-bg-light)',
-                maxHeight: 'calc(100vh - 160px)',
                 overflowY: 'auto',
             }}
         >

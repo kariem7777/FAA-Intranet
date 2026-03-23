@@ -3,6 +3,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Loading, ErrorPage } from "@/shared";
 import { LegislationLayout } from "./features/Legislation/layout/LegislationLayout";
 import { ProtectedRoute } from "@/features/authentication/routes/ProtectedRoute";
+import { ROLES } from "@/features/authentication/constants/roles";
 
 const LegislationHome = lazy(() => import("@/features/Legislation/pages/LegislationHome"));
 const LegislationDashboardPage = lazy(() => import("@/features/Dashboard/pages/LegislationDashboardPage"));
@@ -22,7 +23,6 @@ const router = createBrowserRouter([
         ),
         errorElement: <ErrorPage />,
         children: [
-            // Public routes — accessible by all authenticated users
             {
                 index: true,
                 element: (
@@ -42,7 +42,7 @@ const router = createBrowserRouter([
             },
 
             {
-                element: <ProtectedRoute allowedRoles={['Admin', "Manager"]} />,
+                element: <ProtectedRoute allowedRoles={[ROLES.ADMIN, ROLES.MANAGER]} />,
                 children: [
                     {
                         path: "documents",

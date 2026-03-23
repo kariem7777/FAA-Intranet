@@ -332,7 +332,6 @@
       "allEntities": "جميع الجهات",
       "searchPlaceholder": "البحث بالعنوان أو المرجع...",
       "clearSelection": "مسح التحديد",
-      "slug": "الرابط (Slug)",
       "filterResults": "تصفية النتائج",
       "reset": "إعادة ضبط",
       "documentTitle": "عنوان الوثيقة",
@@ -376,7 +375,6 @@
           "noSubCategories": "لا توجد تصنيفات فرعية",
           "selectSubCategory": "اختر التصنيف الفرعي",
           "lawNumber": "رقم القانون",
-          "slug": "الرابط (Slug)",
           "lawNameEn": "اسم القانون (En)",
           "lawNameAr": "اسم القانون (Ar)",
           "classification": "التصنيف",
@@ -398,7 +396,6 @@
           "noSubCategories": "لا توجد تصنيفات فرعية",
           "selectSubCategory": "اختر التصنيف الفرعي",
           "lawNumber": "رقم القانون",
-          "slug": "الرابط (Slug)",
           "lawNameEn": "اسم القانون (En)",
           "lawNameAr": "اسم القانون (Ar)",
           "classification": "التصنيف",
@@ -425,6 +422,14 @@
         "updateError": "فشل تحديث الوثيقة",
         "deleteSuccess": "تم حذف الوثيقة بنجاح",
         "deleteError": "فشل حذف الوثيقة"
+      },
+      "validation": {
+        "required": "هذا الحقل مطلوب",
+        "invalidEmail": "البريد الإلكتروني غير صحيح",
+        "selectCategory": "يرجى اختيار التصنيف",
+        "selectSubCategory": "يرجى اختيار التصنيف الفرعي",
+        "selectEntity": "يرجى اختيار الجهة",
+        "fileRequired": "يرجى تحميل ملف الوثيقة"
       }
     }
   },
@@ -472,5 +477,28 @@
     "contactAdmin": "يرجى الاتصال بالمسؤول للحصول على صلاحية الوصول.",
     "tryAgain": "حاول مرة أخرى",
     "signOut": "تسجيل الخروج"
+  },
+  "addUser": {
+    "title": "إضافة مستخدم جديد",
+    "userLogin": "اسم المستخدم",
+    "userNameEn": "الاسم (إنجليزي)",
+    "userNameAr": "الاسم (عربي)",
+    "email": "البريد الإلكتروني",
+    "department": "القسم",
+    "jobTitle": "المسمى الوظيفي",
+    "role": "الصلاحية",
+    "submit": "إنشاء مستخدم",
+    "cancel": "إلغاء",
+    "creating": "جاري الإنشاء...",
+    "success": "تم إنشاء المستخدم بنجاح! جاري التوجيه...",
+    "placeholders": {
+      "userLogin": "مثال: jdoe",
+      "userNameEn": "مثال: John Doe",
+      "userNameAr": "مثال: جون دو",
+      "email": "مثال: john.doe@example.com",
+      "department": "اختر القسم...",
+      "jobTitle": "اختر المسمى الوظيفي...",
+      "role": "اختر الصلاحية..."
+    }
   }
 }

@@ -3,30 +3,28 @@ import GovernmentOfDubai from '@/imports/GovernmentOfDubai';
 import imgImageFinancialAuditAuthority from "@/assets/e2cb68d504b659d40535c18e986fce5d5ed9ca82.png";
 import { useState, useEffect, forwardRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useSelector, useDispatch } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { useNavigate } from 'react-router-dom';
-import { type RootState } from '@/store';
 import { increaseFontSize, decreaseFontSize, setLanguage } from '@/store/slices/globalSlice';
 import { AzureLoginButton } from '@/features/authentication';
 import { useTranslation } from '@/shared/hooks/useTranslation';
+import { useAuth } from '@/features/authentication/hooks/useAuth';
+
 
 interface LegislationHeaderProps {
   currentPage: 'home' | 'legislations' | 'dashboard' | 'documents' | 'search' | 'approved-opinions' | null;
   onNavigate: (page: 'home' | 'legislations' | 'dashboard' | 'documents' | 'search' | 'approved-opinions') => void;
-  userRole?: 'admin' | 'user';
-  userName?: string;
 }
 
-
-export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>(({ userRole = 'user',
+export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>(({
   currentPage,
   onNavigate,
-  userName,
 }, ref) => {
+  const { user, isAdmin, hasRole } = useAuth();
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { language, fontSize } = useSelector((state: RootState) => state.global);
+  const { language, fontSize } = useAppSelector((state) => state.global);
   const { t } = useTranslation();
 
   const handleIncreaseFontSize = () => dispatch(increaseFontSize());
@@ -45,7 +43,7 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
   ];
 
   const navItems = allNavItems.filter(item =>
-    !item.roles || item.roles.includes(userRole)
+    hasRole(item.roles)
   );
 
   const currentIndex = fontSizes.indexOf(fontSize);
@@ -160,7 +158,7 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
 
             <AzureLoginButton />
 
-            {userRole === 'admin' && (
+            {isAdmin && (
               <button
                 onClick={() => navigate('/add-user')}
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all hover:bg-white/20"
@@ -239,9 +237,9 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
                     </div>
                   </button>
 
-                  {userName && (
+                  {user?.userName && (
                     <div className="py-2 px-4 rounded-lg bg-white/5 text-white text-sm font-medium">
-                      {userName}
+                      {user.userName}
                     </div>
                   )}
 
@@ -249,7 +247,7 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
                     <AzureLoginButton className="w-full justify-center" />
                   </div>
 
-                  {userRole === 'admin' && (
+                  {isAdmin && (
                     <button
                       onClick={() => { navigate('/add-user'); setShowMobileMenu(false); }}
                       className="flex items-center gap-2 py-3 px-4 rounded-lg bg-white/5 text-white font-medium w-full"

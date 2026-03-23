@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import toast from 'react-hot-toast';
 import { Dialog } from '@/shared/components/Dialog/Dialog';
@@ -8,7 +8,14 @@ import { Select } from '@/shared/components/ui/select';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { Upload, X, FileText } from 'lucide-react';
 import { updateDocument } from '../../slices/documentsManagementSlice';
-import { fetchSubCategoriesByCategory } from '@/features/Legislation/slices/legislationSlice';
+import {
+    fetchSubCategoriesByCategory,
+    fetchCategories,
+    fetchEntities
+} from '@/features/Legislation/slices/legislationSlice';
+import { useForm, Controller } from 'react-hook-form';
+import { documentSchema, zodResolver, type DocumentFormData } from '../../schemas';
+import { FetchingSelect } from '@/shared/components/Select/FetchingSelect';
 import type { Document } from '../../types';
 
 interface EditDocumentDialogProps {
@@ -24,20 +31,25 @@ export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDi
     const { entities, categories, subCategories } = useAppSelector((state) => state.legislationSlice);
 
     const isArabic = i18n.language === 'ar';
-
-    // Form state initialized from document
-    const [categoryId, setCategoryId] = useState<number>(document.categoryId);
-    const [subCategoryId, setSubCategoryId] = useState<number>(document.subCategoryId);
-    const [entityId, setEntityId] = useState<number>(document.entityId);
-    const [documentNameEn, setDocumentNameEn] = useState(document.documentNameEn);
-    const [documentNameAr, setDocumentNameAr] = useState(document.documentNameAr);
-    const [lawNumber, setLawNumber] = useState(document.lawNumber);
-    const [lawNameAr, setLawNameAr] = useState(document.lawNameAr);
-    const [lawNameEn, setLawNameEn] = useState(document.lawNameEn);
-    const [classification, setClassification] = useState<number>(document.classification);
-    const [slug, setSlug] = useState<string>(document.slug || '');
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
+
+    const { register, handleSubmit, watch, setValue, setError, control, formState: { errors } } = useForm<DocumentFormData>({
+        resolver: zodResolver(documentSchema),
+        defaultValues: {
+            categoryId: document.categoryId,
+            subCategoryId: document.subCategoryId,
+            entityId: document.entityId,
+            documentNameEn: document.documentNameEn,
+            documentNameAr: document.documentNameAr,
+            lawNumber: document.lawNumber || '',
+            lawNameAr: document.lawNameAr || '',
+            lawNameEn: document.lawNameEn || '',
+            classification: document.classification,
+        }
+    });
+
+    const categoryId = watch('categoryId');
+    const selectedFile = watch('file');
 
     const selectedCategory = categories.items.find(cat => cat.id === categoryId);
     const isEntityLegislation = selectedCategory?.slug === 'entity-legislation';
@@ -49,37 +61,36 @@ export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDi
         }
     }, [categoryId, dispatch]);
 
-    // Load sub-categories for the initial category
+    // Initial load of sub-categories if needed (though watch might handle it if initial categoryId is set)
     useEffect(() => {
         if (document.categoryId) {
             dispatch(fetchSubCategoriesByCategory({ categoryId: document.categoryId }));
         }
     }, [document.categoryId, dispatch]);
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
+    const handleRetryCategories = () => dispatch(fetchCategories());
+    const handleRetrySubCategories = () => {
+        if (categoryId) dispatch(fetchSubCategoriesByCategory({ categoryId }));
+    };
+    const handleRetryEntities = () => dispatch(fetchEntities());
 
-        // Validation
-        const isReady = documentNameEn && documentNameAr && categoryId && subCategoryId && slug &&
-            (!isEntityLegislation || (isEntityLegislation && entityId !== 0));
-
-        if (!isReady) {
-            toast.error(t('legislation.documentsManagement.toasts.fillAllFields'));
+    const onValidSubmit = async (data: DocumentFormData) => {
+        if (isEntityLegislation && (!data.entityId || data.entityId === 0)) {
+            setError('entityId', { type: 'manual', message: 'legislation.documentsManagement.validation.selectEntity' });
             return;
         }
 
         const updatedDocument: Document = {
             ...document,
-            categoryId,
-            subCategoryId,
-            entityId,
-            documentNameEn,
-            documentNameAr,
-            lawNumber,
-            lawNameAr,
-            lawNameEn,
-            classification,
-            slug,
+            categoryId: Number(data.categoryId),
+            subCategoryId: Number(data.subCategoryId),
+            entityId: data.entityId ? Number(data.entityId) : 0,
+            documentNameEn: data.documentNameEn,
+            documentNameAr: data.documentNameAr,
+            lawNumber: data.lawNumber || '',
+            lawNameAr: data.lawNameAr || '',
+            lawNameEn: data.lawNameEn || '',
+            classification: data.classification,
         };
 
         const resultAction = await dispatch(updateDocument({
@@ -96,7 +107,7 @@ export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDi
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
-            setSelectedFile(e.target.files[0]);
+            setValue('file', e.target.files[0]);
         }
     };
 
@@ -108,7 +119,7 @@ export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDi
             title={t('legislation.documentsManagement.dialogs.edit.title')}
             size="large"
         >
-            <form onSubmit={handleSubmit} dir={isArabic ? 'rtl' : 'ltr'} className="space-y-6">
+            <form onSubmit={handleSubmit(onValidSubmit)} dir={isArabic ? 'rtl' : 'ltr'} className="space-y-6">
                 {/* General Details Section */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {/* Document Name English */}
@@ -118,10 +129,9 @@ export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDi
                         </label>
                         <Input
                             type="text"
-                            value={documentNameEn}
-                            onChange={(e) => setDocumentNameEn(e.target.value)}
-                            required
+                            {...register('documentNameEn')}
                         />
+                        {errors.documentNameEn && <p className="text-red-500 text-xs mt-1">{t(String(errors.documentNameEn.message || ''))}</p>}
                     </div>
 
                     {/* Document Name Arabic */}
@@ -131,33 +141,20 @@ export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDi
                         </label>
                         <Input
                             type="text"
-                            value={documentNameAr}
-                            onChange={(e) => setDocumentNameAr(e.target.value)}
-                            required
+                            {...register('documentNameAr')}
                         />
+                        {errors.documentNameAr && <p className="text-red-500 text-xs mt-1">{t(String(errors.documentNameAr.message || ''))}</p>}
                     </div>
                 </div>
                 {/* Law Number and Slug */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 gap-4">
                     <div>
                         <label className="block text-sm font-medium mb-2 text-faa-primary">
                             {t('legislation.documentsManagement.dialogs.edit.lawNumber')}
                         </label>
                         <Input
                             type="text"
-                            value={lawNumber}
-                            onChange={(e) => setLawNumber(e.target.value)}
-                        />
-                    </div>
-                    <div>
-                        <label className="block text-sm font-medium mb-2 text-faa-primary">
-                            {t('legislation.documentsManagement.dialogs.edit.slug')}
-                        </label>
-                        <Input
-                            type="text"
-                            value={slug}
-                            onChange={(e) => setSlug(e.target.value)}
-                            required
+                            {...register('lawNumber')}
                         />
                     </div>
                 </div>
@@ -166,71 +163,90 @@ export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDi
                     {/* Entity */}
                     {isEntityLegislation && (
                         <div>
-                            <label className="block text-sm font-medium mb-2 text-faa-primary">
-                                {t('legislation.documentsManagement.dialogs.edit.entity')}
-                            </label>
-                            <Select
-                                value={entityId}
-                                onChange={(e) => setEntityId(Number(e.target.value))}
-                                required
-                            >
-                                <option value={0}>{t('legislation.documentsManagement.dialogs.edit.selectEntity')}</option>
-                                {entities.items.map((entity) => (
-                                    <option key={entity.entityId} value={entity.entityId}>
-                                        {isArabic ? entity.entityNameAr : entity.entityName}
-                                    </option>
-                                ))}
-                            </Select>
+                            <Controller
+                                name="entityId"
+                                control={control}
+                                render={({ field }) => (
+                                    <FetchingSelect
+                                        id="entityId"
+                                        label={t('legislation.documentsManagement.dialogs.edit.entity')}
+                                        value={field.value || 0}
+                                        onChange={(val) => field.onChange(val)}
+                                        isLoading={entities.loading}
+                                        error={entities.error}
+                                        onRetry={handleRetryEntities}
+                                        required
+                                        placeholder={t('legislation.documentsManagement.dialogs.edit.selectEntity')}
+                                    >
+                                        {entities.items.map((entity) => (
+                                            <option key={entity.entityId} value={entity.entityId}>
+                                                {isArabic ? entity.entityNameAr : entity.entityName}
+                                            </option>
+                                        ))}
+                                    </FetchingSelect>
+                                )}
+                            />
+                            {errors.entityId && <p className="text-red-500 text-xs mt-1">{t(String(errors.entityId.message || ''))}</p>}
                         </div>
                     )}
                     <div>
-                        <label className="block text-sm font-medium mb-2 text-faa-primary">
-                            {t('legislation.documentsManagement.dialogs.edit.category')}
-                        </label>
-                        <Select
-                            value={categoryId}
-                            onChange={(e) => {
-                                setCategoryId(Number(e.target.value));
-                                setSubCategoryId(0); // Reset sub-category when category changes
-                            }}
-                            required
-                        >
-                            <option value={0}>{t('legislation.documentsManagement.dialogs.edit.selectCategory')}</option>
-                            {categories.items.map((cat) => (
-                                <option key={cat.id} value={cat.id}>
-                                    {isArabic ? cat.lawCategoryAr : cat.lawCategoryEn}
-                                </option>
-                            ))}
-                        </Select>
+                        <Controller
+                            name="categoryId"
+                            control={control}
+                            render={({ field }) => (
+                                <FetchingSelect
+                                    id="categoryId"
+                                    label={t('legislation.documentsManagement.dialogs.edit.category')}
+                                    value={field.value}
+                                    onChange={(val) => field.onChange(val)}
+                                    isLoading={categories.loading}
+                                    error={categories.error}
+                                    onRetry={handleRetryCategories}
+                                    required
+                                    placeholder={t('legislation.documentsManagement.dialogs.edit.selectCategory')}
+                                >
+                                    {categories.items.map((cat) => (
+                                        <option key={cat.id} value={cat.id}>
+                                            {isArabic ? cat.lawCategoryAr : cat.lawCategoryEn}
+                                        </option>
+                                    ))}
+                                </FetchingSelect>
+                            )}
+                        />
+                        {errors.categoryId && <p className="text-red-500 text-xs mt-1">{t(String(errors.categoryId.message || ''))}</p>}
                     </div>
                     <div>
-                        <label className="block text-sm font-medium mb-2 text-faa-primary">
-                            {t('legislation.documentsManagement.dialogs.edit.subCategory')}
-                        </label>
-                        <Select
-                            value={subCategoryId}
-                            onChange={(e) => setSubCategoryId(Number(e.target.value))}
-                            required
-                            disabled={!categoryId || subCategories.loading}
-                        >
-                            <option value={0}>
-                                {!categoryId
-                                    ? t('legislation.documentsManagement.dialogs.edit.selectCategoryFirst')
-                                    : subCategories.loading
-                                        ? t('common.loading')
-                                        : subCategories.items.length === 0
-                                            ? t('legislation.documentsManagement.dialogs.edit.noSubCategories')
-                                            : t('legislation.documentsManagement.dialogs.edit.selectSubCategory')}
-                            </option>
-                            {subCategories.items.map((cat) => (
-                                <option key={cat.id} value={cat.id}>
-                                    {isArabic ? cat.lawSubCategoryAr : cat.lawSubCategoryEn}
-                                </option>
-                            ))}
-                        </Select>
-                        {subCategories.error && (
-                            <p className="text-red-500 text-sm mt-1">{subCategories.error}</p>
-                        )}
+                        <Controller
+                            name="subCategoryId"
+                            control={control}
+                            render={({ field }) => (
+                                <FetchingSelect
+                                    id="subCategoryId"
+                                    label={t('legislation.documentsManagement.dialogs.edit.subCategory')}
+                                    value={field.value}
+                                    onChange={(val) => field.onChange(val)}
+                                    disabled={!categoryId || subCategories.loading}
+                                    isLoading={subCategories.loading}
+                                    error={subCategories.error}
+                                    onRetry={handleRetrySubCategories}
+                                    required
+                                    placeholder={
+                                        !categoryId
+                                            ? t('legislation.documentsManagement.dialogs.edit.selectCategoryFirst')
+                                            : subCategories.items.length === 0 && !subCategories.loading
+                                                ? t('legislation.documentsManagement.dialogs.edit.noSubCategories')
+                                                : t('legislation.documentsManagement.dialogs.edit.selectSubCategory')
+                                    }
+                                >
+                                    {subCategories.items.map((cat) => (
+                                        <option key={cat.id} value={cat.id}>
+                                            {isArabic ? cat.lawSubCategoryAr : cat.lawSubCategoryEn}
+                                        </option>
+                                    ))}
+                                </FetchingSelect>
+                            )}
+                        />
+                        {errors.subCategoryId && <p className="text-red-500 text-xs mt-1">{t(String(errors.subCategoryId.message || ''))}</p>}
                     </div>
                 </div>
 
@@ -244,8 +260,7 @@ export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDi
                         </label>
                         <Input
                             type="text"
-                            value={lawNameEn}
-                            onChange={(e) => setLawNameEn(e.target.value)}
+                            {...register('lawNameEn')}
                         />
                     </div>
 
@@ -256,8 +271,7 @@ export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDi
                         </label>
                         <Input
                             type="text"
-                            value={lawNameAr}
-                            onChange={(e) => setLawNameAr(e.target.value)}
+                            {...register('lawNameAr')}
                         />
                     </div>
                 </div>
@@ -269,8 +283,7 @@ export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDi
                         {t('legislation.documentsManagement.dialogs.edit.classification')}
                     </label>
                     <Select
-                        value={classification}
-                        onChange={(e) => setClassification(Number(e.target.value))}
+                        {...register('classification', { valueAsNumber: true })}
                     >
                         <option value={1}>{t('legislation.documentsManagement.public')}</option>
                         <option value={2}>{t('legislation.documentsManagement.secret')}</option>
@@ -299,7 +312,7 @@ export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDi
                                 <Button
                                     type="button"
                                     variant="ghost"
-                                    onClick={() => setSelectedFile(null)}
+                                    onClick={() => setValue('file', null)}
                                 >
                                     <X className="h-4 w-4" />
                                 </Button>

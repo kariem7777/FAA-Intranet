@@ -13,12 +13,7 @@ import { LegislationDocumentsPage } from '@/features/Documents/pages/Legislation
 import { LegislationDocumentViewer } from '@/features/Documents/pages/LegislationDocumentViewer';
 import { clearSelectedDocument, setSearchQuery, setSelectedDocument } from '@/features/Documents/slices/documentsManagementSlice';
 
-
-interface LegislationHomeProps {
-  userRole?: 'admin' | 'user';
-}
-
-function LegislationHome({ }: LegislationHomeProps = {}) {
+function LegislationHome() {
   const dispatch = useDispatch<AppDispatch>();
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -31,7 +26,7 @@ function LegislationHome({ }: LegislationHomeProps = {}) {
       if (id === null) prev.delete('categoryId');
       else prev.set('categoryId', id.toString());
       return prev;
-    }, { replace: false }); // keep history so user can use back button
+    }, { replace: false });
   };
 
   const setViewingDocumentId = (id: number | null) => {
@@ -104,8 +99,8 @@ function LegislationHome({ }: LegislationHomeProps = {}) {
 
   const handleCategorySearch = (categoryId: number) => {
     if (globalSearchQuery) {
-        dispatch(setSearchQuery(globalSearchQuery));
-        dispatch(clearSearch());
+      dispatch(setSearchQuery(globalSearchQuery));
+      dispatch(clearSearch());
     }
     setSelectedCategoryId(categoryId);
   };

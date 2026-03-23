@@ -72,7 +72,7 @@ export function EnquiresDashboard() {
         <div className="space-y-6">
             {/* Page Header */}
             <div>
-                <h2 className="text-gray-900 mb-1 text-2xl font-bold">
+                <h2 className="text-gray-900 mb-1 text-2xl font-bold" >
                     {t('legislation.dashboard.cases.title')}
                 </h2>
                 <p className="text-gray-500 text-sm font-medium">

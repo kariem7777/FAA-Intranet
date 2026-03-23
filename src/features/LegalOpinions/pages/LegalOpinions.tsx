@@ -118,7 +118,6 @@ export function LegalOpinions({ onBack, onOpinionSelect }: LegalOpinionsPageProp
             <LegalOpinionsPageFilters
                 filters={filters}
                 departments={departments}
-                userRole={currentUser.role}
                 statusCounts={statusCounts}
                 onSearchSubmit={handleSearchSubmit}
                 onStatusChange={(status) => dispatch(setStatusFilter(status))}
@@ -134,7 +133,6 @@ export function LegalOpinions({ onBack, onOpinionSelect }: LegalOpinionsPageProp
                     <div className="col-span-12">
                         <LegalOpinionsContentHeader
                             totalCount={pagination.totalCount}
-                            userRole={currentUser.role}
                             onAddEnquiry={handleOpenAddModal}
                         />
 

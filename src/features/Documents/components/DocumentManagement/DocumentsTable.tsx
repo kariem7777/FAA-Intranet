@@ -80,7 +80,7 @@ export function DocumentsTable({
     };
 
     const renderLoadingState = () => {
-        return Array.from({ length: 5 }).map((_, index) => (
+        return Array.from({ length: 3 }).map((_, index) => (
             <tr key={index} className="border-t border-gray-100">
                 <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center gap-3">
@@ -89,10 +89,10 @@ export function DocumentsTable({
                     </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                    <Shimmer width="120px" height="16px" />
+                    <Shimmer width="50px" height="16px" />
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                    <Shimmer width="140px" height="16px" />
+                    <Shimmer width="50px" height="16px" />
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                     <Shimmer width="100px" height="16px" />

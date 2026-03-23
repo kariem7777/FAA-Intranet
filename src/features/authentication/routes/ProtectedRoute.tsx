@@ -1,6 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import type { RootState } from '@/store';
+import { useAuth } from '../hooks/useAuth';
 import { Loader2, ShieldX } from 'lucide-react';
 
 interface ProtectedRouteProps {
@@ -9,7 +8,7 @@ interface ProtectedRouteProps {
 }
 
 export function ProtectedRoute({ allowedRoles }: ProtectedRouteProps) {
-    const { user, isLoading } = useSelector((state: RootState) => state.auth);
+    const { user, isLoading, hasRole } = useAuth();
 
     // Still fetching backend user info or not authenticated by backend
     if (isLoading || !user || !user.isAuthenticated) {
@@ -35,8 +34,7 @@ export function ProtectedRoute({ allowedRoles }: ProtectedRouteProps) {
 
     // If allowed roles are specified, check the user has at least one of them
     if (allowedRoles && allowedRoles.length > 0) {
-        const userRoles = (user?.roles ?? []).map(r => r.toLowerCase());
-        const hasAccess = allowedRoles.some(r => userRoles.includes(r.toLowerCase()));
+        const hasAccess = hasRole(allowedRoles);
 
         if (!hasAccess) {
             return (

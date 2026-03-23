@@ -88,7 +88,7 @@ export function DocumentsLegislationDashboard({ }: DocumentsLegislationDashboard
     <div className="space-y-6">
       {/* Page Header */}
       <div>
-        <h2 className="text-gray-900 mb-2 text-2xl font-semibold text-[#7e2425]">
+        <h2 className="text-gray-900 mb-2 text-2xl font-semibold">
           {t('legislation.dashboard.documents.title')}
         </h2>
         <p className="text-gray-600 text-base">
