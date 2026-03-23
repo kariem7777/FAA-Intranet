@@ -8,7 +8,7 @@ interface GlobalState {
 }
 
 const getInitialLanguage = (): 'en' | 'ar' => {
-  const storedLang = localStorage.getItem('language');
+  const storedLang = localStorage.getItem('faa-intranet-language');
   if (storedLang === 'en' || storedLang === 'ar') {
     return storedLang;
   }
@@ -17,7 +17,7 @@ const getInitialLanguage = (): 'en' | 'ar' => {
 
 // Initialize font scale from localStorage or default
 const initializeFontScale = (): string => {
-  const storedScale = localStorage.getItem('textSize') as 'sm' | 'base' | 'lg' | 'xl' | null;
+  const storedScale = localStorage.getItem('faa-intranet-textSize') as 'sm' | 'base' | 'lg' | 'xl' | null;
   const size = storedScale || 'base';
   document.documentElement.setAttribute('data-text-size', size);
   return size;
@@ -46,7 +46,7 @@ const globalSlice = createSlice({
       // Update DOM and Storage
       document.documentElement.dir = state.direction;
       document.documentElement.lang = state.language;
-      localStorage.setItem('language', state.language);
+      localStorage.setItem('faa-intranet-language', state.language);
 
       // Sync with i18n
       i18n.changeLanguage(lang);
@@ -59,7 +59,7 @@ const globalSlice = createSlice({
       // Update DOM and Storage
       document.documentElement.dir = state.direction;
       document.documentElement.lang = state.language;
-      localStorage.setItem('language', state.language);
+      localStorage.setItem('faa-intranet-language', state.language);
 
       // Sync with i18n
       i18n.changeLanguage(newLang);
@@ -68,18 +68,18 @@ const globalSlice = createSlice({
       const currentSize = document.documentElement.getAttribute('data-text-size') as 'sm' | 'base' | 'lg' | 'xl';
       const newSize = currentSize === 'sm' ? 'base' : currentSize === 'base' ? 'lg' : currentSize === 'lg' ? 'xl' : 'xl';
       document.documentElement.setAttribute('data-text-size', newSize);
-      localStorage.setItem('textSize', newSize);
+      localStorage.setItem('faa-intranet-textSize', newSize);
     },
     decreaseFontSize: () => {
       const currentSize = document.documentElement.getAttribute('data-text-size') as 'sm' | 'base' | 'lg' | 'xl';
       const newSize = currentSize === 'xl' ? 'lg' : currentSize === 'lg' ? 'base' : currentSize === 'base' ? 'sm' : 'sm';
       document.documentElement.setAttribute('data-text-size', newSize);
-      localStorage.setItem('textSize', newSize);
+      localStorage.setItem('faa-intranet-textSize', newSize);
     },
     setFontSize: (_, action: PayloadAction<'sm' | 'base' | 'lg' | 'xl'>) => {
       const size = action.payload;
       document.documentElement.setAttribute('data-text-size', size);
-      localStorage.setItem('textSize', size);
+      localStorage.setItem('faa-intranet-textSize', size);
     }
   },
 });

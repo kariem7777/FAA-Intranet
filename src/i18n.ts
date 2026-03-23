@@ -16,7 +16,7 @@ const resources = {
 };
 
 const getInitialLanguage = (): string => {
-  const storedLang = localStorage.getItem('language');
+  const storedLang = localStorage.getItem('faa-intranet-language');
   if (storedLang === 'en' || storedLang === 'ar') {
     return storedLang;
   }
@@ -30,7 +30,7 @@ i18n
     lng: getInitialLanguage(), // language to use, more information here: https://www.i18next.com/overview/configuration-options#languages-namespaces-resources
     fallbackLng: 'ar',
     defaultNS: 'legislation',
-    ns: ["legislation"], 
+    ns: ["legislation"],
     interpolation: {
       escapeValue: false // react already safes from xss
     }

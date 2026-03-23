@@ -11,14 +11,14 @@ export const ImportantNoticeModal = ({ onClose }: ImportantNoticeModalProps) => 
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
-        const acknowledged = localStorage.getItem('legislation_notice_acknowledged');
+        const acknowledged = localStorage.getItem('faa-intranet-acknowledged');
         if (!acknowledged) {
             setIsVisible(true);
         }
     }, []);
 
     const handleClose = () => {
-        localStorage.setItem('legislation_notice_acknowledged', 'true');
+        localStorage.setItem('faa-intranet-acknowledged', 'true');
         setIsVisible(false);
         onClose();
     };
