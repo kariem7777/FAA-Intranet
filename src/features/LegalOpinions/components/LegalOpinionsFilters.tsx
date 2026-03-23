@@ -1,6 +1,6 @@
 import { Search } from 'lucide-react';
 import { useTranslation } from '@/shared/hooks/useTranslation';
-import type { Department, Entities } from '@/features/Legislation/types';
+import type { Department } from '@/features/Legislation/types';
 import { Input } from '@/shared/components/ui/input';
 import { Select } from '@/shared/components/ui/select';
 

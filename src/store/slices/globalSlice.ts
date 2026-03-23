@@ -42,12 +42,12 @@ const globalSlice = createSlice({
       const lang = action.payload;
       state.language = lang;
       state.direction = lang === 'ar' ? 'rtl' : 'ltr';
-      
+
       // Update DOM and Storage
       document.documentElement.dir = state.direction;
       document.documentElement.lang = state.language;
       localStorage.setItem('language', state.language);
-      
+
       // Sync with i18n
       i18n.changeLanguage(lang);
     },
@@ -55,31 +55,31 @@ const globalSlice = createSlice({
       const newLang = state.language === 'ar' ? 'en' : 'ar';
       state.language = newLang;
       state.direction = newLang === 'ar' ? 'rtl' : 'ltr';
-      
+
       // Update DOM and Storage
       document.documentElement.dir = state.direction;
       document.documentElement.lang = state.language;
       localStorage.setItem('language', state.language);
-      
+
       // Sync with i18n
       i18n.changeLanguage(newLang);
     },
-    increaseFontSize: (state) => {
-        const currentSize = document.documentElement.getAttribute('data-text-size') as 'sm' | 'base' | 'lg' | 'xl';
-        const newSize = currentSize === 'sm' ? 'base' : currentSize === 'base' ? 'lg' : currentSize === 'lg' ? 'xl' : 'xl'  ;
-        document.documentElement.setAttribute('data-text-size', newSize);
-        localStorage.setItem('textSize', newSize);
+    increaseFontSize: () => {
+      const currentSize = document.documentElement.getAttribute('data-text-size') as 'sm' | 'base' | 'lg' | 'xl';
+      const newSize = currentSize === 'sm' ? 'base' : currentSize === 'base' ? 'lg' : currentSize === 'lg' ? 'xl' : 'xl';
+      document.documentElement.setAttribute('data-text-size', newSize);
+      localStorage.setItem('textSize', newSize);
     },
-    decreaseFontSize: (state) => {
-        const currentSize = document.documentElement.getAttribute('data-text-size') as 'sm' | 'base' | 'lg' | 'xl';
-        const newSize = currentSize === 'xl' ? 'lg' : currentSize === 'lg' ? 'base' : currentSize === 'base' ? 'sm' : 'sm';
-        document.documentElement.setAttribute('data-text-size', newSize);
-        localStorage.setItem('textSize', newSize);
+    decreaseFontSize: () => {
+      const currentSize = document.documentElement.getAttribute('data-text-size') as 'sm' | 'base' | 'lg' | 'xl';
+      const newSize = currentSize === 'xl' ? 'lg' : currentSize === 'lg' ? 'base' : currentSize === 'base' ? 'sm' : 'sm';
+      document.documentElement.setAttribute('data-text-size', newSize);
+      localStorage.setItem('textSize', newSize);
     },
-    setFontSize: (state, action: PayloadAction<'sm' | 'base' | 'lg' | 'xl'>) => {
-        const size = action.payload;
-        document.documentElement.setAttribute('data-text-size', size);
-        localStorage.setItem('textSize', size);
+    setFontSize: (_, action: PayloadAction<'sm' | 'base' | 'lg' | 'xl'>) => {
+      const size = action.payload;
+      document.documentElement.setAttribute('data-text-size', size);
+      localStorage.setItem('textSize', size);
     }
   },
 });

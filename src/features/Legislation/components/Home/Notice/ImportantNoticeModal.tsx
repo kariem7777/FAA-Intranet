@@ -7,7 +7,7 @@ interface ImportantNoticeModalProps {
 }
 
 export const ImportantNoticeModal = ({ onClose }: ImportantNoticeModalProps) => {
-    const { t, isRTL } = useTranslation();
+    const { t } = useTranslation();
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {

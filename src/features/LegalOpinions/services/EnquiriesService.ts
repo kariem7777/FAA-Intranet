@@ -1,6 +1,6 @@
 import { BaseApiService } from '@/shared/api/BaseApiService';
 import type { ApiResponse, PaginatedResponse } from '@/shared/api/types';
-import type { Enquiry, Replier } from '../types';
+import type { Enquiry } from '../types';
 import { API_ROUTES } from '@/shared/api/routes';
 
 
@@ -42,14 +42,14 @@ export class EnquiriesService extends BaseApiService {
     searchText?: string;
     pageNumber?: number;
     pageSize?: number;
-    departmentId?:number | string;
+    departmentId?: number | string;
   }): Promise<PaginatedResponse<Enquiry>> {
     return this.get<PaginatedResponse<Enquiry>>(`${API_ROUTES.ENQURIES.GET_APPROVED_REPLIES}`, {
       params: {
         searchText: params.searchText,
         pageNumber: params.pageNumber || 1,
         pageSize: params.pageSize || 10,
-        departmentId:params.departmentId
+        departmentId: params.departmentId
 
       },
     });

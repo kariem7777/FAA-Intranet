@@ -2,7 +2,7 @@ import { useState, useEffect, type ReactNode } from 'react';
 import { useMsal } from '@azure/msal-react';
 import { InteractionStatus } from '@azure/msal-browser';
 import { useSelector } from 'react-redux';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Loader2, Lock } from 'lucide-react';
 import type { RootState } from '../../../store';
 import { msalInstance } from '../services/msalInstance';

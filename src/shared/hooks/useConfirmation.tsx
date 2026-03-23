@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { useDialogPortal } from './useDialogPortal';
 import { ConfirmationDialog } from '../components/Dialog/ConfirmationDialog';
 

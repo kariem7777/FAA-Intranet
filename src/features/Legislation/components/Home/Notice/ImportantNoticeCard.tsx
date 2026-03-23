@@ -4,7 +4,7 @@ import { useTranslation } from '@/shared/hooks/useTranslation';
 
 
 export const ImportantNoticeCard = () => {
-    const { t, isRTL } = useTranslation();
+    const { t } = useTranslation();
     const [showNoticeCard, setShowNoticeCard] = useState(false);
 
     useEffect(() => {
