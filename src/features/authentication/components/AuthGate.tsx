@@ -1,9 +1,11 @@
-import { type ReactNode } from 'react';
+import { useState, useEffect, type ReactNode } from 'react';
 import { useMsal } from '@azure/msal-react';
 import { InteractionStatus } from '@azure/msal-browser';
 import { useSelector } from 'react-redux';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Loader2, Lock } from 'lucide-react';
 import type { RootState } from '../../../store';
+import { msalInstance } from '../services/msalInstance';
 import { AzureLoginButton } from './AzureLoginButton';
 import { AuthErrorPage } from '../pages/AuthErrorPage';
 import { useTranslation } from '@/shared/hooks/useTranslation';
@@ -14,23 +16,38 @@ interface AuthGateProps {
 
 /**
  * AuthGate — blocks the entire app until:
- *  1. The user is authenticated via Azure AD (MSAL)
- *  2. The backend /auth API call succeeds and the user record exists in Redux
- *
- * States:
- *  - MSAL redirect in progress → full-screen spinner
- *  - Not logged in           → branded login splash
- *  - Backend loading         → full-screen spinner
- *  - Backend error           → AuthErrorPage ("contact administrator")
- *  - All good                → renders children
+ *  1. MSAL is initialized and any redirect is processed
+ *  2. The user is authenticated via Azure AD (MSAL)
+ *  3. The backend /auth API call succeeds and the user record exists in Redux
  */
 export function AuthGate({ children }: AuthGateProps) {
     const { accounts, inProgress } = useMsal();
     const { user, isLoading: isBackendLoading, error } = useSelector((state: RootState) => state.auth);
     const { t } = useTranslation();
+    const [isMsalInitialized, setIsMsalInitialized] = useState(false);
+
+    useEffect(() => {
+        const initMsal = async () => {
+            try {
+                await msalInstance.initialize();
+                const response = await msalInstance.handleRedirectPromise();
+                if (response?.account) {
+                    msalInstance.setActiveAccount(response.account);
+                    console.log("✅ [AuthGate] Redirect processed successfully");
+                }
+            } catch (err) {
+                console.error("❌ [AuthGate] MSAL initialization/redirect error:", err);
+            } finally {
+                setIsMsalInitialized(true);
+            }
+        };
+
+        initMsal();
+    }, []);
 
     const isAuthenticated = accounts.length > 0;
-    const isMsalBusy = inProgress !== InteractionStatus.None;
+    const isMsalBusy = inProgress !== InteractionStatus.None || !isMsalInitialized;
+
     if (isMsalBusy) {
         return <FullScreenSpinner label={t('auth.verifyingIdentity')} />;
     }
@@ -52,7 +69,7 @@ export function AuthGate({ children }: AuthGateProps) {
 
 function FullScreenSpinner({ label }: { label?: string }) {
     return (
-        <div
+        <motion.div
             style={{
                 minHeight: '100vh',
                 display: 'flex',
@@ -62,11 +79,21 @@ function FullScreenSpinner({ label }: { label?: string }) {
             }}
         >
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
-                <Loader2 style={{ width: 44, height: 44, color: 'var(--color-legislation-active-indicator)', animation: 'spin 1s linear infinite' }} />
-                {label && <p style={{ color: 'var(--color-legislation-active-indicator)', fontSize: 14 }}>{label}</p>}
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                >
+                    <Loader2 style={{ width: 44, height: 44, color: 'var(--color-legislation-active-indicator)', animation: 'spin 1s linear infinite' }} />
+                </motion.div>
+                {label && <motion.p initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }} style={{ color: 'var(--color-legislation-active-indicator)', fontSize: 14 }}>{label}</motion.p>}
             </div>
             <style>{`@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>
-        </div>
+        </motion.div>
     );
 }
 
