@@ -3,6 +3,7 @@ import { documentsService } from '../services/DocumentsService';
 import type { Document, CreateDocument } from '../types';
 import type { Entities, LawSubCategory } from '@/features/Legislation/types';
 import { legislationService } from '@/features/Legislation/services/legislationService';
+import { getErrorMessage } from '@/shared/utils/errorUtils';
 
 interface DocumentsManagementState {
   items: Document[];
@@ -86,9 +87,9 @@ export const fetchDocumentDetails = createAsyncThunk(
       if (response.data) {
         return response.data;
       }
-      return rejectWithValue(response.message || 'Failed to fetch document details');
+      return rejectWithValue(getErrorMessage(response));
     } catch (error: any) {
-      return rejectWithValue(error.message || 'Failed to fetch document details');
+      return rejectWithValue(getErrorMessage(error));
     }
   }
 );
@@ -112,9 +113,9 @@ export const fetchDocuments = createAsyncThunk(
       if (response.data) {
         return response.data;
       }
-      return rejectWithValue(response.message || 'Failed to fetch documents');
+      return rejectWithValue(getErrorMessage(response));
     } catch (error: any) {
-      return rejectWithValue(error.message || 'Failed to fetch documents');
+      return rejectWithValue(getErrorMessage(error));
     }
   }
 );
@@ -127,9 +128,9 @@ export const fetchDocumentsEntities = createAsyncThunk(
       if (response.data) {
         return response.data;
       }
-      return rejectWithValue(response.message || 'Failed to fetch entities');
+      return rejectWithValue(getErrorMessage(response));
     } catch (error: any) {
-      return rejectWithValue(error.message || 'Failed to fetch entities');
+      return rejectWithValue(getErrorMessage(error));
     }
   }
 );
@@ -146,9 +147,9 @@ export const fetchDocumentsCategories = createAsyncThunk(
       if (response.data) {
         return response.data.items;
       }
-      return rejectWithValue(response.message || 'Failed to fetch categories');
+      return rejectWithValue(getErrorMessage(response));
     } catch (error: any) {
-      return rejectWithValue(error.message || 'Failed to fetch categories');
+      return rejectWithValue(getErrorMessage(error));
     }
   }
 );
@@ -161,9 +162,9 @@ export const addDocument = createAsyncThunk(
       if (response.data) {
         return response.data;
       }
-      return rejectWithValue(response.message || 'Failed to add document');
+      return rejectWithValue(getErrorMessage(response));
     } catch (error: any) {
-      return rejectWithValue(error.message || 'Failed to add document');
+      return rejectWithValue(getErrorMessage(error));
     }
   }
 );
@@ -176,9 +177,9 @@ export const updateDocument = createAsyncThunk(
       if (response.data) {
         return response.data;
       }
-      return rejectWithValue(response.message || 'Failed to update document');
+      return rejectWithValue(getErrorMessage(response));
     } catch (error: any) {
-      return rejectWithValue(error.message || 'Failed to update document');
+      return rejectWithValue(getErrorMessage(error));
     }
   }
 );
@@ -189,11 +190,11 @@ export const deleteDocument = createAsyncThunk(
     try {
       const response = await documentsService.deleteDocument(id);
       if (response.message) {
-        return rejectWithValue(response.message);
+        return rejectWithValue(getErrorMessage(response));
       }
       return id;
     } catch (error: any) {
-      return rejectWithValue(error.message || 'Failed to delete document');
+      return rejectWithValue(getErrorMessage(error));
     }
   }
 );

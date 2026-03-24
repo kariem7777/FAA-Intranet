@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit';
 import type { Department, Entities, LawCategory, LawSubCategory } from '../types';
 import { legislationService } from '../services/legislationService';
+import { getErrorMessage } from '@/shared/utils/errorUtils';
 
 export interface GlobalSearchDocument {
   id: number;
@@ -156,7 +157,7 @@ export const fetchEntities = createAsyncThunk(
       return response;
     }
     catch (error: any) {
-      return rejectWithValue(error.message || 'Failed to fetch entities');
+      return rejectWithValue(getErrorMessage(error));
     }
   }
 );
@@ -172,7 +173,7 @@ export const fetchSubCategories = createAsyncThunk(
       });
       return response;
     } catch (error: any) {
-      return rejectWithValue(error.message || 'Failed to fetch subcategories');
+      return rejectWithValue(getErrorMessage(error));
     }
   }
 );
@@ -186,7 +187,7 @@ export const fetchCategories = createAsyncThunk(
       const response = await legislationService.getLawCategories();
       return response;
     } catch (error: any) {
-      return rejectWithValue(error.message || 'Failed to fetch categories');
+      return rejectWithValue(getErrorMessage(error));
     }
   }
 );
@@ -203,7 +204,7 @@ export const fetchSubCategoriesByCategory = createAsyncThunk(
       });
       return response;
     } catch (error: any) {
-      return rejectWithValue(error.message || 'Failed to fetch subcategories');
+      return rejectWithValue(getErrorMessage(error));
     }
   }
 );
@@ -216,7 +217,7 @@ export const fetchDepartments = createAsyncThunk(
       const response = await legislationService.getDepartments();
       return response;
     } catch (error: any) {
-      return rejectWithValue(error.message || 'Failed to fetch departments');
+      return rejectWithValue(getErrorMessage(error));
     }
   }
 );
@@ -239,7 +240,7 @@ export const performGlobalSearch = createAsyncThunk(
       // Response is already the data object
       return response;
     } catch (error: any) {
-      return rejectWithValue(error.message || 'Failed to perform search');
+      return rejectWithValue(getErrorMessage(error));
     }
   }
 );

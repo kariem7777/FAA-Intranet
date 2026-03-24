@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { authService, type UserResponse } from '../services/AuthService';
 import type { CreateUserRequest, Role, JobTitle } from '../types';
+import { getErrorMessage } from '@/shared/utils/errorUtils';
 
 export const authenticateUser = createAsyncThunk(
     'auth/authenticate',
@@ -12,11 +13,7 @@ export const authenticateUser = createAsyncThunk(
             }
             return response;
         } catch (error: any) {
-            if (error.response && error.response.data) {
-                return rejectWithValue(error.response.data);
-            } else {
-                return rejectWithValue(error.message);
-            }
+            return rejectWithValue(getErrorMessage(error));
         }
     }
 );
@@ -28,7 +25,7 @@ export const addUser = createAsyncThunk(
             const response = await authService.addUser(user);
             return response;
         } catch (error: any) {
-            return rejectWithValue(error.message || 'Failed to add user');
+            return rejectWithValue(getErrorMessage(error));
         }
     }
 );
@@ -40,7 +37,7 @@ export const fetchRoles = createAsyncThunk(
             const response = await authService.getRoles();
             return response.data ?? [];
         } catch (error: any) {
-            return rejectWithValue(error.message || 'Failed to fetch roles');
+            return rejectWithValue(getErrorMessage(error));
         }
     }
 );
@@ -52,7 +49,7 @@ export const fetchJobTitles = createAsyncThunk(
             const response = await authService.getJobTitles();
             return response.data ?? [];
         } catch (error: any) {
-            return rejectWithValue(error.message || 'Failed to fetch job titles');
+            return rejectWithValue(getErrorMessage(error));
         }
     }
 );

@@ -12,7 +12,7 @@ const getInitialLanguage = (): 'en' | 'ar' => {
   if (storedLang === 'en' || storedLang === 'ar') {
     return storedLang;
   }
-  return 'ar'; // Default to Arabic
+  return 'ar';
 };
 
 // Initialize font scale from localStorage or default

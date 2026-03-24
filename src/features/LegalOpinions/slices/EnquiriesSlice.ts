@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit';
 import type { Enquiry } from '../types';
 import { enquiriesService } from '../services/EnquiriesService';
+import { getErrorMessage } from '@/shared/utils/errorUtils';
 
 interface EnquiriesFilters {
   searchText?: string;
@@ -130,9 +131,8 @@ export const fetchEnquiries = createAsyncThunk(
 
       const response = await enquiriesService.getEnquiries(requestParams);
       return response;
-    } catch (error: unknown) {
-      const errorMessage = error instanceof Error ? error.message : 'Failed to fetch enquiries';
-      return rejectWithValue(errorMessage);
+    } catch (error: any) {
+      return rejectWithValue(getErrorMessage(error));
     }
   }
 );
@@ -143,9 +143,8 @@ export const fetchEnquiryDetails = createAsyncThunk(
     try {
       const response = await enquiriesService.getEnquiryDetails(enquiryId);
       return response.data;
-    } catch (error: unknown) {
-      const errorMessage = error instanceof Error ? error.message : 'Failed to fetch enquiry details';
-      return rejectWithValue(errorMessage);
+    } catch (error: any) {
+      return rejectWithValue(getErrorMessage(error));
     }
   }
 );
@@ -156,9 +155,8 @@ export const closeEnquiry = createAsyncThunk(
     try {
       await enquiriesService.closeEnquiry(params.enquiryId, params.status);
       return { enquiryId: params.enquiryId, status: params.status };
-    } catch (error: unknown) {
-      const errorMessage = error instanceof Error ? error.message : 'Failed to close enquiry';
-      return rejectWithValue(errorMessage);
+    } catch (error: any) {
+      return rejectWithValue(getErrorMessage(error));
     }
   }
 );
@@ -169,9 +167,8 @@ export const approveReply = createAsyncThunk(
     try {
       await enquiriesService.approveReply(replyId);
       return { replyId };
-    } catch (error: unknown) {
-      const errorMessage = error instanceof Error ? error.message : 'Failed to approve reply';
-      return rejectWithValue(errorMessage);
+    } catch (error: any) {
+      return rejectWithValue(getErrorMessage(error));
     }
   }
 );
@@ -185,9 +182,8 @@ export const createEnquiry = createAsyncThunk(
     try {
       const response = await enquiriesService.createEnquiry(data);
       return response.data;
-    } catch (error: unknown) {
-      const errorMessage = error instanceof Error ? error.message : 'Failed to create enquiry';
-      return rejectWithValue(errorMessage);
+    } catch (error: any) {
+      return rejectWithValue(getErrorMessage(error));
     }
   }
 );
@@ -198,9 +194,8 @@ export const sendReply = createAsyncThunk(
     try {
       await enquiriesService.sendReply(params.enquiryId, params.message, params.pureContent);
       return params;
-    } catch (error: unknown) {
-      const errorMessage = error instanceof Error ? error.message : 'Failed to send reply';
-      return rejectWithValue(errorMessage);
+    } catch (error: any) {
+      return rejectWithValue(getErrorMessage(error));
     }
   }
 );
@@ -230,9 +225,8 @@ export const fetchApprovedOpinions = createAsyncThunk(
 
       const response = await enquiriesService.getApprovedReplies(requestParams);
       return response;
-    } catch (error: unknown) {
-      const errorMessage = error instanceof Error ? error.message : 'Failed to fetch approved opinions';
-      return rejectWithValue(errorMessage);
+    } catch (error: any) {
+      return rejectWithValue(getErrorMessage(error));
     }
   }
 );

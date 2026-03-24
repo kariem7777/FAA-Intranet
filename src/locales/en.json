@@ -14,7 +14,9 @@
     "previous": "Previous",
     "page": "Page",
     "of": "of",
-    "close": "Close"
+    "close": "Close",
+    "unknownError": "An unknown error occurred",
+    "unexpectedError": "An unexpected error occurred"
   },
   "legalOpinions": {
     "breadcrumbLegal": "Legal Opinions",

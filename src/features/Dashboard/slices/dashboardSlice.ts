@@ -6,6 +6,7 @@ import type {
   LegislationMetrics,
 } from '../types';
 import { dashboardService } from '../services/dashboardService';
+import { getErrorMessage } from '@/shared/utils/errorUtils';
 
 interface DashboardState {
   activeTab: DashboardTab;
@@ -52,10 +53,9 @@ export const fetchEnquiriesMetrics = createAsyncThunk(
       if (response.data) {
         return response.data;
       }
-      return rejectWithValue(response.message || 'Failed to fetch enquiries metrics');
-    } catch (error: unknown) {
-      const message = error instanceof Error ? error.message : 'Failed to fetch enquiries metrics';
-      return rejectWithValue(message);
+      return rejectWithValue(getErrorMessage(response));
+    } catch (error: any) {
+      return rejectWithValue(getErrorMessage(error));
     }
   }
 );
@@ -69,10 +69,9 @@ export const fetchLegislationMetrics = createAsyncThunk(
       if (response.data) {
         return response.data;
       }
-      return rejectWithValue(response.message || 'Failed to fetch legislation metrics');
-    } catch (error: unknown) {
-      const message = error instanceof Error ? error.message : 'Failed to fetch legislation metrics';
-      return rejectWithValue(message);
+      return rejectWithValue(getErrorMessage(response));
+    } catch (error: any) {
+      return rejectWithValue(getErrorMessage(error));
     }
   }
 );
