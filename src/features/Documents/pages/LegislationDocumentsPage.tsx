@@ -103,7 +103,7 @@ export function LegislationDocumentsPage({
                         </motion.div>
                     </motion.div>
 
-                    <div className="mx-auto px-4 sm:px-8 lg:px-16 py-6 lg:py-10 w-full max-w-[1600px]">
+                    <div className="mx-auto px-7 sm:px-8 lg:px-16 py-6 lg:py-8 w-full max-w-[1600px]">
                         <LegislationFilters />
                         <LegislationDocumentList
                             categoryId={categoryId}

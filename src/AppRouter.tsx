@@ -31,7 +31,6 @@ const router = createBrowserRouter([
                     </Suspense>
                 ),
             },
-
             {
                 path: "opinions/:id",
                 element: (
@@ -40,9 +39,29 @@ const router = createBrowserRouter([
                     </Suspense>
                 ),
             },
-
             {
-                element: <ProtectedRoute allowedRoles={[ROLES.ADMIN, ROLES.MANAGER]} />,
+                path: "approved-opinions",
+                element: (
+                    <Suspense fallback={<Loading />}>
+                        <ApprovedLegalOpinionsPage />
+                    </Suspense>
+                ),
+            },
+            {
+                element: <ProtectedRoute allowedRoles={[ROLES.Legal_Super_Admin]} />,
+                children: [
+                    {
+                        path: "add-user",
+                        element: (
+                            <Suspense fallback={<Loading />}>
+                                <AddUserPage />
+                            </Suspense>
+                        ),
+                    },
+                ]
+            },
+            {
+                element: <ProtectedRoute allowedRoles={[ROLES.Legal_Admin, ROLES.Legal_Super_Admin]} />,
                 children: [
                     {
                         path: "documents",
@@ -56,29 +75,13 @@ const router = createBrowserRouter([
                         ),
                     },
                     {
-                        path: "approved-opinions",
-                        element: (
-                            <Suspense fallback={<Loading />}>
-                                <ApprovedLegalOpinionsPage />
-                            </Suspense>
-                        ),
-                    },
-                    {
                         path: "dashboard",
                         element: (
                             <Suspense fallback={<Loading />}>
                                 <LegislationDashboardPage />
                             </Suspense>
                         ),
-                    },
-                    {
-                        path: "add-user",
-                        element: (
-                            <Suspense fallback={<Loading />}>
-                                <AddUserPage />
-                            </Suspense>
-                        ),
-                    },
+                    }
                 ],
             },
         ]

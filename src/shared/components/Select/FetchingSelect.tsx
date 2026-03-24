@@ -15,6 +15,8 @@ interface SelectFieldProps {
     required?: boolean;
     disabled?: boolean;
     children: React.ReactNode;
+    className?: string;
+    labelClassName?: string;
 }
 
 export const FetchingSelect = ({
@@ -30,10 +32,12 @@ export const FetchingSelect = ({
     required,
     disabled,
     children,
+    className,
+    labelClassName
 }: SelectFieldProps) => (
     <div className="space-y-1.5">
         {!hideLabel && (
-            <label className="text-sm font-medium text-gray-700" htmlFor={id}>
+            <label className={`text-sm font-medium text-gray-700 ${labelClassName}`} htmlFor={id}>
                 {label} {required && <span className="text-red-500">*</span>}
             </label>
         )}
@@ -71,14 +75,15 @@ export const FetchingSelect = ({
                     onChange={(e) => onChange(Number(e.target.value))}
                     required={required}
                     disabled={disabled}
-                    className="
+                    className={`
                         w-full h-10 pl-3 pr-9 rounded-md border border-input bg-background
                         text-sm text-gray-700 shadow-sm appearance-none
                         focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-0
                         disabled:cursor-not-allowed disabled:opacity-50
-                    "
+                        ${className}
+                    `}
                 >
-                    <option value="" disabled>
+                    <option value="" disabled={required}>
                         {placeholder}
                     </option>
                     {children}

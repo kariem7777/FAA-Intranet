@@ -70,6 +70,7 @@
     "enterTitle": "Enter enquiry title",
     "enterEnquiry": "Enter enquiry details",
     "successAdded": "Enquiry added successfully",
+    "errorAdding": "Failed to add the Enquiry",
     "finalReply": "Final Reply",
     "submit": "Submit",
     "cancel": "Cancel",
@@ -107,6 +108,9 @@
     "replied": "Replied",
     "copyOpinion": "Copy Opinion",
     "copied": "Copied!",
+    "copyRichText": "Copy with Formatting",
+    "copyPlainText": "Copy as Plain Text",
+    "copyToEditor": "Copy to Reply",
     "loadingOpinions": "Loading opinions...",
     "loadingDetails": "Loading opinion details...",
     "errorLoadingOpinions": "Failed to load opinions",
@@ -476,7 +480,11 @@
     "authFailedSubtitle": "We couldn't verify your account with the system.",
     "contactAdmin": "Please contact your administrator for access.",
     "tryAgain": "Try Again",
-    "signOut": "Sign Out"
+    "signOut": "Sign Out",
+    "protectedRoute": {
+      "accessDenied": "Access Denied",
+      "noPermission": "You don't have permission to view this page. Please contact your administrator if you believe this is a mistake."
+    }
   },
   "addUser": {
     "title": "Add New User",

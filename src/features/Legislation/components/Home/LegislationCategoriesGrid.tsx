@@ -33,7 +33,7 @@ const LegalOpinionsCategory: LawCategory = {
     descriptionEn: "Legal opinions and consultations issued by the Authority",
     descriptionAr: "الآراء والاستشارات القانونية الصادرة عن الهيئة",
     color: '#2F4F6F',
-    slug: 'legal-opinions',
+    slug: 'legal-opinion',
     imagePath: '/src/assets/categories/legal-opinions.png',
     isActive: true,
 }

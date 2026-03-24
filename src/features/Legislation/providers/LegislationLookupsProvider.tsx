@@ -12,6 +12,8 @@ interface LegislationLookupsProviderProps {
 
 type FailedFetch = 'categories' | 'entities' | 'departments';
 
+let isInitialFetchStarted = false;
+
 export function LegislationLookupsProvider({ children }: LegislationLookupsProviderProps) {
     const dispatch = useDispatch<AppDispatch>();
     const { t, isRTL } = useTranslation();
@@ -19,6 +21,9 @@ export function LegislationLookupsProvider({ children }: LegislationLookupsProvi
     const [refreshing, setRefreshing] = useState<Set<FailedFetch>>(new Set());
 
     useEffect(() => {
+        if (isInitialFetchStarted) return;
+        isInitialFetchStarted = true;
+
         Promise.allSettled([
             dispatch(fetchCategories()),
             dispatch(fetchEntities()),
@@ -52,7 +57,7 @@ export function LegislationLookupsProvider({ children }: LegislationLookupsProvi
 
     const handleRetry = async (type: FailedFetch) => {
         setRefreshing(prev => new Set(prev).add(type));
-
+        console.log("as")
         try {
             if (type === 'categories') {
                 await dispatch(fetchCategories());

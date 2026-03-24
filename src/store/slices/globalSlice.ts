@@ -64,17 +64,25 @@ const globalSlice = createSlice({
       // Sync with i18n
       i18n.changeLanguage(newLang);
     },
-    increaseFontSize: () => {
-      const currentSize = document.documentElement.getAttribute('data-text-size') as 'sm' | 'base' | 'lg' | 'xl';
-      const newSize = currentSize === 'sm' ? 'base' : currentSize === 'base' ? 'lg' : currentSize === 'lg' ? 'xl' : 'xl';
-      document.documentElement.setAttribute('data-text-size', newSize);
-      localStorage.setItem('faa-intranet-textSize', newSize);
+    increaseFontSize: (state) => {
+      const sizes: Array<'sm' | 'base' | 'lg' | 'xl'> = ['sm', 'base', 'lg', 'xl'];
+      const currentIndex = sizes.indexOf(state.fontSize);
+      if (currentIndex < sizes.length - 1) {
+        const newSize = sizes[currentIndex + 1];
+        state.fontSize = newSize;
+        document.documentElement.setAttribute('data-text-size', newSize);
+        localStorage.setItem('faa-intranet-textSize', newSize);
+      }
     },
-    decreaseFontSize: () => {
-      const currentSize = document.documentElement.getAttribute('data-text-size') as 'sm' | 'base' | 'lg' | 'xl';
-      const newSize = currentSize === 'xl' ? 'lg' : currentSize === 'lg' ? 'base' : currentSize === 'base' ? 'sm' : 'sm';
-      document.documentElement.setAttribute('data-text-size', newSize);
-      localStorage.setItem('faa-intranet-textSize', newSize);
+    decreaseFontSize: (state) => {
+      const sizes: Array<'sm' | 'base' | 'lg' | 'xl'> = ['sm', 'base', 'lg', 'xl'];
+      const currentIndex = sizes.indexOf(state.fontSize);
+      if (currentIndex > 0) {
+        const newSize = sizes[currentIndex - 1];
+        state.fontSize = newSize;
+        document.documentElement.setAttribute('data-text-size', newSize);
+        localStorage.setItem('faa-intranet-textSize', newSize);
+      }
     },
     setFontSize: (_, action: PayloadAction<'sm' | 'base' | 'lg' | 'xl'>) => {
       const size = action.payload;

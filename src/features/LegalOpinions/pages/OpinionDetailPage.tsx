@@ -6,6 +6,7 @@ import { AlertCircle, RefreshCw, Send, XCircle, Loader2, Reply, BookOpen } from 
 import { ApprovedOpinionsReferenceDialog } from '@/features/LegalOpinions/components/Dialogs/ApprovedOpinionsReferenceDialog';
 import { Button } from '@/shared/components/ui/button';
 import { useConfirmation } from '@/shared/hooks/useConfirmation';
+import { useAuth } from '@/features/authentication/hooks/useAuth';
 import toast from 'react-hot-toast';
 import SharedRichTextEditor from '@/shared/components/ui/richTextEditor';
 import {
@@ -46,11 +47,12 @@ export function OpinionDetailPage({ id: propId, status, onBack: onBackProp }: { 
   const [showReplyEditor, setShowReplyEditor] = useState(false);
   const [showReferenceDialog, setShowReferenceDialog] = useState(false);
 
-  const currentUser = { role: 'admin' as 'user' | 'admin' };
-  const isAdmin = currentUser.role === 'admin';
+  const { isAdmin, isSuperAdmin, isDeptDirector, isSecertUser } = useAuth();
+  const isFAAStaff = isAdmin || isSuperAdmin || isDeptDirector;
+  const canViewSecret = isFAAStaff || isSecertUser;
 
   const lastReply = selectedEnquiry?.data?.replies?.[selectedEnquiry.data.replies.length - 1];
-  const isWaitingForAdmin = !isAdmin && (!selectedEnquiry?.data?.replies?.length || (lastReply && !lastReply.isAdminResponse));
+  const isWaitingForAdmin = !isFAAStaff && (!selectedEnquiry?.data?.replies?.length || (lastReply && !lastReply.isAdminResponse));
 
   useEffect(() => {
     if (id) {
@@ -210,9 +212,17 @@ export function OpinionDetailPage({ id: propId, status, onBack: onBackProp }: { 
           <div className="grid grid-cols-12 gap-6">
             {/* LEFT SIDEBAR - Enquiry Details */}
             <div className="col-span-4">
-              <EnquiryDetailsSidebar
-                enquiry={enquiry}
-              />
+              {canViewSecret ? (
+                <EnquiryDetailsSidebar
+                  enquiry={enquiry}
+                />
+              ) : (
+                <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center text-center">
+                  <AlertCircle className="h-12 w-12 text-amber-500 mb-4" />
+                  <h3 className="text-lg font-bold text-gray-900 mb-2">Access Restricted</h3>
+                  <p className="text-gray-500 text-sm">You do not have permission to view the details of this enquiry.</p>
+                </div>
+              )}
             </div>
 
             <div className="col-span-8 space-y-6">
@@ -229,9 +239,13 @@ export function OpinionDetailPage({ id: propId, status, onBack: onBackProp }: { 
               {enquiry.replies && enquiry.replies.length > 0 && (
                 <ConversationSection
                   messages={enquiry.replies}
-                  isAdmin={isAdmin}
+                  isAdmin={isFAAStaff}
                   onApproveReply={handleApproveReply}
                   approvingReplyId={approvingReplyId}
+                  onCopy={(html) => {
+                    setReplyContent((prev) => prev ? `${prev}<br/><br/>${html}` : html);
+                    setShowReplyEditor(true);
+                  }}
                 />
               )}
 
@@ -271,7 +285,7 @@ export function OpinionDetailPage({ id: propId, status, onBack: onBackProp }: { 
                     )}
 
                     {/* Close Conversation Button - Admin only, shown only when an approved reply exists */}
-                    {isAdmin && approvedReply && (
+                    {isFAAStaff && approvedReply && (
                       <Button
                         onClick={handleCloseConversation}
                         disabled={closeLoading}
@@ -310,7 +324,7 @@ export function OpinionDetailPage({ id: propId, status, onBack: onBackProp }: { 
                               {t('legalOpinions.addReply')}
                             </h3>
                           </div>
-                          {isAdmin && (
+                          {isFAAStaff && (
                             <Button
                               onClick={() => setShowReferenceDialog(true)}
                               variant="outline"

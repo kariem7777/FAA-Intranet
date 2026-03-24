@@ -1,5 +1,4 @@
-import { PublicClientApplication, EventType } from "@azure/msal-browser";
-import type { EventMessage, AuthenticationResult } from "@azure/msal-browser";
+import { PublicClientApplication } from "@azure/msal-browser";
 import { msalConfig } from "../config/authConfig";
 
 /**
@@ -12,6 +11,8 @@ if (!msalInstance.getActiveAccount() && msalInstance.getAllAccounts().length > 0
     msalInstance.setActiveAccount(msalInstance.getAllAccounts()[0]);
 }
 
+
+/*
 // Listen for sign-in event and set active account
 msalInstance.addEventCallback((event: EventMessage) => {
     if (
@@ -28,3 +29,4 @@ msalInstance.addEventCallback((event: EventMessage) => {
         console.log("🔑 [Global Callback] Access Token:", payload.accessToken);
     }
 });
+*/

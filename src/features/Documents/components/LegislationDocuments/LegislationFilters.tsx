@@ -10,9 +10,10 @@ import { useTranslation } from '@/shared/hooks/useTranslation';
 import { FetchingSelect } from '@/shared/components/Select/FetchingSelect';
 import type { Entities, LawSubCategory } from '@/features/Legislation/types';
 import useDebounce from '@/shared/hooks/useDebouncing';
+import { Shimmer } from '@/shared/components/Shimmer/Shimmer';
 
 export function LegislationFilters() {
-    const { isRTL, t } = useTranslation();
+    const { isRTL, t, getLocalizedString } = useTranslation();
     const dispatch = useDispatch<AppDispatch>();
     const debounce = useDebounce();
 
@@ -45,7 +46,7 @@ export function LegislationFilters() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
-            className={`grid grid-cols-1 ${isEntityLegislation ? 'md:grid-cols-2' : 'md:grid-cols-1'} gap-4 lg:gap-6 mb-6 lg:mb-10 p-3 items-end`}
+            className={`grid grid-cols-1 ${isEntityLegislation ? 'md:grid-cols-2' : 'md:grid-cols-1'} gap-4 lg:gap-6 mb-4 lg:mb-8 items-end`}
         >
             {/* Entity Dropdown */}
             {isEntityLegislation && (
@@ -53,16 +54,22 @@ export function LegislationFilters() {
                     <FetchingSelect
                         id="entity-filter"
                         label={t('legislation.entity')}
+                        labelClassName={'font-extrabold! text-black! mb-2! '}
                         value={filters.selectedEntity || 0}
                         onChange={(val) => dispatch(setSelectedEntity(val || null))}
                         isLoading={entitiesLoading}
                         error={error}
                         onRetry={handleRetryEntities}
                         placeholder={t('legislation.selectEntity')}
+                        className={`space-y-0! bg-white! `}
                     >
                         {entities.map((entity: Entities) => (
-                            <option key={entity.entityId} value={entity.entityId}>
-                                {isRTL ? entity.entityNameAr : entity.entityName}
+                            <option
+                                key={entity.entityId}
+                                value={entity.entityId}
+                                className={`h-full!`}
+                            >
+                                {getLocalizedString(entity.entityName, entity.entityNameAr)}
                             </option>
                         ))}
                     </FetchingSelect>
@@ -74,9 +81,9 @@ export function LegislationFilters() {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.2 }}
-                className="relative"
+                className="relative space-y-1.5"
             >
-                <label className="block mb-2 font-extrabold text-base">
+                <label className="block font-extrabold text-sm ">
                     {t('legislation.search')}
                 </label>
                 <div className="relative">
@@ -86,7 +93,7 @@ export function LegislationFilters() {
                         value={searchTerm}
                         onChange={(e) => handleSearchChange(e.target.value)}
                         placeholder={t('legislation.searchWithin', { category: currentSubCategoryName })}
-                        className={`w-full h-[56px] bg-white text-base border-faa-primary/30 ${isRTL ? 'pr-12' : 'pl-12'}`}
+                        className={`w-full  bg-white text-base border-faa-primary/30 ${isRTL ? 'pr-12' : 'pl-12'}`}
                     />
                 </div>
             </motion.div>

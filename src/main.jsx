@@ -2,9 +2,10 @@ import { createRoot } from 'react-dom/client'
 import { ReduxProvider, ToastProvider, DialogPortalProvider, MsalAuthProvider } from './providers'
 import './i18n';
 import AppRouter from './AppRouter';
-import { msalInstance, AuthGate } from './features/authentication';
+import { AuthGate } from './features/authentication';
 import "quill/dist/quill.snow.css";
 import './index.css'
+import 'reactjs-tiptap-editor/style.css';
 
 if ('scrollRestoration' in window.history) {
   window.history.scrollRestoration = 'manual';

@@ -13,7 +13,7 @@ import useDebounce from '@/shared/hooks/useDebouncing';
 import {
   LegalOpinionsFilters,
   OpinionsList,
-  ScrollToTopButton,
+  // ScrollToTopButton,
   LegalOpinionsLoading,
   LegalOpinionsError,
   LegalOpinionsPagination,
@@ -30,7 +30,7 @@ export function ApprovedLegalOpinionsPage() {
   const { approvedOpinions: enquiries, approvedFilters: filters } = useAppSelector((state) => state.enquiries);
   const { departments } = useAppSelector((state) => state.legislationSlice);
 
-  const [showScrollToTop, setShowScrollToTop] = useState(false);
+  // const [showScrollToTop, setShowScrollToTop] = useState(false);
   const [localSearch, setLocalSearch] = useState(filters.searchText || '');
   const debounce = useDebounce();
 
@@ -58,13 +58,13 @@ export function ApprovedLegalOpinionsPage() {
   }, [dispatch, filters.searchText, filters.departmentId, enquiries.pagination.pageNumber]);
 
   // Scroll handling
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowScrollToTop(window.scrollY > 300);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     setShowScrollToTop(window.scrollY > 300);
+  //   };
+  //   window.addEventListener('scroll', handleScroll);
+  //   return () => window.removeEventListener('scroll', handleScroll);
+  // }, []);
 
   const handleSearchChange = useCallback((value: string) => {
     setLocalSearch(value);
@@ -87,9 +87,9 @@ export function ApprovedLegalOpinionsPage() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [dispatch]);
 
-  const handleScrollToTop = useCallback(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, []);
+  // const handleScrollToTop = useCallback(() => {
+  //   window.scrollTo({ top: 0, behavior: 'smooth' });
+  // }, []);
 
   const handleRetry = useCallback(() => {
     dispatch(fetchApprovedOpinions({}));
@@ -154,10 +154,10 @@ export function ApprovedLegalOpinionsPage() {
       </div>
 
       {/* Scroll to Top Button */}
-      <ScrollToTopButton
+      {/* <ScrollToTopButton
         visible={showScrollToTop}
         onClick={handleScrollToTop}
-      />
+      /> */}
     </div>
   );
 }

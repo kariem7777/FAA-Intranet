@@ -20,6 +20,8 @@ interface AuthGateProps {
  *  2. The user is authenticated via Azure AD (MSAL)
  *  3. The backend /auth API call succeeds and the user record exists in Redux
  */
+let isMsalStarting = false;
+
 export function AuthGate({ children }: AuthGateProps) {
     const { accounts, inProgress } = useMsal();
     const { user, isLoading: isBackendLoading, error } = useSelector((state: RootState) => state.auth);
@@ -27,16 +29,18 @@ export function AuthGate({ children }: AuthGateProps) {
     const [isMsalInitialized, setIsMsalInitialized] = useState(false);
 
     useEffect(() => {
+        if (isMsalStarting) return;
+        isMsalStarting = true;
+
         const initMsal = async () => {
             try {
                 await msalInstance.initialize();
                 const response = await msalInstance.handleRedirectPromise();
                 if (response?.account) {
                     msalInstance.setActiveAccount(response.account);
-                    console.log("✅ [AuthGate] Redirect processed successfully");
                 }
             } catch (err) {
-                console.error("❌ [AuthGate] MSAL initialization/redirect error:", err);
+                console.error("MSAL initialization/redirect error:", err);
             } finally {
                 setIsMsalInitialized(true);
             }
@@ -188,7 +192,6 @@ function LoginSplash() {
 function LoginCTA() {
     return (
         <AzureLoginButton
-            className="!px-10 !py-4 !rounded-xl !text-lg !font-semibold !gap-4 shadow-xl hover:scale-[1.02] transition-transform"
             showLoginText
         />
     );

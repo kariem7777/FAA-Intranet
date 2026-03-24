@@ -9,7 +9,8 @@ interface LegalOpinionsContentHeaderProps {
 
 export function LegalOpinionsContentHeader({ totalCount, onAddEnquiry }: LegalOpinionsContentHeaderProps) {
     const { t } = useTranslation();
-    const { isUser } = useAuth();
+    const { isUser, isSecertUser, isDeptDirector } = useAuth();
+    console.log(isSecertUser)
     return (
         <div className="py-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -21,7 +22,7 @@ export function LegalOpinionsContentHeader({ totalCount, onAddEnquiry }: LegalOp
                     </span>
                 </h4>
             </div>
-            {isUser && (
+            {(isUser || isSecertUser || isDeptDirector) && (
                 <button
                     onClick={onAddEnquiry}
                     className="h-10 px-6 rounded-lg transition-all duration-200 flex items-center gap-2 text-[16px] font-medium bg-legislation-active-indicator text-slate-800 hover:bg-dashboard-primary hover:text-white"

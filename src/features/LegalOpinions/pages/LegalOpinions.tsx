@@ -14,7 +14,6 @@ import {
     LegalOpinionsPageFilters,
     EnquiryListCard,
     AddEnquiryModal,
-    ReturnToTopButton,
     LegalOpinionsContentHeader,
     LegalOpinionsEmptyState,
 } from '../components/LegalOpinions';
@@ -39,7 +38,6 @@ export function LegalOpinions({ onBack, onOpinionSelect }: LegalOpinionsPageProp
     const currentUser = { role: 'user' as 'user' | 'admin', departmentId: 1 };
 
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-    const [showReturnButton, setShowReturnButton] = useState(false);
 
     useEffect(() => {
         dispatch(resetFilters());
@@ -52,11 +50,6 @@ export function LegalOpinions({ onBack, onOpinionSelect }: LegalOpinionsPageProp
         dispatch(fetchEnquiries({}));
     }, [dispatch, filters.searchText, filters.departmentId, filters.status, pagination.pageNumber, pagination.pageSize]);
 
-    useEffect(() => {
-        const handleScroll = () => setShowReturnButton(window.scrollY > 150);
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
 
     const statusCounts = useMemo(() => {
         const counts = { 1: 0, 2: 0, 3: 0 };
@@ -98,11 +91,8 @@ export function LegalOpinions({ onBack, onOpinionSelect }: LegalOpinionsPageProp
         dispatch(setStatusFilter(''));
     };
 
-    const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
-
     return (
-        <div className="min-h-screen" style={{ backgroundColor: 'rgb(250, 250, 248)' }} dir={isRTL ? 'rtl' : 'ltr'}>
-            <ReturnToTopButton visible={showReturnButton} onClick={scrollToTop} />
+        <div style={{ backgroundColor: 'rgb(250, 250, 248)' }} dir={isRTL ? 'rtl' : 'ltr'}>
 
             <AddEnquiryModal
                 isOpen={isAddModalOpen}

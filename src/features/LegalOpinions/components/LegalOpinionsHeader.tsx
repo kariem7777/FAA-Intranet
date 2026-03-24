@@ -14,7 +14,7 @@ export function LegalOpinionsHeader({
 
     return (
         <div
-            className="fixed top-[143px] left-0 right-0 z-30 border-b shadow-sm"
+            className="fixed left-0 right-0 z-30 border-b shadow-sm"
             style={{
                 backgroundColor: '#FFFFFF',
                 borderColor: '#E5E7EB',

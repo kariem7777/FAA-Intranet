@@ -49,8 +49,7 @@ export function MessageDetailsDialog({ message, senderName, onClose }: MessageDe
                 {/* Content */}
                 <div className="py-2">
                     <div
-                        className={`bg-gray-50 p-5 rounded-xl ${isRTL ? 'border-r-4' : 'border-l-4'} overflow-y-auto max-h-[60vh]`}
-                        style={{ borderColor: 'var(--color-legislation-accent)' }}
+                        className={`p-1 rounded-xl overflow-y-auto max-h-[60vh] bg-gray-50`}
                     >
                         <QuillViewer html={message.content} isLineClamp={false} />
                     </div>

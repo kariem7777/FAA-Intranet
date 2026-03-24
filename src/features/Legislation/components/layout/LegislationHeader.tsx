@@ -1,14 +1,14 @@
-import { Bell, Globe, Menu, X, UserPlus } from 'lucide-react';
+import { Bell, Globe, Menu, X, UserPlus, Home, LayoutDashboard, FileText, CheckSquare } from 'lucide-react';
 import GovernmentOfDubai from '@/imports/GovernmentOfDubai';
 import imgImageFinancialAuditAuthority from "@/assets/e2cb68d504b659d40535c18e986fce5d5ed9ca82.png";
 import { useState, useEffect, forwardRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { useNavigate } from 'react-router-dom';
 import { increaseFontSize, decreaseFontSize, setLanguage } from '@/store/slices/globalSlice';
 import { AzureLoginButton } from '@/features/authentication';
 import { useTranslation } from '@/shared/hooks/useTranslation';
 import { useAuth } from '@/features/authentication/hooks/useAuth';
+import { ROLES } from '@/features/authentication/constants/roles';
 
 
 interface LegislationHeaderProps {
@@ -20,10 +20,8 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
   currentPage,
   onNavigate,
 }, ref) => {
-  const { user, isAdmin, hasRole } = useAuth();
-
+  const { hasRole } = useAuth();
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const { language, fontSize } = useAppSelector((state) => state.global);
   const { t } = useTranslation();
 
@@ -36,14 +34,14 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
   const allNavItems = [
-    { id: 'home' as const, label: t('legislationHeader.home'), roles: ['user', 'manager', 'admin'] },
-    { id: 'dashboard' as const, label: t('legislationHeader.dashboard'), roles: ['admin', 'manager'] },
-    { id: 'documents' as const, label: t('legislationHeader.documents'), roles: ['admin', 'manager'] },
-    { id: 'approved-opinions' as const, label: t('legislationHeader.approvedOpinions'), roles: ['admin', 'manager'] },
+    { id: 'home' as const, label: t('legislationHeader.home'), roles: ['ALL'] },
+    { id: 'dashboard' as const, label: t('legislationHeader.dashboard'), roles: [ROLES.Legal_Admin, ROLES.Legal_Super_Admin] },
+    { id: 'documents' as const, label: t('legislationHeader.documents'), roles: [ROLES.Legal_Admin, ROLES.Legal_Super_Admin] },
+    { id: 'approved-opinions' as const, label: t('legislationHeader.approvedOpinions'), roles: ['ALL'] },
   ];
 
   const navItems = allNavItems.filter(item =>
-    hasRole(item.roles)
+    hasRole(item.roles) || item.roles[0] == 'ALL'
   );
 
   const currentIndex = fontSizes.indexOf(fontSize);
@@ -114,12 +112,12 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
             ))}
           </nav>
 
-          <div className="flex items-center gap-6">
-            <div className="flex items-center gap-2">
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-1.5">
               <button
                 onClick={handleDecreaseFontSize}
                 disabled={currentIndex <= 0}
-                className="w-9 h-9 rounded-lg bg-white/10 hover:bg-white/20 transition-colors disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center border border-white/20 text-sm font-semibold"
+                className="w-8 h-8 rounded-md bg-white/10 hover:bg-white/20 transition-colors disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center border border-white/20 text-xs font-semibold"
                 style={{
                   color: '#FFFFFF'
                 }}
@@ -130,7 +128,7 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
               <button
                 onClick={handleIncreaseFontSize}
                 disabled={currentIndex === fontSizes.length - 1}
-                className="w-9 h-9 rounded-lg bg-white/10 hover:bg-white/20 transition-colors disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center border border-white/20 text-sm font-semibold"
+                className="w-8 h-8 rounded-md bg-white/10 hover:bg-white/20 transition-colors disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center border border-white/20 text-xs font-semibold"
                 style={{
                   color: '#FFFFFF'
                 }}
@@ -142,124 +140,165 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
 
             <button
               onClick={() => handleSetLanguage(language === 'en' ? 'ar' : 'en')}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-white/10 transition-all text-sm font-semibold"
+              className="flex items-center gap-2 px-2.5 py-1.5 rounded-md hover:bg-white/10 transition-all text-sm font-semibold"
               style={{
                 color: '#FFFFFF',
               }}
             >
-              <Globe className="h-5 w-5" />
+              <Globe className="h-4.5 w-4.5" />
               {language === 'en' ? 'AR' : 'EN'}
             </button>
 
-            <button className="relative p-2 rounded-lg hover:bg-white/10 transition-all">
-              <Bell className="h-6 w-6 text-white" />
+            <button className="relative p-1.5 rounded-md hover:bg-white/10 transition-all">
+              <Bell className="h-5.5 w-5.5 text-white" />
               <span className="absolute top-1 right-1 w-2 h-2 rounded-full" style={{ backgroundColor: 'var(--color-legislation-active-indicator)' }} />
             </button>
 
-            <AzureLoginButton />
-
-            {isAdmin && (
-              <button
-                onClick={() => navigate('/add-user')}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all hover:bg-white/20"
-                style={{ color: '#FFFFFF', border: '1.5px solid rgba(255,255,255,0.4)' }}
-                title="Add New User"
-              >
-                <UserPlus size={16} />
-                Add User
-              </button>
-            )}
+            <AzureLoginButton variant="desktop" />
           </div>
         </div>
 
         <AnimatePresence>
           {showMobileMenu && (
-            <motion.div
-              key="mobile-menu"
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              className="lg:hidden absolute top-full left-0 right-0 border-t border-white/10 shadow-xl overflow-y-auto max-h-[80vh] z-50"
-              style={{ background: 'var(--color-legislation-header-gradient)' }}
-              dir={isArabic ? 'rtl' : 'ltr'}
-            >
-              <div className="px-4 py-6 flex flex-col gap-4">
-                {/* Navigation Links */}
-                {navItems.map(item => (
-                  <button
-                    key={item.id}
-                    onClick={() => {
-                      onNavigate(item.id);
-                      setShowMobileMenu(false);
-                    }}
-                    className="text-left py-3 px-4 rounded-lg bg-white/5 hover:bg-white/10 transition-all text-white font-medium"
-                  >
-                    {item.label}
-                  </button>
-                ))}
+            <>
+              {/* Backdrop covering the whole screen */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setShowMobileMenu(false)}
+                className="fixed inset-0 z-40 bg-black/40 backdrop-blur-md lg:hidden"
+              />
 
-                <div className="h-px bg-white/10 my-2" />
-
-                {/* Mobile Controls */}
-                <div className="flex flex-col gap-4">
-
-                  <div className="flex items-center justify-between">
-                    <span className="text-white/70 text-sm">{t('legislationHeader.fontSize')}</span>
-                    <div className="flex items-center gap-2">
-                      <button
-                        onClick={handleDecreaseFontSize}
-                        disabled={currentIndex <= 0}
-                        className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center text-white border border-white/10 text-sm font-semibold"
-                      >
-                        A-
-                      </button>
-                      <button
-                        onClick={handleIncreaseFontSize}
-                        disabled={currentIndex === fontSizes.length - 1}
-                        className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center text-white border border-white/10 text-sm font-semibold"
-                      >
-                        A+
-                      </button>
-                    </div>
+              {/* Drawer Menu */}
+              <motion.div
+                key="mobile-menu"
+                initial={{ x: isArabic ? '100%' : '-100%' }}
+                animate={{ x: 0 }}
+                exit={{ x: isArabic ? '100%' : '-100%' }}
+                transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                className="lg:hidden fixed top-0 bottom-0 w-[85%] max-w-sm z-50 shadow-2xl overflow-y-auto flex flex-col"
+                style={{
+                  background: 'var(--color-legislation-header-gradient)',
+                  [isArabic ? 'right' : 'left']: 0
+                }}
+                dir={isArabic ? 'rtl' : 'ltr'}
+              >
+                {/* Menu Header */}
+                <div className="p-6 flex items-center justify-between border-b border-white/10">
+                  <div className="h-10 w-32">
+                    <GovernmentOfDubai />
                   </div>
-
                   <button
-                    onClick={() => {
-                      handleSetLanguage(language === 'en' ? 'ar' : 'en');
-                      setShowMobileMenu(false);
-                    }}
-                    className="flex items-center justify-between py-3 px-4 rounded-lg bg-white/5 text-white"
+                    onClick={() => setShowMobileMenu(false)}
+                    className="p-2 text-white/70 hover:text-white bg-white/10 rounded-xl transition-colors"
                   >
-                    <span>{t('legislationHeader.language')}</span>
-                    <div className="flex items-center gap-2">
-                      <Globe size={18} />
-                      <span>{language === 'en' ? 'Arabic' : 'English'}</span>
-                    </div>
+                    <X size={24} />
                   </button>
-
-                  {user?.userName && (
-                    <div className="py-2 px-4 rounded-lg bg-white/5 text-white text-sm font-medium">
-                      {user.userName}
-                    </div>
-                  )}
-
-                  <div className="pt-2">
-                    <AzureLoginButton className="w-full justify-center" />
-                  </div>
-
-                  {isAdmin && (
-                    <button
-                      onClick={() => { navigate('/add-user'); setShowMobileMenu(false); }}
-                      className="flex items-center gap-2 py-3 px-4 rounded-lg bg-white/5 text-white font-medium w-full"
-                    >
-                      <UserPlus size={18} />
-                      Add User
-                    </button>
-                  )}
-
                 </div>
-              </div>
-            </motion.div>
+
+                <div className="flex-1 px-4 py-8 overflow-y-auto">
+                  {/* Navigation Links with Staggered Animation */}
+                  <motion.nav
+                    variants={{
+                      show: { transition: { staggerChildren: 0.07, delayChildren: 0.1 } },
+                      hide: { transition: { staggerChildren: 0.05, staggerDirection: -1 } }
+                    }}
+                    initial="hide"
+                    animate="show"
+                    className="flex flex-col gap-3"
+                  >
+                    {navItems.map((item) => (
+                      <motion.button
+                        key={item.id}
+                        variants={{
+                          show: { opacity: 1, x: 0 },
+                          hide: { opacity: 0, x: isArabic ? 20 : -20 }
+                        }}
+                        onClick={() => {
+                          onNavigate(item.id);
+                          setShowMobileMenu(false);
+                        }}
+                        className={`group flex items-center gap-4 py-2 px-3 rounded-2xl transition-all duration-300 ${currentPage === item.id
+                          ? 'bg-white text-[#908e81] shadow-lg scale-[1.02]'
+                          : 'bg-white/5 text-white hover:bg-white/10'
+                          }`}
+                      >
+                        <div className={`p-2 rounded-xl transition-colors ${currentPage === item.id ? 'bg-[#908e81]/10' : 'bg-white/10'
+                          }`}>
+                          {item.id === 'home' && <Home size={20} />}
+                          {item.id === 'dashboard' && <LayoutDashboard size={20} />}
+                          {item.id === 'documents' && <FileText size={20} />}
+                          {item.id === 'approved-opinions' && <CheckSquare size={20} />}
+                        </div>
+                        <span className="text-lg font-bold">{item.label}</span>
+                        {currentPage === item.id && (
+                          <motion.div
+                            layoutId="active-pill"
+                            className="ms-auto w-1.5 h-6 bg-[#908e81] rounded-full"
+                          />
+                        )}
+                      </motion.button>
+                    ))}
+                  </motion.nav>
+
+                  <div className="h-px bg-white/10 my-8" />
+
+                  {/* Mobile Controls Section */}
+                  <div className="flex flex-col gap-5!">
+                    <div className="flex flex-col gap-2 p-3 rounded-3xl bg-white/5 border border-white/10">
+                      <div className="flex items-center justify-between">
+                        <span className="text-white/60 text-sm font-bold uppercase tracking-wider">{t('legislationHeader.fontSize')}</span>
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={handleDecreaseFontSize}
+                            disabled={currentIndex <= 0}
+                            className="w-10 h-10 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center text-white border border-white/10 text-base font-bold transition-all disabled:opacity-20"
+                          >
+                            A-
+                          </button>
+                          <button
+                            onClick={handleIncreaseFontSize}
+                            disabled={currentIndex === fontSizes.length - 1}
+                            className="w-10 h-10 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center text-white border border-white/10 text-base font-bold transition-all disabled:opacity-20"
+                          >
+                            A+
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className="h-px bg-white/5" />
+
+                      <button
+                        onClick={() => {
+                          handleSetLanguage(language === 'en' ? 'ar' : 'en');
+                          setShowMobileMenu(false);
+                        }}
+                        className="flex items-center justify-between group py-1"
+                      >
+                        <span className="text-white/60 text-sm font-bold uppercase tracking-wider">{t('legislationHeader.language')}</span>
+                        <div className="flex items-center gap-3 px-3 py-2 rounded-xl bg-white/10 group-hover:bg-white/20 transition-all text-white border border-white/10">
+                          <Globe size={18} />
+                          <span className="font-bold">{language === 'en' ? 'العربية' : 'English'}</span>
+                        </div>
+                      </button>
+                    </div>
+
+                    <div className="pt-2">
+                      <AzureLoginButton variant="mobile-drawer" className="w-full" showLoginText />
+                    </div>
+
+                  </div>
+                </div>
+
+                {/* Menu Footer */}
+                <div className="p-8 border-t border-white/10 mt-auto bg-black/10">
+                  <p className="text-white/30 text-xs text-center font-medium italic">
+                    Financial Audit Authority &copy; {new Date().getFullYear()}
+                  </p>
+                </div>
+              </motion.div>
+            </>
           )}
         </AnimatePresence>
 

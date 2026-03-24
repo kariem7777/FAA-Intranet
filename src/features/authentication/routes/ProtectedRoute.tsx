@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { Loader2, ShieldX } from 'lucide-react';
+import { useTranslation } from '@/shared/hooks/useTranslation';
 
 interface ProtectedRouteProps {
     /** Roles allowed to access this route (case-insensitive). If omitted, any authenticated user is allowed. */
@@ -9,6 +10,7 @@ interface ProtectedRouteProps {
 
 export function ProtectedRoute({ allowedRoles }: ProtectedRouteProps) {
     const { user, isLoading, hasRole } = useAuth();
+    const { t } = useTranslation();
 
     // Still fetching backend user info or not authenticated by backend
     if (isLoading || !user || !user.isAuthenticated) {
@@ -23,10 +25,9 @@ export function ProtectedRoute({ allowedRoles }: ProtectedRouteProps) {
         return (
             <div className="h-[70vh] flex flex-col items-center justify-center gap-4 text-center px-4">
                 <ShieldX className="h-16 w-16 text-red-400" />
-                <h1 className="text-2xl font-bold text-gray-800">Access Denied</h1>
+                <h1 className="text-2xl font-bold text-gray-800">{t('auth.protectedRoute.accessDenied')}</h1>
                 <p className="text-gray-500 max-w-md">
-                    You don't have permission to view this page. Please contact your administrator
-                    if you believe this is a mistake.
+                    {t('auth.protectedRoute.noPermission')}
                 </p>
             </div>
         );
@@ -40,10 +41,9 @@ export function ProtectedRoute({ allowedRoles }: ProtectedRouteProps) {
             return (
                 <div className="h-[70vh]! flex flex-col items-center justify-center gap-4 text-center px-4">
                     <ShieldX className="h-16 w-16 text-red-400" />
-                    <h1 className="text-2xl font-bold text-gray-800">Access Denied</h1>
+                    <h1 className="text-2xl font-bold text-gray-800">{t('auth.protectedRoute.accessDenied')}</h1>
                     <p className="text-gray-500 max-w-md">
-                        You don't have permission to view this page. Please contact your administrator
-                        if you believe this is a mistake
+                        {t('auth.protectedRoute.noPermission')}
                     </p>
                 </div>
             );

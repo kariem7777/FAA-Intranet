@@ -71,6 +71,7 @@
     "enterTitle": "أدخل عنوان الاستفسار",
     "enterEnquiry": "أدخل تفاصيل الاستفسار",
     "successAdded": "تم إضافة الاستفسار بنجاح",
+    "errorAdding": "تعذر إضافة الاستفسار",
     "submit": "إرسال",
     "cancel": "إلغاء",
     "activeFilters": "الفلاتر النشطة:",
@@ -107,6 +108,9 @@
     "replied": "تم الرد",
     "copyOpinion": "نسخ الرأي",
     "copied": "تم النسخ!",
+    "copyRichText": "نسخ مع التنسيق",
+    "copyPlainText": "نسخ كنص فقط",
+    "copyToEditor": "نسخ إلى الرد",
     "loadingOpinions": "جاري تحميل الآراء...",
     "loadingDetails": "جاري تحميل تفاصيل الرأي...",
     "errorLoadingOpinions": "فشل في تحميل الآراء",
@@ -476,7 +480,11 @@
     "authFailedSubtitle": "لم نتمكن من التحقق من حسابك في النظام.",
     "contactAdmin": "يرجى الاتصال بالمسؤول للحصول على صلاحية الوصول.",
     "tryAgain": "حاول مرة أخرى",
-    "signOut": "تسجيل الخروج"
+    "signOut": "تسجيل الخروج",
+    "protectedRoute": {
+      "accessDenied": "تم رفض الوصول",
+      "noPermission": "ليس لديك صلاحية لعرض هذه الصفحة. يرجى الاتصال بالمسؤول إذا كنت تعتقد أن هذا خطأ."
+    }
   },
   "addUser": {
     "title": "إضافة مستخدم جديد",

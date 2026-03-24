@@ -31,7 +31,6 @@ export function ApprovedOpinionCard({ approvedReply }: ApprovedOpinionCardProps)
         const senderName = approvedReply.isAdminResponse
             ? (isRTL ? 'الفريق القانوني' : 'FAA Legal Team')
             : (approvedReply.replier ? getLocalizedString(approvedReply.replier.nameEn, approvedReply.replier.nameAr) : t('common.unknown'));
-
         show(
             <MessageDetailsDialog
                 message={approvedReply}
