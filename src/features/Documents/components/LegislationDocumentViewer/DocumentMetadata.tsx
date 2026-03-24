@@ -48,14 +48,13 @@ export function DocumentMetadata({
                 backgroundColor: 'var(--color-bg-white)',
                 borderColor: 'var(--color-bg-light)',
                 overflowY: 'auto',
-                maxHeight: 'calc(100vh - 165px)'
             }}
         >
             {/* Document Title */}
             <h1
                 className="mb-6"
                 style={{
-                    fontSize: 'var(--font-size-2xl)',
+                    fontSize: 'var(--font-size-xl)',
                     fontWeight: 700,
                     color: 'var(--color-primary)',
                     lineHeight: 1.3,

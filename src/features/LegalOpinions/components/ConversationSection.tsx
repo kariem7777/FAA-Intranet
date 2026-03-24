@@ -128,7 +128,7 @@ export function ConversationSection({ messages, isAdmin, onApproveReply, approvi
                             className={`flex ${alignmentClass}`}
                         >
                             <div
-                                className={`relative min-w-[50%] max-w-[80%] rounded-lg p-4 border ${bubbleColorClass}`}
+                                className={`relative min-w-[80%] max-w-[90%] rounded-lg p-4 border ${bubbleColorClass}`}
                             >
                                 <div className={`absolute ${isRTL ? 'left-2' : 'right-2'} top-2 flex items-center gap-1`}>
                                     {onCopy && (

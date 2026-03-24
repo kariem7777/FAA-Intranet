@@ -89,7 +89,7 @@ export function LegislationDocumentViewer({ documentId, onBack }: LegislationDoc
             <div className="max-w-[1400px] mx-auto px-6 py-6">
                 <div className="grid grid-cols-12 gap-6">
                     {/* LEFT SIDEBAR - Document Details */}
-                    <div className="col-span-4">
+                    <div className="col-span-12 md:col-span-4">
                         <DocumentMetadata
                             document={document}
                             onOpenInNewTab={handleOpenInNewTab}
@@ -98,7 +98,7 @@ export function LegislationDocumentViewer({ documentId, onBack }: LegislationDoc
                     </div>
 
                     {/* RIGHT SIDE - Document Preview */}
-                    <div className="col-span-8">
+                    <div className="col-span-12 md:col-span-8">
                         <DocumentPreview
                             documentUrl={documentUrl}
                             documentTitle={isRTL ? document.documentNameAr : document.documentNameEn}

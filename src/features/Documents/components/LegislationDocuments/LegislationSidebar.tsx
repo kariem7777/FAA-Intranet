@@ -9,7 +9,7 @@ import { useTranslation } from '@/shared/hooks/useTranslation';
 import { Shimmer } from '@/shared/components/Shimmer/Shimmer';
 
 export function LegislationSidebar({ categoryId }: { categoryId: number }) {
-  const { isRTL, t } = useTranslation();
+  const { isRTL, t, getLocalizedString } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
@@ -144,7 +144,7 @@ export function LegislationSidebar({ categoryId }: { categoryId: number }) {
                 outline: 'none',
               }}
             >
-              <span>{isRTL ? cat.lawSubCategoryAr : cat.lawSubCategoryEn}</span>
+              <span className='w-[90%] line-clamp-1'>{getLocalizedString(cat.lawSubCategoryEn, cat.lawSubCategoryAr)}</span>
               <span
                 className="text-xs px-2 py-1 rounded-full min-w-[32px] text-center line-clamp-1"
                 style={{
@@ -254,7 +254,7 @@ export function LegislationSidebar({ categoryId }: { categoryId: number }) {
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.3 }}
             onClick={() => setIsSidebarCollapsed(false)}
-            className="fixed top-[200px] z-50 rounded-r-lg shadow-lg transition-all duration-300 hover:pr-2 group hidden lg:flex"
+            className={`fixed top-[200px] z-50 ${isRTL ? 'rounded-l-lg' : 'rounded-r-lg'} shadow-lg transition-all duration-300 hover:pr-2 group hidden lg:flex`}
             style={{
               [isRTL ? 'right' : 'left']: '0',
               backgroundColor: 'var(--color-faa-primary)',

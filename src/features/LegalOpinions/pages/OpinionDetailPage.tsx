@@ -210,13 +210,13 @@ export function OpinionDetailPage({ id: propId, status, onBack: onBackProp }: { 
         <div className="max-w-[1400px] mx-auto px-8">
           <div className="grid grid-cols-12 gap-6">
             {/* LEFT SIDEBAR - Enquiry Details */}
-            <div className="col-span-4">
+            <div className="col-span-12 md:col-span-4">
               <EnquiryDetailsSidebar
                 enquiry={enquiry}
               />
             </div>
 
-            <div className="col-span-8 space-y-6">
+            <div className="col-span-12 md:col-span-8 space-y-6">
               <EnquiryCard
                 enquiry={enquiry}
               />
