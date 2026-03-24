@@ -78,7 +78,7 @@ export function CategoryCard({
 
                     {/* Subtitle */}
                     <p
-                        className="text-[16px] overflow-hidden leading-[1.6] text-center transition-colors duration-300"
+                        className="text-[16px] overflow-clip leading-[1.6] text-center transition-colors duration-300"
                         style={{
                             fontWeight: 400,
                             color: 'var(--color-text-secondary)',
