@@ -58,15 +58,9 @@ export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDi
     useEffect(() => {
         if (categoryId && categoryId !== 0) {
             dispatch(fetchSubCategoriesByCategory({ categoryId }));
+
         }
     }, [categoryId, dispatch]);
-
-    // Initial load of sub-categories if needed (though watch might handle it if initial categoryId is set)
-    useEffect(() => {
-        if (document.categoryId) {
-            dispatch(fetchSubCategoriesByCategory({ categoryId: document.categoryId }));
-        }
-    }, [document.categoryId, dispatch]);
 
     const handleRetryCategories = () => dispatch(fetchCategories());
     const handleRetrySubCategories = () => {
@@ -84,7 +78,6 @@ export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDi
             ...document,
             categoryId: Number(data.categoryId),
             subCategoryId: Number(data.subCategoryId),
-            entityId: data.entityId ? Number(data.entityId) : 0,
             documentNameEn: data.documentNameEn,
             documentNameAr: data.documentNameAr,
             lawNumber: data.lawNumber || '',
@@ -92,6 +85,12 @@ export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDi
             lawNameEn: data.lawNameEn || '',
             classification: data.classification,
         };
+
+        if (isEntityLegislation) {
+            updatedDocument.entityId = data.entityId ? Number(data.entityId) : 0;
+        } else {
+            updatedDocument.entityId = undefined
+        }
 
         const resultAction = await dispatch(updateDocument({
             document: updatedDocument,
@@ -160,35 +159,6 @@ export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDi
                 </div>
 
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                    {/* Entity */}
-                    {isEntityLegislation && (
-                        <div>
-                            <Controller
-                                name="entityId"
-                                control={control}
-                                render={({ field }) => (
-                                    <FetchingSelect
-                                        id="entityId"
-                                        label={t('legislation.documentsManagement.dialogs.edit.entity')}
-                                        value={field.value || 0}
-                                        onChange={(val) => field.onChange(val)}
-                                        isLoading={entities.loading}
-                                        error={entities.error}
-                                        onRetry={handleRetryEntities}
-                                        required
-                                        placeholder={t('legislation.documentsManagement.dialogs.edit.selectEntity')}
-                                    >
-                                        {entities.items.map((entity) => (
-                                            <option key={entity.entityId} value={entity.entityId}>
-                                                {isArabic ? entity.entityNameAr : entity.entityName}
-                                            </option>
-                                        ))}
-                                    </FetchingSelect>
-                                )}
-                            />
-                            {errors.entityId && <p className="text-red-500 text-xs mt-1">{t(String(errors.entityId.message || ''))}</p>}
-                        </div>
-                    )}
                     <div>
                         <Controller
                             name="categoryId"
@@ -198,7 +168,11 @@ export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDi
                                     id="categoryId"
                                     label={t('legislation.documentsManagement.dialogs.edit.category')}
                                     value={field.value}
-                                    onChange={(val) => field.onChange(val)}
+                                    onChange={(val) => {
+                                        field.onChange(val);
+                                        setValue('subCategoryId', 0);
+                                    }}
+                                    disabled={subCategories.loading}
                                     isLoading={categories.loading}
                                     error={categories.error}
                                     onRetry={handleRetryCategories}
@@ -249,7 +223,35 @@ export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDi
                         {errors.subCategoryId && <p className="text-red-500 text-xs mt-1">{t(String(errors.subCategoryId.message || ''))}</p>}
                     </div>
                 </div>
-
+                {/* Entity */}
+                {isEntityLegislation && (
+                    <div>
+                        <Controller
+                            name="entityId"
+                            control={control}
+                            render={({ field }) => (
+                                <FetchingSelect
+                                    id="entityId"
+                                    label={t('legislation.documentsManagement.dialogs.edit.entity')}
+                                    value={field.value || 0}
+                                    onChange={(val) => field.onChange(val)}
+                                    isLoading={entities.loading}
+                                    error={entities.error}
+                                    onRetry={handleRetryEntities}
+                                    required
+                                    placeholder={t('legislation.documentsManagement.dialogs.edit.selectEntity')}
+                                >
+                                    {entities.items.map((entity) => (
+                                        <option key={entity.entityId} value={entity.entityId}>
+                                            {isArabic ? entity.entityNameAr : entity.entityName}
+                                        </option>
+                                    ))}
+                                </FetchingSelect>
+                            )}
+                        />
+                        {errors.entityId && <p className="text-red-500 text-xs mt-1">{t(String(errors.entityId.message || ''))}</p>}
+                    </div>
+                )}
 
                 {/*Law Name English  */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

@@ -47,9 +47,8 @@ export function OpinionDetailPage({ id: propId, status, onBack: onBackProp }: { 
   const [showReplyEditor, setShowReplyEditor] = useState(false);
   const [showReferenceDialog, setShowReferenceDialog] = useState(false);
 
-  const { isAdmin, isSuperAdmin, isDeptDirector, isSecertUser } = useAuth();
-  const isFAAStaff = isAdmin || isSuperAdmin || isDeptDirector;
-  const canViewSecret = isFAAStaff || isSecertUser;
+  const { isAdmin, isSuperAdmin } = useAuth();
+  const isFAAStaff = isAdmin || isSuperAdmin;
 
   const lastReply = selectedEnquiry?.data?.replies?.[selectedEnquiry.data.replies.length - 1];
   const isWaitingForAdmin = !isFAAStaff && (!selectedEnquiry?.data?.replies?.length || (lastReply && !lastReply.isAdminResponse));
@@ -212,17 +211,9 @@ export function OpinionDetailPage({ id: propId, status, onBack: onBackProp }: { 
           <div className="grid grid-cols-12 gap-6">
             {/* LEFT SIDEBAR - Enquiry Details */}
             <div className="col-span-4">
-              {canViewSecret ? (
-                <EnquiryDetailsSidebar
-                  enquiry={enquiry}
-                />
-              ) : (
-                <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center text-center">
-                  <AlertCircle className="h-12 w-12 text-amber-500 mb-4" />
-                  <h3 className="text-lg font-bold text-gray-900 mb-2">Access Restricted</h3>
-                  <p className="text-gray-500 text-sm">You do not have permission to view the details of this enquiry.</p>
-                </div>
-              )}
+              <EnquiryDetailsSidebar
+                enquiry={enquiry}
+              />
             </div>
 
             <div className="col-span-8 space-y-6">

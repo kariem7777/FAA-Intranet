@@ -1,4 +1,4 @@
-import { Bell, Globe, Menu, X, UserPlus, Home, LayoutDashboard, FileText, CheckSquare } from 'lucide-react';
+import { Bell, Globe, Menu, X, Home, LayoutDashboard, FileText, CheckSquare } from 'lucide-react';
 import GovernmentOfDubai from '@/imports/GovernmentOfDubai';
 import imgImageFinancialAuditAuthority from "@/assets/e2cb68d504b659d40535c18e986fce5d5ed9ca82.png";
 import { useState, useEffect, forwardRef } from 'react';

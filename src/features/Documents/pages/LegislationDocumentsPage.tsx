@@ -70,13 +70,13 @@ export function LegislationDocumentsPage({
                         initial={{ y: -20, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
                         transition={{ delay: 0.2 }}
-                        className="sticky top-[92px] z-30 border-b border-bg-light bg-bg-white"
+                        className="z-30 border-b border-bg-light bg-bg-white"
                     >
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.3 }}
-                            className="mx-auto px-4 sm:px-8 lg:px-16 py-6 lg:py-8 max-w-[1600px]"
+                            className="mx-auto px-4 sm:px-8 lg:px-16 py-4 lg:py-6 max-w-[1600px]"
                         >
                             {/* BACK BUTTON */}
                             <button

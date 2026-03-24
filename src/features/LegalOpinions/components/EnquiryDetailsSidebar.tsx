@@ -47,10 +47,9 @@ export function EnquiryDetailsSidebar({
 
     return (
         <div
-            className="bg-white rounded-lg border p-6 sticky"
+            className="bg-white rounded-lg border p-6 sticky top-[10rem] lg:top-[14rem] self-start max-h-[calc(100vh-2rem)] overflow-y-auto"
             style={{
                 borderColor: 'rgba(144, 142, 129, 0.3)',
-                top: '165px',
             }}
         >
             <h3

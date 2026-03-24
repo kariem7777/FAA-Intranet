@@ -1,4 +1,3 @@
-import { LogLevel } from "@azure/msal-browser";
 import type { Configuration, PopupRequest } from "@azure/msal-browser";
 
 /**

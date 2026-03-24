@@ -11,8 +11,7 @@ export function OpinionCard({
     enquiry,
     onSelect,
 }: OpinionCardProps) {
-    const { t, isRTL } = useTranslation();
-
+    const { t, isRTL, getLocalizedString } = useTranslation();
 
     return (
         <div
@@ -20,7 +19,7 @@ export function OpinionCard({
                 bg-white 
                 rounded-lg 
                 border border-faa-primary/20 
-                p-6 
+                p-4 
                 transition-all duration-200 
                 cursor-pointer 
                 hover:shadow-lg 
@@ -32,7 +31,7 @@ export function OpinionCard({
             onClick={() => onSelect(enquiry)}
         >
 
-            <div className="flex items-start justify-between gap-4">
+            <div className="flex items-start justify-between gap-2">
                 {/* Left Section - Content */}
                 <div className="flex-1">
                     <div className="flex items-center gap-4 mb-3">
@@ -50,7 +49,11 @@ export function OpinionCard({
                         >
                             <CheckCircle2 className="h-4 w-4 text-green-600" />
                             <span className="text-sm font-semibold" style={{ color: '#059669' }}>
-                                {t('legalOpinions.approved')}
+                                {t('legalOpinions.approvedBy')} {' '}
+
+                                {enquiry.reply &&
+                                    getLocalizedString(enquiry.reply?.replier?.nameEn || 'N/A', enquiry.reply?.replier?.nameAr || 'غير معروف')
+                                }
                             </span>
                         </div>
                     </div>

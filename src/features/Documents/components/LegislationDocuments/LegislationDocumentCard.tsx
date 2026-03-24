@@ -9,7 +9,7 @@ interface LegislationDocumentCardProps {
 }
 
 export function LegislationDocumentCard({ document: doc, onView }: LegislationDocumentCardProps) {
-    const { isRTL, t } = useTranslation();
+    const { isRTL, t, getLocalizedString } = useTranslation();
 
     const ClassificationBadge = ({ classification }: { classification: number }) => {
         const config = {
@@ -55,14 +55,14 @@ export function LegislationDocumentCard({ document: doc, onView }: LegislationDo
                 scale: 1.03
             }}
             transition={{ duration: 0.02 }}
-            className="group p-6 rounded-xl border transition-all duration-300 cursor-pointer"
+            className="group p-4 rounded-xl border transition-all duration-300 cursor-pointer"
             style={{
                 backgroundColor: 'var(--color-bg-white)',
                 borderColor: 'rgba(144, 142, 129, 0.3)',
             }}
             onClick={() => onView && onView(doc)}
         >
-            <div className="flex items-start justify-between gap-4">
+            <div className="flex items-start justify-between gap-3">
                 <div className="flex-1 min-w-0">
                     {/* Document Title */}
                     <h3
@@ -72,31 +72,23 @@ export function LegislationDocumentCard({ document: doc, onView }: LegislationDo
                             fontSize: 'var(--font-size-xl)'
                         }}
                     >
-                        {isRTL ? doc.documentNameAr : doc.documentNameEn}
+
+                        {getLocalizedString(doc.documentNameEn, doc.documentNameAr)}
                     </h3>
 
                     {/* Metadata */}
                     <div className="flex flex-wrap items-center gap-4 mb-3">
                         <span className="flex items-center gap-2" style={{ color: 'var(--color-secondary)', fontSize: 'var(--font-size-sm)' }}>
                             <FileText className="w-4 h-4" />
-                            <span className="font-mono">{doc.lawNumber}</span>
+                            <span>{t('legislation.lawNumber')} {doc.lawNumber}</span>
                         </span>
                         <span className="flex items-center gap-2" style={{ color: 'var(--color-secondary)', fontSize: 'var(--font-size-sm)' }}>
                             <Calendar className="w-4 h-4" />
-                            <span className="font-mono">{new Date(doc.createdOn).toLocaleDateString(isRTL ? 'ar-AE' : 'en-GB')}</span>
+                            <span>{new Date(doc.createdOn).toLocaleDateString(isRTL ? 'ar-AE' : 'en-GB')}</span>
                         </span>
                         <ClassificationBadge classification={doc.classification} />
                     </div>
 
-                    {/* Entity Name */}
-                    <div className="flex items-center gap-2 mt-4">
-                        <div className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center border border-faa-primary/20 overflow-hidden">
-                            <span className="text-xs font-bold text-gray-400">FA</span>
-                        </div>
-                        <p className="font-medium" style={{ color: 'var(--color-secondary)', fontSize: 'var(--font-size-sm)' }}>
-                            {isRTL ? doc.entityNameAr : doc.entityNameEn}
-                        </p>
-                    </div>
                 </div>
 
                 {/* View Document Button */}
@@ -117,6 +109,32 @@ export function LegislationDocumentCard({ document: doc, onView }: LegislationDo
                     <Eye className="w-4 h-4" />
                     {t('legislation.viewDocument')}
                 </motion.button>
+            </div>
+            <div className='flex flex-row justify-between items-center text-center'>
+                {/* subCategoryName Name */}
+                <div className="flex gap-2 items-center ">
+                    <div className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center border border-faa-primary/20 overflow-hidden">
+                        <span className="text-xs font-bold text-gray-400">
+                            {getLocalizedString(doc.subCategoryNameEn, doc.subCategoryNameAr).substring(0, 2)}
+                        </span>
+                    </div>
+                    <p className="font-medium" style={{ color: 'var(--color-secondary)', fontSize: 'var(--font-size-sm)' }}>
+                        {getLocalizedString(doc.subCategoryNameEn, doc.subCategoryNameAr)}
+                    </p>
+                </div>
+                {
+                    doc.entityId &&
+                    <div className="flex gap-2 items-center ">
+                        <div className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center border border-faa-primary/20 overflow-hidden">
+                            <span className="text-xs font-bold text-gray-400">
+                                {getLocalizedString(doc.entityNameEn, doc.entityNameAr).substring(0, 2)}
+                            </span>
+                        </div>
+                        <p className="font-medium" style={{ color: 'var(--color-secondary)', fontSize: 'var(--font-size-sm)' }}>
+                            {getLocalizedString(doc.entityNameEn, doc.entityNameAr)}
+                        </p>
+                    </div>
+                }
             </div>
         </motion.div>
     );

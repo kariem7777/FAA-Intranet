@@ -22,7 +22,7 @@ export class DocumentsService extends BaseApiService {
     const formData = new FormData();
     formData.append('categoryId', document.categoryId.toString());
     formData.append('subCategoryId', document.subCategoryId.toString());
-    formData.append('entityId', document.entityId.toString());
+    if (document.entityId) formData.append('entityId', document.entityId.toString());
     formData.append('documentNameEn', document.documentNameEn);
     formData.append('documentNameAr', document.documentNameAr);
     formData.append('lawNumber', document.lawNumber);
@@ -38,7 +38,7 @@ export class DocumentsService extends BaseApiService {
     const formData = new FormData();
     formData.append('categoryId', document.categoryId.toString());
     formData.append('subCategoryId', document.subCategoryId.toString());
-    formData.append('entityId', document.entityId.toString());
+    if (document.entityId) formData.append('entityId', document.entityId.toString());
     formData.append('documentNameEn', document.documentNameEn);
     formData.append('documentNameAr', document.documentNameAr);
     formData.append('lawNumber', document.lawNumber);

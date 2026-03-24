@@ -44,6 +44,27 @@ export interface GlobalSearchCategory {
   subCategories: GlobalSearchSubCategory[];
 }
 
+export interface GlobalSearchOpinion {
+  id: number;
+  title: string;
+  departmentEn: string;
+  departmentAr: string;
+  createdOnUtc: string;
+  status: number;
+  reply?: {
+    id: number;
+    content: string;
+    approved: boolean;
+    isAdminResponse: boolean;
+    replier: {
+      id: number;
+      nameEn: string;
+      nameAr: string;
+    };
+    createdOnUtc: string;
+  };
+}
+
 
 interface GlobalCategoriesState {
   globalSearchQuery: string;
@@ -52,6 +73,7 @@ interface GlobalCategoriesState {
   entitySearchQuery: string;
   showSearchTooltip: boolean;
   searchResults: GlobalSearchCategory[];
+  opinionResults: GlobalSearchOpinion[];
   totalResults: number;
   subCategories: {
     items: LawSubCategory[];
@@ -81,6 +103,8 @@ interface GlobalCategoriesState {
     loading: boolean;
     error: string | null;
   };
+  globalLoading: boolean;
+  globalError: string | null;
 }
 
 const initialState: GlobalCategoriesState = {
@@ -90,6 +114,7 @@ const initialState: GlobalCategoriesState = {
   entitySearchQuery: '',
   showSearchTooltip: false,
   searchResults: [],
+  opinionResults: [],
   totalResults: 0,
   subCategories: {
     items: [],
@@ -119,6 +144,8 @@ const initialState: GlobalCategoriesState = {
     loading: false,
     error: null,
   },
+  globalLoading: false,
+  globalError: null,
 };
 
 export const fetchEntities = createAsyncThunk(
@@ -228,7 +255,10 @@ const legislationSlice = createSlice({
       state.selectedEntity = action.payload;
       state.globalSearchQuery = '';
       state.searchResults = [];
+      state.opinionResults = [];
       state.totalResults = 0;
+      state.globalLoading = false;
+      state.globalError = null;
     },
     setIsEntityDropdownOpen: (state, action: PayloadAction<boolean>) => {
       state.isEntityDropdownOpen = action.payload;
@@ -242,7 +272,10 @@ const legislationSlice = createSlice({
     clearSearch: (state) => {
       state.globalSearchQuery = '';
       state.searchResults = [];
+      state.opinionResults = [];
       state.totalResults = 0;
+      state.globalLoading = false;
+      state.globalError = null;
     },
     resetGlobalCategories: (state) => {
       state.globalSearchQuery = '';
@@ -251,7 +284,10 @@ const legislationSlice = createSlice({
       state.entitySearchQuery = '';
       state.showSearchTooltip = false;
       state.searchResults = [];
+      state.opinionResults = [];
       state.totalResults = 0;
+      state.globalLoading = false;
+      state.globalError = null;
     },
     resetSubCategories(state) {
       state.subCategories.items = [];
@@ -335,9 +371,19 @@ const legislationSlice = createSlice({
     });
 
     // Global Search
+    builder.addCase(performGlobalSearch.pending, (state) => {
+      state.globalLoading = true;
+      state.globalError = null;
+    });
     builder.addCase(performGlobalSearch.fulfilled, (state, action) => {
+      state.globalLoading = false;
       state.searchResults = action.payload?.categories || [];
+      state.opinionResults = action.payload?.approvedOpinions || [];
       state.totalResults = action.payload?.totalCount || 0;
+    });
+    builder.addCase(performGlobalSearch.rejected, (state, action) => {
+      state.globalLoading = false;
+      state.globalError = action.payload as string;
     });
   },
 });

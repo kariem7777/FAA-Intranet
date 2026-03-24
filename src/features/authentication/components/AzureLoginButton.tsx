@@ -5,7 +5,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useTranslation } from '@/shared/hooks/useTranslation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { UserAvatar } from './UserAvatar';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 
 interface AzureLoginButtonProps {
@@ -21,11 +21,9 @@ export const AzureLoginButton = ({
 }: AzureLoginButtonProps) => {
     const { login, logout, isLoggingIn, isLoggingOut, currentAccount, role } = useAzureAuth();
     const { direction, t } = useTranslation();
-    const navigate = useNavigate();
-    const location = useLocation();
     const { isSuperAdmin } = useAuth();
-    
-    const isAddUserPage = location.pathname === '/add-user';
+
+    const isAddUserPage = window.location.href === '/add-user';
 
     const handleLogin = async () => {
         try {
@@ -130,19 +128,19 @@ export const AzureLoginButton = ({
                             {/* Menu Items */}
                             <div className="p-2">
                                 {isSuperAdmin && (
-                                    <button
-                                        onClick={() => { navigate('/add-user'); }}
-                                        className={`w-full flex items-center gap-3 px-4 py-2 text-sm! font-semibold! rounded-xl transition-all group ${isAddUserPage 
-                                            ? 'bg-[color:var(--color-faa-primary)] text-white shadow-md' 
+                                    <Link
+                                        to="/add-user"
+                                        className={`w-full flex items-center gap-3 px-4 py-2 text-sm! font-semibold! rounded-xl transition-all group ${isAddUserPage
+                                            ? 'bg-[color:var(--color-faa-primary)] text-white shadow-md'
                                             : 'hover:bg-[color:var(--color-faa-primary)]/20 text-gray-700'}`}
                                     >
-                                        <div className={`w-4 h-4 rounded-lg flex items-center justify-center transition-colors ${isAddUserPage 
-                                            ? 'bg-white/20' 
+                                        <div className={`w-4 h-4 rounded-lg flex items-center justify-center transition-colors ${isAddUserPage
+                                            ? 'bg-white/20'
                                             : 'bg-red-50 group-hover:bg-faa-primary/20'}`}>
                                             <UserPlus className={`h-4 w-4 ${isAddUserPage ? 'text-white' : ''}`} />
                                         </div>
                                         <span>{t('legislation.hero.addUserTitle') || 'Add User'}</span>
-                                    </button>
+                                    </Link>
                                 )}
                                 <button
                                     onClick={handleLogout}
@@ -209,13 +207,13 @@ export const AzureLoginButton = ({
 
                 {/* Logout Button */}
                 {isSuperAdmin && (
-                    <button
-                        onClick={() => { navigate('/add-user'); }}
+                    <Link
+                        to="/add-user"
                         className="flex items-center justify-center gap-3 py-4 rounded-[2rem] bg-[color:var(--color-faa-primary)]/10 hover:bg-[color:var(--color-faa-primary)]/20 text-white font-bold w-full transition-all border border-[color:var(--color-faa-primary)] active:scale-[0.98] shadow-lg"
                     >
                         <UserPlus className="h-4 w-4" />
                         <span>{t('legislation.hero.addUserTitle') || 'Add User'}</span>
-                    </button>
+                    </Link>
                 )}
                 <button
                     onClick={handleLogout}

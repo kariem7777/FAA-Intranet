@@ -1,6 +1,8 @@
-import { Search, X } from "lucide-react";
+import { LoaderIcon, Search, X } from "lucide-react";
 import { useTranslation } from "@/shared/hooks/useTranslation";
 import useDebounce from "@/shared/hooks/useDebouncing";
+import type { RootState } from "@/store";
+import { useSelector } from "react-redux";
 
 interface HeroSearchBarProps {
   value: string;
@@ -16,20 +18,29 @@ export function HeroSearchBar({ value, onChange, onClear }: HeroSearchBarProps) 
     const newValue = e.target.value;
     debounce(() => onChange(newValue), 300);
   };
+  const { globalLoading } = useSelector(
+    (state: RootState) => state.legislationSlice
+  );
 
   return (
     <div className="w-full">
       <div className="relative">
-        <Search className="absolute top-1/2 -translate-y-1/2 right-4 left-4 text-gray-400 pointer-events-none w-[22px] h-[22px]" />
+        {
+          globalLoading ?
+            <LoaderIcon className="animate-spin absolute top-1/2 -translate-y-1/2 right-4 left-4 text-gray-400 pointer-events-none w-[22px] h-[22px]" />
+            :
+            <Search className="absolute top-1/2 -translate-y-1/2 right-4 left-4 text-gray-400 pointer-events-none w-[22px] h-[22px]" />
+
+        }
 
         <input
           type="text"
           defaultValue={value}
+          disabled={globalLoading}
           onChange={handleChange}
           placeholder={t('legislation.hero.searchAllLegislations')}
           className="w-full h-[52px] rounded-lg border-2 transition-all outline-none bg-white text-[#1A1A1A] text-base pl-15 pr-15"
         />
-
         {value && (
           <button
             onClick={onClear}

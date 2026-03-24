@@ -80,7 +80,6 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
         const newDocument: CreateDocument = {
             categoryId: Number(data.categoryId),
             subCategoryId: Number(data.subCategoryId),
-            entityId: data.entityId ? Number(data.entityId) : 0,
             documentNameEn: data.documentNameEn,
             documentNameAr: data.documentNameAr,
             lawNumber: data.lawNumber || '',
@@ -90,6 +89,12 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
             file: selectedFile,
         };
 
+        if (isEntityLegislation) {
+            newDocument.entityId = data.entityId ? Number(data.entityId) : 0;
+        } else {
+            newDocument.entityId = undefined
+        }
+
         try {
             const resultAction = await dispatch(addDocument(newDocument));
             if (resultAction && resultAction.type && resultAction.type.endsWith('/fulfilled')) {
@@ -97,9 +102,12 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
                 onClose();
                 reset();
             } else {
+                console.log("asdad")
+
                 toast.error(t('legislation.documentsManagement.toasts.addError'));
             }
         } catch (error) {
+            console.log(error)
             toast.error(t('legislation.documentsManagement.toasts.addError'));
         }
     };
@@ -157,37 +165,6 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
                     </div>
                 </div>
 
-                {/* Entity */}
-                {isEntityLegislation && (
-                    <div className='grid grid-cols-1 md:grid-cols-1 gap-4'>
-                        <div>
-                            <Controller
-                                name="entityId"
-                                control={control}
-                                render={({ field }) => (
-                                    <FetchingSelect
-                                        id="entityId"
-                                        label={t('legislation.documentsManagement.dialogs.add.entity')}
-                                        value={field.value || 0}
-                                        onChange={(val) => field.onChange(val)}
-                                        isLoading={entities.loading}
-                                        error={entities.error}
-                                        onRetry={handleRetryEntities}
-                                        required
-                                        placeholder={t('legislation.documentsManagement.dialogs.add.selectEntity')}
-                                    >
-                                        {entities.items.map((entity) => (
-                                            <option key={entity.entityId} value={entity.entityId}>
-                                                {isArabic ? entity.entityNameAr : entity.entityName}
-                                            </option>
-                                        ))}
-                                    </FetchingSelect>
-                                )}
-                            />
-                            {errors.entityId && <p className="text-red-500 text-xs mt-1">{t(String(errors.entityId.message || ''))}</p>}
-                        </div>
-                    </div>
-                )}
 
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                     <div>
@@ -199,7 +176,10 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
                                     id="categoryId"
                                     label={t('legislation.documentsManagement.dialogs.add.category')}
                                     value={field.value}
-                                    onChange={(val) => field.onChange(val)}
+                                    onChange={(val) => {
+                                        field.onChange(val);
+                                        setValue('subCategoryId', 0);
+                                    }}
                                     isLoading={categories.loading}
                                     error={categories.error}
                                     onRetry={handleRetryCategories}
@@ -253,7 +233,36 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
                     </div>
                 </div>
                 {/* Category */}
-
+                {isEntityLegislation && (
+                    <div className='grid grid-cols-1 md:grid-cols-1 gap-4'>
+                        <div>
+                            <Controller
+                                name="entityId"
+                                control={control}
+                                render={({ field }) => (
+                                    <FetchingSelect
+                                        id="entityId"
+                                        label={t('legislation.documentsManagement.dialogs.add.entity')}
+                                        value={field.value || 0}
+                                        onChange={(val) => field.onChange(val)}
+                                        isLoading={entities.loading}
+                                        error={entities.error}
+                                        onRetry={handleRetryEntities}
+                                        required
+                                        placeholder={t('legislation.documentsManagement.dialogs.add.selectEntity')}
+                                    >
+                                        {entities.items.map((entity) => (
+                                            <option key={entity.entityId} value={entity.entityId}>
+                                                {isArabic ? entity.entityNameAr : entity.entityName}
+                                            </option>
+                                        ))}
+                                    </FetchingSelect>
+                                )}
+                            />
+                            {errors.entityId && <p className="text-red-500 text-xs mt-1">{t(String(errors.entityId.message || ''))}</p>}
+                        </div>
+                    </div>
+                )}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {/* Law Name English */}
                     <div>

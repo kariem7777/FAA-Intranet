@@ -10,7 +10,6 @@ import { useTranslation } from '@/shared/hooks/useTranslation';
 import { FetchingSelect } from '@/shared/components/Select/FetchingSelect';
 import type { Entities, LawSubCategory } from '@/features/Legislation/types';
 import useDebounce from '@/shared/hooks/useDebouncing';
-import { Shimmer } from '@/shared/components/Shimmer/Shimmer';
 
 export function LegislationFilters() {
     const { isRTL, t, getLocalizedString } = useTranslation();

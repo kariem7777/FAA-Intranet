@@ -79,10 +79,8 @@ export const useAzureAuth = () => {
 
         try {
             const response = await instance.acquireTokenSilent(request);
-            console.log("✅ Token acquired silently!");
             return response.accessToken;
         } catch (error) {
-            console.log("⚠️ Silent token acquisition failed, redirecting to acquire token...");
             await instance.acquireTokenRedirect(request);
             return null;
         }

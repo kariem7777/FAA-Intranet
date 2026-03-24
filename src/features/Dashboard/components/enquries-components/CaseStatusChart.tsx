@@ -16,7 +16,6 @@ export function CaseStatusChart({ data, loading }: CaseStatusChartProps) {
     const isArabic = language === 'ar';
 
     const getStatusInfo = (status: string) => {
-        console.log(status)
         const statusMap: Record<string, { name: string; color: string; icon: any }> = {
             New: { name: t('legislation.dashboard.cases.new'), color: '#F59E0B', icon: Clock },
             Replied: { name: t('legislation.dashboard.cases.replied'), color: '#2563EB', icon: AlertCircle },
@@ -31,7 +30,6 @@ export function CaseStatusChart({ data, loading }: CaseStatusChartProps) {
             value: item.count,
             ...getStatusInfo(item.status)
         }));
-        console.log(statusItems)
 
         const totalValue = statusItems.reduce((sum, item) => sum + item.value, 0);
 

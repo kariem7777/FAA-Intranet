@@ -43,11 +43,12 @@ export function DocumentMetadata({
 
     return (
         <div
-            className="rounded-lg border p-6 sticky top-6"
+            className="rounded-lg border p-6"
             style={{
                 backgroundColor: 'var(--color-bg-white)',
                 borderColor: 'var(--color-bg-light)',
                 overflowY: 'auto',
+                maxHeight: 'calc(100vh - 165px)'
             }}
         >
             {/* Document Title */}

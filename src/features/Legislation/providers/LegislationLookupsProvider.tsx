@@ -57,7 +57,6 @@ export function LegislationLookupsProvider({ children }: LegislationLookupsProvi
 
     const handleRetry = async (type: FailedFetch) => {
         setRefreshing(prev => new Set(prev).add(type));
-        console.log("as")
         try {
             if (type === 'categories') {
                 await dispatch(fetchCategories());

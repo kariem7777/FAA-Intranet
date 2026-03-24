@@ -6,7 +6,7 @@ import { HeroHeader } from './components/HeroHeader';
 import { HeroSearchBar } from './components/HeroSearchBar';
 import { HeroSearchResults } from './components/HeroSearchResults';
 import { useEffect } from 'react';
-import { performGlobalSearch, setGlobalSearchQuery } from "../../slices/legislationSlice";
+import { performGlobalSearch, setGlobalSearchQuery, clearSearch } from "../../slices/legislationSlice";
 
 interface LegislationBannerProps {
   handleCategorySearch?: (categoryId: number) => void;
@@ -26,7 +26,7 @@ export function LegislationHero({
   const { t, isRTL } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
 
-  const { globalSearchQuery, searchResults, totalResults, categories } = useSelector(
+  const { globalSearchQuery, searchResults, opinionResults, totalResults, categories } = useSelector(
     (state: RootState) => state.legislationSlice
   );
 
@@ -51,7 +51,7 @@ export function LegislationHero({
 
   const content = modeContent[mode];
   const showSearchBar = mode === "legislation";
-  const showSearchResults = globalSearchQuery && searchResults.length > 0;
+  const showSearchResults = globalSearchQuery && (searchResults.length > 0 || opinionResults.length > 0);
 
   useEffect(() => {
     if (globalSearchQuery.trim()) {
@@ -62,6 +62,11 @@ export function LegislationHero({
       return () => clearTimeout(timer);
     }
   }, [globalSearchQuery, dispatch]);
+
+  useEffect(() => {
+    // Clear search when changing modes (e.g., from legislation to dashboard)
+    dispatch(clearSearch());
+  }, [mode, dispatch]);
 
   const handleSearchChange = (value: string) => {
     dispatch(setGlobalSearchQuery(value));
@@ -86,7 +91,6 @@ export function LegislationHero({
           description={content.description}
           onAddDocument={onAddDocument}
           onBack={onBack}
-        // isAddingDocument={loading.add}
         />
 
         {showSearchBar && (
@@ -101,6 +105,7 @@ export function LegislationHero({
       {showSearchResults && (
         <HeroSearchResults
           results={searchResults}
+          opinionResults={opinionResults}
           totalResults={totalResults}
           categories={categories.items}
           onCategoryClick={handleCategoryClick}

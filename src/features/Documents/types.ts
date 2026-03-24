@@ -2,7 +2,7 @@ export interface Document {
     id: number,
     categoryId: number,
     subCategoryId: number,
-    entityId: number,
+    entityId?: number,
     documentNameEn: string,
     documentNameAr: string,
     documentPhysicalPath: string,
@@ -26,7 +26,7 @@ export interface Document {
 export interface CreateDocument {
     categoryId: number,
     subCategoryId: number,
-    entityId: number,
+    entityId?: number,
     documentNameEn: string,
     documentNameAr: string,
     lawNumber: string,

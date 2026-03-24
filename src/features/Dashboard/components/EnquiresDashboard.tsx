@@ -8,7 +8,8 @@ import { ConversationMetrics } from './enquries-components/ConversationMetrics';
 import { SLAPerformanceStatic } from './enquries-components/SLAPerformanceStatic';
 import { DepartmentInquiriesChart } from './enquries-components/DepartmentInquiriesChart';
 import { RecentCasesTable } from './enquries-components/RecentCasesTable';
-import { ChevronDown, Calendar } from 'lucide-react';
+import { Calendar } from 'lucide-react';
+import { YearPicker } from '@/shared/components/YearPicker';
 import { Card } from '@/shared/components/ui/card';
 
 export function EnquiresDashboard() {
@@ -23,7 +24,6 @@ export function EnquiresDashboard() {
         { label: t('legislation.dashboard.cases.q4'), value: 'Q4' },
     ] as const;
 
-    const years = [2024, 2025, 2026];
 
     useEffect(() => {
         dispatch(fetchEnquiriesMetrics());
@@ -122,22 +122,10 @@ export function EnquiresDashboard() {
                             <label className="text-gray-600 text-[13px] font-medium">
                                 {t('legislation.dashboard.cases.year')}
                             </label>
-                            <div className="relative">
-                                <select
-                                    value={filters.year}
-                                    onChange={(e) => dispatch(setYear(parseInt(e.target.value)))}
-                                    className={`appearance-none bg-white border border-gray-300 rounded-lg py-2 focus:outline-none focus:ring-2 focus:ring-faa-primary/20 cursor-pointer hover:border-gray-400 transition-colors text-sm font-medium text-gray-700 min-w-[120px] ${isRTL ? 'pr-4 pl-10' : 'pl-4 pr-10'}`}
-                                >
-                                    {years.map((year) => (
-                                        <option key={year} value={year}>
-                                            {year}
-                                        </option>
-                                    ))}
-                                </select>
-                                <ChevronDown
-                                    className={`absolute top-1/2 -translate-y-1/2 pointer-events-none w-[18px] h-[18px] text-gray-500 ${isRTL ? 'left-3' : 'right-3'}`}
-                                />
-                            </div>
+                            <YearPicker
+                                value={filters.year}
+                                onChange={(year: number) => dispatch(setYear(year))}
+                            />
                         </div>
                     </div>
 

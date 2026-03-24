@@ -78,7 +78,7 @@
     "clearFilters": "مسح الفلاتر",
     "returnToSearch": "رجوع للبحث",
     "noResultsDesc": "جرب تغيير معايير البحث",
-    "approved": "معتمد",
+    "approved": "معتمد ",
     "returnToTop": "العودة للأعلى",
     "approvedPageTitle": "الآراء القانونية المعتمدة",
     "detailPageTitle": "تفاصيل الرأي",
@@ -327,7 +327,10 @@
       "foundResults": "تم العثور على {{count}} نتيجة في {{total}} وثيقة",
       "documentCount_plural": "{{count}} وثائق",
       "addUserTitle": "إضافة مستخدم جديد",
-      "addUserDescription": "قم بإنشاء حساب مستخدم جديد عن طريق ملء المعلومات المطلوبة أدناه."
+      "addUserDescription": "قم بإنشاء حساب مستخدم جديد عن طريق ملء المعلومات المطلوبة أدناه.",
+      "documents": "الوثائق",
+      "approvedOpinions_plural": "{{count}} آراء قانونية معتمدة",
+      "filterNoResults": "جرّب تغيير معايير التصفية للعثور على ما تبحث عنه"
     },
     "documentsManagement": {
       "allLegislations": "جميع التشريعات",

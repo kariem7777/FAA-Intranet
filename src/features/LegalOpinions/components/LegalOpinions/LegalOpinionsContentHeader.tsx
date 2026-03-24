@@ -10,7 +10,6 @@ interface LegalOpinionsContentHeaderProps {
 export function LegalOpinionsContentHeader({ totalCount, onAddEnquiry }: LegalOpinionsContentHeaderProps) {
     const { t } = useTranslation();
     const { isUser, isSecertUser, isDeptDirector } = useAuth();
-    console.log(isSecertUser)
     return (
         <div className="py-4 flex items-center justify-between">
             <div className="flex items-center gap-3">

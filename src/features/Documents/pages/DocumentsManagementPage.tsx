@@ -15,6 +15,7 @@ import { fetchSubCategoriesByCategory } from '@/features/Legislation/slices/legi
 import { LegislationHero } from '@/features/Legislation/components/LegislationHero/LegislationHero';
 import { RotateCcw } from 'lucide-react';
 import { LegislationDocumentViewer } from './LegislationDocumentViewer';
+import useDebounce from '@/shared/hooks/useDebouncing';
 
 interface DocumentsManagementPageProps {
   onAddDocument?: () => void;
@@ -25,7 +26,7 @@ interface DocumentsManagementPageProps {
 export function DocumentsManagementPage({ }: DocumentsManagementPageProps) {
   const { t, i18n } = useTranslation();
   const isArabic = i18n.language === 'ar';
-
+  const debounce = useDebounce();
   const dispatch = useAppDispatch();
   const { items: documents, loading, filters, pagination } = useAppSelector((state) => state.documentsManagement);
   const { entities, categories, subCategories } = useAppSelector((state) => state.legislationSlice);
@@ -33,9 +34,11 @@ export function DocumentsManagementPage({ }: DocumentsManagementPageProps) {
   const [editDocument, setEditDocument] = useState<Document | null>(null);
   const [deleteDocument, setDeleteDocument] = useState<Document | null>(null);
   const [viewingDocumentId, setViewingDocumentId] = useState<number | null>(null);
+  const [searchTerm, setSearchTerm] = useState(filters.searchQuery);
 
   useEffect(() => {
     dispatch(resetFilters());
+    setSearchTerm('');
   }, [dispatch])
 
   useEffect(() => {
@@ -51,6 +54,13 @@ export function DocumentsManagementPage({ }: DocumentsManagementPageProps) {
       }
     }
   }, [dispatch, filters.selectedCategory]);
+
+  const handleSearchChange = (val: string) => {
+    setSearchTerm(val);
+    debounce(() => {
+      dispatch(setSearchQuery(val));
+    }, 500);
+  };
 
   const handlePageChange = (page: number) => {
     dispatch(setPageNumber(page));
@@ -92,8 +102,8 @@ export function DocumentsManagementPage({ }: DocumentsManagementPageProps) {
                 <Input
                   type="text"
                   placeholder={t('legislation.documentsManagement.searchPlaceholder')}
-                  value={filters.searchQuery}
-                  onChange={(e) => dispatch(setSearchQuery(e.target.value))}
+                  value={searchTerm}
+                  onChange={(e) => handleSearchChange(e.target.value)}
                   className={`${isArabic ? 'pr-14' : 'pl-12'} h-12 text-base rounded-xl bg-gray-50/80 border border-gray-200 focus:border-faa-primary/50 focus:bg-white transition-all duration-200 placeholder:text-gray-400`}
                 />
               </div>
@@ -122,6 +132,7 @@ export function DocumentsManagementPage({ }: DocumentsManagementPageProps) {
                 </label>
                 <Select
                   value={filters.selectedCategory || 'null'}
+                  disabled={subCategories.loading}
                   onChange={(e) => dispatch(setSelectedCategory(e.target.value == 'null' ? null : Number(e.target.value)))}
                   className="h-10 bg-gray-50/80 border border-gray-200 rounded-xl text-sm focus:border-faa-primary/50 focus:bg-white transition-all duration-200 hover:border-gray-300"
                 >
@@ -188,7 +199,10 @@ export function DocumentsManagementPage({ }: DocumentsManagementPageProps) {
               {/* Reset Button — inline with filters */}
               {filters && (
                 <button
-                  onClick={() => dispatch(resetFilters())}
+                  onClick={() => {
+                     dispatch(resetFilters());
+                     setSearchTerm('');
+                   }}
                   className="self-end h-10 px-5 flex items-center gap-2 rounded-xl border border-gray-200 bg-gray-50 text-gray-500 text-sm font-medium hover:bg-red-50 hover:border-red-200 hover:text-red-500 transition-all duration-200 group active:scale-95"
                   title={t('legislation.documentsManagement.reset')}
                 >
