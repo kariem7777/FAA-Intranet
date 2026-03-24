@@ -43,10 +43,9 @@ export function ApprovedLegalOpinionsPage() {
     setLocalSearch(filters.searchText || '');
   }, [filters.searchText]);
 
-  // Fetch data on mount
-  useEffect(() => {
-    dispatch(fetchApprovedOpinions({}));
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchApprovedOpinions({}));
+  // }, [dispatch]);
 
   // Sync data on filter change
   useEffect(() => {
@@ -57,14 +56,6 @@ export function ApprovedLegalOpinionsPage() {
     }));
   }, [dispatch, filters.searchText, filters.departmentId, enquiries.pagination.pageNumber]);
 
-  // Scroll handling
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     setShowScrollToTop(window.scrollY > 300);
-  //   };
-  //   window.addEventListener('scroll', handleScroll);
-  //   return () => window.removeEventListener('scroll', handleScroll);
-  // }, []);
 
   const handleSearchChange = useCallback((value: string) => {
     setLocalSearch(value);
@@ -83,13 +74,9 @@ export function ApprovedLegalOpinionsPage() {
 
   const handlePageChange = useCallback((page: number) => {
     dispatch(setApprovedPage(page));
-    // Scroll to top when page changes
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [dispatch]);
 
-  // const handleScrollToTop = useCallback(() => {
-  //   window.scrollTo({ top: 0, behavior: 'smooth' });
-  // }, []);
 
   const handleRetry = useCallback(() => {
     dispatch(fetchApprovedOpinions({}));
