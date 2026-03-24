@@ -7,6 +7,11 @@ import i18n from '@/i18n';
 export const getErrorMessage = (error: any): string => {
   if (!error) return i18n.t('common.unknownError');
 
+  // Check for Network Error (offline)
+  if (error.code === 'ERR_NETWORK' || (typeof error.message === 'string' && error.message.includes('Network Error'))) {
+    return i18n.t('common.networkError');
+  }
+
   // 1. Handling the specific object format: { "code": "Access denied", "status": 401, "args": "[]" }
   if (typeof error === 'object' && error.code && typeof error.code === 'string') {
     return error.code;

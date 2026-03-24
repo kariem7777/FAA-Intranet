@@ -9,7 +9,7 @@ export const authenticateUser = createAsyncThunk(
         try {
             const response = await authService.authenticate();
             if (!response.isAuthenticated) {
-                return rejectWithValue(response.message || 'User not found in database');
+                return rejectWithValue(getErrorMessage(response));
             }
             return response;
         } catch (error: any) {

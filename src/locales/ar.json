@@ -16,7 +16,8 @@
     "of": "من",
     "close": "إغلاق",
     "unknownError": "حدث خطأ غير معروف",
-    "unexpectedError": "حدث خطأ غير متوقع"
+    "unexpectedError": "حدث خطأ غير متوقع",
+    "networkError": "خطأ في الشبكة: يرجى التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى."
   },
   "legalOpinions": {
     "breadcrumbLegal": "الآراء القانونية",

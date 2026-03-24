@@ -16,7 +16,8 @@
     "of": "of",
     "close": "Close",
     "unknownError": "An unknown error occurred",
-    "unexpectedError": "An unexpected error occurred"
+    "unexpectedError": "An unexpected error occurred",
+    "networkError": "Network Error: Please check your internet connection and try again."
   },
   "legalOpinions": {
     "breadcrumbLegal": "Legal Opinions",
