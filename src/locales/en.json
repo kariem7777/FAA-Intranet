@@ -514,5 +514,53 @@
       "jobTitle": "Select a job title...",
       "role": "Select a role..."
     }
+  },
+  "notifications": {
+    "title": "Notifications",
+    "centerTitle": "Notification Center",
+    "unreadCount": "You have {{count}} unread notifications",
+    "markAllAsRead": "Mark all as read",
+    "refresh": "Refresh",
+    "viewAll": "View all notifications",
+    "noNotifications": "No notifications yet",
+    "noNotificationsDesc": "It's all quiet here. We'll alert you when new updates arrive!",
+    "noResults": "No results for this filter",
+    "noResultsDesc": "Try selecting a different filter to find what you're looking for.",
+    "filters": {
+      "all": "All",
+      "opinions": "Opinions",
+      "replies": "Replies",
+      "unread": "Unread"
+    },
+    "loading": "Loading notifications...",
+    "home": "Home",
+    "new": "New",
+    "relativeTime": {
+      "justNow": "Just now",
+      "minutes_one": "1 minute ago",
+      "minutes_other": "{{count}} minutes ago",
+      "hours_one": "1 hour ago",
+      "hours_other": "{{count}} hours ago",
+      "days_one": "1 day ago",
+      "days_other": "{{count}} days ago"
+    },
+    "types": {
+      "new_opinion": {
+        "title": "New Legal Opinion",
+        "description": "A new legal opinion has been published in the legislation section."
+      },
+      "admin_reply": {
+        "title": "New Admin Reply",
+        "description": "An admin has replied to your enquiry regarding labor law."
+      },
+      "user_reply": {
+        "title": "New User Reply",
+        "description": "User has replied to the conversation."
+      },
+      "closed": {
+        "title": "Case Closed",
+        "description": "The discussion on this case has been marked as closed."
+      }
+    }
   }
 }

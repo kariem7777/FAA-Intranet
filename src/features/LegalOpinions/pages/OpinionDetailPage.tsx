@@ -192,7 +192,6 @@ export function OpinionDetailPage({ id: propId, status, onBack: onBackProp }: { 
   const enquiry = selectedEnquiry.data;
   const approvedReply = enquiry.replies?.find(r => r.approved);
   const isClosed = enquiry.status === 3;
-
   return (
     <div
       className="min-h-screen"
@@ -237,6 +236,7 @@ export function OpinionDetailPage({ id: propId, status, onBack: onBackProp }: { 
                     setReplyContent((prev) => prev ? `${prev}<br/><br/>${html}` : html);
                     setShowReplyEditor(true);
                   }}
+                  isClosed={isClosed}
                 />
               )}
 

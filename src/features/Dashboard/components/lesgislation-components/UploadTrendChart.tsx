@@ -54,7 +54,7 @@ export function UploadTrendChart({ data, loading }: UploadTrendChartProps) {
             </div>
 
             <div style={{ width: '100%', height: 280 }} dir={isArabic ? 'rtl' : 'ltr'}>
-                <ResponsiveContainer>
+                <ResponsiveContainer width="100%" height={280} minWidth={0} minHeight={0}>
                     <AreaChart
                         data={data}
                         margin={{ top: 30, right: isArabic ? 0 : 20, left: isArabic ? 20 : 0, bottom: 10 }}

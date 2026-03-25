@@ -14,7 +14,7 @@ import { Card } from '@/shared/components/ui/card';
 
 export function EnquiresDashboard() {
     const dispatch = useDispatch<AppDispatch>();
-    const { t, isRTL } = useTranslation('legislation');
+    const { t } = useTranslation('legislation');
     const { enquiriesData, filters } = useSelector((state: RootState) => state.dashboard);
 
     const quarters = [
@@ -81,66 +81,67 @@ export function EnquiresDashboard() {
             </div>
 
             {/* Period Filters Card */}
-            <Card className="bg-white rounded-xl shadow-sm border border-faa-primary/20 p-5">
-                <div className={`flex flex-col md:flex-row items-start md:items-end gap-7 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                    {/* Label Section */}
-                    <div className="flex items-center gap-2 pb-2">
-                        <Calendar className="w-5 h-5" style={{ color: 'var(--color-faa-primary)' }} />
-                        <span className="text-gray-900 text-[15px] font-bold">
+            <Card className="bg-white rounded-xl shadow-sm border border-faa-primary/10 overflow-hidden">
+                {/* Header Row */}
+                <div className="px-5 py-4 border-b border-gray-100 flex flex-wrap items-center justify-between gap-4 bg-gray-50/50">
+                    <div className="flex items-center gap-2">
+                        <div className="p-1.5 rounded-lg bg-white shadow-sm border border-faa-primary/10">
+                            <Calendar className="w-5 h-5 text-faa-primary" />
+                        </div>
+                        <span className="text-gray-900 text-base font-bold">
                             {t('legislation.dashboard.cases.filterByPeriod')}
                         </span>
                     </div>
 
-                    <div className={`flex flex-wrap items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                        {/* Quarter Selector */}
-                        <div className="flex flex-col gap-1.5">
-                            <label className="text-gray-600 text-[13px] font-medium">
-                                {t('legislation.dashboard.cases.quarter')}
-                            </label>
-                            <div className="flex gap-2">
-                                {quarters.map((quarter) => (
-                                    <button
-                                        key={quarter.value}
-                                        onClick={() => dispatch(setQuarter(quarter.value as any))}
-                                        className={`px-4 py-2 rounded-lg transition-all text-sm font-bold border ${filters.quarter === quarter.value
-                                            ? 'shadow-sm text-white'
-                                            : 'bg-gray-100 text-gray-700 border-gray-200 hover:bg-gray-200'
-                                            }`}
-                                        style={{
-                                            backgroundColor: filters.quarter === quarter.value ? 'var(--color-faa-primary)' : '',
-                                            borderColor: filters.quarter === quarter.value ? 'var(--color-faa-primary)' : ''
-                                        }}
-                                    >
-                                        {quarter.label}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
+                    <div
+                        className="px-3 py-1.5 rounded-full border bg-white shadow-sm flex items-center gap-2"
+                        style={{
+                            borderColor: 'rgba(144, 142, 129, 0.2)'
+                        }}
+                    >
+                        <div className="w-2 h-2 rounded-full bg-faa-primary animate-pulse" />
+                        <span className="text-gray-700 text-sm font-bold">
+                            {t(`legislation.dashboard.cases.${filters.quarter.toLowerCase()}`)} {filters.year}
+                        </span>
+                    </div>
+                </div>
 
-                        {/* Year Selector */}
-                        <div className={`flex flex-col gap-1.5 ${isRTL ? 'pe-5' : 'ps-5 border-l border-gray-200'}`}>
-                            <label className="text-gray-600 text-[13px] font-medium">
-                                {t('legislation.dashboard.cases.year')}
-                            </label>
+                {/* Controls Row */}
+                <div className="p-5 flex flex-col md:flex-row items-stretch md:items-end gap-6">
+                    {/* Quarter Selector */}
+                    <div className="flex-1 space-y-3">
+                        <label className="block text-gray-500 text-xs font-bold uppercase tracking-wider text-start">
+                            {t('legislation.dashboard.cases.quarter')}
+                        </label>
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                            {quarters.map((quarter) => (
+                                <button
+                                    key={quarter.value}
+                                    onClick={() => dispatch(setQuarter(quarter.value as any))}
+                                    className={`px-3 py-2.5 rounded-xl transition-all text-sm font-bold border ${filters.quarter === quarter.value
+                                        ? 'shadow-md text-white border-transparent'
+                                        : 'bg-white text-gray-600 border-gray-200 hover:border-faa-primary/40 hover:bg-gray-50'
+                                        }`}
+                                    style={{
+                                        backgroundColor: filters.quarter === quarter.value ? 'var(--color-faa-primary)' : '',
+                                    }}
+                                >
+                                    {quarter.label}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Year Selector */}
+                    <div className="space-y-3 md:ps-6 md:border-s border-gray-100">
+                        <label className="block text-gray-500 text-xs font-bold uppercase tracking-wider text-start">
+                            {t('legislation.dashboard.cases.year')}
+                        </label>
+                        <div className="w-full md:w-32">
                             <YearPicker
                                 value={filters.year}
                                 onChange={(year: number) => dispatch(setYear(year))}
                             />
-                        </div>
-                    </div>
-
-                    {/* Selected Period Display */}
-                    <div className={`${isRTL ? 'mr-auto ml-0' : 'ml-auto'}`}>
-                        <div
-                            className="px-4 py-2 rounded-lg border"
-                            style={{
-                                backgroundColor: 'rgba(144, 142, 129, 0.1)',
-                                borderColor: 'rgba(144, 142, 129, 0.3)'
-                            }}
-                        >
-                            <span className="text-gray-700 text-sm font-bold">
-                                {t(`legislation.dashboard.cases.${filters.quarter.toLowerCase()}`)} {filters.year}
-                            </span>
                         </div>
                     </div>
                 </div>

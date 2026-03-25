@@ -514,5 +514,65 @@
       "jobTitle": "اختر المسمى الوظيفي...",
       "role": "اختر الصلاحية..."
     }
+  },
+  "notifications": {
+    "title": "الإشعارات",
+    "centerTitle": "مركز الإشعارات",
+    "unreadCount": "لديك {{count}} إشعار غير مقروء",
+    "markAllAsRead": "تحديد الكل كمقروء",
+    "refresh": "تحديث",
+    "viewAll": "عرض كل الإشعارات",
+    "noNotifications": "لا توجد إشعارات حتى الآن",
+    "noNotificationsDesc": "كل الهدوء هنا. سنقوم بإبلاغك عندما تكون هناك تحديثات جديدة!",
+    "noResults": "لا توجد نتائج لهذا الفلتر",
+    "noResultsDesc": "جرب اختيار فلتر آخر للعثور على ما تبحث عنه.",
+    "filters": {
+      "all": "الكل",
+      "opinions": "الآراء",
+      "replies": "الردود",
+      "unread": "غير المقروءة"
+    },
+    "loading": "جاري التحميل...",
+    "home": "الرئيسية",
+    "new": "جديد",
+    "relativeTime": {
+      "justNow": "الآن",
+      "minutes_zero": "منذ {{count}} دقيقة",
+      "minutes_one": "منذ دقيقة واحدة",
+      "minutes_two": "منذ دقيقتين",
+      "minutes_few": "منذ {{count}} دقائق",
+      "minutes_many": "منذ {{count}} دقيقة",
+      "minutes_other": "منذ {{count}} دقيقة",
+      "hours_zero": "منذ {{count}} ساعة",
+      "hours_one": "منذ ساعة واحدة",
+      "hours_two": "منذ ساعتين",
+      "hours_few": "منذ {{count}} ساعات",
+      "hours_many": "منذ {{count}} ساعة",
+      "hours_other": "منذ {{count}} ساعة",
+      "days_zero": "منذ {{count}} يوم",
+      "days_one": "منذ يوم واحد",
+      "days_two": "منذ يومين",
+      "days_few": "منذ {{count}} أيام",
+      "days_many": "منذ {{count}} يوم",
+      "days_other": "منذ {{count}} يوم"
+    },
+    "types": {
+      "new_opinion": {
+        "title": "رأى قانوني جديد",
+        "description": "تم نشر رأي قانوني جديد في قسم التشريعات."
+      },
+      "admin_reply": {
+        "title": "رد جديد من المشرف",
+        "description": "قام المشرف بالرد على استفسارك المتعلق بقانون العمل."
+      },
+      "user_reply": {
+        "title": "رد جديد من المستخدم",
+        "description": "قام المستخدم بالرد على المحادثة."
+      },
+      "closed": {
+        "title": "إغلاق الحالة",
+        "description": "تم إغلاق النقاش المتعلق بهذه الحالة."
+      }
+    }
   }
 }

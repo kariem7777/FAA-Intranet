@@ -12,6 +12,15 @@ export const getErrorMessage = (error: any): string => {
     return i18n.t('common.networkError');
   }
 
+  // Handling the INTERNAL_ERROR code specifically for a user-friendly message
+  if (error.code === 'INTERNAL_ERROR' ||
+    error.response?.data?.code === 'INTERNAL_ERROR' ||
+    error.response?.data === 'INTERNAL_ERROR' ||
+    error.message === 'INTERNAL_ERROR' ||
+    error.response?.data?.error === 'INTERNAL_ERROR') {
+    return i18n.t('common.unexpectedError');
+  }
+
   // 1. Handling the specific object format: { "code": "Access denied", "status": 401, "args": "[]" }
   if (typeof error === 'object' && error.code && typeof error.code === 'string') {
     return error.code;

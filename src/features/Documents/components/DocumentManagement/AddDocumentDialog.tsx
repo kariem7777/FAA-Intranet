@@ -102,12 +102,9 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
                 onClose();
                 reset();
             } else {
-                console.log("asdad")
-
                 toast.error(t('legislation.documentsManagement.toasts.addError'));
             }
         } catch (error) {
-            console.log(error)
             toast.error(t('legislation.documentsManagement.toasts.addError'));
         }
     };

@@ -14,9 +14,10 @@ interface ConversationSectionProps {
     onApproveReply?: (replyId: number | string) => void;
     approvingReplyId?: number | string | null;
     onCopy?: (html: string) => void;
+    isClosed: boolean;
 }
 
-export function ConversationSection({ messages, isAdmin, onApproveReply, approvingReplyId, onCopy }: ConversationSectionProps) {
+export function ConversationSection({ messages, isAdmin, onApproveReply, approvingReplyId, onCopy, isClosed }: ConversationSectionProps) {
     const { t, isRTL, getLocalizedString } = useTranslation();
     const [copiedMessageId, setCopiedMessageId] = useState<string | number | null>(null);
     const { show, hide } = useDialogPortal();
@@ -85,11 +86,10 @@ export function ConversationSection({ messages, isAdmin, onApproveReply, approvi
             />
         );
     };
-
     return (
         <div className="bg-white rounded-xl shadow-sm border border-faa-primary/10 overflow-hidden">
             <div
-                className="px-6 py-4 border-b border-faa-primary/10 bg-[#fafafa]"
+                className="px-4 sm:px-6 py-3 sm:py-4 border-b border-faa-primary/10 bg-[#fafafa]"
             >
                 <div className="flex items-center gap-2">
                     <MessageSquare className="h-5 w-5" style={{ color: 'var(--color-legislation-primary)' }} />
@@ -102,7 +102,7 @@ export function ConversationSection({ messages, isAdmin, onApproveReply, approvi
                 </div>
             </div>
 
-            <div className="p-6 space-y-4 max-h-[700px] overflow-y-auto">
+            <div className="p-4 sm:p-6 space-y-4 max-h-[700px] overflow-y-auto">
                 {messages.map((message) => {
                     const isRightSide = message.isAdminResponse;
 
@@ -111,12 +111,14 @@ export function ConversationSection({ messages, isAdmin, onApproveReply, approvi
                         ? (isRTL ? 'justify-start' : 'justify-end')
                         : (isRTL ? 'justify-end' : 'justify-start');
 
-                    const bubbleColorClass = isRightSide
-                        ? 'bg-[var(--color-msg-admin-bg)] border-[var(--color-msg-admin-border)]'
-                        : 'bg-[var(--color-msg-user-bg)] border-[var(--color-msg-user-border)]';
+                    const bubbleColorClass = message.approved
+                        ? 'bg-green-50 border-green-200 shadow-[0_4px_12px_rgba(34,197,94,0.08)]'
+                        : isRightSide
+                            ? 'bg-[var(--color-msg-admin-bg)] border-[var(--color-msg-admin-border)]'
+                            : 'bg-[var(--color-msg-user-bg)] border-[var(--color-msg-user-border)]';
 
                     const senderName = (message.replier ? getLocalizedString(message.replier.nameEn, message.replier.nameAr) : t('common.unknown'));
-
+                    const senderRole = message.isAdminResponse;
                     const iconColorClass = isRightSide ? 'text-[var(--color-msg-admin-icon)]' : 'text-[var(--color-msg-user-icon)]';
                     const iconBgClass = isRightSide ? 'bg-[var(--color-msg-admin-icon-bg)]' : 'bg-[var(--color-msg-user-icon-bg)]';
                     const adminTextColor = 'text-[var(--color-msg-admin-text)]';
@@ -128,19 +130,22 @@ export function ConversationSection({ messages, isAdmin, onApproveReply, approvi
                             className={`flex ${alignmentClass}`}
                         >
                             <div
-                                className={`relative min-w-[80%] max-w-[90%] rounded-lg p-4 border ${bubbleColorClass}`}
+                                className={`relative w-fit min-w-[85%] sm:min-w-[80%] max-w-[95%] sm:max-w-[90%] rounded-lg p-3 sm:p-4 border ${bubbleColorClass} ${message.approved ? `ring-2 ring-green-600/15 border-green-300 shadow-lg ${isRTL ? 'pr-7' : 'pl-7'}` : ''}`}
                             >
-                                <div className={`absolute ${isRTL ? 'left-2' : 'right-2'} top-2 flex items-center gap-1`}>
-                                    {onCopy && (
+                                {message.approved && (
+                                    <div className={`absolute top-0 bottom-0 w-1.5 ${isRTL ? 'right-0 rounded-r-lg' : 'left-0 rounded-l-lg'} bg-green-500/50`} />
+                                )}
+                                <div className={`absolute ${isRTL ? 'left-1 sm:left-2' : 'right-1 sm:right-2'} top-1 sm:top-2 flex items-center gap-0.5 sm:gap-1`}>
+                                    {onCopy && !isClosed && (
                                         <button
                                             onClick={() => handleCopyToEditor(message)}
                                             title={t('legalOpinions.copyToEditor')}
                                             className={`p-1.5 rounded-md transition-all duration-200 hover:bg-white/50 group ${iconColorClass}`}
                                         >
                                             {copiedMessageId === `${message.id}-editor` ? (
-                                                <Check className="h-4 w-4" style={{ strokeWidth: 2.5 }} />
+                                                <Check className="h-3.5 w-3.5 sm:h-4 sm:w-4" style={{ strokeWidth: 2.5 }} />
                                             ) : (
-                                                <Reply className="h-4 w-4 opacity-60 group-hover:opacity-100" style={{ strokeWidth: 2 }} />
+                                                <Reply className="h-3.5 w-3.5 sm:h-4 sm:w-4 opacity-60 group-hover:opacity-100" style={{ strokeWidth: 2 }} />
                                             )}
                                         </button>
                                     )}
@@ -150,9 +155,9 @@ export function ConversationSection({ messages, isAdmin, onApproveReply, approvi
                                         className={`p-1.5 rounded-md transition-all duration-200 hover:bg-white/50 group ${iconColorClass}`}
                                     >
                                         {copiedMessageId === `${message.id}-plain` ? (
-                                            <Check className="h-4 w-4" style={{ strokeWidth: 2.5 }} />
+                                            <Check className="h-3.5 w-3.5 sm:h-4 sm:w-4" style={{ strokeWidth: 2.5 }} />
                                         ) : (
-                                            <FileText className="h-4 w-4 opacity-60 group-hover:opacity-100" style={{ strokeWidth: 2 }} />
+                                            <FileText className="h-3.5 w-3.5 sm:h-4 sm:w-4 opacity-60 group-hover:opacity-100" style={{ strokeWidth: 2 }} />
                                         )}
                                     </button>
                                     <button
@@ -161,31 +166,31 @@ export function ConversationSection({ messages, isAdmin, onApproveReply, approvi
                                         className={`p-1.5 rounded-md transition-all duration-200 hover:bg-white/50 group ${iconColorClass}`}
                                     >
                                         {copiedMessageId === `${message.id}-rich` ? (
-                                            <Check className="h-4 w-4" style={{ strokeWidth: 2.5 }} />
+                                            <Check className="h-3.5 w-3.5 sm:h-4 sm:w-4" style={{ strokeWidth: 2.5 }} />
                                         ) : (
-                                            <Copy className="h-4 w-4 opacity-60 group-hover:opacity-100" style={{ strokeWidth: 2 }} />
+                                            <Copy className="h-3.5 w-3.5 sm:h-4 sm:w-4 opacity-60 group-hover:opacity-100" style={{ strokeWidth: 2 }} />
                                         )}
                                     </button>
                                 </div>
 
                                 <div className="flex items-center gap-2 mb-2">
                                     <div
-                                        className={`w-8 h-8 rounded-full flex items-center justify-center ${iconBgClass}`}
+                                        className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center ${iconBgClass}`}
                                     >
-                                        <User className={`h-4 w-4 ${iconColorClass}`} />
+                                        <User className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${iconColorClass}`} />
 
                                     </div>
                                     <div className="flex-1">
                                         <p
-                                            className={`flex items-center gap-2 text-[16px]! font-semibold! ${isRightSide ? adminTextColor : userTextColor}`}
+                                            className={`flex items-center gap-2 text-[14px] sm:text-[16px]! font-semibold! ${isRightSide ? adminTextColor : userTextColor} ${isRTL ? 'pl-20 sm:pl-0' : 'pr-20 sm:pr-0'}`}
                                         >
                                             {senderName}
-                                            {isAdmin &&
+                                            {senderRole &&
 
-                                                <Verified className='w-4 h-4 text-center' />
+                                                <Verified className='w-3.5 h-3.5 sm:w-4 sm:h-4 text-center' />
                                             }
                                         </p>
-                                        <p className="text-slate-500 text-[14px]!">
+                                        <p className="text-slate-500 text-[12px]! sm:text-[14px]!">
                                             {new Date(message.createdOnUtc).toLocaleDateString(isRTL ? 'ar-AE' : 'en-US', {
                                                 year: 'numeric', month: 'short', day: 'numeric'
                                             })}
@@ -194,7 +199,7 @@ export function ConversationSection({ messages, isAdmin, onApproveReply, approvi
                                 </div>
 
                                 <div
-                                    className="text-slate-700 leading-relaxed text-[17px] word-line-break!"
+                                    className="text-slate-700 leading-relaxed text-[15px] sm:text-[17px] word-line-break!"
                                     style={{ lineHeight: '1.8' }}
                                 >
                                     {isLongMessage(message.content) ? (
@@ -215,7 +220,7 @@ export function ConversationSection({ messages, isAdmin, onApproveReply, approvi
                                     )}
                                 </div>
 
-                                {isAdmin && message.isAdminResponse && !message.approved && onApproveReply && (
+                                {!isClosed && isAdmin && message.isAdminResponse && !message.approved && onApproveReply && (
                                     <div className="mt-3 pt-3 border-t border-green-100">
                                         <Button
                                             onClick={() => onApproveReply(message.id)}
@@ -234,9 +239,9 @@ export function ConversationSection({ messages, isAdmin, onApproveReply, approvi
                                 )}
 
                                 {message.approved && (
-                                    <div className="mt-3 pt-3 border-t border-green-100">
-                                        <div className="flex items-center gap-2 text-green-700 font-semibold text-[15px]">
-                                            <CheckCheck className="h-4 w-4" style={{ strokeWidth: 2.5 }} />
+                                    <div className="mt-3 pt-3 border-t border-green-200/50">
+                                        <div className="flex items-center gap-2 text-green-700 font-bold text-[15px] bg-green-100/50 px-3 py-1.5 rounded-lg w-fit">
+                                            <CheckCheck className="h-4 w-4" style={{ strokeWidth: 3 }} />
                                             <span>{t('legalOpinions.finalReply')}</span>
                                         </div>
                                     </div>

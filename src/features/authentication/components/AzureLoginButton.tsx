@@ -209,7 +209,7 @@ export const AzureLoginButton = ({
                 {isSuperAdmin && (
                     <Link
                         to="/add-user"
-                        className="flex items-center justify-center gap-3 py-4 rounded-[2rem] bg-[color:var(--color-faa-primary)]/10 hover:bg-[color:var(--color-faa-primary)]/20 text-white font-bold w-full transition-all border border-[color:var(--color-faa-primary)] active:scale-[0.98] shadow-lg"
+                        className="flex items-center justify-center text-white! gap-3 py-4 rounded-[2rem] bg-[color:var(--color-faa-primary)]/10 hover:bg-[color:var(--color-faa-primary)]/20 text-white font-bold w-full transition-all border border-[color:var(--color-faa-primary)] active:scale-[0.98] shadow-lg"
                     >
                         <UserPlus className="h-4 w-4" />
                         <span>{t('legislation.hero.addUserTitle') || 'Add User'}</span>

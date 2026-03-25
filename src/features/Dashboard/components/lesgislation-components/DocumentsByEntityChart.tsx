@@ -40,7 +40,7 @@ export function DocumentsByEntityChart({ data, loading }: DocumentsByEntityChart
             </div>
 
             <div style={{ width: '100%', height: 400 }}>
-                <ResponsiveContainer>
+                <ResponsiveContainer width="100%" height={400} minWidth={0} minHeight={0}>
                     <BarChart
                         data={data}
                         layout="vertical"

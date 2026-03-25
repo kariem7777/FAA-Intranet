@@ -9,7 +9,7 @@ export class DocumentsService extends BaseApiService {
   public async getDocuments(params: {
     pageNumber: number;
     pageSize: number;
-    searchQuery: string;
+    searchKeyword: string;
     entityId: number | null;
     categoryId?: number | null;
     subCategoryId?: number | null;

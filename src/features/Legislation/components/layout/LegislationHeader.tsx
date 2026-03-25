@@ -9,11 +9,11 @@ import { AzureLoginButton } from '@/features/authentication';
 import { useTranslation } from '@/shared/hooks/useTranslation';
 import { useAuth } from '@/features/authentication/hooks/useAuth';
 import { ROLES } from '@/features/authentication/constants/roles';
-
+import { NotificationsDropdown, fetchNotifications } from '@/features/Notifications';
 
 interface LegislationHeaderProps {
-  currentPage: 'home' | 'legislations' | 'dashboard' | 'documents' | 'search' | 'approved-opinions' | null;
-  onNavigate: (page: 'home' | 'legislations' | 'dashboard' | 'documents' | 'search' | 'approved-opinions') => void;
+  currentPage: 'home' | 'legislations' | 'dashboard' | 'documents' | 'search' | 'approved-opinions' | 'notifications' | null;
+  onNavigate: (page: 'home' | 'legislations' | 'dashboard' | 'documents' | 'search' | 'approved-opinions' | 'notifications') => void;
 }
 
 export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>(({
@@ -23,6 +23,7 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
   const { hasRole } = useAuth();
   const dispatch = useAppDispatch();
   const { language, fontSize } = useAppSelector((state) => state.global);
+  const { unreadCount } = useAppSelector((state) => state.notifications);
   const { t } = useTranslation();
 
   const handleIncreaseFontSize = () => dispatch(increaseFontSize());
@@ -32,18 +33,25 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
   const isArabic = language === 'ar';
   const fontSizes: Array<'sm' | 'base' | 'lg' | 'xl'> = ['sm', 'base', 'lg', 'xl'];
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
+
+  useEffect(() => {
+    dispatch(fetchNotifications());
+  }, [dispatch]);
 
   const allNavItems = [
     { id: 'home' as const, label: t('legislationHeader.home'), roles: ['ALL'] },
     { id: 'dashboard' as const, label: t('legislationHeader.dashboard'), roles: [ROLES.Legal_Admin, ROLES.Legal_Super_Admin] },
     { id: 'documents' as const, label: t('legislationHeader.documents'), roles: [ROLES.Legal_Admin, ROLES.Legal_Super_Admin] },
     { id: 'approved-opinions' as const, label: t('legislationHeader.approvedOpinions'), roles: ['ALL'] },
+    { id: 'notifications' as const, label: t('notifications.title'), roles: ['ALL'] },
   ];
 
   const navItems = allNavItems.filter(item =>
     hasRole(item.roles) || item.roles[0] == 'ALL'
   );
 
+  const desktopNavItems = navItems.filter(item => item.id !== 'notifications');
   const currentIndex = fontSizes.indexOf(fontSize);
 
   useEffect(() => {
@@ -60,7 +68,8 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
   return (
     <div>
       <header ref={ref} className="fixed top-0 left-0 right-0 z-40  shadow-lg" style={{ background: 'var(--color-legislation-header-gradient)' }}>
-        <div className="px-20 pt-4 flex items-center justify-between" dir="ltr">
+        {/* Top Header Row */}
+        <div className="px-20 pt-4 pb-2 flex items-center justify-between" dir="ltr">
           <div className="flex items-center gap-4">
             <button
               className="lg:hidden p-2 text-white hover:bg-white/10 rounded-lg transition-colors"
@@ -82,13 +91,14 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
           </div>
         </div>
 
+        {/* Main Navigation Row */}
         <div
           className="hidden lg:flex! px-20 py-4 items-center justify-between"
           dir={isArabic ? 'rtl' : 'ltr'}
         >
           {/* Navigation */}
           <nav className="flex items-center gap-8">
-            {navItems.map(item => (
+            {desktopNavItems.map(item => (
               <button
                 key={item.id}
                 onClick={() => onNavigate(item.id)}
@@ -113,6 +123,7 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
           </nav>
 
           <div className="flex items-center gap-4">
+            {/* Font Size Controls */}
             <div className="flex items-center gap-1.5">
               <button
                 onClick={handleDecreaseFontSize}
@@ -138,6 +149,7 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
               </button>
             </div>
 
+            {/* Language Switcher */}
             <button
               onClick={() => handleSetLanguage(language === 'en' ? 'ar' : 'en')}
               className="flex items-center gap-2 px-2.5 py-1.5 rounded-md hover:bg-white/10 transition-all text-sm font-semibold"
@@ -149,19 +161,39 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
               {language === 'en' ? 'AR' : 'EN'}
             </button>
 
-            <button className="relative p-1.5 rounded-md hover:bg-white/10 transition-all">
-              <Bell className="h-5.5 w-5.5 text-white" />
-              <span className="absolute top-1 right-1 w-2 h-2 rounded-full" style={{ backgroundColor: 'var(--color-legislation-active-indicator)' }} />
-            </button>
+            {/* Notifications Dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => setShowNotifications(!showNotifications)}
+                className={`relative p-1.5 rounded-md transition-all ${showNotifications ? 'bg-white/20' : 'hover:bg-white/10'
+                  }`}
+              >
+                <Bell className="h-5.5 w-5.5 text-white" />
+                {unreadCount > 0 && (
+                  <span
+                    className="absolute top-1 right-1 w-2.5 h-2.5 rounded-full border-2 border-[#1E3A8A] flex items-center justify-center animate-pulse"
+                    style={{ backgroundColor: 'var(--color-legislation-active-indicator)' }}
+                  >
+                    <span className="sr-only">{unreadCount}</span>
+                  </span>
+                )}
+              </button>
+
+              <NotificationsDropdown
+                isOpen={showNotifications}
+                onClose={() => setShowNotifications(false)}
+              />
+            </div>
 
             <AzureLoginButton variant="desktop" />
           </div>
         </div>
 
+        {/* Mobile Navigation Drawer */}
         <AnimatePresence>
           {showMobileMenu && (
             <>
-              {/* Backdrop covering the whole screen */}
+              {/* Backdrop */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -198,7 +230,7 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
                 </div>
 
                 <div className="flex-1 px-4 py-8 overflow-y-auto">
-                  {/* Navigation Links with Staggered Animation */}
+                  {/* Navigation Links */}
                   <motion.nav
                     variants={{
                       show: { transition: { staggerChildren: 0.07, delayChildren: 0.1 } },
@@ -230,22 +262,30 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
                           {item.id === 'dashboard' && <LayoutDashboard size={20} />}
                           {item.id === 'documents' && <FileText size={20} />}
                           {item.id === 'approved-opinions' && <CheckSquare size={20} />}
+                          {item.id === 'notifications' && <Bell size={20} />}
                         </div>
                         <span className="text-lg font-bold">{item.label}</span>
-                        {currentPage === item.id && (
-                          <motion.div
-                            layoutId="active-pill"
-                            className="ms-auto w-1.5 h-6 bg-[#908e81] rounded-full"
-                          />
-                        )}
+                        <div className="ms-auto flex items-center gap-3">
+                          {item.id === 'notifications' && unreadCount > 0 && (
+                            <span className="px-2 py-0.5 rounded-full bg-white/20 text-white text-[10px] font-bold">
+                              {unreadCount}
+                            </span>
+                          )}
+                          {currentPage === item.id && (
+                            <motion.div
+                              layoutId="active-pill"
+                              className="w-1.5 h-6 bg-[#908e81] rounded-full"
+                            />
+                          )}
+                        </div>
                       </motion.button>
                     ))}
                   </motion.nav>
 
                   <div className="h-px bg-white/10 my-8" />
 
-                  {/* Mobile Controls Section */}
-                  <div className="flex flex-col gap-5!">
+                  {/* Accessibility Controls */}
+                  <div className="flex flex-col gap-5">
                     <div className="flex flex-col gap-2 p-3 rounded-3xl bg-white/5 border border-white/10">
                       <div className="flex items-center justify-between">
                         <span className="text-white/60 text-sm font-bold uppercase tracking-wider">{t('legislationHeader.fontSize')}</span>
@@ -287,11 +327,10 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
                     <div className="pt-2">
                       <AzureLoginButton variant="mobile-drawer" className="w-full" showLoginText />
                     </div>
-
                   </div>
                 </div>
 
-                {/* Menu Footer */}
+                {/* Footer Section */}
                 <div className="p-8 border-t border-white/10 mt-auto bg-black/10">
                   <p className="text-white/30 text-xs text-center font-medium italic">
                     Financial Audit Authority &copy; {new Date().getFullYear()}
@@ -301,8 +340,7 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
             </>
           )}
         </AnimatePresence>
-
       </header >
     </div>
   );
-})
+});

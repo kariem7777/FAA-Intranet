@@ -11,7 +11,7 @@ const DocumentsManagementPage = lazy(() => import("@/features/Documents/pages/Do
 const ApprovedLegalOpinionsPage = lazy(() => import("@/features/LegalOpinions/pages/ApprovedLegalOpinionsPage"));
 const ApprovedOpinionDetailPage = lazy(() => import("@/features/LegalOpinions/pages/OpinionDetailPage"));
 const AddUserPage = lazy(() => import("@/features/authentication/pages/AddUserPage").then(m => ({ default: m.AddUserPage })));
-
+const NotificationsPage = lazy(() => import("@/features/Notifications/pages/NotificationsPage"));
 
 const router = createBrowserRouter([
     {
@@ -44,6 +44,14 @@ const router = createBrowserRouter([
                 element: (
                     <Suspense fallback={<Loading />}>
                         <ApprovedLegalOpinionsPage />
+                    </Suspense>
+                ),
+            },
+            {
+                path: "notifications",
+                element: (
+                    <Suspense fallback={<Loading />}>
+                        <NotificationsPage />
                     </Suspense>
                 ),
             },

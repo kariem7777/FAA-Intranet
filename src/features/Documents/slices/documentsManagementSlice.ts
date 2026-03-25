@@ -104,7 +104,7 @@ export const fetchDocuments = createAsyncThunk(
       const response = await documentsService.getDocuments({
         pageNumber: pagination.pageNumber,
         pageSize: pagination.pageSize,
-        searchQuery: filters.searchQuery,
+        searchKeyword: filters.searchQuery,
         entityId: filters.selectedEntity,
         categoryId: filters.selectedCategory,
         subCategoryId: filters.selectedSubCategory,
