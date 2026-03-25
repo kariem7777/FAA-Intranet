@@ -545,19 +545,19 @@
       "days_other": "{{count}} days ago"
     },
     "types": {
-      "new_opinion": {
+      "NewOpionion": {
         "title": "New Legal Opinion",
         "description": "A new legal opinion has been published in the legislation section."
       },
-      "admin_reply": {
+      "AdminReply": {
         "title": "New Admin Reply",
         "description": "An admin has replied to your enquiry regarding labor law."
       },
-      "user_reply": {
+      "UserReply": {
         "title": "New User Reply",
         "description": "User has replied to the conversation."
       },
-      "closed": {
+      "Closed": {
         "title": "Case Closed",
         "description": "The discussion on this case has been marked as closed."
       }

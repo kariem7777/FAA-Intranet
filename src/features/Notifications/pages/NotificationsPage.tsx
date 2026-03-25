@@ -21,7 +21,7 @@ export default function NotificationsPage() {
 
     const filters = [
         { id: 'all', label: t('notifications.filters.all') },
-        { id: 'new_opinion', label: t('notifications.filters.opinions') },
+        { id: 'newOpionion', label: t('notifications.filters.opinions') },
         { id: 'replies', label: t('notifications.filters.replies') },
         { id: 'unread', label: t('notifications.filters.unread') },
     ];
@@ -29,16 +29,16 @@ export default function NotificationsPage() {
     const filteredItems = useMemo(() => {
         if (activeFilter === 'all') return items;
         if (activeFilter === 'unread') return items.filter(n => !n.isRead);
-        if (activeFilter === 'replies') return items.filter(n => n.type === 'admin_reply' || n.type === 'user_reply');
+        if (activeFilter === 'replies') return items.filter(n => n.type === 'AdminReply' || n.type === 'UserReply');
         return items.filter(n => n.type === activeFilter);
     }, [items, activeFilter]);
 
     const getIcon = (type: string) => {
         switch (type) {
-            case 'new_opinion': return <MessageSquare className="w-5 h-5 text-blue-500" />;
-            case 'admin_reply': return <UserCircle className="w-5 h-5 text-indigo-500" />;
-            case 'user_reply': return <MessageSquare className="w-5 h-5 text-green-500" />;
-            case 'closed': return <CheckCircle2 className="w-5 h-5 text-faa-primary" />;
+            case 'NewOpionion': return <MessageSquare className="w-5 h-5 text-blue-500" />;
+            case 'AdminReply': return <UserCircle className="w-5 h-5 text-indigo-500" />;
+            case 'UserReply': return <MessageSquare className="w-5 h-5 text-green-500" />;
+            case 'Closed': return <CheckCircle2 className="w-5 h-5 text-faa-primary" />;
             default: return <Info className="w-5 h-5 text-gray-500" />;
         }
     };
@@ -82,11 +82,10 @@ export default function NotificationsPage() {
                     <button
                         key={filter.id}
                         onClick={() => setActiveFilter(filter.id)}
-                        className={`px-5 py-2 rounded-[1.2rem] text-sm font-bold transition-all ${
-                            activeFilter === filter.id
-                                ? 'bg-white text-faa-primary shadow-sm ring-1 ring-black/5'
-                                : 'text-gray-400 hover:text-gray-600'
-                        }`}
+                        className={`px-5 py-2 rounded-[1.2rem] text-sm font-bold transition-all ${activeFilter === filter.id
+                            ? 'bg-white text-faa-primary shadow-sm ring-1 ring-black/5'
+                            : 'text-gray-400 hover:text-gray-600'
+                            }`}
                     >
                         {filter.label}
                     </button>
@@ -113,19 +112,17 @@ export default function NotificationsPage() {
                                     dispatch(markAsRead(notification.id));
                                     if (notification.opinionId) navigate(`/opinions/${notification.opinionId}`);
                                 }}
-                                className={`w-full group flex flex-col sm:flex-row sm:items-center gap-4 p-6 rounded-3xl transition-all border text-start relative overflow-hidden ${
-                                    notification.isRead
-                                        ? 'bg-white border-gray-100 opacity-70 grayscale-[0.2] hover:opacity-100 hover:grayscale-0'
-                                        : 'bg-white border-faa-primary/10 shadow-md ring-1 ring-faa-primary/5 hover:border-faa-primary/20'
-                                }`}
+                                className={`w-full group flex flex-col sm:flex-row sm:items-center gap-4 p-6 rounded-3xl transition-all border text-start relative overflow-hidden ${notification.isRead
+                                    ? 'bg-white border-gray-100 opacity-70 grayscale-[0.2] hover:opacity-100 hover:grayscale-0'
+                                    : 'bg-white border-faa-primary/10 shadow-md ring-1 ring-faa-primary/5 hover:border-faa-primary/20'
+                                    }`}
                             >
                                 {!notification.isRead && (
                                     <div className="absolute top-0 bottom-0 start-0 w-1.5 bg-faa-primary" />
                                 )}
-                                
-                                <div className={`p-4 rounded-2xl shadow-sm border border-gray-100 self-start sm:self-center transition-transform group-hover:scale-110 duration-300 ${
-                                    notification.isRead ? 'bg-gray-50' : 'bg-faa-primary/5'
-                                }`}>
+
+                                <div className={`p-4 rounded-2xl shadow-sm border border-gray-100 self-start sm:self-center transition-transform group-hover:scale-110 duration-300 ${notification.isRead ? 'bg-gray-50' : 'bg-faa-primary/5'
+                                    }`}>
                                     {getIcon(notification.type)}
                                 </div>
 
@@ -162,7 +159,7 @@ export default function NotificationsPage() {
                             <div className="absolute top-6 right-6 w-4 h-4 rounded-full bg-gray-200 border-4 border-white" />
                         </div>
                         <h2 className="text-2xl font-black text-gray-900 mb-2">
-                            {activeFilter === 'all' 
+                            {activeFilter === 'all'
                                 ? t('notifications.noNotifications')
                                 : t('notifications.noResults')}
                         </h2>

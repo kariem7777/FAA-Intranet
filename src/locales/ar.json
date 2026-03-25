@@ -557,19 +557,19 @@
       "days_other": "منذ {{count}} يوم"
     },
     "types": {
-      "new_opinion": {
+      "NewOpionion": {
         "title": "رأى قانوني جديد",
         "description": "تم نشر رأي قانوني جديد في قسم التشريعات."
       },
-      "admin_reply": {
+      "AdminReply": {
         "title": "رد جديد من المشرف",
         "description": "قام المشرف بالرد على استفسارك المتعلق بقانون العمل."
       },
-      "user_reply": {
+      "UserReply": {
         "title": "رد جديد من المستخدم",
         "description": "قام المستخدم بالرد على المحادثة."
       },
-      "closed": {
+      "Closed": {
         "title": "إغلاق الحالة",
         "description": "تم إغلاق النقاش المتعلق بهذه الحالة."
       }

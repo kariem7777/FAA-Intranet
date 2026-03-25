@@ -21,7 +21,10 @@ export const fetchNotifications = createAsyncThunk(
     async (_, { rejectWithValue }) => {
         try {
             const response = await notificationsService.getNotifications();
-            return response.data;
+            if (response.data) {
+                return response.data;
+            }
+            return rejectWithValue(getErrorMessage(response));
         } catch (error: any) {
             return rejectWithValue(getErrorMessage(error));
         }
@@ -69,7 +72,7 @@ const notificationsSlice = createSlice({
             .addCase(fetchNotifications.fulfilled, (state, action: PayloadAction<Notification[]>) => {
                 state.loading = false;
                 state.items = action.payload;
-                state.unreadCount = action.payload.filter(n => !n.isRead).length;
+                state.unreadCount = action.payload.filter((n: Notification) => !n.isRead).length;
             })
             .addCase(fetchNotifications.rejected, (state, action) => {
                 state.loading = false;
