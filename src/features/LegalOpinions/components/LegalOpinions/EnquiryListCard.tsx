@@ -1,6 +1,7 @@
 import { Eye, Calendar, Building2 } from 'lucide-react';
 import { useTranslation } from '@/shared/hooks/useTranslation';
 import type { Enquiry } from '../../types';
+import { formatRelativeTime } from '@/shared/utils/dateUtils';
 
 interface EnquiryListCardProps {
     enquiry: Enquiry;
@@ -55,7 +56,7 @@ export function EnquiryListCard({ enquiry, onSelect }: EnquiryListCardProps) {
                     <div className="flex items-center gap-6 flex-wrap">
                         <div className="flex items-center gap-2">
                             <Calendar className="h-4 w-4 text-slate-400 flex-shrink-0" />
-                            <span className="text-slate-600 text-base">{enquiry.createdOnUtc}</span>
+                            <span className="text-slate-600 text-base">{formatRelativeTime(enquiry.createdOnUtc, t)}</span>
                         </div>
                     </div>
                     <div className="flex items-center gap-2">
