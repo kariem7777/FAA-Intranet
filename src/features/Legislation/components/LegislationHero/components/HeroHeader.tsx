@@ -2,7 +2,7 @@ import { Scale, Plus, ArrowLeft, Gavel, UserPlus } from "lucide-react";
 import { useTranslation } from "@/shared/hooks/useTranslation";
 
 interface HeroHeaderProps {
-    mode: "legislation" | "documents" | "approved-opinions" | "add-user";
+    mode: "legislation" | "documents" | "approved-opinions" | "opinions" | "add-user";
     title: string;
     description: string;
     onAddDocument?: () => void;
@@ -22,7 +22,7 @@ export function HeroHeader({
 
     const showBackButton = (mode === 'approved-opinions' || mode === 'add-user') && onBack;
     const showAddButton = mode === "documents" && onAddDocument;
-    const Icon = mode === 'approved-opinions' ? Gavel : mode === 'add-user' ? UserPlus : Scale;
+    const Icon = (mode === 'approved-opinions' || mode === 'opinions') ? Gavel : mode === 'add-user' ? UserPlus : Scale;
 
     return (
         <div className="mb-6">

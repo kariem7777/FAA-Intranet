@@ -37,7 +37,7 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
         defaultValues: {
             categoryId: 0,
             subCategoryId: 0,
-            entityId: 0,
+            entityId: null,
             classification: 1,
             documentNameEn: '',
             documentNameAr: '',
@@ -87,13 +87,8 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
             lawNameEn: data.lawNameEn || '',
             classification: data.classification,
             file: selectedFile,
+            entityId: data.entityId ? Number(data.entityId) : null,
         };
-
-        if (isEntityLegislation) {
-            newDocument.entityId = data.entityId ? Number(data.entityId) : 0;
-        } else {
-            newDocument.entityId = undefined
-        }
 
         try {
             const resultAction = await dispatch(addDocument(newDocument));
@@ -123,7 +118,7 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
             title={t('legislation.documentsManagement.dialogs.add.title')}
             size="large"
         >
-            <form onSubmit={handleSubmit(onValidSubmit)} dir={isArabic ? 'rtl' : 'ltr'} className="space-y-6">
+            <form onSubmit={handleSubmit(onValidSubmit)} noValidate dir={isArabic ? 'rtl' : 'ltr'} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {/* Document Name English */}
                     <div>
@@ -180,7 +175,6 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
                                     isLoading={categories.loading}
                                     error={categories.error}
                                     onRetry={handleRetryCategories}
-                                    required
                                     placeholder={t('legislation.documentsManagement.dialogs.add.selectCategory')}
                                 >
                                     {categories.items.map((cat) => (
@@ -209,7 +203,6 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
                                     isLoading={subCategories.loading}
                                     error={subCategories.error}
                                     onRetry={handleRetrySubCategories}
-                                    required
                                     placeholder={
                                         !categoryId
                                             ? t('legislation.documentsManagement.dialogs.add.selectCategoryFirst')
@@ -245,7 +238,6 @@ export function AddDocumentDialog({ isOpen, onClose }: AddDocumentDialogProps) {
                                         isLoading={entities.loading}
                                         error={entities.error}
                                         onRetry={handleRetryEntities}
-                                        required
                                         placeholder={t('legislation.documentsManagement.dialogs.add.selectEntity')}
                                     >
                                         {entities.items.map((entity) => (

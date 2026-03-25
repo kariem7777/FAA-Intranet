@@ -189,10 +189,11 @@ export const deleteDocument = createAsyncThunk(
   async (id: number, { rejectWithValue }) => {
     try {
       const response = await documentsService.deleteDocument(id);
-      if (response.message) {
-        return rejectWithValue(getErrorMessage(response));
+      console.log(response);
+      if (response.isSuccess) {
+        return id;
       }
-      return id;
+      return rejectWithValue(getErrorMessage(response));
     } catch (error: any) {
       return rejectWithValue(getErrorMessage(error));
     }

@@ -18,11 +18,17 @@ import {
   LegalOpinionsError,
   LegalOpinionsPagination,
 } from '../components';
+import { LegalOpinionsPageHeader } from '../components/LegalOpinions';
 import type { Enquiry } from '../types';
 import { LegislationHero } from '@/features/Legislation/components/LegislationHero/LegislationHero';
 
 
-export function ApprovedLegalOpinionsPage() {
+interface ApprovedLegalOpinionsPageProps {
+  onBack?: () => void;
+  onOpinionSelect?: (enquiry: Enquiry) => void;
+}
+
+export function ApprovedLegalOpinionsPage({ onBack, onOpinionSelect }: ApprovedLegalOpinionsPageProps) {
   const { isRTL } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -69,8 +75,12 @@ export function ApprovedLegalOpinionsPage() {
   }, [dispatch]);
 
   const handleEnquirySelect = useCallback((enquiry: Enquiry) => {
-    navigate(`/opinions/${enquiry.id}`);
-  }, [navigate]);
+    if (onOpinionSelect) {
+      onOpinionSelect(enquiry);
+    } else {
+      navigate(`/opinions/${enquiry.id}`);
+    }
+  }, [navigate, onOpinionSelect]);
 
   const handlePageChange = useCallback((page: number) => {
     dispatch(setApprovedPage(page));
@@ -88,10 +98,13 @@ export function ApprovedLegalOpinionsPage() {
       style={{ backgroundColor: 'rgb(250, 250, 248)' }}
       dir={isRTL ? 'rtl' : 'ltr'}
     >
+      {onBack && <LegalOpinionsPageHeader onBack={onBack} />}
       {/* Hero Banner */}
-      <LegislationHero
-        mode="approved-opinions"
-      />
+      {!onBack && (
+        <LegislationHero
+          mode="approved-opinions"
+        />
+      )}
 
       {/* Main Content */}
       <div className="pt-8 pb-20">

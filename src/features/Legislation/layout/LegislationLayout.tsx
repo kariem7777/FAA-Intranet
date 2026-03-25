@@ -3,7 +3,7 @@ import { LegislationHeader } from "../components/layout/LegislationHeader";
 import { useRef, useLayoutEffect, useState } from "react";
 import { LegislationLookupsProvider } from "../providers";
 
-type NavigationPage = 'home' | 'legislations' | 'dashboard' | 'documents' | 'search' | 'approved-opinions' | 'notifications' | null;
+type NavigationPage = 'home' | 'legislations' | 'dashboard' | 'documents' | 'search' | 'opinions' | 'notifications' | null;
 
 export const LegislationLayout = () => {
     const headerRef = useRef<HTMLElement>(null);
@@ -17,7 +17,7 @@ export const LegislationLayout = () => {
         if (path === '/legislations') return 'legislations';
         if (path === '/documents') return 'documents';
         if (path === '/search') return 'search';
-        if (path === '/approved-opinions') return 'approved-opinions';
+        if (path.startsWith('/opinions')) return 'opinions';
         if (path === '/notifications') return 'notifications';
         if (path === '/add-user') return null;
         return 'home';
@@ -40,8 +40,8 @@ export const LegislationLayout = () => {
             case 'search':
                 navigate('/search');
                 break;
-            case 'approved-opinions':
-                navigate('/approved-opinions');
+            case 'opinions':
+                navigate('/opinions');
                 break;
             case 'notifications':
                 navigate('/notifications');

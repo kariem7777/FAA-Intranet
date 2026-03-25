@@ -10,7 +10,7 @@ import { performGlobalSearch, setGlobalSearchQuery, clearSearch } from "../../sl
 
 interface LegislationBannerProps {
   handleCategorySearch?: (categoryId: number) => void;
-  mode?: "legislation" | "documents" | "approved-opinions" | "add-user";
+  mode?: "legislation" | "documents" | "approved-opinions" | "opinions" | "add-user";
   onAddDocument?: () => void;
   onBack?: () => void;
   onViewDocument?: (doc: any) => void;
@@ -46,6 +46,10 @@ export function LegislationHero({
     'add-user': {
       title: t('legislation.hero.addUserTitle'),
       description: t('legislation.hero.addUserDescription'),
+    },
+    'opinions': {
+      title: t('legislation.hero.opinionsTitle'),
+      description: t('legislation.hero.opinionsDescription'),
     },
   };
 

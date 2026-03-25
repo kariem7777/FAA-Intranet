@@ -50,8 +50,8 @@ export class DocumentsService extends BaseApiService {
     return response.data;
   }
 
-  public async deleteDocument(id: number): Promise<ApiResponse<void>> {
-    const response = await this.api.delete<ApiResponse<void>>(`/lawDocuments/${id}`);
+  public async deleteDocument(id: number): Promise<ApiResponse<null>> {
+    const response = await this.api.delete<ApiResponse<null>>(`/lawDocuments/${id}`);
     return response.data;
   }
 

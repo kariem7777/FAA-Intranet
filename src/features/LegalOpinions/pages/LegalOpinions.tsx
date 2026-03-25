@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import type { AppDispatch, RootState } from '@/store';
 import { useTranslation } from '@/shared/hooks/useTranslation';
 import type { Enquiry } from '../types';
@@ -9,8 +10,8 @@ import {
 } from '../slices/EnquiriesSlice';
 import useDebounce from '@/shared/hooks/useDebouncing';
 import { LegalOpinionsPagination } from '../components';
+import { LegislationHero } from '@/features/Legislation/components/LegislationHero/LegislationHero';
 import {
-    LegalOpinionsPageHeader,
     LegalOpinionsPageFilters,
     EnquiryListCard,
     AddEnquiryModal,
@@ -19,13 +20,11 @@ import {
 } from '../components/LegalOpinions';
 import toast from 'react-hot-toast';
 
-interface LegalOpinionsPageProps {
-    onBack: () => void;
-    onOpinionSelect?: (enquiry: Enquiry) => void;
-}
 
-export function LegalOpinions({ onBack, onOpinionSelect }: LegalOpinionsPageProps) {
+
+export function LegalOpinions() {
     const dispatch = useDispatch<AppDispatch>();
+    const navigate = useNavigate();
     const { t, isRTL, language } = useTranslation();
     const isArabic = language === 'ar';
 
@@ -90,6 +89,9 @@ export function LegalOpinions({ onBack, onOpinionSelect }: LegalOpinionsPageProp
         dispatch(setDepartmentFilter(''));
         dispatch(setStatusFilter(''));
     };
+    const handleEnquirySelect = useCallback((enquiry: Enquiry) => {
+        navigate(`/opinions/${enquiry.id}`);
+    }, [navigate]);
 
     return (
         <div style={{ backgroundColor: 'rgb(250, 250, 248)' }} dir={isRTL ? 'rtl' : 'ltr'}>
@@ -103,7 +105,7 @@ export function LegalOpinions({ onBack, onOpinionSelect }: LegalOpinionsPageProp
                 onSubmit={handleAddEnquiry}
             />
 
-            <LegalOpinionsPageHeader onBack={onBack} />
+            <LegislationHero mode="opinions" />
 
             <LegalOpinionsPageFilters
                 filters={filters}
@@ -141,7 +143,7 @@ export function LegalOpinions({ onBack, onOpinionSelect }: LegalOpinionsPageProp
                                         <EnquiryListCard
                                             key={enquiry.id}
                                             enquiry={enquiry}
-                                            onSelect={(e) => onOpinionSelect?.(e)}
+                                            onSelect={handleEnquirySelect}
                                         />
                                     ))}
                                 </div>

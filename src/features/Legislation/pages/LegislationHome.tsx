@@ -7,7 +7,7 @@ import { LegislationCategoriesGrid } from '../components/Home/LegislationCategor
 import { ImportantNoticeCard } from '../components/Home/Notice/ImportantNoticeCard';
 import { ImportantNoticeModal } from '../components/Home/Notice/ImportantNoticeModal';
 import { resetSubCategories, clearSearch } from '../slices/legislationSlice';
-import { LegalOpinions } from '@/features/LegalOpinions/pages/LegalOpinions';
+import { ApprovedLegalOpinionsPage } from '@/features/LegalOpinions/pages/ApprovedLegalOpinionsPage';
 import { OpinionDetailPage } from '@/features/LegalOpinions/pages/OpinionDetailPage';
 import { LegislationDocumentsPage } from '@/features/Documents/pages/LegislationDocumentsPage';
 import { LegislationDocumentViewer } from '@/features/Documents/pages/LegislationDocumentViewer';
@@ -95,7 +95,7 @@ function LegislationHome() {
       }
 
       return (
-        <LegalOpinions
+        <ApprovedLegalOpinionsPage
           onBack={() => setSelectedCategoryId(null)}
           onOpinionSelect={(enquiry) => setSelectedEnquiryId(enquiry.id)}
         />

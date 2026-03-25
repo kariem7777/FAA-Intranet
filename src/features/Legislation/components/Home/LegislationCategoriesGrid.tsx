@@ -28,10 +28,10 @@ const item: any = {
 
 const LegalOpinionsCategory: LawCategory = {
     id: 0,
-    lawCategoryEn: "Legal Opinions",
-    lawCategoryAr: "الآراء القانونية",
-    descriptionEn: "Legal opinions and consultations issued by the Authority",
-    descriptionAr: "الآراء والاستشارات القانونية الصادرة عن الهيئة",
+    lawCategoryEn: "Approved Legal Opinions",
+    lawCategoryAr: "الآراء القانونية المعتمدة",
+    descriptionEn: "Browse and search through legal opinions and consultations issued by the Authority.",
+    descriptionAr: "تصفح وابحث في الآراء القانونية والاستشارات الصادرة عن الهيئة.",
     color: '#2F4F6F',
     slug: 'legal-opinion',
     imagePath: '/src/assets/categories/legal-opinions.png',

@@ -324,6 +324,8 @@
       "documentsDescription": "Manage, upload, and organize legal documents with advanced control and tracking capabilities.",
       "approvedOpinionsTitle": "Approved Legal Opinions",
       "approvedOpinionsDescription": "Browse and search through approved legal opinions across different departments. Access comprehensive legal guidance and official rulings.",
+      "opinionsTitle": "Legal Consultations",
+      "opinionsDescription": "Manage and track legal inquiries, consultations, and requests for guidance submitted by various entities.",
       "addNewDocument": "Add New Document",
       "selectEntityFirst": "Select an Entity First",
       "searchAllLegislations": "Search all legislations...",

@@ -19,6 +19,7 @@ export interface BaseResponse {
 
 export interface ApiResponse<T = unknown> extends BaseResponse {
   data?: T;
+  isSuccess?: boolean;
 }
 
 export type PaginatedResponse<T = unknown> = ApiResponse<PaginatedData<T>>;

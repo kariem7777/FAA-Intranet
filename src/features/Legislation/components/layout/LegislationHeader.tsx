@@ -12,8 +12,8 @@ import { ROLES } from '@/features/authentication/constants/roles';
 import { NotificationsDropdown, fetchNotifications } from '@/features/Notifications';
 
 interface LegislationHeaderProps {
-  currentPage: 'home' | 'legislations' | 'dashboard' | 'documents' | 'search' | 'approved-opinions' | 'notifications' | null;
-  onNavigate: (page: 'home' | 'legislations' | 'dashboard' | 'documents' | 'search' | 'approved-opinions' | 'notifications') => void;
+  currentPage: 'home' | 'legislations' | 'dashboard' | 'documents' | 'search' | 'opinions' | 'notifications' | null;
+  onNavigate: (page: 'home' | 'legislations' | 'dashboard' | 'documents' | 'search' | 'opinions' | 'notifications') => void;
 }
 
 export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>(({
@@ -43,7 +43,7 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
     { id: 'home' as const, label: t('legislationHeader.home'), roles: ['ALL'] },
     { id: 'dashboard' as const, label: t('legislationHeader.dashboard'), roles: [ROLES.Legal_Admin, ROLES.Legal_Super_Admin] },
     { id: 'documents' as const, label: t('legislationHeader.documents'), roles: [ROLES.Legal_Admin, ROLES.Legal_Super_Admin] },
-    { id: 'approved-opinions' as const, label: t('legislationHeader.approvedOpinions'), roles: ['ALL'] },
+    { id: 'opinions' as const, label: t('legalOpinions.breadcrumbLegal'), roles: ['ALL'] },
     { id: 'notifications' as const, label: t('notifications.title'), roles: ['ALL'] },
   ];
 
@@ -261,7 +261,7 @@ export const LegislationHeader = forwardRef<HTMLElement, LegislationHeaderProps>
                           {item.id === 'home' && <Home size={20} />}
                           {item.id === 'dashboard' && <LayoutDashboard size={20} />}
                           {item.id === 'documents' && <FileText size={20} />}
-                          {item.id === 'approved-opinions' && <CheckSquare size={20} />}
+                          {item.id === 'opinions' && <CheckSquare size={20} />}
                           {item.id === 'notifications' && <Bell size={20} />}
                         </div>
                         <span className="text-lg font-bold">{item.label}</span>

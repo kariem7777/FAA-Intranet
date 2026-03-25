@@ -6,7 +6,7 @@ export const documentSchema = z.object({
   documentNameAr: z.string().min(1, 'legislation.documentsManagement.validation.required'),
   categoryId: z.number().min(1, 'legislation.documentsManagement.validation.required'),
   subCategoryId: z.number().min(1, 'legislation.documentsManagement.validation.required'),
-  entityId: z.number().optional(),
+  entityId: z.number().nullable().optional(),
   lawNumber: z.string().optional(),
   lawNameAr: z.string().optional(),
   lawNameEn: z.string().optional(),

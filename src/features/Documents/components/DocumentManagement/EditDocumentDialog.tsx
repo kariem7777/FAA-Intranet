@@ -67,7 +67,6 @@ export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDi
         if (categoryId) dispatch(fetchSubCategoriesByCategory({ categoryId }));
     };
     const handleRetryEntities = () => dispatch(fetchEntities());
-
     const onValidSubmit = async (data: DocumentFormData) => {
         if (isEntityLegislation && (!data.entityId || data.entityId === 0)) {
             setError('entityId', { type: 'manual', message: 'legislation.documentsManagement.validation.selectEntity' });
@@ -87,9 +86,7 @@ export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDi
         };
 
         if (isEntityLegislation) {
-            updatedDocument.entityId = data.entityId ? Number(data.entityId) : 0;
-        } else {
-            updatedDocument.entityId = undefined
+            updatedDocument.entityId = data.entityId ? Number(data.entityId) : null;
         }
 
         const resultAction = await dispatch(updateDocument({
@@ -111,14 +108,13 @@ export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDi
     };
 
     if (!isOpen) return null;
-
     return (
         <Dialog
             onClose={onClose}
             title={t('legislation.documentsManagement.dialogs.edit.title')}
             size="large"
         >
-            <form onSubmit={handleSubmit(onValidSubmit)} dir={isArabic ? 'rtl' : 'ltr'} className="space-y-6">
+            <form onSubmit={handleSubmit(onValidSubmit)} noValidate dir={isArabic ? 'rtl' : 'ltr'} className="space-y-6">
                 {/* General Details Section */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {/* Document Name English */}
@@ -176,7 +172,6 @@ export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDi
                                     isLoading={categories.loading}
                                     error={categories.error}
                                     onRetry={handleRetryCategories}
-                                    required
                                     placeholder={t('legislation.documentsManagement.dialogs.edit.selectCategory')}
                                 >
                                     {categories.items.map((cat) => (
@@ -203,7 +198,6 @@ export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDi
                                     isLoading={subCategories.loading}
                                     error={subCategories.error}
                                     onRetry={handleRetrySubCategories}
-                                    required
                                     placeholder={
                                         !categoryId
                                             ? t('legislation.documentsManagement.dialogs.edit.selectCategoryFirst')
@@ -238,7 +232,6 @@ export function EditDocumentDialog({ isOpen, onClose, document }: EditDocumentDi
                                     isLoading={entities.loading}
                                     error={entities.error}
                                     onRetry={handleRetryEntities}
-                                    required
                                     placeholder={t('legislation.documentsManagement.dialogs.edit.selectEntity')}
                                 >
                                     {entities.items.map((entity) => (

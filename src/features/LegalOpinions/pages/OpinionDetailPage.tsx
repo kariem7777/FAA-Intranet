@@ -67,7 +67,7 @@ export function OpinionDetailPage({ id: propId, status, onBack: onBackProp }: { 
     if (onBackProp) {
       onBackProp();
     } else {
-      navigate('/approved-opinions');
+      navigate('/opinions');
     }
   }, [navigate, onBackProp]);
 

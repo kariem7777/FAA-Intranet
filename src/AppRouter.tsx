@@ -9,6 +9,7 @@ const LegislationHome = lazy(() => import("@/features/Legislation/pages/Legislat
 const LegislationDashboardPage = lazy(() => import("@/features/Dashboard/pages/LegislationDashboardPage"));
 const DocumentsManagementPage = lazy(() => import("@/features/Documents/pages/DocumentsManagementPage").then(module => ({ default: module.DocumentsManagementPage })));
 const ApprovedLegalOpinionsPage = lazy(() => import("@/features/LegalOpinions/pages/ApprovedLegalOpinionsPage"));
+const LegalOpinionsPage = lazy(() => import("@/features/LegalOpinions/pages/LegalOpinions").then(m => ({ default: m.LegalOpinions })));
 const ApprovedOpinionDetailPage = lazy(() => import("@/features/LegalOpinions/pages/OpinionDetailPage"));
 const AddUserPage = lazy(() => import("@/features/authentication/pages/AddUserPage").then(m => ({ default: m.AddUserPage })));
 const NotificationsPage = lazy(() => import("@/features/Notifications/pages/NotificationsPage"));
@@ -28,6 +29,14 @@ const router = createBrowserRouter([
                 element: (
                     <Suspense fallback={<Loading />}>
                         <LegislationHome />
+                    </Suspense>
+                ),
+            },
+            {
+                path: "opinions",
+                element: (
+                    <Suspense fallback={<Loading />}>
+                        <LegalOpinionsPage />
                     </Suspense>
                 ),
             },
