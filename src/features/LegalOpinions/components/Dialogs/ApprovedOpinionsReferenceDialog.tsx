@@ -9,6 +9,9 @@ import toast from 'react-hot-toast';
 import { useDialogPortal } from '@/shared/hooks/useDialogPortal';
 import { MessageDetailsDialog } from './MessageDetailsDialog';
 import { QuillViewer } from '@/shared/components/QuillViewer';
+import { FetchingSelect } from '@/shared/components/Select/FetchingSelect';
+import { fetchDepartments } from '@/features/Legislation/slices/legislationSlice';
+import type { RootState } from '@/store';
 
 interface ApprovedOpinionsReferenceDialogProps {
     onClose: () => void;
@@ -29,8 +32,11 @@ export function ApprovedOpinionsReferenceDialog({
 
     const [searchQuery, setSearchQuery] = useState('');
     const [debouncedSearchQuery, setDebouncedSearchQuery] = useState('');
+    const [selectedDeptId, setSelectedDeptId] = useState<number>(0);
     const [expandedOpinionId, setExpandedOpinionId] = useState<number | null>(null);
     const [copiedOpinionId, setCopiedOpinionId] = useState<number | null>(null);
+
+    const { departments } = useAppSelector((state: RootState) => state.legislationSlice);
 
     const isLongMessage = (content: string) => {
         const strippedText = content.replace(/<[^>]*>/g, '');
@@ -53,6 +59,12 @@ export function ApprovedOpinionsReferenceDialog({
         accent: '#e5ddc8',
     };
 
+    useEffect(() => {
+        if (departments.items.length === 0) {
+            dispatch(fetchDepartments());
+        }
+    }, [dispatch, departments.items.length]);
+
     // Debounce search
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -66,14 +78,16 @@ export function ApprovedOpinionsReferenceDialog({
     useEffect(() => {
         dispatch(fetchApprovedOpinions({
             searchText: debouncedSearchQuery,
+            departmentId: selectedDeptId || undefined,
             pageNumber: pagination.pageNumber,
             pageSize: 5
         }));
-    }, [dispatch, debouncedSearchQuery, pagination.pageNumber]);
+    }, [dispatch, debouncedSearchQuery, selectedDeptId, pagination.pageNumber]);
 
     const handlePageChange = (newPage: number) => {
         dispatch(fetchApprovedOpinions({
             searchText: debouncedSearchQuery,
+            departmentId: selectedDeptId || undefined,
             pageNumber: newPage,
             pageSize: 5
         }));
@@ -200,9 +214,10 @@ export function ApprovedOpinionsReferenceDialog({
                         </button>
                     </div>
 
-                    {/* Search Bar */}
-                    <div className="mt-4">
-                        <div className="relative">
+                    {/* Filters Container */}
+                    <div className="mt-4 flex flex-col md:flex-row items-center gap-3">
+                        {/* Search Bar */}
+                        <div className="relative flex-1 w-full text-gray-900">
                             <Search
                                 className="absolute top-1/2 transform -translate-y-1/2"
                                 style={{
@@ -225,8 +240,41 @@ export function ApprovedOpinionsReferenceDialog({
                                     fontFamily,
                                     fontSize: '15px',
                                     outline: 'none',
+                                    height: '42px'
                                 }}
                             />
+                        </div>
+
+                        {/* Department Dropdown */}
+                        <div className="w-full md:w-64">
+                            <FetchingSelect
+                                id="dept-filter"
+                                label={t('legalOpinions.department', 'Department')}
+                                value={Number(selectedDeptId)}
+                                onChange={(val) => {
+                                    const numVal = Number(val);
+                                    setSelectedDeptId(numVal);
+                                    dispatch(fetchApprovedOpinions({
+                                        searchText: debouncedSearchQuery,
+                                        departmentId: numVal || undefined,
+                                        pageNumber: 1,
+                                        pageSize: 5
+                                    }));
+                                }}
+                                isLoading={departments.loading}
+                                error={departments.error}
+                                onRetry={() => dispatch(fetchDepartments())}
+                                placeholder={t('legalOpinions.allDepartments', 'All Departments')}
+                                className="w-full rounded-lg shadow-sm border-none bg-white/95 h-[42px]"
+                                hideLabel
+                            >
+                                {/* <option value="0">{t('legalOpinions.allDepartments', 'All Departments')}</option> */}
+                                {departments.items.map((dept) => (
+                                    <option key={dept.id} value={dept.id}>
+                                        {isArabic ? dept.departmentNameAr : dept.departmentNameEn}
+                                    </option>
+                                ))}
+                            </FetchingSelect>
                         </div>
                     </div>
                 </div>
@@ -435,7 +483,6 @@ export function ApprovedOpinionsReferenceDialog({
                                                         >
                                                             {isLongMessage(approvedReply.content) ? (
                                                                 <>
-                                                                    hnaasdas
                                                                     <QuillViewer html={approvedReply.content} />
 
                                                                     <div
@@ -452,7 +499,6 @@ export function ApprovedOpinionsReferenceDialog({
                                                                 </>
                                                             ) : (
                                                                 <>
-                                                                    hnass
                                                                     <QuillViewer html={approvedReply.content} />
                                                                     <div
                                                                         className="line-clamp-4 break-words w-full overflow-hidden rich-text-content"
