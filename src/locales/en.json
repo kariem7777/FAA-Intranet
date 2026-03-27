@@ -17,7 +17,8 @@
     "close": "Close",
     "unknownError": "An unknown error occurred",
     "unexpectedError": "An unexpected error occurred",
-    "networkError": "Network Error: Please check your internet connection and try again."
+    "networkError": "Network Error: Please check your internet connection and try again.",
+    "badRequest": "Bad Request: The server could not understand the request."
   },
   "legalOpinions": {
     "breadcrumbLegal": "Legal Opinions",
@@ -547,7 +548,7 @@
       "days_other": "{{count}} days ago"
     },
     "types": {
-      "NewOpionion": {
+      "NewOpinion": {
         "title": "New Legal Opinion",
         "description": "A new legal opinion has been published in the legislation section."
       },

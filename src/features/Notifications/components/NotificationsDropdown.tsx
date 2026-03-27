@@ -50,7 +50,7 @@ export function NotificationsDropdown({ isOpen, onClose }: NotificationsDropdown
 
     const getIcon = (type: string) => {
         switch (type) {
-            case 'NewOpionion': return <MessageSquare className="w-4 h-4 text-blue-500" />;
+            case 'NewOpinion': return <MessageSquare className="w-4 h-4 text-blue-500" />;
             case 'AdminReply': return <UserCircle className="w-4 h-4 text-indigo-500" />;
             case 'UserReply': return <MessageSquare className="w-4 h-4 text-green-500" />;
             case 'Closed': return <CheckCircle2 className="w-4 h-4 text-faa-primary" />;

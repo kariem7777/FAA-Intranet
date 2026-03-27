@@ -12,6 +12,11 @@ export const getErrorMessage = (error: any): string => {
     return i18n.t('common.networkError');
   }
 
+  // Check for Bad Request (400)
+  if (error.code === 'ERR_BAD_REQUEST') {
+    return i18n.t('common.badRequest');
+  }
+
   // Handling the INTERNAL_ERROR code specifically for a user-friendly message
   if (error.code === 'INTERNAL_ERROR' ||
     error.response?.data?.code === 'INTERNAL_ERROR' ||

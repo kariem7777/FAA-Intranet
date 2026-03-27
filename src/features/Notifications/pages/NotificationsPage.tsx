@@ -35,7 +35,7 @@ export default function NotificationsPage() {
 
     const getIcon = (type: string) => {
         switch (type) {
-            case 'NewOpionion': return <MessageSquare className="w-5 h-5 text-blue-500" />;
+            case 'NewOpinion': return <MessageSquare className="w-5 h-5 text-blue-500" />;
             case 'AdminReply': return <UserCircle className="w-5 h-5 text-indigo-500" />;
             case 'UserReply': return <MessageSquare className="w-5 h-5 text-green-500" />;
             case 'Closed': return <CheckCircle2 className="w-5 h-5 text-faa-primary" />;

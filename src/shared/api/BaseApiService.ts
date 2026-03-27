@@ -23,6 +23,9 @@ export class BaseApiService {
 
     this.api.interceptors.request.use(
       async (config) => {
+        const language = localStorage.getItem('faa-intranet-language') || 'ar';
+        config.headers['Accept-Language'] = language;
+
         const account = msalInstance.getActiveAccount();
         if (account) {
           try {

@@ -3,7 +3,7 @@ import type { ApiResponse } from '@/shared/api/types';
 
 export interface Notification {
     id: string;
-    type: 'NewOpionion' | 'AdminReply' | 'UserReply' | 'Closed';
+    type: 'NewOpinion' | 'AdminReply' | 'UserReply' | 'Closed';
     createdAt: string;
     isRead: boolean;
     opinionId?: string;
