@@ -283,6 +283,7 @@
         "noRecentCasesDescription": "No new cases have been created during this timeframe.",
         "noSLA": "No SLA Data",
         "noSLADescription": "SLA performance metrics are not available for the selected filters.",
+        "threshold": "Threshold",
         "updatedAgo": "Updated 1h ago",
         "inquiries": "inquiries",
         "status": {

@@ -5,7 +5,7 @@ import { useTranslation } from '@/shared/hooks/useTranslation';
 import { fetchEnquiriesMetrics, setQuarter, setYear } from '../slices/dashboardSlice';
 import { CaseStatusChart } from './enquries-components/CaseStatusChart';
 import { ConversationMetrics } from './enquries-components/ConversationMetrics';
-import { SLAPerformanceStatic } from './enquries-components/SLAPerformanceStatic';
+import { SLAPerformance } from './enquries-components/SLAPerformance';
 import { DepartmentInquiriesChart } from './enquries-components/DepartmentInquiriesChart';
 import { RecentCasesTable } from './enquries-components/RecentCasesTable';
 import { Calendar } from 'lucide-react';
@@ -14,7 +14,7 @@ import { Card } from '@/shared/components/ui/card';
 
 export function EnquiresDashboard() {
     const dispatch = useDispatch<AppDispatch>();
-    const { t } = useTranslation('legislation');
+    const { t, isRTL } = useTranslation('legislation');
     const { enquiriesData, filters } = useSelector((state: RootState) => state.dashboard);
 
     const quarters = [
@@ -33,6 +33,7 @@ export function EnquiresDashboard() {
     const caseStatusData = enquiriesData.metrics?.caseStatusMetrics || [];
     const departmentData = enquiriesData.metrics?.departmentMetrics || [];
     const conversationMetrics = enquiriesData.metrics?.conversationMetrics || [];
+    const slaMetrics = enquiriesData.metrics?.slaMetrics || { slaThresholdHours: 0, inquiriesWithinSla: 0, inquiriesExceededSla: 0 };
     const recentCases = enquiriesData.metrics?.recentCases || [];
     const loading = enquiriesData.loading;
     const error = enquiriesData.error;
@@ -81,7 +82,7 @@ export function EnquiresDashboard() {
             </div>
 
             {/* Period Filters Card */}
-            <Card className="bg-white rounded-xl shadow-sm border border-faa-primary/10 overflow-hidden">
+            <Card className="bg-white rounded-xl shadow-sm border border-faa-primary/10">
                 {/* Header Row */}
                 <div className="px-5 py-4 border-b border-gray-100 flex flex-wrap items-center justify-between gap-4 bg-gray-50/50">
                     <div className="flex items-center gap-2">
@@ -141,6 +142,7 @@ export function EnquiresDashboard() {
                             <YearPicker
                                 value={filters.year}
                                 onChange={(year: number) => dispatch(setYear(year))}
+                                align={isRTL ? 'left' : 'right'}
                             />
                         </div>
                     </div>
@@ -159,7 +161,7 @@ export function EnquiresDashboard() {
                     <ConversationMetrics data={conversationMetrics} loading={loading} />
                 </div>
             </div>
-            <SLAPerformanceStatic isEmpty={caseStatusData.length === 0} />
+            <SLAPerformance data={slaMetrics} loading={loading} />
             <DepartmentInquiriesChart data={departmentData} loading={loading} />
             <RecentCasesTable data={recentCases} loading={loading} />
         </div>

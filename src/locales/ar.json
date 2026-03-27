@@ -283,6 +283,7 @@
         "noRecentCasesDescription": "لم يتم إنشاء أي حالات جديدة خلال هذا الإطار الزمني.",
         "noSLA": "لا توجد بيانات SLA",
         "noSLADescription": "مقاييس أداء SLA غير متوفرة للفلاتر المختارة.",
+        "threshold": "الحد الأقصى",
         "updatedAgo": "محدث منذ ساعة",
         "inquiries": "استفسار",
         "status": {

@@ -7,9 +7,10 @@ interface YearPickerProps {
     value: number;
     onChange: (year: number) => void;
     className?: string;
+    align?: 'left' | 'right';
 }
 
-export function YearPicker({ value, onChange, className = '' }: YearPickerProps) {
+export function YearPicker({ value, onChange, className = '', align = 'left' }: YearPickerProps) {
     const [isOpen, setIsOpen] = useState(false);
     const [decadeStart, setDecadeStart] = useState(() => Math.floor(value / 12) * 12);
     const { isRTL } = useTranslation();
@@ -52,7 +53,7 @@ export function YearPicker({ value, onChange, className = '' }: YearPickerProps)
                         animate={{ opacity: 1, y: 4, scale: 1 }}
                         exit={{ opacity: 0, y: 8, scale: 0.96 }}
                         transition={{ duration: 0.15, ease: 'easeOut' }}
-                        className={`absolute z-50 mt-1 bg-white border border-gray-200 rounded-xl shadow-xl p-3 ${isRTL ? 'right-0' : 'left-0'}`}
+                        className={`absolute z-50 mt-1 bg-white border border-gray-200 rounded-xl shadow-xl p-3 ${align === 'right' ? 'right-0' : 'left-0'}`}
                         style={{ width: 240 }}
                     >
                         {/* Header — decade navigation */}

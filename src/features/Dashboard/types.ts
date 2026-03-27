@@ -25,10 +25,16 @@ export interface RecentCase {
     timeLength: string;
     status: string;
 }
+export interface SLAMetrics {
+    slaThresholdHours: number,
+    inquiriesWithinSla: number,
+    inquiriesExceededSla: number
+}
 export interface EnquiriesMetrics {
     caseStatusMetrics: CaseStatusData[];
     departmentMetrics: DepartmentInquiry[];
     conversationMetrics: ConversationMetric[];
+    slaMetrics: SLAMetrics
     recentCases: RecentCase[];
 }
 export interface QuarterUploadData {
