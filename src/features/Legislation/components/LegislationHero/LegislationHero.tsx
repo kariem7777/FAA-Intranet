@@ -57,15 +57,7 @@ export function LegislationHero({
   const showSearchBar = mode === "legislation";
   const showSearchResults = globalSearchQuery && (searchResults.length > 0 || opinionResults.length > 0);
 
-  useEffect(() => {
-    if (globalSearchQuery.trim()) {
-      const timer = setTimeout(() => {
-        dispatch(performGlobalSearch());
-      }, 500);
 
-      return () => clearTimeout(timer);
-    }
-  }, [globalSearchQuery, dispatch]);
 
   useEffect(() => {
     // Clear search when changing modes (e.g., from legislation to dashboard)
@@ -78,6 +70,11 @@ export function LegislationHero({
 
   const handleClearSearch = () => {
     dispatch(setGlobalSearchQuery(''));
+    dispatch(clearSearch());
+  };
+
+  const handleSearch = () => {
+    dispatch(performGlobalSearch());
   };
 
   const handleCategoryClick = (categoryId: number) => {
@@ -102,6 +99,7 @@ export function LegislationHero({
             value={globalSearchQuery}
             onChange={handleSearchChange}
             onClear={handleClearSearch}
+            onSearch={handleSearch}
           />
         )}
       </div>
