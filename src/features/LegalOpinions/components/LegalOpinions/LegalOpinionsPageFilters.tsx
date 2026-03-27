@@ -180,12 +180,6 @@ export function LegalOpinionsPageFilters({
                                             >
                                                 <div className="flex items-center gap-2">
                                                     <span className="text-base text-slate-700">{opt.label}</span>
-                                                    <span
-                                                        className="inline-flex items-center justify-center min-w-[24px] h-6 px-2 rounded-full text-sm text-white font-semibold"
-                                                        style={{ backgroundColor: opt.color }}
-                                                    >
-                                                        {statusCounts[opt.value]}
-                                                    </span>
                                                 </div>
                                                 {Number(filters.status) === opt.value && filters.status !== '' && <div className="w-2 h-2 rounded-full bg-legislation-active-indicator" />}
                                             </button>
