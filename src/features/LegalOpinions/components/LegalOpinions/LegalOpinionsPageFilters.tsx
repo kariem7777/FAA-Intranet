@@ -33,7 +33,6 @@ interface LegalOpinionsPageFiltersProps {
 export function LegalOpinionsPageFilters({
     filters,
     departments,
-    statusCounts,
     onSearchSubmit,
     onStatusChange,
     onDepartmentChange,
