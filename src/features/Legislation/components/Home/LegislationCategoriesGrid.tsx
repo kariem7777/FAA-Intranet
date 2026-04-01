@@ -6,6 +6,7 @@ import type { RootState } from '@/store';
 import { useTranslation } from '@/shared/hooks/useTranslation';
 import { AlertCircle } from 'lucide-react';
 import type { LawCategory } from '../../types';
+import legalOpinionsEmblem from '@/assets/categories/legal-opinions.png';
 
 interface LegislationCategoriesGridProps {
     onCategorySelect: (id: number) => void;
@@ -34,7 +35,7 @@ const LegalOpinionsCategory: LawCategory = {
     descriptionAr: "تصفح وابحث في الآراء القانونية والاستشارات الصادرة عن الهيئة.",
     color: '#2F4F6F',
     slug: 'legal-opinion',
-    imagePath: '/src/assets/categories/legal-opinions.png',
+    imagePath: legalOpinionsEmblem,
     isActive: true,
 }
 

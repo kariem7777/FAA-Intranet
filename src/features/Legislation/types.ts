@@ -8,6 +8,7 @@ export interface LawCategory {
   slug: string;
   imagePath: string;
   isActive: boolean;
+  img?: React.ReactNode;
 }
 
 export interface LawSubCategory {
