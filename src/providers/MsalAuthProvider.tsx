@@ -7,8 +7,8 @@ interface MsalAuthProviderProps {
 
 /**
  * MsalAuthProvider wraps the app with MsalProvider.
- * MSAL initialization and handleRedirectPromise() are done in main.jsx
- * BEFORE this component renders, so no need to re-initialize here.
+ * MSAL initialization and redirect handling are coordinated by AuthGate.
+ * This provider only supplies the shared MSAL instance to React.
  */
 export const MsalAuthProvider = ({ children }: MsalAuthProviderProps) => {
     return <MsalProvider instance={msalInstance}>{children}</MsalProvider>;

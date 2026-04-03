@@ -45,7 +45,7 @@ export const AddUserPage = () => {
         control,
         handleSubmit,
         formState: { errors },
-    } = useForm({
+    } = useForm<AddUserFormData>({
         resolver: zodResolver(addUserSchema),
         defaultValues: initialForm,
         mode: 'onChange'
@@ -55,6 +55,7 @@ export const AddUserPage = () => {
         dispatch(resetAddUser());
         dispatch(fetchRoles());
         dispatch(fetchJobTitles());
+        dispatch(fetchDepartments());
     }, [dispatch]);
 
     useEffect(() => {
@@ -68,7 +69,7 @@ export const AddUserPage = () => {
     }, [success, dispatch, navigate]);
 
     const onSubmit = (data: AddUserFormData) => {
-        dispatch(addUser(data as any));
+        dispatch(addUser(data));
     };
 
     const handleRetryRoles = () => dispatch(fetchRoles());

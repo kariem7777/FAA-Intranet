@@ -17,8 +17,18 @@ export function DocumentsByCategoryChart({ data, loading }: DocumentsByCategoryC
     }
 
     const CHART_HEIGHT = 240;
-    const MAX_VALUE = 350;
-    const Y_AXIS_VALUES = [350, 280, 210, 140, 70, 0];
+    const maxDataValue = Math.max(...data.map(d => d.count), 0);
+    const niceStep = Math.pow(10, Math.max(Math.floor(Math.log10(maxDataValue / 5)), 0));
+    const step = Math.ceil((maxDataValue / 5) / niceStep) * niceStep || 10;
+    const MAX_VALUE = step * 5;
+    const Y_AXIS_VALUES = [
+        MAX_VALUE,
+        step * 4,
+        step * 3,
+        step * 2,
+        step,
+        0
+    ];
 
     return (
         <Card className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">

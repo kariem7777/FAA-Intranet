@@ -1,16 +1,41 @@
-# React + Vite
+# FAA Intranet
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Internal React + Vite application for legislation, legal opinions, documents, notifications, dashboards, and Azure AD-backed authentication flows.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- React 19
+- Vite 7
+- TypeScript
+- Redux Toolkit
+- React Router 7
+- Tailwind CSS 4
+- MSAL for Azure authentication
 
-## React Compiler
+## Project Structure
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- `src/features` feature modules for legislation, documents, legal opinions, dashboard, notifications, and authentication
+- `src/shared` shared UI, hooks, API helpers, pages, and utilities
+- `src/providers` app-level providers for Redux, auth, dialogs, and toasts
+- `src/store` Redux store setup and typed hooks
+- `public` static assets
+- `Azure` isolated Azure auth experiments and support files
 
-## Expanding the ESLint configuration
+## Scripts
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- `npm run dev` starts the Vite dev server
+- `npm run build` runs TypeScript checks and creates the production bundle
+- `npm run lint` runs ESLint across the repository
+- `npm run preview` serves the production build locally
+
+On Windows PowerShell, `npm.cmd run <script>` may be needed if execution policies block `npm`.
+
+## Environment
+
+Create a `.env` file with the backend and Azure values required by the app. The Vite dev server proxy reads `VITE_BACKEND_URL`.
+
+## Cleanup Highlights
+
+- Routing is centralized in `src/AppRouter.tsx`
+- Shared UI primitives live under `src/shared/components/ui`
+- Async feature data is managed with Redux Toolkit slices and thunks
