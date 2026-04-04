@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { motion } from 'framer-motion';
-import { useTranslation } from '@/shared/hooks/useTranslation';
 import type { RootState, AppDispatch } from '@/store';
 import { fetchDocumentDetails, clearSelectedDocument, setSelectedDocument } from '@/features/Documents/slices/documentsManagementSlice';
 import { BackButton } from '../components/LegislationDocumentViewer/BackButton';
@@ -16,7 +15,6 @@ interface LegislationDocumentViewerProps {
 }
 
 export function LegislationDocumentViewer({ documentId, onBack }: LegislationDocumentViewerProps) {
-    const { isRTL } = useTranslation();
     const dispatch = useDispatch<AppDispatch>();
 
     const { selectedDocument: document, items, loading, error } = useSelector((state: RootState) => state.documentsManagement);
@@ -40,7 +38,7 @@ export function LegislationDocumentViewer({ documentId, onBack }: LegislationDoc
     }, [dispatch]);
 
     const getPdfUrl = () => {
-        return document?.documentPhysicalPath || '';
+        return document?.documentPhysicalPath.replace('http', 'https') || '';
     };
 
     const documentUrl = getPdfUrl();
@@ -95,7 +93,6 @@ export function LegislationDocumentViewer({ documentId, onBack }: LegislationDoc
                     <div className="col-span-12 md:col-span-8">
                         <DocumentPreview
                             documentUrl={documentUrl}
-                            documentTitle={isRTL ? document.documentNameAr : document.documentNameEn}
                         />
                     </div>
                 </div>

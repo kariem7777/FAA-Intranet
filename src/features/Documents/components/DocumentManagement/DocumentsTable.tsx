@@ -34,27 +34,62 @@ export function DocumentsTable({
     const renderPagination = () => {
         if (totalPages <= 1) return null;
 
+        const getPageNumbers = () => {
+            const pages: (number | string)[] = [];
+            const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
+
+            if (isMobile) {
+                // Mobile: simple pagination
+                if (currentPage > 1) pages.push(currentPage - 1);
+                pages.push(currentPage);
+                if (currentPage < totalPages) pages.push(currentPage + 1);
+                return pages;
+            }
+
+            // Desktop (your original logic but slightly cleaner)
+            const maxVisible = 15;
+
+            if (totalPages <= maxVisible) {
+                for (let i = 1; i <= totalPages; i++) pages.push(i);
+            } else {
+                pages.push(1);
+
+                let start = Math.max(2, currentPage - 3);
+                let end = Math.min(totalPages - 1, currentPage + 3);
+
+                if (start > 2) pages.push('...');
+                for (let i = start; i <= end; i++) pages.push(i);
+                if (end < totalPages - 1) pages.push('...');
+
+                pages.push(totalPages);
+            }
+
+            return pages;
+        };
         return (
-            <div className="flex items-center justify-between px-6 py-3 border-t border-gray-100 bg-white">
-                <div className="flex items-center gap-2">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 px-4 sm:px-6 py-4 border-t border-gray-100 bg-white">
+                <div className="flex w-full sm:w-auto items-center justify-between sm:justify-center gap-2 order-2 sm:order-1">
                     <Button
                         variant="outline"
                         size="sm"
                         onClick={() => onPageChange(currentPage - 1)}
                         disabled={currentPage === 1}
-                        className="flex items-center gap-1"
+                        className="flex items-center gap-1 min-w-[36px] justify-center px-2 sm:px-3 flex-shrink-0 mt-0 sm:mt-0"
                     >
                         {isArabic ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
-                        {t('common.previous')}
+                        <span className="hidden sm:inline">{t('common.previous')}</span>
                     </Button>
-                    <div className="flex items-center gap-1 mx-2">
-                        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                    <div className="flex flex-1 sm:flex-none overflow-x-auto items-center justify-start sm:justify-center gap-1 px-1 pb-2 sm:pb-0 pt-1">
+                        {getPageNumbers().map((page, index) => (
                             <button
-                                key={page}
-                                onClick={() => onPageChange(page)}
-                                className={`w-8 h-8 rounded-md text-sm font-medium transition-colors ${currentPage === page
-                                    ? 'bg-dashboard-primary text-white'
-                                    : 'text-gray-600 hover:bg-gray-100'
+                                key={index}
+                                onClick={() => typeof page === 'number' ? onPageChange(page) : undefined}
+                                disabled={typeof page !== 'number'}
+                                className={`w-8 h-8 flex-shrink-0 rounded-md text-sm font-medium transition-colors ${typeof page !== 'number'
+                                    ? 'cursor-default text-gray-500 hover:bg-transparent'
+                                    : currentPage === page
+                                        ? 'bg-dashboard-primary text-white'
+                                        : 'text-gray-600 hover:bg-gray-100'
                                     }`}
                             >
                                 {page}
@@ -66,13 +101,13 @@ export function DocumentsTable({
                         size="sm"
                         onClick={() => onPageChange(currentPage + 1)}
                         disabled={currentPage === totalPages}
-                        className="flex items-center gap-1"
+                        className="flex items-center gap-1 min-w-[36px] justify-center px-2 sm:px-3 flex-shrink-0"
                     >
-                        {t('common.next')}
+                        <span className="hidden sm:inline">{t('common.next')}</span>
                         {isArabic ? <ChevronLeft className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
                     </Button>
                 </div>
-                <div className="text-sm text-gray-500">
+                <div className="text-sm text-gray-500 whitespace-nowrap order-1 sm:order-2">
                     {t('common.page')} {currentPage} {t('common.of')} {totalPages}
                 </div>
             </div>
